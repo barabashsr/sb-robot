@@ -15,19 +15,42 @@ private:
         int encoderB;
         volatile long encoderCount;
         int ticksPerRevolution;
+        long prevCount;
+        float targetSpeed; // Target speed in rad/s
+        long prevError; // For PID calculation
+        float iTerm; // Integral term
+        float currentSpeed; // Current speed in rad/s
+        unsigned long startTime; // For soft start
     };
-    
+
     MotorPins motorA;
     MotorPins motorB;
-    
-    static const int PWM_FREQUENCY = 5000;
+
+    static const int PWM_FREQUENCY = 20000; // Increased from 5000 to 20000 Hz
     static const int PWM_RESOLUTION = 8;
+    const unsigned long PID_INTERVAL = 10; // 100Hz update rate
+    unsigned long nextPID;
+    unsigned long lastMotorCommand;
+    static const unsigned long AUTO_STOP_INTERVAL = 2000;
+    unsigned long safetyDelay; // Delay before motor start
+
+    // PID parameters
+    float Kp;
+    float Ki;
+    float Kd;
+    float Ko; // Output scaling
+
+    bool moving;
 
     void initMotor(MotorPins& motor);
-    void setMotorSpeed(const MotorPins& motor, int speed);
+    void setMotorSpeed(MotorPins& motor, int pwmValue);
+    void updateMotorPID(MotorPins& motor);
+    float calculateCurrentSpeed(MotorPins& motor);
+    int mapSpeed(float speed);
 
     static void IRAM_ATTR encoderISR_A();
     static void IRAM_ATTR encoderISR_B();
+
     static MotorController* instance;
 
 public:
@@ -43,18 +66,20 @@ public:
     );
 
     void init();
-    void setMotorA(int speed);
-    void setMotorB(int speed);
-    void setSpeeds(int speedA, int speedB);
+    void update();
+    void setSpeedA(float speedRads);
+    void setSpeedB(float speedRads);
+    void setSpeeds(float speedA_rads, float speedB_rads);
+    void setPID(float kp, float ki, float kd, float ko);
+    void setSafetyDelay(unsigned long delay_ms);
     void stop();
-
     long getEncoderA();
     long getEncoderB();
-    float getPositionA(); // Returns position in radians
-    float getPositionB(); // Returns position in radians
+    float getPositionA();
+    float getPositionB();
+    float getCurrentSpeedA();
+    float getCurrentSpeedB();
     void resetEncoders();
-    
-    // Methods for ISR
     void handleEncoderA();
     void handleEncoderB();
 };
