@@ -28,7 +28,7 @@ MotorController::MotorController(
     lastMotorCommand = 0;
     PID_INTERVAL = 10;
     AUTO_STOP_INTERVAL = 2000;
-    minPwmThreshold = 70;
+    minPwmThreshold = 40;
 }
 
 void IRAM_ATTR MotorController::encoderISR_A() {
@@ -108,7 +108,6 @@ void MotorController::setMotorSpeed(MotorPins& motor, int pwmValue) {
 
     int mappedPWM = mapSpeed(abs(pwmValue));
     ledcWrite(motor.pwmChannel, mappedPWM);
-    //ledcWrite(motor.pwmChannel, pwmValue);
 }
 
 void MotorController::updateMotorPID(MotorPins& motor) {

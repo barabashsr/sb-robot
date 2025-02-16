@@ -16,31 +16,29 @@ private:
         volatile long encoderCount;
         int ticksPerRevolution;
         long prevCount;
-        float targetSpeed; // Target speed in rad/s
-        long prevError; // For PID calculation
-        float iTerm; // Integral term
-        float currentSpeed; // Current speed in rad/s
-        unsigned long startTime; // For soft start
+        float targetSpeed;
+        long prevError;
+        float iTerm;
+        float currentSpeed;
+        unsigned long startTime;
     };
 
     MotorPins motorA;
     MotorPins motorB;
-
-    static const int PWM_FREQUENCY = 20000; // Increased from 5000 to 20000 Hz
+    static const int PWM_FREQUENCY = 20000;
     static const int PWM_RESOLUTION = 8;
-    const unsigned long PID_INTERVAL = 10; // 100Hz update rate
+    unsigned long PID_INTERVAL;
     unsigned long nextPID;
     unsigned long lastMotorCommand;
-    static const unsigned long AUTO_STOP_INTERVAL = 2000;
-    unsigned long safetyDelay; // Delay before motor start
+    unsigned long AUTO_STOP_INTERVAL;
+    unsigned long safetyDelay;
 
-    // PID parameters
     float Kp;
     float Ki;
     float Kd;
-    float Ko; // Output scaling
-
+    float Ko;
     bool moving;
+    int minPwmThreshold;
 
     void initMotor(MotorPins& motor);
     void setMotorSpeed(MotorPins& motor, int pwmValue);
@@ -50,7 +48,6 @@ private:
 
     static void IRAM_ATTR encoderISR_A();
     static void IRAM_ATTR encoderISR_B();
-
     static MotorController* instance;
 
 public:
@@ -82,6 +79,18 @@ public:
     void resetEncoders();
     void handleEncoderA();
     void handleEncoderB();
+
+    // New methods
+    float getKp() const { return Kp; }
+    float getKi() const { return Ki; }
+    float getKd() const { return Kd; }
+    float getKo() const { return Ko; }
+    void setPIDInterval(unsigned long interval) { PID_INTERVAL = interval; }
+    void setAutoStopInterval(unsigned long interval) { AUTO_STOP_INTERVAL = interval; }
+    void setMinPwmThreshold(int threshold) { minPwmThreshold = threshold; }
+    unsigned long getPIDInterval() const { return PID_INTERVAL; }
+    unsigned long getAutoStopInterval() const { return AUTO_STOP_INTERVAL; }
+    int getMinPwmThreshold() const { return minPwmThreshold; }
 };
 
 #endif

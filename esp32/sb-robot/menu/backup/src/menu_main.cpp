@@ -26,7 +26,6 @@ MotorController motors(
 
 void CALLBACK_FUNCTION SetSpeedA(int id) {
     float speed = menuSetA.getAsFloatingPointValue();
-    Serial.println(speed);
     motors.setSpeedA(speed);
 }
 
@@ -106,11 +105,10 @@ void CALLBACK_FUNCTION ResetTicsB(int id) {
 }
 
 void updateMenuValues() {
-    menuTicksA.setFloatValue(motors.getEncoderA(), false);
-    menuTicksB.setFloatValue(motors.getEncoderB(), false);
-    menuSpeedA.setFloatValue(motors.getCurrentSpeedA(), false);
-    menuSpeedA.setFloatValue(motors.getCurrentSpeedB(), false);
-    //Serial.println("updated");
+    menuTicksA.setFloatValue(motors.getEncoderA());
+    menuTicksB.setFloatValue(motors.getEncoderB());
+    menuSpeedA.setFloatValue(motors.getCurrentSpeedA());
+    menuSpeedA.setFloatValue(motors.getCurrentSpeedB());
 }
 
 
@@ -120,13 +118,10 @@ void setup() {
     Serial.println("serial started");
     motors.init();
     setupMenu();
-    //taskManager.scheduleFixedRate(200, updateMenuValues);
+    taskManager.scheduleFixedRate(100, updateMenuValues);
 }
 
 void loop() {
     taskManager.runLoop();
-    motors.update();
-    Serial.println(motors.getCurrentSpeedA());
-    
 }
 

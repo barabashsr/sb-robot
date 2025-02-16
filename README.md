@@ -34,5 +34,5 @@ Self balancing robot on ESP32 and micro ROS
 | | SW | GPIO 23 | Button input |
 | **[OLED Display](pplx://action/followup)** | SDA | GPIO 21 | I2C Bus 1 |
 | | SCL | GPIO 22 | I2C Bus 1 |
-| **[BNO055](pplx://action/followup)** | SDA | GPIO 16 | I2C Bus 2 |
-| | SCL | GPIO 17 | I2C Bus 2 |
+| **[BNO055](pplx://action/followup)** | SDA | GPIO 19 | I2C Bus 2 |
+| | SCL | GPIO 18 | I2C Bus 2 |
