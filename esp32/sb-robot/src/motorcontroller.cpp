@@ -153,12 +153,22 @@ void MotorController::update() {
 }
 
 void MotorController::setSpeedA(float speedRads) {
+    if (speedRads ==0.0){
+        this->setMotorSpeed(motorA, 0);
+        return;
+
+    };
     lastMotorCommand = millis();
     motorA.targetSpeed = speedRads;
     moving = (motorA.targetSpeed != 0) || (motorB.targetSpeed != 0);
 }
 
 void MotorController::setSpeedB(float speedRads) {
+    if (speedRads ==0.0){
+        this->setMotorSpeed(motorB, 0);
+        return;
+
+    };
     lastMotorCommand = millis();
     motorB.targetSpeed = speedRads;
     moving = (motorA.targetSpeed != 0) || (motorB.targetSpeed != 0);

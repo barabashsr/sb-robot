@@ -1,12 +1,16 @@
 #include "menu_menu.h"
 #include "motorcontroller.h"
+#include "BNO055Sensor.h"
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BNO055.h>
+#include <utility/imumaths.h>
 
 // Pin definitions
 const int MOTOR_A_IN1 = 27;
 const int MOTOR_A_IN2 = 26;
 const int MOTOR_A_ENABLE = 25;
-const int MOTOR_B_IN1 = 33;
-const int MOTOR_B_IN2 = 32;
+const int MOTOR_B_IN1 = 18;
+const int MOTOR_B_IN2 = 19;
 const int MOTOR_B_ENABLE = 14;
 
 // Encoder pins
@@ -14,6 +18,14 @@ const int MOTOR_A_ENC_A = 34;
 const int MOTOR_A_ENC_B = 35;
 const int MOTOR_B_ENC_A = 4;
 const int MOTOR_B_ENC_B = 5;
+
+//bno055 pins
+
+
+const int BNO_SDA = 32;
+const int BNO_SCL = 33;
+
+BNO055Sensor bno(BNO_SDA, BNO_SCL);
 
 MotorController motors(
     MOTOR_A_IN1, MOTOR_A_IN2, MOTOR_A_ENABLE,
@@ -113,20 +125,71 @@ void updateMenuValues() {
     //Serial.println("updated");
 }
 
+void updateParams(){
+
+    float angle_y = bno.getAngleY();
+ /*    Serial.print("Angle between Z axis and vertical: ");
+    Serial.print(angle_y);
+    Serial.print(" degrees"); */
+/*     if (!bno.isCalibrated()) {
+        Serial.println("Sensor not fully calibrated");
+    } */
+    motors.setSpeeds(menuSetA.getAsFloatingPointValue(), menuSetB.getAsFloatingPointValue());
+    
+};
+
+void printSpeedA(){
+    Serial.print(">SpeedA:");
+    Serial.print(motors.getCurrentSpeedA());
+    Serial.print(",");
+    Serial.print("TargetA:");
+    Serial.println(menuSetA.getAsFloatingPointValue());
+    
+
+}
+void printSpeedB(){
+    Serial.print(">SpeedB:");
+    Serial.print(motors.getCurrentSpeedB());
+    Serial.print(",");
+    Serial.print("TargetB:");
+    Serial.println(menuSetB.getAsFloatingPointValue());
+    
+
+}
+
+
 
 void setup() {
     Wire.begin();
     Serial.begin(115200);
     Serial.println("serial started");
+
+    if (!bno.begin()) {
+        Serial.println("BNO055 initialization failed");
+        while (1);
+    }
+    
+    Serial.println("BNO055 initialized successfully");
+
     motors.init();
     setupMenu();
-    //taskManager.scheduleFixedRate(200, updateMenuValues);
+    taskManager.scheduleFixedRate(1000, updateParams);
 }
 
 void loop() {
     taskManager.runLoop();
     motors.update();
-    Serial.println(motors.getCurrentSpeedA());
+    if (menuSetA.getAsFloatingPointValue() != 0.0){
+        printSpeedA();
+
+    };
+    if (menuSetB.getAsFloatingPointValue() != 0.0){
+        printSpeedB();
+
+    };
+
+
+    //printAngle();
     
 }
 
