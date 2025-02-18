@@ -20,7 +20,6 @@ private:
         long prevError;
         float iTerm;
         float currentSpeed;
-        unsigned long startTime;
     };
 
     MotorPins motorA;
@@ -31,21 +30,19 @@ private:
     unsigned long nextPID;
     unsigned long lastMotorCommand;
     unsigned long AUTO_STOP_INTERVAL;
-    unsigned long safetyDelay;
-
     float Kp;
     float Ki;
     float Kd;
     float Ko;
     bool moving;
     int minPwmThreshold;
+    bool autoStopEnabled;
 
     void initMotor(MotorPins& motor);
     void setMotorSpeed(MotorPins& motor, int pwmValue);
     void updateMotorPID(MotorPins& motor);
     float calculateCurrentSpeed(MotorPins& motor);
     int mapSpeed(float speed);
-
     static void IRAM_ATTR encoderISR_A();
     static void IRAM_ATTR encoderISR_B();
     static MotorController* instance;
@@ -68,8 +65,6 @@ public:
     void setSpeedB(float speedRads);
     void setSpeeds(float speedA_rads, float speedB_rads);
     void setPID(float kp, float ki, float kd, float ko);
-    void setSafetyDelay(unsigned long delay_ms);
-    //void setMinPWMThreshold(int val);
     void stop();
     long getEncoderA();
     long getEncoderB();
@@ -81,7 +76,6 @@ public:
     void handleEncoderA();
     void handleEncoderB();
 
-    // New methods
     float getKp() const { return Kp; }
     float getKi() const { return Ki; }
     float getKd() const { return Kd; }
@@ -92,6 +86,8 @@ public:
     unsigned long getPIDInterval() const { return PID_INTERVAL; }
     unsigned long getAutoStopInterval() const { return AUTO_STOP_INTERVAL; }
     int getMinPwmThreshold() const { return minPwmThreshold; }
+    void setAutoStopEnabled(bool enabled) { autoStopEnabled = enabled; }
+    bool isAutoStopEnabled() const { return autoStopEnabled; }
 };
 
 #endif

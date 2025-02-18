@@ -13,42 +13,27 @@ MotorController::MotorController(
     int motorB_ticks
 ) {
     motorA = {
-        motorA_in1,
-        motorA_in2,
-        motorA_enable,
-        0,                // pwmChannel for A
-        motorA_reversed,
-        motorA_encA,
-        motorA_encB,
-        0,                // encoderCount
-        motorA_ticks,
-        0, 0, 0, 0, 0, 0  // prevCount, currentSpeed, targetSpeed, prevError, iTerm, startTime
+        motorA_in1, motorA_in2, motorA_enable, 0, motorA_reversed,
+        motorA_encA, motorA_encB, 0, motorA_ticks, 0, 0, 0, 0, 0
     };
-    motorB = {
-        motorB_in1,
-        motorB_in2,
-        motorB_enable,
-        1,                // pwmChannel for B
-        motorB_reversed,
-        motorB_encA,
-        motorB_encB,
-        0,                // encoderCount
-        motorB_ticks,
-        0, 0, 0, 0, 0, 0
-    };
-    instance = this;
 
+    motorB = {
+        motorB_in1, motorB_in2, motorB_enable, 1, motorB_reversed,
+        motorB_encA, motorB_encB, 0, motorB_ticks, 0, 0, 0, 0, 0
+    };
+
+    instance = this;
     Kp = 20.0;
     Ki = 0.5;
     Kd = 2.0;
     Ko = 1.5;
-    safetyDelay = 50;
     moving = false;
     nextPID = 0;
     lastMotorCommand = 0;
-    PID_INTERVAL = 10;        // ms
-    AUTO_STOP_INTERVAL = 2000; 
+    PID_INTERVAL = 10; // ms
+    AUTO_STOP_INTERVAL = 2000;
     minPwmThreshold = 70;
+    autoStopEnabled = false;
 }
 
 void IRAM_ATTR MotorController::encoderISR_A() {
@@ -81,9 +66,8 @@ void MotorController::handleEncoderB() {
 
 float MotorController::calculateCurrentSpeed(MotorPins& motor) {
     long deltaTicks = motor.encoderCount - motor.prevCount;
-    float deltaTime = PID_INTERVAL / 1000.0; 
-    float speed = (float)(deltaTicks * 2.0f * PI)
-                    / (motor.ticksPerRevolution * deltaTime);
+    float deltaTime = PID_INTERVAL / 1000.0;
+    float speed = (float)(deltaTicks * 2.0f * PI) / (motor.ticksPerRevolution * deltaTime);
     motor.prevCount = motor.encoderCount;
     return speed;
 }
@@ -94,8 +78,6 @@ void MotorController::initMotor(MotorPins& motor) {
     pinMode(motor.enable, OUTPUT);
     pinMode(motor.encoderA, INPUT_PULLUP);
     pinMode(motor.encoderB, INPUT_PULLUP);
-
-    // Setup channel for PWM
     ledcSetup(motor.pwmChannel, PWM_FREQUENCY, PWM_RESOLUTION);
     ledcAttachPin(motor.enable, motor.pwmChannel);
 }
@@ -103,27 +85,21 @@ void MotorController::initMotor(MotorPins& motor) {
 void MotorController::init() {
     initMotor(motorA);
     initMotor(motorB);
-
     attachInterrupt(digitalPinToInterrupt(motorA.encoderA), encoderISR_A, CHANGE);
     attachInterrupt(digitalPinToInterrupt(motorB.encoderA), encoderISR_B, CHANGE);
-
     stop();
 }
 
 void MotorController::setMotorSpeed(MotorPins& motor, int pwmValue) {
     pwmValue = constrain(pwmValue, -255, 255);
-
-    // If reversed, flip sign
     if (motor.reversed) {
         pwmValue = -pwmValue;
     }
 
-    // Snap to min threshold if nonzero
     if (abs(pwmValue) < minPwmThreshold && abs(pwmValue) > 0) {
         pwmValue = (pwmValue > 0) ? minPwmThreshold : -minPwmThreshold;
     }
 
-    // Direction pins
     if (pwmValue > 0) {
         digitalWrite(motor.in1, HIGH);
         digitalWrite(motor.in2, LOW);
@@ -135,55 +111,28 @@ void MotorController::setMotorSpeed(MotorPins& motor, int pwmValue) {
         digitalWrite(motor.in2, LOW);
     }
 
-    // Convert absolute PWM value to your mapped speed
     int mappedPWM = mapSpeed(abs(pwmValue));
     ledcWrite(motor.pwmChannel, mappedPWM);
 }
 
 void MotorController::updateMotorPID(MotorPins& motor) {
-    // Optional "safetyDelay" logic for starting from rest:
-    if (fabs(motor.currentSpeed) < 0.1f && fabs(motor.targetSpeed) > 0.1f) {
-        if (motor.startTime == 0) {
-            motor.startTime = millis();
-            return;
-        }
-        if (millis() - motor.startTime < safetyDelay) {
-            return;
-        }
-    }
-
-    // Measure actual speed
     motor.currentSpeed = calculateCurrentSpeed(motor);
 
-    // If target is near zero, remove startTime gating
-    if (fabs(motor.targetSpeed) < 0.1f) {
-        motor.startTime = 0;
-    }
-
-    // PID compute
     float error = motor.targetSpeed - motor.currentSpeed;
     float pTerm = Kp * error;
-
     motor.iTerm = constrain(
         motor.iTerm + (Ki * error * (PID_INTERVAL / 1000.0f)),
         -100, 100
     );
-
     float dTerm = Kd * (error - motor.prevError) / (PID_INTERVAL / 1000.0f);
-
-    // Basic feedforward
     float feedForward = motor.targetSpeed * 0.5f;
-
     int output = (int)((pTerm + motor.iTerm + dTerm + feedForward) * Ko);
-
     motor.prevError = error;
     setMotorSpeed(motor, output);
 }
 
 void MotorController::update() {
     unsigned long currentMillis = millis();
-
-    // Run PID at intervals
     if (currentMillis > nextPID) {
         if (moving) {
             updateMotorPID(motorA);
@@ -192,48 +141,34 @@ void MotorController::update() {
         nextPID = currentMillis + PID_INTERVAL;
     }
 
-    // Auto-stop if no motor command for too long
-    if ((currentMillis - lastMotorCommand) > AUTO_STOP_INTERVAL) {
+    if (autoStopEnabled && (currentMillis - lastMotorCommand) > AUTO_STOP_INTERVAL) {
         stop();
     }
 }
 
-//
-// Updated: Always set the targetSpeed, clear iTerm if zero, and remove the early return
-//
 void MotorController::setSpeedA(float speedRads) {
     lastMotorCommand = millis();
     motorA.targetSpeed = speedRads;
-
     if (fabs(speedRads) < 0.0001f) {
-        // If user wants zero, reset integral and optionally force motor off
         motorA.iTerm = 0;
         setMotorSpeed(motorA, 0);
     }
-
     moving = (motorA.targetSpeed != 0.0f) || (motorB.targetSpeed != 0.0f);
 }
 
 void MotorController::setSpeedB(float speedRads) {
     lastMotorCommand = millis();
     motorB.targetSpeed = speedRads;
-
     if (fabs(speedRads) < 0.0001f) {
-        // If user wants zero, reset integral and optionally force motor off
         motorB.iTerm = 0;
         setMotorSpeed(motorB, 0);
     }
-
     moving = (motorA.targetSpeed != 0.0f) || (motorB.targetSpeed != 0.0f);
 }
 
 void MotorController::setSpeeds(float speedA_rads, float speedB_rads) {
     setSpeedA(speedA_rads);
     setSpeedB(speedB_rads);
-}
-
-void MotorController::setSafetyDelay(unsigned long delay_ms) {
-    safetyDelay = delay_ms;
 }
 
 float MotorController::getCurrentSpeedA() {
@@ -246,24 +181,14 @@ float MotorController::getCurrentSpeedB() {
 
 void MotorController::stop() {
     moving = false;
-
-    // Stop both targets
     motorA.targetSpeed = 0;
     motorB.targetSpeed = 0;
-
-    // Reset PID terms
     motorA.iTerm = 0;
     motorB.iTerm = 0;
     motorA.prevError = 0;
     motorB.prevError = 0;
-
-    // Reset speeds
     motorA.currentSpeed = 0;
     motorB.currentSpeed = 0;
-    motorA.startTime = 0;
-    motorB.startTime = 0;
-
-    // Immediately set outputs to zero
     setMotorSpeed(motorA, 0);
     setMotorSpeed(motorB, 0);
 }
@@ -273,8 +198,6 @@ void MotorController::setPID(float kp, float ki, float kd, float ko) {
     Ki = ki;
     Kd = kd;
     Ko = ko;
-
-    // Clear integrators when changing gains
     motorA.iTerm = 0;
     motorB.iTerm = 0;
 }
@@ -302,13 +225,8 @@ void MotorController::resetEncoders() {
     motorB.prevCount = 0;
 }
 
-//
-// Use mapSpeed(...) to shape the PWM curve if desired.
-// 
 int MotorController::mapSpeed(float speed) {
-    float maxSpeed = 30.0f;  // Assumed rad/s
+    float maxSpeed = 30.0f; // Assumed rad/s
     float normalizedSpeed = speed / maxSpeed;
-    // Example exponent 0.7 to compress lower range
     return (int)(255.0f * powf(fabs(normalizedSpeed), 0.7f));
 }
-

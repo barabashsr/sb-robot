@@ -172,7 +172,7 @@ void updateParams(){
 /*     if (!bno.isCalibrated()) {
         Serial.println("Sensor not fully calibrated");
     } */
-    motors.setSpeeds(menuSetA.getAsFloatingPointValue(), menuSetB.getAsFloatingPointValue());
+    //motors.setSpeeds(menuSetA.getAsFloatingPointValue(), menuSetB.getAsFloatingPointValue());
     
 };
 
