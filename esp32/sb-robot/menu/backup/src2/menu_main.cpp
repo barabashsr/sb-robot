@@ -9,7 +9,7 @@
 
 #define EEPROM_SIZE 512
 #ifndef MENU_MAGIC_KEY
-#define MENU_MAGIC_KEY 0xfade
+#define MENU_MAGIC_KEY 0xfad0
 #endif 
 
 
@@ -73,8 +73,6 @@ void CALLBACK_FUNCTION SetKp(int id) {
     float kd = menuKd.getAsFloatingPointValue();
     float ko = menuKo.getAsFloatingPointValue();
     motors.setPID(kp, ki, kd, ko);
-    Serial.print("Kp: ");
-    Serial.println(motors.getKp());
 }
 
 void CALLBACK_FUNCTION SetKi(int id) {
@@ -83,8 +81,6 @@ void CALLBACK_FUNCTION SetKi(int id) {
     float kd = menuKd.getAsFloatingPointValue();
     float ko = menuKo.getAsFloatingPointValue();
     motors.setPID(kp, ki, kd, ko);
-    Serial.print("Ki: ");
-    Serial.println(motors.getKi());
 }
 
 void CALLBACK_FUNCTION SetKd(int id) {
@@ -93,8 +89,6 @@ void CALLBACK_FUNCTION SetKd(int id) {
     float kd = menuKd.getAsFloatingPointValue();
     float ko = menuKo.getAsFloatingPointValue();
     motors.setPID(kp, ki, kd, ko);
-    Serial.print("Kd: ");
-    Serial.println(motors.getKd());
 }
 
 void CALLBACK_FUNCTION SetKo(int id) {
@@ -103,8 +97,6 @@ void CALLBACK_FUNCTION SetKo(int id) {
     float kd = menuKd.getAsFloatingPointValue();
     float ko = menuKo.getAsFloatingPointValue();
     motors.setPID(kp, ki, kd, ko);
-    Serial.print("Ko: ");
-    Serial.println(motors.getKo());
 }
 
 void CALLBACK_FUNCTION SetPIDHz(int id) {
@@ -135,16 +127,14 @@ void CALLBACK_FUNCTION ResetTicsB(int id) {
 }
 
 void CALLBACK_FUNCTION SetThreshold(int id) {
-    motors.setMinPwmThreshold(menuThreshold.getCurrentValue());
-    Serial.print("New pwm threshold: ");
-    Serial.println(motors.getMinPwmThreshold());
+    motors.setMinPWMThreshold(menuThreshold.getCurrentValue());
     // TODO - your menu change code
 }
 
 
 
 void CALLBACK_FUNCTION SavePID(int id) {
-    menuMgr.save(MENU_MAGIC_KEY);
+    menuMgr.save();
     EEPROM.commit();
     Serial.println("Saved!!!");
     // TODO - your menu change code
@@ -152,15 +142,11 @@ void CALLBACK_FUNCTION SavePID(int id) {
 
 
 void updateMenuValues() {
-    float encA = motors.getEncoderA();
-    menuTicksA.setFloatValue(encA);
-    float encB = motors.getEncoderB();
-    menuTicksB.setFloatValue(encB);
-    float speedA = motors.getCurrentSpeedA();
-    menuSpeedA.setFloatValue(speedA);
-    float speedB = motors.getCurrentSpeedB();
-    menuSpeedB.setFloatValue(speedB);
-    //Serial.println(motors.getCurrentSpeedA());
+    menuTicksA.setFloatValue(motors.getEncoderA(), false);
+    menuTicksB.setFloatValue(motors.getEncoderB(), false);
+    menuSpeedA.setFloatValue(motors.getCurrentSpeedA(), false);
+    menuSpeedA.setFloatValue(motors.getCurrentSpeedB(), false);
+    //Serial.println("updated");
 }
 
 void updateParams(){
@@ -216,20 +202,19 @@ void setup() {
     setupMenu();
     menuMgr.load(MENU_MAGIC_KEY);
     taskManager.scheduleFixedRate(1000, updateParams);
-    taskManager.scheduleFixedRate(200, updateMenuValues);
 }
 
 void loop() {
     taskManager.runLoop();
     motors.update();
-/*     if (menuSetA.getAsFloatingPointValue() != 0.0){
+    if (menuSetA.getAsFloatingPointValue() != 0.0){
         printSpeedA();
 
     };
     if (menuSetB.getAsFloatingPointValue() != 0.0){
         printSpeedB();
 
-    }; */
+    };
 
 
     //printAngle();

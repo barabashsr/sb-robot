@@ -69,6 +69,7 @@ public:
     void setSpeeds(float speedA_rads, float speedB_rads);
     void setPID(float kp, float ki, float kd, float ko);
     void setSafetyDelay(unsigned long delay_ms);
+    //void setMinPWMThreshold(int val);
     void stop();
     long getEncoderA();
     long getEncoderB();

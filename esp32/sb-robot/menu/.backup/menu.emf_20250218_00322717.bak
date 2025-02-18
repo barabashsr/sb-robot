@@ -6,7 +6,7 @@
     {
       "parentId": 0,
       "type": "analogItem",
-      "defaultValue": "250",
+      "defaultValue": "0",
       "item": {
         "maxValue": 500,
         "offset": -250,
@@ -44,7 +44,7 @@
     {
       "parentId": 0,
       "type": "analogItem",
-      "defaultValue": "250",
+      "defaultValue": "0",
       "item": {
         "maxValue": 500,
         "offset": -250,
@@ -107,21 +107,6 @@
         "id": 10,
         "eepromAddress": -1,
         "functionName": "ResetTicsB",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 0,
-      "type": "actionMenu",
-      "item": {
-        "name": "Save",
-        "variableName": "SaveValues",
-        "id": 14,
-        "eepromAddress": -1,
-        "functionName": "SavePID",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -263,6 +248,21 @@
         "id": 13,
         "eepromAddress": 14,
         "functionName": "SetThreshold",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "actionMenu",
+      "item": {
+        "name": "Save PID",
+        "variableName": "SavePID",
+        "id": 14,
+        "eepromAddress": -1,
+        "functionName": "SavePID",
         "readOnly": false,
         "localOnly": false,
         "visible": true,

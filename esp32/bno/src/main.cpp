@@ -1,6 +1,6 @@
 #include "BNO055Sensor.h"
 
-BNO055Sensor bno(19, 18); // SDA, SCL
+BNO055Sensor bno(32, 33); // SDA, SCL
 
 void setup() {
     Serial.begin(115200);

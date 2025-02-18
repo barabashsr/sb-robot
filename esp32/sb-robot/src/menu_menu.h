@@ -16,6 +16,7 @@
 #include "tcMenuU8g2.h"
 #include <IoAbstraction.h>
 #include <EepromItemStorage.h>
+#include <ArduinoEEPROMAbstraction.h>
 
 // variables we declare that you may need to access
 extern const PROGMEM ConnectorLocalInfo applicationInfo;
@@ -27,6 +28,7 @@ extern GraphicsDeviceRenderer renderer;
 
 
 // Global Menu Item exports
+extern AnalogMenuItem menuThreshold;
 extern AnalogMenuItem menuPIDInterval;
 extern AnalogMenuItem menuKo;
 extern AnalogMenuItem menuKd;
@@ -34,6 +36,7 @@ extern AnalogMenuItem menuKi;
 extern AnalogMenuItem menuKp;
 extern BackMenuItem menuBackPIDParams;
 extern SubMenuItem menuPIDParams;
+extern ActionMenuItem menuSaveValues;
 extern FloatMenuItem menuTicksB;
 extern FloatMenuItem menuTicksA;
 extern FloatMenuItem menuSpeedB;
@@ -50,6 +53,7 @@ void setupMenu();
 
 void CALLBACK_FUNCTION ResetTicsA(int id);
 void CALLBACK_FUNCTION ResetTicsB(int id);
+void CALLBACK_FUNCTION SavePID(int id);
 void CALLBACK_FUNCTION SetKd(int id);
 void CALLBACK_FUNCTION SetKi(int id);
 void CALLBACK_FUNCTION SetKo(int id);
@@ -57,6 +61,7 @@ void CALLBACK_FUNCTION SetKp(int id);
 void CALLBACK_FUNCTION SetPIDHz(int id);
 void CALLBACK_FUNCTION SetSpeedA(int id);
 void CALLBACK_FUNCTION SetSpeedB(int id);
+void CALLBACK_FUNCTION SetThreshold(int id);
 void CALLBACK_FUNCTION StopA(int id);
 void CALLBACK_FUNCTION StopB(int id);
 

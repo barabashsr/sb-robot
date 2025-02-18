@@ -70,8 +70,3 @@ void CALLBACK_FUNCTION SetThreshold(int id) {
 void CALLBACK_FUNCTION SavePID(int id) {
     // TODO - your menu change code
 }
-
-
-void CALLBACK_FUNCTION SetSpeedB(int id) {
-    // TODO - your menu change code
-}

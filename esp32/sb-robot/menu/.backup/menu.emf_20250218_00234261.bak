@@ -5,6 +5,27 @@
   "items": [
     {
       "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 500,
+        "offset": -250,
+        "divisor": 10,
+        "unitName": "rps",
+        "step": 1,
+        "name": "SetA",
+        "variableName": "SetA",
+        "id": 11,
+        "eepromAddress": -1,
+        "functionName": "SetSpeedA",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
       "type": "floatItem",
       "defaultValue": "0.0",
       "item": {
@@ -14,6 +35,27 @@
         "id": 1,
         "eepromAddress": -1,
         "functionName": "StopA",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 500,
+        "offset": -250,
+        "divisor": 10,
+        "unitName": "rps",
+        "step": 1,
+        "name": "SetB",
+        "variableName": "SetB",
+        "id": 12,
+        "eepromAddress": -1,
+        "functionName": "SetSpeedA",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -173,15 +215,15 @@
     {
       "parentId": 3,
       "type": "analogItem",
-      "defaultValue": "100",
+      "defaultValue": "10",
       "item": {
         "maxValue": 255,
         "offset": 0,
         "divisor": 1,
-        "unitName": "Hz",
+        "unitName": "ms",
         "step": 1,
-        "name": "PID Hz",
-        "variableName": "PIDHz",
+        "name": "PID interval",
+        "variableName": "PIDInterval",
         "id": 8,
         "eepromAddress": -1,
         "functionName": "SetPIDHz",
@@ -194,7 +236,7 @@
   ],
   "codeOptions": {
     "embeddedPlatform": "ARDUINO_ESP32",
-    "lastDisplayUuid": "8646497b-1427-415f-8020-1260a1fef57d",
+    "lastDisplayUuid": "fd998437-c4b2-4386-ba88-d0ae7c20620b",
     "lastInputUuid": "6dd87e7d-e751-4912-a70d-91793b1d3d87",
     "lastRemoteUuids": [
       "2c101fec-1f7d-4ff3-8d2b-992ad41e7fcb"
@@ -210,12 +252,37 @@
       },
       {
         "name": "DISPLAY_TYPE",
-        "latestValue": "U8G2_SSD1306_128X64_NONAME_F_SW_I2C",
+        "latestValue": "U8G2_SH1106_128X64_NONAME_F_HW_I2C",
         "subsystem": "DISPLAY"
       },
       {
-        "name": "DISPLAY_CONFIG",
-        "latestValue": "R2",
+        "name": "DISPLAY_ROTATION",
+        "latestValue": "U8G2_R2",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_CLOCK_PIN",
+        "latestValue": "22",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_DATA_PIN",
+        "latestValue": "21",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_RESET_PIN",
+        "latestValue": "U8X8_PIN_NONE",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_CS_PIN",
+        "latestValue": "U8X8_PIN_NONE",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_RS_PIN",
+        "latestValue": "U8X8_PIN_NONE",
         "subsystem": "DISPLAY"
       },
       {
@@ -235,7 +302,7 @@
       },
       {
         "name": "SW_POLLING_MODE",
-        "latestValue": "SWITCHES_POLL_EVERYTHING",
+        "latestValue": "SWITCHES_NO_POLLING",
         "subsystem": "INPUT"
       },
       {
@@ -245,17 +312,17 @@
       },
       {
         "name": "ENCODER_PIN_A",
-        "latestValue": "13",
+        "latestValue": "2",
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_B",
-        "latestValue": "12",
+        "latestValue": "15",
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_OK",
-        "latestValue": "15",
+        "latestValue": "13",
         "subsystem": "INPUT"
       },
       {
