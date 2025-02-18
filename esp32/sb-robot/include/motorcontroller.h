@@ -2,6 +2,8 @@
 #define MOTORCONTROLLER_H
 
 #include <Arduino.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
 
 class MotorController {
 private:
@@ -27,7 +29,6 @@ private:
     static const int PWM_FREQUENCY = 20000;
     static const int PWM_RESOLUTION = 8;
     unsigned long PID_INTERVAL;
-    unsigned long nextPID;
     unsigned long lastMotorCommand;
     unsigned long AUTO_STOP_INTERVAL;
     float Kp;
@@ -37,6 +38,7 @@ private:
     bool moving;
     int minPwmThreshold;
     bool autoStopEnabled;
+    TaskHandle_t controllerTask;
 
     void initMotor(MotorPins& motor);
     void setMotorSpeed(MotorPins& motor, int pwmValue);
@@ -46,6 +48,7 @@ private:
     static void IRAM_ATTR encoderISR_A();
     static void IRAM_ATTR encoderISR_B();
     static MotorController* instance;
+    static void controllerTaskCode(void* parameter);
 
 public:
     MotorController(

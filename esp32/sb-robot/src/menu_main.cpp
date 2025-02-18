@@ -215,13 +215,17 @@ void setup() {
     motors.init();
     setupMenu();
     menuMgr.load(MENU_MAGIC_KEY);
+    menuKp.isChanged();
+    menuThreshold.isChanged();
+    menuPIDInterval.isChanged();
+
     taskManager.scheduleFixedRate(1000, updateParams);
     taskManager.scheduleFixedRate(200, updateMenuValues);
 }
 
 void loop() {
     taskManager.runLoop();
-    motors.update();
+    //motors.update();
 /*     if (menuSetA.getAsFloatingPointValue() != 0.0){
         printSpeedA();
 

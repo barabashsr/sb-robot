@@ -1,4 +1,5 @@
 #include "motorcontroller.h"
+#define SPEED_FILTER_SIZE 5
 
 MotorController* MotorController::instance = nullptr;
 
@@ -28,12 +29,12 @@ MotorController::MotorController(
     Kd = 2.0;
     Ko = 1.5;
     moving = false;
-    nextPID = 0;
     lastMotorCommand = 0;
     PID_INTERVAL = 10; // ms
     AUTO_STOP_INTERVAL = 2000;
     minPwmThreshold = 70;
     autoStopEnabled = false;
+    controllerTask = NULL;
 }
 
 void IRAM_ATTR MotorController::encoderISR_A() {
@@ -64,12 +65,33 @@ void MotorController::handleEncoderB() {
     }
 }
 
-float MotorController::calculateCurrentSpeed(MotorPins& motor) {
+/* float MotorController::calculateCurrentSpeed(MotorPins& motor) {
     long deltaTicks = motor.encoderCount - motor.prevCount;
     float deltaTime = PID_INTERVAL / 1000.0;
     float speed = (float)(deltaTicks * 2.0f * PI) / (motor.ticksPerRevolution * deltaTime);
     motor.prevCount = motor.encoderCount;
     return speed;
+} */
+
+float MotorController::calculateCurrentSpeed(MotorPins& motor) {
+    static float speedBuffer[SPEED_FILTER_SIZE] = {0};
+    static int bufferIndex = 0;
+
+    long deltaTicks = motor.encoderCount - motor.prevCount;
+    float deltaTime = PID_INTERVAL / 1000.0;
+    float instantSpeed = (float)(deltaTicks * 2.0f * PI) / (motor.ticksPerRevolution * deltaTime);
+    motor.prevCount = motor.encoderCount;
+
+    speedBuffer[bufferIndex] = instantSpeed;
+    bufferIndex = (bufferIndex + 1) % SPEED_FILTER_SIZE;
+
+    float averageSpeed = 0;
+    for (int i = 0; i < SPEED_FILTER_SIZE; i++) {
+        averageSpeed += speedBuffer[i];
+    }
+    averageSpeed /= SPEED_FILTER_SIZE;
+
+    return averageSpeed;
 }
 
 void MotorController::initMotor(MotorPins& motor) {
@@ -88,6 +110,24 @@ void MotorController::init() {
     attachInterrupt(digitalPinToInterrupt(motorA.encoderA), encoderISR_A, CHANGE);
     attachInterrupt(digitalPinToInterrupt(motorB.encoderA), encoderISR_B, CHANGE);
     stop();
+
+    xTaskCreatePinnedToCore(
+        controllerTaskCode,
+        "ControllerTask",
+        10000,
+        this,
+        1,
+        &controllerTask,
+        0
+    );
+}
+
+void MotorController::controllerTaskCode(void* parameter) {
+    MotorController* controller = (MotorController*)parameter;
+    for(;;) {
+        controller->update();
+        vTaskDelay(pdMS_TO_TICKS(controller->getPIDInterval()));
+    }
 }
 
 void MotorController::setMotorSpeed(MotorPins& motor, int pwmValue) {
@@ -132,16 +172,12 @@ void MotorController::updateMotorPID(MotorPins& motor) {
 }
 
 void MotorController::update() {
-    unsigned long currentMillis = millis();
-    if (currentMillis > nextPID) {
-        if (moving) {
-            updateMotorPID(motorA);
-            updateMotorPID(motorB);
-        }
-        nextPID = currentMillis + PID_INTERVAL;
+    if (moving) {
+        updateMotorPID(motorA);
+        updateMotorPID(motorB);
     }
 
-    if (autoStopEnabled && (currentMillis - lastMotorCommand) > AUTO_STOP_INTERVAL) {
+    if (autoStopEnabled && (millis() - lastMotorCommand) > AUTO_STOP_INTERVAL) {
         stop();
     }
 }

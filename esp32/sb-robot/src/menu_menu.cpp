@@ -26,7 +26,7 @@ const PROGMEM AnalogMenuInfo minfoThreshold = { "Threshold", 13, 14, 255, SetThr
 AnalogMenuItem menuThreshold(&minfoThreshold, 0, nullptr, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoPIDInterval = { "PID interval", 8, 12, 255, SetPIDHz, 0, 1, "ms" };
 AnalogMenuItem menuPIDInterval(&minfoPIDInterval, 10, &menuThreshold, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoKo = { "Ko", 7, 10, 500, SetKo, 0, 10, "" };
+const PROGMEM AnalogMenuInfo minfoKo = { "Ko", 7, 10, 500, SetKo, 0, 1000, "" };
 AnalogMenuItem menuKo(&minfoKo, 15, &menuPIDInterval, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKd = { "Kd", 6, 8, 500, SetKd, 0, 10, "" };
 AnalogMenuItem menuKd(&minfoKd, 20, &menuKo, INFO_LOCATION_PGM);
