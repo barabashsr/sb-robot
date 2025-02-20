@@ -2,8 +2,9 @@
 #define MOTORCONTROLLER_H
 
 #include <Arduino.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
+#include <SparkFun_TB6612.h>
+
+#define SPEED_FILTER_SIZE 5
 
 class MotorController {
 private:
@@ -11,7 +12,6 @@ private:
         int in1;
         int in2;
         int enable;
-        int pwmChannel;
         bool reversed;
         int encoderA;
         int encoderB;
@@ -22,12 +22,16 @@ private:
         long prevError;
         float iTerm;
         float currentSpeed;
+        float speedBuffer[SPEED_FILTER_SIZE];
+        int bufferIndex;
     };
 
     MotorPins motorA;
     MotorPins motorB;
-    static const int PWM_FREQUENCY = 20000;
-    static const int PWM_RESOLUTION = 8;
+    Motor* sfMotorA;
+    Motor* sfMotorB;
+    int stbyPin;
+
     unsigned long PID_INTERVAL;
     unsigned long lastMotorCommand;
     unsigned long AUTO_STOP_INTERVAL;
@@ -38,17 +42,15 @@ private:
     bool moving;
     int minPwmThreshold;
     bool autoStopEnabled;
-    TaskHandle_t controllerTask;
 
-    void initMotor(MotorPins& motor);
-    void setMotorSpeed(MotorPins& motor, int pwmValue);
-    void updateMotorPID(MotorPins& motor);
-    float calculateCurrentSpeed(MotorPins& motor);
-    int mapSpeed(float speed);
     static void IRAM_ATTR encoderISR_A();
     static void IRAM_ATTR encoderISR_B();
     static MotorController* instance;
+
+    float calculateCurrentSpeed(MotorPins& motor);
+    void updateMotorPID(MotorPins& motor);
     static void controllerTaskCode(void* parameter);
+    TaskHandle_t controllerTask;
 
 public:
     MotorController(
@@ -56,6 +58,7 @@ public:
         int motorB_in1, int motorB_in2, int motorB_enable,
         int motorA_encA, int motorA_encB,
         int motorB_encA, int motorB_encB,
+        int stbyPin,
         bool motorA_reversed = false,
         bool motorB_reversed = false,
         int motorA_ticks = 585,
@@ -78,6 +81,8 @@ public:
     void resetEncoders();
     void handleEncoderA();
     void handleEncoderB();
+    void setPWMA(int pwm);
+    void setPWMB(int pwm);
 
     float getKp() const { return Kp; }
     float getKi() const { return Ki; }

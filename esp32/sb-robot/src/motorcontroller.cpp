@@ -1,5 +1,4 @@
 #include "motorcontroller.h"
-#define SPEED_FILTER_SIZE 5
 
 MotorController* MotorController::instance = nullptr;
 
@@ -8,20 +7,21 @@ MotorController::MotorController(
     int motorB_in1, int motorB_in2, int motorB_enable,
     int motorA_encA, int motorA_encB,
     int motorB_encA, int motorB_encB,
+    int stbyPin,
     bool motorA_reversed,
     bool motorB_reversed,
     int motorA_ticks,
     int motorB_ticks
 ) {
     motorA = {
-        motorA_in1, motorA_in2, motorA_enable, 0, motorA_reversed,
+        motorA_in1, motorA_in2, motorA_enable, motorA_reversed,
         motorA_encA, motorA_encB, 0, motorA_ticks, 0, 0, 0, 0, 0
     };
-
     motorB = {
-        motorB_in1, motorB_in2, motorB_enable, 1, motorB_reversed,
+        motorB_in1, motorB_in2, motorB_enable, motorB_reversed,
         motorB_encA, motorB_encB, 0, motorB_ticks, 0, 0, 0, 0, 0
     };
+    this->stbyPin = stbyPin;
 
     instance = this;
     Kp = 20.0;
@@ -34,7 +34,6 @@ MotorController::MotorController(
     AUTO_STOP_INTERVAL = 2000;
     minPwmThreshold = 70;
     autoStopEnabled = false;
-    controllerTask = NULL;
 }
 
 void IRAM_ATTR MotorController::encoderISR_A() {
@@ -65,48 +64,32 @@ void MotorController::handleEncoderB() {
     }
 }
 
-/* float MotorController::calculateCurrentSpeed(MotorPins& motor) {
-    long deltaTicks = motor.encoderCount - motor.prevCount;
-    float deltaTime = PID_INTERVAL / 1000.0;
-    float speed = (float)(deltaTicks * 2.0f * PI) / (motor.ticksPerRevolution * deltaTime);
-    motor.prevCount = motor.encoderCount;
-    return speed;
-} */
-
 float MotorController::calculateCurrentSpeed(MotorPins& motor) {
-    static float speedBuffer[SPEED_FILTER_SIZE] = {0};
-    static int bufferIndex = 0;
-
     long deltaTicks = motor.encoderCount - motor.prevCount;
     float deltaTime = PID_INTERVAL / 1000.0;
     float instantSpeed = (float)(deltaTicks * 2.0f * PI) / (motor.ticksPerRevolution * deltaTime);
     motor.prevCount = motor.encoderCount;
-
-    speedBuffer[bufferIndex] = instantSpeed;
-    bufferIndex = (bufferIndex + 1) % SPEED_FILTER_SIZE;
-
+    motor.speedBuffer[motor.bufferIndex] = instantSpeed;
+    motor.bufferIndex = (motor.bufferIndex + 1) % SPEED_FILTER_SIZE;
     float averageSpeed = 0;
     for (int i = 0; i < SPEED_FILTER_SIZE; i++) {
-        averageSpeed += speedBuffer[i];
+        averageSpeed += motor.speedBuffer[i];
     }
     averageSpeed /= SPEED_FILTER_SIZE;
-
     return averageSpeed;
 }
 
-void MotorController::initMotor(MotorPins& motor) {
-    pinMode(motor.in1, OUTPUT);
-    pinMode(motor.in2, OUTPUT);
-    pinMode(motor.enable, OUTPUT);
-    pinMode(motor.encoderA, INPUT_PULLUP);
-    pinMode(motor.encoderB, INPUT_PULLUP);
-    ledcSetup(motor.pwmChannel, PWM_FREQUENCY, PWM_RESOLUTION);
-    ledcAttachPin(motor.enable, motor.pwmChannel);
-}
-
 void MotorController::init() {
-    initMotor(motorA);
-    initMotor(motorB);
+    pinMode(motorA.encoderA, INPUT_PULLUP);
+    pinMode(motorA.encoderB, INPUT_PULLUP);
+    pinMode(motorB.encoderA, INPUT_PULLUP);
+    pinMode(motorB.encoderB, INPUT_PULLUP);
+    pinMode(stbyPin, OUTPUT);
+    digitalWrite(stbyPin, HIGH);
+
+    sfMotorA = new Motor(motorA.in1, motorA.in2, motorA.enable, motorA.reversed ? -1 : 1, stbyPin);
+    sfMotorB = new Motor(motorB.in1, motorB.in2, motorB.enable, motorB.reversed ? -1 : 1, stbyPin);
+
     attachInterrupt(digitalPinToInterrupt(motorA.encoderA), encoderISR_A, CHANGE);
     attachInterrupt(digitalPinToInterrupt(motorB.encoderA), encoderISR_B, CHANGE);
     stop();
@@ -118,46 +101,24 @@ void MotorController::init() {
         this,
         1,
         &controllerTask,
-        0
+        1  // Pin to Core 1
     );
 }
 
 void MotorController::controllerTaskCode(void* parameter) {
-    MotorController* controller = (MotorController*)parameter;
+    MotorController* controller = static_cast<MotorController*>(parameter);
+    TickType_t xLastWakeTime;
+    const TickType_t xFrequency = pdMS_TO_TICKS(controller->PID_INTERVAL);
+    xLastWakeTime = xTaskGetTickCount();
+
     for(;;) {
         controller->update();
-        vTaskDelay(pdMS_TO_TICKS(controller->getPIDInterval()));
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
     }
-}
-
-void MotorController::setMotorSpeed(MotorPins& motor, int pwmValue) {
-    pwmValue = constrain(pwmValue, -255, 255);
-    if (motor.reversed) {
-        pwmValue = -pwmValue;
-    }
-
-    if (abs(pwmValue) < minPwmThreshold && abs(pwmValue) > 0) {
-        pwmValue = (pwmValue > 0) ? minPwmThreshold : -minPwmThreshold;
-    }
-
-    if (pwmValue > 0) {
-        digitalWrite(motor.in1, HIGH);
-        digitalWrite(motor.in2, LOW);
-    } else if (pwmValue < 0) {
-        digitalWrite(motor.in1, LOW);
-        digitalWrite(motor.in2, HIGH);
-    } else {
-        digitalWrite(motor.in1, LOW);
-        digitalWrite(motor.in2, LOW);
-    }
-
-    int mappedPWM = mapSpeed(abs(pwmValue));
-    ledcWrite(motor.pwmChannel, mappedPWM);
 }
 
 void MotorController::updateMotorPID(MotorPins& motor) {
     motor.currentSpeed = calculateCurrentSpeed(motor);
-
     float error = motor.targetSpeed - motor.currentSpeed;
     float pTerm = Kp * error;
     motor.iTerm = constrain(
@@ -168,7 +129,12 @@ void MotorController::updateMotorPID(MotorPins& motor) {
     float feedForward = motor.targetSpeed * 0.5f;
     int output = (int)((pTerm + motor.iTerm + dTerm + feedForward) * Ko);
     motor.prevError = error;
-    setMotorSpeed(motor, output);
+    
+    if (&motor == &motorA) {
+        sfMotorA->drive(output);
+    } else {
+        sfMotorB->drive(output);
+    }
 }
 
 void MotorController::update() {
@@ -176,7 +142,6 @@ void MotorController::update() {
         updateMotorPID(motorA);
         updateMotorPID(motorB);
     }
-
     if (autoStopEnabled && (millis() - lastMotorCommand) > AUTO_STOP_INTERVAL) {
         stop();
     }
@@ -187,7 +152,7 @@ void MotorController::setSpeedA(float speedRads) {
     motorA.targetSpeed = speedRads;
     if (fabs(speedRads) < 0.0001f) {
         motorA.iTerm = 0;
-        setMotorSpeed(motorA, 0);
+        sfMotorA->brake();
     }
     moving = (motorA.targetSpeed != 0.0f) || (motorB.targetSpeed != 0.0f);
 }
@@ -197,7 +162,7 @@ void MotorController::setSpeedB(float speedRads) {
     motorB.targetSpeed = speedRads;
     if (fabs(speedRads) < 0.0001f) {
         motorB.iTerm = 0;
-        setMotorSpeed(motorB, 0);
+        sfMotorB->brake();
     }
     moving = (motorA.targetSpeed != 0.0f) || (motorB.targetSpeed != 0.0f);
 }
@@ -225,8 +190,8 @@ void MotorController::stop() {
     motorB.prevError = 0;
     motorA.currentSpeed = 0;
     motorB.currentSpeed = 0;
-    setMotorSpeed(motorA, 0);
-    setMotorSpeed(motorB, 0);
+    sfMotorA->brake();
+    sfMotorB->brake();
 }
 
 void MotorController::setPID(float kp, float ki, float kd, float ko) {
@@ -261,8 +226,10 @@ void MotorController::resetEncoders() {
     motorB.prevCount = 0;
 }
 
-int MotorController::mapSpeed(float speed) {
-    float maxSpeed = 30.0f; // Assumed rad/s
-    float normalizedSpeed = speed / maxSpeed;
-    return (int)(255.0f * powf(fabs(normalizedSpeed), 0.7f));
+void MotorController::setPWMA(int pwm) {
+    sfMotorA->drive(pwm);
+}
+
+void MotorController::setPWMB(int pwm) {
+    sfMotorB->drive(pwm);
 }

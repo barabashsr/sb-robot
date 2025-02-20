@@ -21,6 +21,7 @@ const int MOTOR_A_ENABLE = 25;
 const int MOTOR_B_IN1 = 18;
 const int MOTOR_B_IN2 = 19;
 const int MOTOR_B_ENABLE = 14;
+const int STBY_PIN = 23;
 
 // Encoder pins
 const int MOTOR_A_ENC_A = 34;
@@ -40,21 +41,26 @@ MotorController motors(
     MOTOR_A_IN1, MOTOR_A_IN2, MOTOR_A_ENABLE,
     MOTOR_B_IN1, MOTOR_B_IN2, MOTOR_B_ENABLE,
     MOTOR_A_ENC_A, MOTOR_A_ENC_B,
-    MOTOR_B_ENC_A, MOTOR_B_ENC_B
+    MOTOR_B_ENC_A, MOTOR_B_ENC_B,
+    STBY_PIN
 );
 
 
 
 void CALLBACK_FUNCTION SetSpeedA(int id) {
-    float speed = menuSetA.getAsFloatingPointValue();
+    /* float speed = menuSetA.getAsFloatingPointValue();
     Serial.println(speed);
-    motors.setSpeedA(speed);
+    motors.setSpeedA(speed); */
+    float speed = menuSetA.getCurrentValue()-250;
+    motors.setPWMA(speed);
 }
 
 void CALLBACK_FUNCTION SetSpeedB(int id) {
-    float speed = menuSetB.getAsFloatingPointValue();
+    /* float speed = menuSetB.getAsFloatingPointValue();
     Serial.println(speed);
-    motors.setSpeedB(speed);
+    motors.setSpeedB(speed); */
+    float speed = menuSetB.getCurrentValue()-250;
+    motors.setPWMB(speed);
 }
 
 void CALLBACK_FUNCTION StopA(int id) {
