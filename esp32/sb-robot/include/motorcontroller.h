@@ -3,8 +3,7 @@
 
 #include <Arduino.h>
 #include <SparkFun_TB6612.h>
-
-#define SPEED_FILTER_SIZE 5
+#include <PID_v1.h>
 
 class MotorController {
 private:
@@ -18,12 +17,9 @@ private:
         volatile long encoderCount;
         int ticksPerRevolution;
         long prevCount;
-        float targetSpeed;
-        long prevError;
-        float iTerm;
-        float currentSpeed;
-        float speedBuffer[SPEED_FILTER_SIZE];
-        int bufferIndex;
+        double targetSpeed;
+        double currentSpeed;
+        double pidOutput;
     };
 
     MotorPins motorA;
@@ -32,23 +28,17 @@ private:
     Motor* sfMotorB;
     int stbyPin;
 
-    unsigned long PID_INTERVAL;
-    unsigned long lastMotorCommand;
-    unsigned long AUTO_STOP_INTERVAL;
-    float Kp;
-    float Ki;
-    float Kd;
-    float Ko;
-    bool moving;
-    int minPwmThreshold;
-    bool autoStopEnabled;
+    PID* pidA;
+    PID* pidB;
+
+    static const unsigned long PID_INTERVAL = 10; // ms
+    unsigned long lastUpdateTime;
 
     static void IRAM_ATTR encoderISR_A();
     static void IRAM_ATTR encoderISR_B();
     static MotorController* instance;
 
-    float calculateCurrentSpeed(MotorPins& motor);
-    void updateMotorPID(MotorPins& motor);
+    void updateMotorSpeed(MotorPins& motor);
     static void controllerTaskCode(void* parameter);
     TaskHandle_t controllerTask;
 
@@ -67,10 +57,10 @@ public:
 
     void init();
     void update();
-    void setSpeedA(float speedRads);
-    void setSpeedB(float speedRads);
-    void setSpeeds(float speedA_rads, float speedB_rads);
-    void setPID(float kp, float ki, float kd, float ko);
+    void setSpeedA(float speedTicks);
+    void setSpeedB(float speedTicks);
+    void setSpeeds(float speedA_ticks, float speedB_ticks);
+    void setPID(float kp, float ki, float kd);
     void stop();
     long getEncoderA();
     long getEncoderB();
@@ -84,18 +74,19 @@ public:
     void setPWMA(int pwm);
     void setPWMB(int pwm);
 
-    float getKp() const { return Kp; }
-    float getKi() const { return Ki; }
-    float getKd() const { return Kd; }
-    float getKo() const { return Ko; }
-    void setPIDInterval(unsigned long interval) { PID_INTERVAL = interval; }
-    void setAutoStopInterval(unsigned long interval) { AUTO_STOP_INTERVAL = interval; }
-    void setMinPwmThreshold(int threshold) { minPwmThreshold = threshold; }
+    // Unused methods and properties (kept for compatibility)
+/*     float getKp() const { return 0; }
+    float getKi() const { return 0; }
+    float getKd() const { return 0; }
+    float getKo() const { return 0; }
+    void setPIDInterval(unsigned long interval) {}
+    void setAutoStopInterval(unsigned long interval) {}
+    void setMinPwmThreshold(int threshold) {}
     unsigned long getPIDInterval() const { return PID_INTERVAL; }
-    unsigned long getAutoStopInterval() const { return AUTO_STOP_INTERVAL; }
-    int getMinPwmThreshold() const { return minPwmThreshold; }
-    void setAutoStopEnabled(bool enabled) { autoStopEnabled = enabled; }
-    bool isAutoStopEnabled() const { return autoStopEnabled; }
+    unsigned long getAutoStopInterval() const { return 0; }
+    int getMinPwmThreshold() const { return 0; }
+    void setAutoStopEnabled(bool enabled) {}
+    bool isAutoStopEnabled() const { return false; } */
 };
 
 #endif

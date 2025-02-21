@@ -45,12 +45,12 @@ const PROGMEM FloatMenuInfo minfoTicksA = { "Ticks A", 9, 0xffff, 1, ResetTicsA 
 FloatMenuItem menuTicksA(&minfoTicksA, 0.0, &menuTicksB, INFO_LOCATION_PGM);
 const PROGMEM FloatMenuInfo minfoSpeedB = { "Speed B", 2, 0xffff, 3, StopB };
 FloatMenuItem menuSpeedB(&minfoSpeedB, 0.0, &menuTicksA, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoSetB = { "SetB", 12, 0xffff, 500, SetSpeedB, -250, 10, "rps" };
-AnalogMenuItem menuSetB(&minfoSetB, 250, &menuSpeedB, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoSetB = { "SetB", 12, 0xffff, 200, SetSpeedB, -100, 1, "rps" };
+AnalogMenuItem menuSetB(&minfoSetB, 100, &menuSpeedB, INFO_LOCATION_PGM);
 const PROGMEM FloatMenuInfo minfoSpeedA = { "Speed A", 1, 0xffff, 3, StopA };
 FloatMenuItem menuSpeedA(&minfoSpeedA, 0.0, &menuSetB, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoSetA = { "SetA", 11, 0xffff, 500, SetSpeedA, -250, 10, "rps" };
-AnalogMenuItem menuSetA(&minfoSetA, 250, &menuSpeedA, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoSetA = { "SetA", 11, 0xffff, 200, SetSpeedA, -100, 1, "rps" };
+AnalogMenuItem menuSetA(&minfoSetA, 100, &menuSpeedA, INFO_LOCATION_PGM);
 
 void setupMenu() {
     // First we set up eeprom and authentication (if needed).

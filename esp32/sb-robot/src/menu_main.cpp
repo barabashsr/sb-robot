@@ -51,16 +51,16 @@ void CALLBACK_FUNCTION SetSpeedA(int id) {
     /* float speed = menuSetA.getAsFloatingPointValue();
     Serial.println(speed);
     motors.setSpeedA(speed); */
-    float speed = menuSetA.getCurrentValue()-250;
-    motors.setPWMA(speed);
+    float speed = ((menuSetA.getCurrentValue()-100)*100);
+    motors.setSpeedB(speed);
 }
 
 void CALLBACK_FUNCTION SetSpeedB(int id) {
     /* float speed = menuSetB.getAsFloatingPointValue();
     Serial.println(speed);
     motors.setSpeedB(speed); */
-    float speed = menuSetB.getCurrentValue()-250;
-    motors.setPWMB(speed);
+    float speed = ((menuSetB.getCurrentValue()-100) * 100);
+    motors.setSpeedA(speed);
 }
 
 void CALLBACK_FUNCTION StopA(int id) {
@@ -78,9 +78,9 @@ void CALLBACK_FUNCTION SetKp(int id) {
     float ki = menuKi.getAsFloatingPointValue();
     float kd = menuKd.getAsFloatingPointValue();
     float ko = menuKo.getAsFloatingPointValue();
-    motors.setPID(kp, ki, kd, ko);
-    Serial.print("Kp: ");
-    Serial.println(motors.getKp());
+    motors.setPID(kp, ki, kd);
+    /* Serial.print("Kp: ");
+    Serial.println(motors.getKp()); */
 }
 
 void CALLBACK_FUNCTION SetKi(int id) {
@@ -88,9 +88,9 @@ void CALLBACK_FUNCTION SetKi(int id) {
     float ki = menuKi.getAsFloatingPointValue();
     float kd = menuKd.getAsFloatingPointValue();
     float ko = menuKo.getAsFloatingPointValue();
-    motors.setPID(kp, ki, kd, ko);
-    Serial.print("Ki: ");
-    Serial.println(motors.getKi());
+    motors.setPID(kp, ki, kd);
+   /*  Serial.print("Ki: ");
+    Serial.println(motors.getKi()); */
 }
 
 void CALLBACK_FUNCTION SetKd(int id) {
@@ -98,9 +98,9 @@ void CALLBACK_FUNCTION SetKd(int id) {
     float ki = menuKi.getAsFloatingPointValue();
     float kd = menuKd.getAsFloatingPointValue();
     float ko = menuKo.getAsFloatingPointValue();
-    motors.setPID(kp, ki, kd, ko);
-    Serial.print("Kd: ");
-    Serial.println(motors.getKd());
+    motors.setPID(kp, ki, kd);
+    /* Serial.print("Kd: ");
+    Serial.println(motors.getKd()); */
 }
 
 void CALLBACK_FUNCTION SetKo(int id) {
@@ -108,14 +108,14 @@ void CALLBACK_FUNCTION SetKo(int id) {
     float ki = menuKi.getAsFloatingPointValue();
     float kd = menuKd.getAsFloatingPointValue();
     float ko = menuKo.getAsFloatingPointValue();
-    motors.setPID(kp, ki, kd, ko);
-    Serial.print("Ko: ");
-    Serial.println(motors.getKo());
+    motors.setPID(kp, ki, kd);
+    /* Serial.print("Ko: ");
+    Serial.println(motors.getKo()); */
 }
 
 void CALLBACK_FUNCTION SetPIDHz(int id) {
-    unsigned long interval = menuPIDInterval.getCurrentValue();
-    motors.setPIDInterval(interval);
+    //unsigned long interval = menuPIDInterval.getCurrentValue();
+    //motors.setPIDInterval(interval);
 }
 
 /* void CALLBACK_FUNCTION setAutoStopInterval(int id) {
@@ -141,9 +141,9 @@ void CALLBACK_FUNCTION ResetTicsB(int id) {
 }
 
 void CALLBACK_FUNCTION SetThreshold(int id) {
-    motors.setMinPwmThreshold(menuThreshold.getCurrentValue());
+   /*  motors.setMinPwmThreshold(menuThreshold.getCurrentValue());
     Serial.print("New pwm threshold: ");
-    Serial.println(motors.getMinPwmThreshold());
+    Serial.println(motors.getMinPwmThreshold()); */
     // TODO - your menu change code
 }
 
@@ -163,6 +163,7 @@ void updateMenuValues() {
     float encB = motors.getEncoderB();
     menuTicksB.setFloatValue(encB);
     float speedA = motors.getCurrentSpeedA();
+    Serial.println(speedA);
     menuSpeedA.setFloatValue(speedA);
     float speedB = motors.getCurrentSpeedB();
     menuSpeedB.setFloatValue(speedB);
