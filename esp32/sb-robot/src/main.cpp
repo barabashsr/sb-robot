@@ -5,7 +5,7 @@
 //#include "esp_mac.h"
 // Pin definitions for TB6612FNG
 
-#define OFSET_ANGLE_Y 0;
+#define OFSET_ANGLE_Y -0.2;
 
 const int MOTOR_A_IN1 = 1;
 const int MOTOR_A_IN2 = 2;
@@ -34,7 +34,7 @@ double movingAngleOffset = 0.1;
 double input, output;
 
 //adjust these values to fit your own design
-double Kp = 40;   
+double Kp = 20;   
 double Kd = 0.5;
 double Ki = 40;
 
