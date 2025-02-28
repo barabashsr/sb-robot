@@ -1,0 +1,120 @@
+#include <Arduino.h>
+#include "motorcontroller.h"
+
+// Pin definitions
+const int MOTOR_A_IN1 = 27;
+const int MOTOR_A_IN2 = 26;
+const int MOTOR_A_ENABLE = 25;
+const int MOTOR_B_IN1 = 33;
+const int MOTOR_B_IN2 = 32;
+const int MOTOR_B_ENABLE = 14;
+
+// Encoder pins
+const int MOTOR_A_ENC_A = 34;
+const int MOTOR_A_ENC_B = 35;
+const int MOTOR_B_ENC_A = 4;
+const int MOTOR_B_ENC_B = 5;
+
+MotorController motors(
+    MOTOR_A_IN1, MOTOR_A_IN2, MOTOR_A_ENABLE,
+    MOTOR_B_IN1, MOTOR_B_IN2, MOTOR_B_ENABLE,
+    MOTOR_A_ENC_A, MOTOR_A_ENC_B,
+    MOTOR_B_ENC_A, MOTOR_B_ENC_B
+);
+
+String inputString = "";
+unsigned long lastSpeedPrint = 0;
+const unsigned long SPEED_PRINT_INTERVAL = 100; // 10 times per second
+
+void processCommand(String command) {
+    command.trim();
+    if (command.startsWith("sa ")) {
+        float speed = command.substring(3).toFloat();
+        motors.setSpeedA(speed);
+        Serial.printf("Setting motor A speed to %.2f rad/s\n", speed);
+    }
+    else if (command.startsWith("sb ")) {
+        float speed = command.substring(3).toFloat();
+        motors.setSpeedB(speed);
+        Serial.printf("Setting motor B speed to %.2f rad/s\n", speed);
+    }
+    else if (command.startsWith("s ")) {
+        String params = command.substring(2);
+        float speedA = params.substring(0, params.indexOf(' ')).toFloat();
+        float speedB = params.substring(params.indexOf(' ') + 1).toFloat();
+        motors.setSpeeds(speedA, speedB);
+        Serial.printf("Setting speeds - A: %.2f rad/s, B: %.2f rad/s\n", speedA, speedB);
+    }
+    else if (command.startsWith("pid ")) {
+        String params = command.substring(4);
+        float kp = params.substring(0, params.indexOf(' ')).toFloat();
+        params = params.substring(params.indexOf(' ') + 1);
+        float ki = params.substring(0, params.indexOf(' ')).toFloat();
+        params = params.substring(params.indexOf(' ') + 1);
+        float kd = params.substring(0, params.indexOf(' ')).toFloat();
+        float ko = params.substring(params.indexOf(' ') + 1).toFloat();
+        motors.setPID(kp, ki, kd, ko);
+        Serial.printf("Setting PID - Kp: %.2f, Ki: %.2f, Kd: %.2f, Ko: %.2f\n", kp, ki, kd, ko);
+    }
+    else if (command.startsWith("delay ")) {
+        unsigned long delay_ms = command.substring(6).toInt();
+        motors.setSafetyDelay(delay_ms);
+        Serial.printf("Setting safety delay to %lu ms\n", delay_ms);
+    }
+    else if (command == "stop") {
+        motors.stop();
+        Serial.println("Stopping motors");
+    }
+    else if (command == "reset") {
+        motors.resetEncoders();
+        Serial.println("Resetting encoders");
+    }
+    else if (command == "help") {
+        Serial.println("Available commands:");
+        Serial.println("sa - Set motor A speed (rad/s)");
+        Serial.println("sb - Set motor B speed (rad/s)");
+        Serial.println("s - Set both motor speeds");
+        Serial.println("pid - Set PID parameters");
+        Serial.println("delay - Set safety delay in milliseconds");
+        Serial.println("stop - Stop motors");
+        Serial.println("reset - Reset encoders");
+        Serial.println("help - Show this help");
+    }
+    else {
+        Serial.println("Unknown command. Type 'help' for available commands");
+    }
+}
+
+void setup() {
+    Serial.begin(115200);
+    motors.init();
+    Serial.println("\nMotor Controller Test");
+    Serial.println("Type 'help' for available commands");
+}
+
+void loop() {
+    motors.update();
+    
+    // Print speed 10 times per second, only when motors are moving
+    unsigned long currentMillis = millis();
+    if (currentMillis - lastSpeedPrint >= SPEED_PRINT_INTERVAL) {
+        lastSpeedPrint = currentMillis;
+        float speedA = motors.getCurrentSpeedA();
+        float speedB = motors.getCurrentSpeedB();
+        if (abs(speedA) > 0.1 || abs(speedB) > 0.1) {
+            Serial.printf("Speeds - A: %.2f rad/s, B: %.2f rad/s\n", speedA, speedB);
+        }
+    }
+
+    while (Serial.available()) {
+        char inChar = (char)Serial.read();
+        if (inChar == '\n' || inChar == '\r') {
+            if (inputString.length() > 0) {
+                processCommand(inputString);
+                inputString = "";
+            }
+        } else {
+            inputString += inChar;
+        }
+    }
+}

@@ -2,10 +2,15 @@
 #include "motorcontroller.h"
 #include "BNO055Sensor.h"
 #include <PID_v1.h>
+#include <EEPROM.h>
+#include <Preferences.h>
+
+Preferences preferences;
 //#include "esp_mac.h"
 // Pin definitions for TB6612FNG
 
-#define OFSET_ANGLE_Y -0.2;
+float ofsetAngle = 1.7;
+//#define EEPROM_SIZE 12
 
 const int MOTOR_A_IN1 = 1;
 const int MOTOR_A_IN2 = 2;
@@ -30,13 +35,14 @@ const int BNO_SCL = 16;
 //PID
 //double originalSetpoint = 173;
 //double setpoint = originalSetpoint;
-double movingAngleOffset = 0.1;
+double movingAngleOffset = 0;
 double input, output;
 
 //adjust these values to fit your own design
 double Kp = 20;   
 double Kd = 0.5;
 double Ki = 40;
+int pitchSampleTime = 10;
 
 //target angle
 double target_angle = 0;
@@ -90,7 +96,7 @@ void printState(){
 
 void processCommand(String command) {
     command.trim();
-    if (command.startsWith("ma ")) {
+    /* if (command.startsWith("ma ")) {
         int speed = command.substring(3).toInt();
         motors.setMotorA(speed);
         Serial.printf("Setting Motor A to %d%%\n", speed);
@@ -124,7 +130,51 @@ void processCommand(String command) {
     }
     else {
         Serial.println("Unknown command. Type 'help' for available commands");
+    } */
+
+    if (command.startsWith("kp ")) {
+        Kp = command.substring(3).toFloat();
+        Serial.println(Kp);
     }
+    else if (command.startsWith("ki ")) {
+        Ki = command.substring(3).toFloat();
+        Serial.println(Ki);
+    }
+    else if (command.startsWith("kd ")) {
+        Kd = command.substring(3).toFloat();
+        Serial.println(Kd);
+    }
+    else if (command.startsWith("st ")) {
+        pitchSampleTime = command.substring(3).toInt();
+        Serial.println(pitchSampleTime);
+        pid.SetSampleTime(pitchSampleTime);
+    }
+
+    else if (command.startsWith("oa ")) {
+        ofsetAngle = command.substring(3).toFloat();
+        
+    }
+    else if (command == "save") {
+        // Save PID values to EEPROM
+        // EEPROM.put(0, Kp);
+        // EEPROM.put(4, Ki);
+        // EEPROM.put(8, Kd);
+        // EEPROM.commit();
+         preferences.putDouble("Kp", Kp);
+        preferences.putDouble("Ki", Ki);
+        preferences.putDouble("Kd", Kd);
+        preferences.putDouble("St", pitchSampleTime);
+        preferences.putDouble("Oa", ofsetAngle);
+
+        Serial.println("PID values saved to flash memory");
+        Serial.println("PID values saved to EEPROM");
+      }
+
+    else {
+        Serial.println("Unknown command. Type 'kp', 'ki', 'kd' for change");
+    }
+    pid.SetTunings(Kp, Ki, Kd);
+    Serial.printf("Setting kp to %f\n Setting kd to %f\n Setting ki to %f\n", pid.GetKp(), pid.GetKd(), pid.GetKi());
 
 
 }
@@ -150,7 +200,7 @@ void setLedColor(int calibration) {
   }
 
 void angleControl(){
-    input = bno.getAngleY() + OFSET_ANGLE_Y;
+    input = bno.getAngleY() + ofsetAngle;
     pid.Compute();
     speed_set = output;
     motors.setSpeeds(speed_set, speed_set);
@@ -161,7 +211,9 @@ void angleControl(){
 
 void setup() {
     Serial.begin(115200);
-    delay(1000);
+    preferences.begin("pid-params", false);
+    //EEPROM.begin(EEPROM_SIZE);
+    delay(100);
     motors.init();
     Serial.println("\nMotor Controller Test with TB6612FNG");
     Serial.println("Type 'help' for available commands");
@@ -178,9 +230,22 @@ void setup() {
     }
 
     //setup PID
-    pid.SetMode(AUTOMATIC);
-    pid.SetSampleTime(10);
+    pid.SetMode(AUTOMATIC);  
     pid.SetOutputLimits(-100, 100); 
+    // EEPROM.get(0, Kp);
+    // EEPROM.get(4, Ki);
+    // EEPROM.get(8, Kd);
+
+    Kp = preferences.getDouble("Kp", 20);
+    Ki = preferences.getDouble("Ki", 40);
+    Kd = preferences.getDouble("Kd", 0.5);
+    pitchSampleTime = preferences.getInt("St", 10);
+    ofsetAngle = preferences.getFloat("Oa", 0);
+
+    pid.SetSampleTime(pitchSampleTime);
+    pid.SetTunings(Kp, Ki, Kd);
+    
+    Serial.printf("Loaded PID values - Kp: %f, Ki: %f, Kd: %f\n", Kp, Ki, Kd);
 }
 
 void loop() {
