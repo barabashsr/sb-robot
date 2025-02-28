@@ -24,8 +24,8 @@ private:
 
     void initMotor(MotorPins& motor);
     void setMotorSpeed(const MotorPins& motor, int speed);
-    static void IRAM_ATTR encoderISR_A();
-    static void IRAM_ATTR encoderISR_B();
+    static void IRAM_ATTR encoderISR_C();
+    static void IRAM_ATTR encoderISR_D();
     static MotorController* instance;
 
 public:

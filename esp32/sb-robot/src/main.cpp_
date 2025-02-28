@@ -39,9 +39,9 @@ double movingAngleOffset = 0;
 double input, output;
 
 //adjust these values to fit your own design
-double Kp = 20;   
+double Kp = 30;   
 double Kd = 0.5;
-double Ki = 40;
+double Ki = 10;
 int pitchSampleTime = 10;
 
 //target angle

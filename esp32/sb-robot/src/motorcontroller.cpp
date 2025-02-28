@@ -17,13 +17,13 @@ MotorController::MotorController(
     instance = this;
 }
 
-void IRAM_ATTR MotorController::encoderISR_A() {
+void IRAM_ATTR MotorController::encoderISR_C() {
     if (instance) {
         instance->handleEncoderA();
     }
 }
 
-void IRAM_ATTR MotorController::encoderISR_B() {
+void IRAM_ATTR MotorController::encoderISR_D() {
     if (instance) {
         instance->handleEncoderB();
     }
@@ -77,8 +77,8 @@ void MotorController::init() {
 
     initMotor(motorA);
     initMotor(motorB);
-    attachInterrupt(digitalPinToInterrupt(motorA.encoderA), encoderISR_A, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(motorB.encoderA), encoderISR_B, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(motorA.encoderA), encoderISR_C, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(motorB.encoderA), encoderISR_D, CHANGE);
     stop();
     Serial.println("motors initialised");
 }
