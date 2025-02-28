@@ -79,6 +79,10 @@ void MotorController::init() {
     initMotor(motorB);
     attachInterrupt(digitalPinToInterrupt(motorA.encoderA), encoderISR_C, CHANGE);
     attachInterrupt(digitalPinToInterrupt(motorB.encoderA), encoderISR_D, CHANGE);
+    lastMeasurementTime = 0;
+    measurementPeriod = 20; // Default to 10ms
+    lastEncoderCountA = 0;
+    lastEncoderCountB = 0;
     stop();
     Serial.println("motors initialised");
 }
@@ -120,3 +124,40 @@ float MotorController::getPositionA() {
 float MotorController::getPositionB() {
     return (float)motorB.encoderCount * 2 * PI / motorB.ticksPerRevolution;
 }
+
+void MotorController::setMeasurementPeriod(int period) {
+    measurementPeriod = period;
+}
+
+void MotorController::updateSpeeds() {
+    unsigned long currentTime = millis();
+    if (currentTime - lastMeasurementTime >= measurementPeriod) {
+        long currentCountA = getEncoderA();
+        long currentCountB = getEncoderB();
+        float timeInSeconds = measurementPeriod / 1000.0f;
+
+        float rotationsA = (currentCountA - lastEncoderCountA) / (float)motorA.ticksPerRevolution;
+        speedA = (rotationsA * 2 * PI) / timeInSeconds; // radians per second
+
+        float rotationsB = (currentCountB - lastEncoderCountB) / (float)motorB.ticksPerRevolution;
+        speedB = (rotationsB * 2 * PI) / timeInSeconds; // radians per second
+
+        lastMeasurementTime = currentTime;
+        lastEncoderCountA = currentCountA;
+        lastEncoderCountB = currentCountB;
+    }
+}
+/* 
+float MotorController::getSpeedA() {
+    long currentCount = getEncoderA();
+    float rotations = (currentCount - lastEncoderCountA) / (float)motorA.ticksPerRevolution;
+    float timeInSeconds = measurementPeriod / 1000.0f;
+    return (rotations * 2 * PI) / timeInSeconds; // radians per second
+}
+
+float MotorController::getSpeedB() {
+    long currentCount = getEncoderB();
+    float rotations = (currentCount - lastEncoderCountB) / (float)motorB.ticksPerRevolution;
+    float timeInSeconds = measurementPeriod / 1000.0f;
+    return (rotations * 2 * PI) / timeInSeconds; // radians per second
+} */

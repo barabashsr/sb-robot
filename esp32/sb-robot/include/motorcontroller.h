@@ -13,6 +13,8 @@ private:
         int encoderB;
         volatile long encoderCount;
         int ticksPerRevolution;
+
+        
     };
 
     MotorPins motorA;
@@ -27,6 +29,13 @@ private:
     static void IRAM_ATTR encoderISR_C();
     static void IRAM_ATTR encoderISR_D();
     static MotorController* instance;
+
+    unsigned long lastMeasurementTime;
+    int measurementPeriod; // in milliseconds
+    long lastEncoderCountA;
+    long lastEncoderCountB;
+    float speedA;
+    float speedB;
 
 public:
     MotorController(
@@ -51,6 +60,10 @@ public:
     void resetEncoders();
     void handleEncoderA();
     void handleEncoderB();
+    void setMeasurementPeriod(int period);
+    float getSpeedA(){return speedA;};
+    float getSpeedB(){return speedB;};
+    void updateSpeeds();
 };
 
 #endif

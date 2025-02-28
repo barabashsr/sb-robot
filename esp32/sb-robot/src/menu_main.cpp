@@ -11,8 +11,17 @@
 #define MENU_MAGIC_KEY 0xfade
 #endif 
 
+
 float ofsetAngle = 1.7;
 float pitchAngle;
+float speedA = 0.0; //in rad per second
+float speedB = 0.0; //in radian per second
+float positionA = 0; //in radians
+float positionB = 0; //in radians
+float x_vel = 0;  //in meters per second
+float yaw_rate = 0; //in rad per second
+const float wheelRadius = 0.0325; //in meters
+const float wheelSeparation = 0.172; //in meters
 
 const int STATE_PRINT_INTERVAL = 200;
 unsigned long lastEncoderPrint = 0;
@@ -106,11 +115,11 @@ void updateMenuValues(){
     unsigned long currentMillis = millis();
     if (currentMillis - lastEncoderPrint >= STATE_PRINT_INTERVAL) {
         lastEncoderPrint = currentMillis;
-        Serial.printf("Encoders - A: %ld (%.2f rad), B: %ld (%.2f rad)\n",
-            motors.getEncoderA(),
-            motors.getPositionA(),
-            motors.getEncoderB(),
-            motors.getPositionB()
+        Serial.printf("A: Pose: %.1f (Vel: %.1f rad/s), B: Pose: %.1f (Vel: %.1f rad/s)\n",
+            positionA,
+            speedA,
+            positionB,
+            speedB
         );
         //float angle_y = bno.getAngleY();
         Serial.print("Input : ");
@@ -124,8 +133,30 @@ void updateMenuValues(){
     menuPitch.setFloatValue(pitchAngle);
     int bnoCalib = bno.calibration();
     menuBNOCalib.setCurrentValue(bnoCalib);
+
+    menuVel.setFloatValue(x_vel);
+    menuYawRate.setFloatValue(yaw_rate);
+
     setLedColor(bnoCalib);
     }
+}
+
+void calculateVelocities(){
+    motors.updateSpeeds();
+    speedA = motors.getSpeedA();
+    speedB = motors.getSpeedB();
+    positionA = motors.getPositionA();
+    positionB = motors.getPositionB();
+    x_vel = (speedA+speedB) * wheelRadius /2;
+    yaw_rate = (speedA - speedB) * wheelRadius / wheelSeparation;
+
+
+
+
+
+    
+
+
 }
 
 void setup() {
@@ -181,8 +212,11 @@ void setup() {
 
 void loop() {
     taskManager.runLoop();
+    calculateVelocities();
     angleControl();
     updateMenuValues();
+    
+    
     //setLedColor(bno.calibration());
     //taskManager.scheduleFixedRate(1000, updateMenuValues);
 
