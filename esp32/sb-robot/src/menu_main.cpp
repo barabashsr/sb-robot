@@ -12,14 +12,14 @@
 #endif 
 
 
-float ofsetAngle = 1.7;
+double ofsetAngle = 1.7;
 float pitchAngle;
 float speedA = 0.0; //in rad per second
 float speedB = 0.0; //in radian per second
 float positionA = 0; //in radians
 float positionB = 0; //in radians
-float x_vel = 0;  //in meters per second
-float yaw_rate = 0; //in rad per second
+double x_vel = 0.0;  //in meters per second
+double yaw_rate = 0.0; //in rad per second
 const float wheelRadius = 0.0325; //in meters
 const float wheelSeparation = 0.172; //in meters
 
@@ -52,19 +52,32 @@ const int BNO_SCL = 16;
 //double originalSetpoint = 173;
 //double setpoint = originalSetpoint;
 double movingAngleOffset = 0;
-double input, output;
+double pitchInput, pitchOutput;
 
-//adjust these values to fit your own design
-double KpPitch = 30;   
-double KdPitch = 0.5;
-double KiPitch = 10;
+//PID values for Pitch control
+double KpPitch = 20;   
+double KdPitch = 0.6;
+double KiPitch = 40.9;
 int pitchSampleTime = 10;
+
+//PID values for linear velocity control
+double KpVel = 20;   
+double KdVel = 0.0;
+double KiVel = 10;
+int velSampleTime = 20;
 
 //target angle
 double target_angle = 0;
 int speed_set = 0;
 
-PID pidPitch(&input, &output, &target_angle, KpPitch, KiPitch, KdPitch, REVERSE);
+//target velocity
+
+double target_vel = 0;
+
+PID pidPitch(&pitchInput, &pitchOutput, &target_angle, KpPitch, KiPitch, KdPitch, REVERSE);
+
+PID pidVel(&x_vel, &ofsetAngle, &target_vel, KpVel, KiVel, KdVel, DIRECT);
+
 
 
 BNO055Sensor bno(BNO_SDA, BNO_SCL);
@@ -102,11 +115,17 @@ void setLedColor(int calibration) {
 
 void angleControl(){
     pitchAngle = bno.getAngleY();
-    input = pitchAngle + ofsetAngle;
+    pitchInput = pitchAngle + ofsetAngle;
     pidPitch.Compute();
-    speed_set = output;
+    speed_set = pitchOutput;
     motors.setSpeeds(speed_set, speed_set);
     
+}
+
+void speedControl(){
+    pidVel.Compute();
+    //speed_set = pitchOutput;
+    //motors.setSpeeds(speed_set, speed_set);  
 }
 
 
@@ -123,11 +142,11 @@ void updateMenuValues(){
         );
         //float angle_y = bno.getAngleY();
         Serial.print("Input : ");
-        Serial.print(input);
-        float error = input - target_angle;
+        Serial.print(pitchInput);
+        float error = pitchInput - target_angle;
         Serial.print(" error: ");
         Serial.print(error);
-        Serial.print(" output: ");
+        Serial.print(" pitchOutput: ");
         Serial.print(speed_set);
     //float angleY = bno.getAngleY();
     menuPitch.setFloatValue(pitchAngle);
@@ -175,11 +194,19 @@ void setup() {
     Serial.println("\nMotor Controller Test with TB6612FNG");
     setupMenu();
     menuMgr.load(MENU_MAGIC_KEY);
+
+    //Assign Pitc PID values
     KpPitch = menuKpPitch.getAsFloatingPointValue();
     KdPitch = menuKdPitch.getAsFloatingPointValue();
     KiPitch = menuKiPitch.getAsFloatingPointValue();
     pitchSampleTime = menuPeriodP.getCurrentValue();
     ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
+
+    //Assign Velocity PID values
+    KpVel = menuKpVel.getAsFloatingPointValue();
+    KdVel = menuKdVel.getAsFloatingPointValue();
+    KiVel = menuKiVel.getAsFloatingPointValue();
+    velSampleTime = menuPeriodV.getCurrentValue();
 
     
 
@@ -196,17 +223,20 @@ void setup() {
 
     }
 
-    //setup PID
+    //setup Pitch PID
     pidPitch.SetMode(AUTOMATIC);  
     pidPitch.SetOutputLimits(-100, 100); 
-
-
-
-
     pidPitch.SetSampleTime(pitchSampleTime);
     pidPitch.SetTunings(KpPitch, KiPitch, KdPitch);
-    
-    Serial.printf("Loaded PID values - Kp: %f, Ki: %f, Kd: %f\n", KpPitch, KiPitch, KdPitch);
+    Serial.printf("Loaded Pitch PID values - Kp: %f, Ki: %f, Kd: %f\n", KpPitch, KiPitch, KdPitch);
+
+     //setup Velocity PID
+     pidVel.SetMode(AUTOMATIC);  
+     pidVel.SetOutputLimits(-3.0, 3.0); 
+     pidVel.SetSampleTime(velSampleTime);
+     pidVel.SetTunings(KpVel, KiVel, KdVel);
+     Serial.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpVel, KiVel, KdVel);
+ 
 
 }
 
@@ -214,6 +244,7 @@ void loop() {
     taskManager.runLoop();
     calculateVelocities();
     angleControl();
+    speedControl();
     updateMenuValues();
     
     
@@ -293,7 +324,10 @@ void CALLBACK_FUNCTION SetSpeedB(int id) {
 
 
 void CALLBACK_FUNCTION SetKpVel(int id) {
-    // TODO - your menu change code
+    KpVel = menuKpPitch.getAsFloatingPointValue();
+    pidVel.SetTunings(KpVel, KiVel, KdVel);
+    Serial.println("Vel Kp changed");
+
 }
 
 
@@ -310,6 +344,9 @@ void CALLBACK_FUNCTION setPitchPIDPeriod(int id) {
 
 
 void CALLBACK_FUNCTION SetKdVel(int id) {
+    KdVel = menuKdPitch.getAsFloatingPointValue();
+    pidVel.SetTunings(KpVel, KiVel, KdVel);
+    Serial.println("Vel Kd changed");
     // TODO - your menu change code
 }
 
@@ -342,6 +379,9 @@ void CALLBACK_FUNCTION getBNOCalib(int id) {
 
 
 void CALLBACK_FUNCTION SetKiVel(int id) {
+    KiVel = menuKiPitch.getAsFloatingPointValue();
+    pidVel.SetTunings(KpVel, KiVel, KdVel);
+    Serial.println("Vel Ki changed");
     // TODO - your menu change code
 }
 
@@ -360,6 +400,8 @@ void CALLBACK_FUNCTION SetKpYaw(int id) {
 
 
 void CALLBACK_FUNCTION setVelPIDPeriod(int id) {
+    velSampleTime = menuPeriodV.getCurrentValue();
+    pidVel.SetSampleTime(pitchSampleTime);
     // TODO - your menu change code
 }
 
@@ -384,5 +426,13 @@ void CALLBACK_FUNCTION setYawPIDPeriod(int id) {
 
 
 void CALLBACK_FUNCTION setTargetVel(int id) {
+    // TODO - your menu change code
+}
+
+void CALLBACK_FUNCTION toggleYawPID(int id) {
+    // TODO - your menu change code
+}
+
+void CALLBACK_FUNCTION toggleVelPid(int id) {
     // TODO - your menu change code
 }

@@ -34,12 +34,14 @@ extern AnalogMenuItem menuPeriodY;
 extern AnalogMenuItem menuKdYaw;
 extern AnalogMenuItem menuKiYaw;
 extern AnalogMenuItem menuKpYaw;
-extern BackMenuItem menuBackVelPID1;
-extern SubMenuItem menuVelPID1;
+extern BooleanMenuItem menuYawPIDToggle;
+extern BackMenuItem menuBackYawPID;
+extern SubMenuItem menuYawPID;
 extern AnalogMenuItem menuPeriodV;
 extern AnalogMenuItem menuKdVel;
 extern AnalogMenuItem menuKiVel;
 extern AnalogMenuItem menuKpVel;
+extern BooleanMenuItem menuVelPIDToggle;
 extern BackMenuItem menuBackVelPID;
 extern SubMenuItem menuVelPID;
 extern AnalogMenuItem menuPeriodP;
@@ -81,5 +83,7 @@ void CALLBACK_FUNCTION setTargetVel(int id);
 void CALLBACK_FUNCTION setTargetYawRa(int id);
 void CALLBACK_FUNCTION setVelPIDPeriod(int id);
 void CALLBACK_FUNCTION setYawPIDPeriod(int id);
+void CALLBACK_FUNCTION toggleVelPid(int id);
+void CALLBACK_FUNCTION toggleYawPID(int id);
 
 #endif // MENU_GENERATED_CODE_H

@@ -56,8 +56,8 @@
       "type": "analogItem",
       "defaultValue": "0",
       "item": {
-        "maxValue": 255,
-        "offset": 0,
+        "maxValue": 1000,
+        "offset": -500,
         "divisor": 100,
         "unitName": "deg",
         "step": 1,
@@ -239,6 +239,23 @@
     },
     {
       "parentId": 15,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Vel PID",
+        "variableName": "VelPIDToggle",
+        "id": 34,
+        "eepromAddress": 36,
+        "functionName": "toggleVelPid",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
@@ -326,9 +343,27 @@
       "type": "subMenu",
       "item": {
         "secured": false,
-        "name": "Vel PID1",
+        "name": "Yaw PID",
+        "variableName": "YawPID",
         "id": 19,
         "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 19,
+      "type": "boolItem",
+      "defaultValue": "false",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Yaw PID",
+        "variableName": "YawPIDToggle",
+        "id": 35,
+        "eepromAddress": 37,
+        "functionName": "toggleYawPID",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
