@@ -11,6 +11,10 @@
 #define MENU_MAGIC_KEY 0xfade
 #endif 
 
+//#define BT_RX 19
+//#define BT_TX 20
+
+
 
 double ofsetAngle = 1.7;
 float pitchAngle;
@@ -22,9 +26,15 @@ double x_vel = 0.0;  //in meters per second
 double yaw_rate = 0.0; //in rad per second
 const float wheelRadius = 0.0325; //in meters
 const float wheelSeparation = 0.172; //in meters
+float manualOfsetAngle = 0.77;
 
 const int STATE_PRINT_INTERVAL = 200;
 unsigned long lastEncoderPrint = 0;
+
+
+//Bluetooth serial communication
+//String inputString = "";
+//bool stringComplete = false;
 
 
 
@@ -65,6 +75,8 @@ double KpVel = 20;
 double KdVel = 0.0;
 double KiVel = 10;
 int velSampleTime = 20;
+bool velPidOn = true;
+float velAngleLimit = 2.0;
 
 //target angle
 double target_angle = 0;
@@ -74,9 +86,21 @@ int speed_set = 0;
 
 double target_vel = 0;
 
+//PID values for linear velocity control
+double KpYaw = 10;   
+double KdYaw = 0.1;
+double KiYaw = 5;
+int yawSampleTime = 200;
+bool yawPidOn = true;
+float yawRateLimit = 100;
+
+double yawDelta = 0;
+double target_YawRate = 0;
+
 PID pidPitch(&pitchInput, &pitchOutput, &target_angle, KpPitch, KiPitch, KdPitch, REVERSE);
 
 PID pidVel(&x_vel, &ofsetAngle, &target_vel, KpVel, KiVel, KdVel, DIRECT);
+PID pidYaw(&yaw_rate, &yawDelta, &target_YawRate, KpYaw, KiYaw, KdYaw, REVERSE);
 
 
 
@@ -118,14 +142,25 @@ void angleControl(){
     pitchInput = pitchAngle + ofsetAngle;
     pidPitch.Compute();
     speed_set = pitchOutput;
-    motors.setSpeeds(speed_set, speed_set);
+    motors.setSpeeds(speed_set+(int)yawDelta, speed_set-(int)yawDelta);
     
 }
 
 void speedControl(){
+    if(velPidOn){
     pidVel.Compute();
+    
     //speed_set = pitchOutput;
-    //motors.setSpeeds(speed_set, speed_set);  
+    //motors.setSpeeds(speed_set, speed_set); 
+    } 
+
+    if(yawPidOn){
+        pidYaw.Compute();
+        
+        //speed_set = pitchOutput;
+        //motors.setSpeeds(speed_set, speed_set); 
+    } 
+
 }
 
 
@@ -156,6 +191,10 @@ void updateMenuValues(){
     menuVel.setFloatValue(x_vel);
     menuYawRate.setFloatValue(yaw_rate);
 
+    if(velPidOn){
+        menuPitchOfset.setFromFloatingPointValue(ofsetAngle);
+    }
+
     setLedColor(bnoCalib);
     }
 }
@@ -178,20 +217,113 @@ void calculateVelocities(){
 
 }
 
+
+void processCommand(String command) {
+    command.trim();
+    /* if (command.startsWith("ma ")) {
+        int speed = command.substring(3).toInt();
+        motors.setMotorA(speed);
+        Serial.printf("Setting Motor A to %d%%\n", speed);
+    }
+    else if (command.startsWith("mb ")) {
+        int speed = command.substring(3).toInt();
+        motors.setMotorB(speed);
+        Serial.printf("Setting Motor B to %d%%\n", speed);
+    }
+    else if (command.startsWith("both ")) {
+        int speed = command.substring(5).toInt();
+        motors.setSpeeds(speed, speed);
+        Serial.printf("Setting both motors to %d%%\n", speed);
+    }
+    else if (command == "stop") {
+        motors.stop();
+        Serial.println("Stopping all motors");
+    }
+    else if (command == "reset") {
+        motors.resetEncoders();
+        Serial.println("Resetting encoder counts");
+    }
+    else if (command == "help") {
+        Serial.println("Available commands:");
+        Serial.println("ma <speed> - Set Motor A speed (-100 to 100)");
+        Serial.println("mb <speed> - Set Motor B speed (-100 to 100)");
+        Serial.println("both <speed> - Set both motors speed");
+        Serial.println("stop - Stop all motors");
+        Serial.println("reset - Reset encoder counts");
+        Serial.println("help - Show this help");
+    }
+    else {
+        Serial.println("Unknown command. Type 'help' for available commands");
+    } */
+
+    if (command.startsWith("kpp ")) {
+        KpPitch = command.substring(4).toFloat();
+        menuKpPitch.setFromFloatingPointValue(KpPitch);
+        Serial.printf("Setting kp to %f\n Setting kd to %f\n Setting ki to %f\n", pidPitch.GetKp(), pidPitch.GetKd(), pidPitch.GetKi());
+    
+    }
+    else if (command.startsWith("kip ")) {
+        KiPitch = command.substring(4).toFloat();
+        menuKiPitch.setFromFloatingPointValue(KiPitch);
+        //Serial1.printf("Setting kp to %f\n Setting kd to %f\n Setting ki to %f\n", pidPitch.GetKp(), pidPitch.GetKd(), pidPitch.GetKi());
+    
+    }
+    else if (command.startsWith("kdp ")) {
+        KdPitch = command.substring(4).toFloat();
+        menuKdPitch.setFromFloatingPointValue(KdPitch);
+        //Serial1.printf("Setting kp to %f\n Setting kd to %f\n Setting ki to %f\n", pidPitch.GetKp(), pidPitch.GetKd(), pidPitch.GetKi());
+    
+    }
+    else if (command.startsWith("stp ")) {
+        pitchSampleTime = command.substring(4).toInt();
+        menuPeriodP.setCurrentValue(pitchSampleTime);
+        //Serial1.printf("Setting pitch loop to %d%%\n", pitchSampleTime);
+    
+    }
+
+    else if (command.startsWith("oa ")) {
+        if(!velPidOn){
+            ofsetAngle = command.substring(3).toFloat();
+        }
+        
+    }
+    else if (command == "save") {
+        menuSaveValues.changeOccurred(false);
+
+
+        Serial.println("PID values saved to EEPROM");
+        //Serial1.println("PID values saved to EEPROM");
+      }
+
+    else {
+        Serial.println("Unknown command. Type 'kpp', 'kip', 'kdp' for change");
+        //Serial1.println("Unknown command. Type 'kpp', 'kip', 'kdp' for change");
+    }
+    // pidPitch.SetTunings(KpPitch, KiPitch, KdPitch);
+    // Serial.printf("Setting kp to %f\n Setting kd to %f\n Setting ki to %f\n", pid.GetKp(), pid.GetKd(), pid.GetKi());
+
+
+}
+
 void setup() {
     
 
     Serial.begin(115200);
+    //Serial1.begin(9600, SERIAL_8N1, BT_RX, BT_TX); // Speed, Mode, RX pin, TX pin
 
-    Serial.println("serial started");
+    Serial.println("Serial started");
+    //Serial1.println("//Serial1 started");
 
     EEPROM.begin(EEPROM_SIZE);
     Serial.println("EEPROM initialized"); 
+    //Serial1.println("EEPROM initialized"); 
     
     //EEPROM.begin(EEPROM_SIZE);
     delay(100);
     motors.init();
-    Serial.println("\nMotor Controller Test with TB6612FNG");
+    //inputString.reserve(200);
+    
+    //Serial.println("\nMotor Controller Test with TB6612FNG");
     setupMenu();
     menuMgr.load(MENU_MAGIC_KEY);
 
@@ -201,12 +333,19 @@ void setup() {
     KiPitch = menuKiPitch.getAsFloatingPointValue();
     pitchSampleTime = menuPeriodP.getCurrentValue();
     ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
+    //manualOfsetAngle = ofsetAngle;
 
     //Assign Velocity PID values
     KpVel = menuKpVel.getAsFloatingPointValue();
     KdVel = menuKdVel.getAsFloatingPointValue();
     KiVel = menuKiVel.getAsFloatingPointValue();
     velSampleTime = menuPeriodV.getCurrentValue();
+
+    //Assign Yaw raye PID values
+    KpYaw = menuKpYaw.getAsFloatingPointValue();
+    KdYaw = menuKdYaw.getAsFloatingPointValue();
+    KiYaw = menuKiYaw.getAsFloatingPointValue();
+    yawSampleTime = menuPeriodY.getCurrentValue();
 
     
 
@@ -217,9 +356,11 @@ void setup() {
     //setup bno
     if (!bno.begin()) {
         Serial.println("BNO055 initialization failed");
+        //Serial1.println("BNO055 initialization failed");
         while (1);
     } else {
         Serial.println("BNO055 initialized successfully");
+        //Serial1.println("BNO055 initialized successfully");
 
     }
 
@@ -229,13 +370,25 @@ void setup() {
     pidPitch.SetSampleTime(pitchSampleTime);
     pidPitch.SetTunings(KpPitch, KiPitch, KdPitch);
     Serial.printf("Loaded Pitch PID values - Kp: %f, Ki: %f, Kd: %f\n", KpPitch, KiPitch, KdPitch);
+    //Serial1.printf("Loaded Pitch PID values - Kp: %f, Ki: %f, Kd: %f\n", KpPitch, KiPitch, KdPitch);
 
      //setup Velocity PID
      pidVel.SetMode(AUTOMATIC);  
-     pidVel.SetOutputLimits(-3.0, 3.0); 
+     pidVel.SetOutputLimits(-velAngleLimit, velAngleLimit); 
      pidVel.SetSampleTime(velSampleTime);
      pidVel.SetTunings(KpVel, KiVel, KdVel);
      Serial.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpVel, KiVel, KdVel);
+     //Serial1.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpVel, KiVel, KdVel);
+
+     //setup Yaw rate PID
+     pidYaw.SetMode(AUTOMATIC);  
+     pidYaw.SetOutputLimits(-yawRateLimit, yawRateLimit); 
+     pidYaw.SetSampleTime(yawSampleTime);
+     pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
+     Serial.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpYaw, KiYaw, KdYaw);
+     //Serial1.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpVel, KiVel, KdVel);
+
+     motors.setMeasurementPeriod(velSampleTime);
  
 
 }
@@ -246,6 +399,17 @@ void loop() {
     angleControl();
     speedControl();
     updateMenuValues();
+    /* while (//Serial1.available()) {
+        char inChar = (char)//Serial1.read();
+        if (inChar == '\n' || inChar == '\r') {
+            if (inputString.length() > 0) {
+                processCommand(inputString);
+                inputString = "";
+            }
+        } else {
+            inputString += inChar;
+        }
+    } */
     
     
     //setLedColor(bno.calibration());
@@ -332,6 +496,9 @@ void CALLBACK_FUNCTION SetKpVel(int id) {
 
 
 void CALLBACK_FUNCTION SetKiYaw(int id) {
+    KiYaw = menuKiPitch.getAsFloatingPointValue();
+    pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
+    Serial.println("Yaw Ki changed");
     // TODO - your menu change code
 }
 
@@ -353,14 +520,21 @@ void CALLBACK_FUNCTION SetKdVel(int id) {
 
 
 void CALLBACK_FUNCTION setTargetYawRa(int id) {
+    target_YawRate = menuSetYaw.getAsFloatingPointValue();
     // TODO - your menu change code
 }
 
 
 void CALLBACK_FUNCTION SetPitchOfset(int id) {
-    ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
+    if (!velPidOn){
+    manualOfsetAngle = menuPitchOfset.getAsFloatingPointValue();
+    ofsetAngle = manualOfsetAngle;
     Serial.print("Pitch ofset changed to");
     Serial.println(ofsetAngle);
+    
+    } else {
+        //menuPitchOfset.setFromFloatingPointValue(ofsetAngle);
+    }
     // TODO - your menu change code
 }
 
@@ -395,6 +569,9 @@ void CALLBACK_FUNCTION SetKpPitch(int id) {
 
 
 void CALLBACK_FUNCTION SetKpYaw(int id) {
+    KpYaw = menuKpPitch.getAsFloatingPointValue();
+    pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
+    Serial.println("Yaw Kp changed");
     // TODO - your menu change code
 }
 
@@ -402,6 +579,11 @@ void CALLBACK_FUNCTION SetKpYaw(int id) {
 void CALLBACK_FUNCTION setVelPIDPeriod(int id) {
     velSampleTime = menuPeriodV.getCurrentValue();
     pidVel.SetSampleTime(pitchSampleTime);
+    //motors.setMeasurementPeriod(velSampleTime);
+    if (yawSampleTime>velSampleTime){
+        motors.setMeasurementPeriod(velSampleTime);
+
+    }
     // TODO - your menu change code
 }
 
@@ -416,23 +598,51 @@ void CALLBACK_FUNCTION SetKdPitch(int id) {
 
 
 void CALLBACK_FUNCTION SetKdYaw(int id) {
+    KdYaw = menuKdPitch.getAsFloatingPointValue();
+    pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
+    Serial.println("Yaw Kp changed");
     // TODO - your menu change code
 }
 
 
 void CALLBACK_FUNCTION setYawPIDPeriod(int id) {
+    yawSampleTime = menuPeriodY.getCurrentValue();
+    pidYaw.SetSampleTime(yawSampleTime);
+    if (yawSampleTime<velSampleTime){
+        motors.setMeasurementPeriod(yawSampleTime);
+
+    }
     // TODO - your menu change code
 }
 
 
 void CALLBACK_FUNCTION setTargetVel(int id) {
+    target_vel = menuSetVel.getAsFloatingPointValue();
     // TODO - your menu change code
 }
 
 void CALLBACK_FUNCTION toggleYawPID(int id) {
-    // TODO - your menu change code
+    if (menuYawPIDToggle.getBoolean()){
+        yawPidOn = true;
+        pidYaw.SetMode(AUTOMATIC);
+    } else {
+        yawPidOn = false;
+        yawDelta = 0.0;
+        pidYaw.SetMode(MANUAL);
+        
+    }
+    
 }
 
 void CALLBACK_FUNCTION toggleVelPid(int id) {
+    if (menuVelPIDToggle.getBoolean()){
+        velPidOn = true;
+        pidVel.SetMode(AUTOMATIC);
+    } else {
+        velPidOn = false;
+        menuPitchOfset.setFromFloatingPointValue(manualOfsetAngle);
+        pidVel.SetMode(MANUAL);
+        
+    }
     // TODO - your menu change code
 }
