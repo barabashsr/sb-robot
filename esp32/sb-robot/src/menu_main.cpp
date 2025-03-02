@@ -17,7 +17,7 @@
 
 
 double ofsetAngle = 1.7;
-float pitchAngle;
+double pitchAngle;
 float speedA = 0.0; //in rad per second
 float speedB = 0.0; //in radian per second
 float positionA = 0; //in radians
@@ -29,7 +29,7 @@ const float wheelSeparation = 0.172; //in meters
 float manualOfsetAngle = 0.77;
 
 const int STATE_PRINT_INTERVAL = 200;
-unsigned long lastEncoderPrint = 0;
+unsigned long lastPrintTime = 0;
 
 
 //Bluetooth serial communication
@@ -56,19 +56,33 @@ const int MOTOR_B_ENC_B = 5;
 const int BNO_SDA = 15;
 const int BNO_SCL = 16;
 
-//#define RGB_BUILTIN 48
 
-//PID
-//double originalSetpoint = 173;
-//double setpoint = originalSetpoint;
-double movingAngleOffset = 0;
-double pitchInput, pitchOutput;
+//PID controllers vars
+
+double control_output = 0.0;
+
+//PID values for Palstance control
+double currentPalst; //palst pid input
+double targetPalst;
+
+double KpPalst = 20;   
+double KdPalst = 0.6;
+double KiPalst = 40.9;
+int palstSampleTime = 10;
+bool palstPidOn = true;
+const int pidLimitPalst = 200;
+
 
 //PID values for Pitch control
+double pitchInput;
 double KpPitch = 20;   
 double KdPitch = 0.6;
 double KiPitch = 40.9;
 int pitchSampleTime = 10;
+bool pitchPidOn = true;
+const float pidLimitPitch = 100.0;
+
+double target_angle = 0;
 
 //PID values for linear velocity control
 double KpVel = 20;   
@@ -76,10 +90,9 @@ double KdVel = 0.0;
 double KiVel = 10;
 int velSampleTime = 20;
 bool velPidOn = true;
-float velAngleLimit = 2.0;
+const float velAngleLimit = 2.0;
 
 //target angle
-double target_angle = 0;
 int speed_set = 0;
 
 //target velocity
@@ -92,14 +105,16 @@ double KdYaw = 0.1;
 double KiYaw = 5;
 int yawSampleTime = 200;
 bool yawPidOn = true;
-float yawRateLimit = 100;
+const float yawRateLimit = 200;
 
 double yawDelta = 0;
 double target_YawRate = 0;
 
-PID pidPitch(&pitchInput, &pitchOutput, &target_angle, KpPitch, KiPitch, KdPitch, REVERSE);
+PID pidPalst(&currentPalst, &control_output, &targetPalst, KpPalst, KiPalst, KdPalst, REVERSE);
 
-PID pidVel(&x_vel, &ofsetAngle, &target_vel, KpVel, KiVel, KdVel, DIRECT);
+PID pidPitch(&pitchAngle, &targetPalst, &target_angle, KpPitch, KiPitch, KdPitch, REVERSE);
+
+PID pidVel(&x_vel, &target_angle, &target_vel, KpVel, KiVel, KdVel, DIRECT);
 PID pidYaw(&yaw_rate, &yawDelta, &target_YawRate, KpYaw, KiYaw, KdYaw, REVERSE);
 
 
@@ -139,12 +154,23 @@ void setLedColor(int calibration) {
 
 void angleControl(){
     pitchAngle = bno.getAngleY();
-    pitchInput = pitchAngle + ofsetAngle;
+    currentPalst = bno.getPalstance();
+    //pitchInput = pitchAngle + ofsetAngle;
+    if(pitchPidOn){
     pidPitch.Compute();
-    speed_set = pitchOutput;
-    motors.setSpeeds(speed_set+(int)yawDelta, speed_set-(int)yawDelta);
+    }
+    if(palstPidOn){
+    pidPalst.Compute();
+    } else {
+        control_output = 0;
+    }
+    //speed_set = c;
+    motors.setSpeeds((int)control_output+(int)yawDelta, (int)control_output-(int)yawDelta);
     
 }
+
+
+
 
 void speedControl(){
     if(velPidOn){
@@ -152,14 +178,18 @@ void speedControl(){
     
     //speed_set = pitchOutput;
     //motors.setSpeeds(speed_set, speed_set); 
-    } 
+    } else {
+        target_angle = 0;
+    }
 
     if(yawPidOn){
         pidYaw.Compute();
         
         //speed_set = pitchOutput;
         //motors.setSpeeds(speed_set, speed_set); 
-    } 
+    } else {
+        yawDelta = 0;
+    }
 
 }
 
@@ -167,9 +197,9 @@ void speedControl(){
 void updateMenuValues(){
 
     unsigned long currentMillis = millis();
-    if (currentMillis - lastEncoderPrint >= STATE_PRINT_INTERVAL) {
-        lastEncoderPrint = currentMillis;
-        Serial.printf("A: Pose: %.1f (Vel: %.1f rad/s), B: Pose: %.1f (Vel: %.1f rad/s)\n",
+    if (currentMillis - lastPrintTime >= STATE_PRINT_INTERVAL) {
+        lastPrintTime = currentMillis;
+        /* Serial.printf("A: Pose: %.1f (Vel: %.1f rad/s), B: Pose: %.1f (Vel: %.1f rad/s)\n",
             positionA,
             speedA,
             positionB,
@@ -182,7 +212,7 @@ void updateMenuValues(){
         Serial.print(" error: ");
         Serial.print(error);
         Serial.print(" pitchOutput: ");
-        Serial.print(speed_set);
+        Serial.print(speed_set); */
     //float angleY = bno.getAngleY();
     menuPitch.setFloatValue(pitchAngle);
     int bnoCalib = bno.calibration();
@@ -328,24 +358,41 @@ void setup() {
     menuMgr.load(MENU_MAGIC_KEY);
 
     //Assign Pitc PID values
-    KpPitch = menuKpPitch.getAsFloatingPointValue();
-    KdPitch = menuKdPitch.getAsFloatingPointValue();
-    KiPitch = menuKiPitch.getAsFloatingPointValue();
-    pitchSampleTime = menuPeriodP.getCurrentValue();
-    ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
+    // KpPitch = menuKpPitch.getAsFloatingPointValue();
+    // KdPitch = menuKdPitch.getAsFloatingPointValue();
+    // KiPitch = menuKiPitch.getAsFloatingPointValue();
+    // pitchSampleTime = menuPeriodP.getCurrentValue();
+    // ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
     //manualOfsetAngle = ofsetAngle;
+    
+    //Assign Palst PID values
+    menuKpPalst.triggerCallback();
+    menuKdPalst.triggerCallback();
+    menuKiPalst.triggerCallback();
+    menuPeriodPalst.triggerCallback();
+    menuPalstPIDToggle.triggerCallback();
+
+    //Assign Pitch PID values
+    menuKpPitch.triggerCallback();
+    menuKdPitch.triggerCallback();
+    menuKiPitch.triggerCallback();
+    menuPeriodP.triggerCallback();
+    //ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
+    menuPitchPIDToggle.triggerCallback();
 
     //Assign Velocity PID values
-    KpVel = menuKpVel.getAsFloatingPointValue();
-    KdVel = menuKdVel.getAsFloatingPointValue();
-    KiVel = menuKiVel.getAsFloatingPointValue();
-    velSampleTime = menuPeriodV.getCurrentValue();
+    menuKpVel.triggerCallback();
+    menuKdVel.triggerCallback();
+    menuKiVel.triggerCallback();
+    menuPeriodV.triggerCallback();
+    menuVelPIDToggle.triggerCallback();
 
     //Assign Yaw raye PID values
-    KpYaw = menuKpYaw.getAsFloatingPointValue();
-    KdYaw = menuKdYaw.getAsFloatingPointValue();
-    KiYaw = menuKiYaw.getAsFloatingPointValue();
-    yawSampleTime = menuPeriodY.getCurrentValue();
+    menuKpYaw.triggerCallback();
+    menuKdYaw.triggerCallback();
+    menuKiYaw.triggerCallback();
+    menuPeriodY.triggerCallback();
+    menuYawPIDToggle.triggerCallback();
 
     
 
@@ -364,27 +411,34 @@ void setup() {
 
     }
 
+
+    //setup Palst PID
+    pidPalst.SetMode(AUTOMATIC);  
+    pidPalst.SetOutputLimits(-pidLimitPalst, pidLimitPalst); 
+    Serial.printf("Loaded Palst PID values - Kp: %f, Ki: %f, Kd: %f\n", KpPalst, KiPalst, KdPalst);
+
+
     //setup Pitch PID
     pidPitch.SetMode(AUTOMATIC);  
-    pidPitch.SetOutputLimits(-100, 100); 
-    pidPitch.SetSampleTime(pitchSampleTime);
-    pidPitch.SetTunings(KpPitch, KiPitch, KdPitch);
+    pidPitch.SetOutputLimits(-pidLimitPitch, pidLimitPitch); 
+    // pidPitch.SetSampleTime(pitchSampleTime);
+    // pidPitch.SetTunings(KpPitch, KiPitch, KdPitch);
     Serial.printf("Loaded Pitch PID values - Kp: %f, Ki: %f, Kd: %f\n", KpPitch, KiPitch, KdPitch);
     //Serial1.printf("Loaded Pitch PID values - Kp: %f, Ki: %f, Kd: %f\n", KpPitch, KiPitch, KdPitch);
 
      //setup Velocity PID
      pidVel.SetMode(AUTOMATIC);  
      pidVel.SetOutputLimits(-velAngleLimit, velAngleLimit); 
-     pidVel.SetSampleTime(velSampleTime);
-     pidVel.SetTunings(KpVel, KiVel, KdVel);
+    //  pidVel.SetSampleTime(velSampleTime);
+    //  pidVel.SetTunings(KpVel, KiVel, KdVel);
      Serial.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpVel, KiVel, KdVel);
      //Serial1.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpVel, KiVel, KdVel);
 
      //setup Yaw rate PID
      pidYaw.SetMode(AUTOMATIC);  
      pidYaw.SetOutputLimits(-yawRateLimit, yawRateLimit); 
-     pidYaw.SetSampleTime(yawSampleTime);
-     pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
+    //  pidYaw.SetSampleTime(yawSampleTime);
+    //  pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
      Serial.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpYaw, KiYaw, KdYaw);
      //Serial1.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpVel, KiVel, KdVel);
 
@@ -396,6 +450,7 @@ void setup() {
 void loop() {
     taskManager.runLoop();
     calculateVelocities();
+    bno.update();
     angleControl();
     speedControl();
     updateMenuValues();
@@ -418,122 +473,75 @@ void loop() {
 }
 
 
-void CALLBACK_FUNCTION StopB(int id) {
-    // TODO - your menu change code
-}
+
+/* 
+
+Palstance control pid loop
 
 
-void CALLBACK_FUNCTION SetKo(int id) {
-    // TODO - your menu change code
-}
+ */
 
-
-void CALLBACK_FUNCTION StopA(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetKp(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION ResetTicsA(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetKd(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION ResetTicsB(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetPIDHz(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetKi(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetSpeedA(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetThreshold(int id) {
+ void CALLBACK_FUNCTION SetKdPalst(int id) {
+    KdPalst = menuKdPitch.getAsFloatingPointValue();
+    pidPalst.SetTunings(KpPalst, KiPalst, KdPalst);
+    Serial.println("Palst Kd changed");
     // TODO - your menu change code
 }
 
 
 
-void CALLBACK_FUNCTION SavePID(int id) {
-    menuMgr.save(MENU_MAGIC_KEY);
-    EEPROM.commit();
-    Serial.println("Saved!!!");
+void CALLBACK_FUNCTION SetKiPalst(int id) {
+    KiPalst = menuKiPitch.getAsFloatingPointValue();
+    pidPalst.SetTunings(KpPalst, KiPalst, KdPalst);
+    Serial.println("Palst Ki changed");
     // TODO - your menu change code
 }
 
 
-void CALLBACK_FUNCTION SetSpeedB(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetKpVel(int id) {
-    KpVel = menuKpPitch.getAsFloatingPointValue();
-    pidVel.SetTunings(KpVel, KiVel, KdVel);
-    Serial.println("Vel Kp changed");
-
-}
-
-
-void CALLBACK_FUNCTION SetKiYaw(int id) {
-    KiYaw = menuKiPitch.getAsFloatingPointValue();
-    pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
-    Serial.println("Yaw Ki changed");
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION setPitchPIDPeriod(int id) {
-    pitchSampleTime = menuPeriodP.getCurrentValue();
-    pidPitch.SetSampleTime(pitchSampleTime);
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetKdVel(int id) {
-    KdVel = menuKdPitch.getAsFloatingPointValue();
-    pidVel.SetTunings(KpVel, KiVel, KdVel);
-    Serial.println("Vel Kd changed");
-    // TODO - your menu change code
-}
-
-
-
-void CALLBACK_FUNCTION setTargetYawRa(int id) {
-    target_YawRate = menuSetYaw.getAsFloatingPointValue();
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetPitchOfset(int id) {
-    if (!velPidOn){
-    manualOfsetAngle = menuPitchOfset.getAsFloatingPointValue();
-    ofsetAngle = manualOfsetAngle;
-    Serial.print("Pitch ofset changed to");
-    Serial.println(ofsetAngle);
-    
+void CALLBACK_FUNCTION togglePalstPid(int id) {
+    if (menuPalstPIDToggle.getBoolean()){
+        palstPidOn = true;
+        pidPalst.SetMode(AUTOMATIC);
     } else {
-        //menuPitchOfset.setFromFloatingPointValue(ofsetAngle);
+        palstPidOn = false;
+        //menuPitchOfset.setFromFloatingPointValue(manualOfsetAngle);
+        pidPalst.SetMode(MANUAL);
+        
+    }
+}
+
+
+void CALLBACK_FUNCTION SetKpPalst(int id) {
+    KpPalst = menuKpPitch.getAsFloatingPointValue();
+    pidPalst.SetTunings(KpPalst, KiPalst, KdPalst);
+    Serial.println("Palst Kp changed");
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setPalstPIDPeriod(int id) {
+    palstSampleTime = menuPeriodPalst.getCurrentValue();
+    pidPalst.SetSampleTime(palstSampleTime);
+    // TODO - your menu change code
+}
+
+/* 
+
+Pitch control pid loop
+
+
+ */
+
+
+void CALLBACK_FUNCTION togglePitchPid(int id) {
+    if (menuPitchPIDToggle.getBoolean()){
+        pitchPidOn = true;
+        pidPitch.SetMode(AUTOMATIC);
+    } else {
+        pitchPidOn = false;
+        //menuPitchOfset.setFromFloatingPointValue(manualOfsetAngle);
+        pidPitch.SetMode(MANUAL);
+        
     }
     // TODO - your menu change code
 }
@@ -547,19 +555,6 @@ void CALLBACK_FUNCTION SetKiPitch(int id) {
 }
 
 
-void CALLBACK_FUNCTION getBNOCalib(int id) {
-    // TODO - your menu change code
-}
-
-
-void CALLBACK_FUNCTION SetKiVel(int id) {
-    KiVel = menuKiPitch.getAsFloatingPointValue();
-    pidVel.SetTunings(KpVel, KiVel, KdVel);
-    Serial.println("Vel Ki changed");
-    // TODO - your menu change code
-}
-
-
 void CALLBACK_FUNCTION SetKpPitch(int id) {
     KpPitch = menuKpPitch.getAsFloatingPointValue();
     pidPitch.SetTunings(KpPitch, KiPitch, KdPitch);
@@ -568,10 +563,64 @@ void CALLBACK_FUNCTION SetKpPitch(int id) {
 }
 
 
-void CALLBACK_FUNCTION SetKpYaw(int id) {
-    KpYaw = menuKpPitch.getAsFloatingPointValue();
-    pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
-    Serial.println("Yaw Kp changed");
+void CALLBACK_FUNCTION SetKdPitch(int id) {
+    KdPitch = menuKdPitch.getAsFloatingPointValue();
+    pidPitch.SetTunings(KpPitch, KiPitch, KdPitch);
+    Serial.println("Pitch Kd changed");
+
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setPitchPIDPeriod(int id) {
+    pitchSampleTime = menuPeriodP.getCurrentValue();
+    pidPitch.SetSampleTime(pitchSampleTime);
+    // TODO - your menu change code
+}
+
+
+/* 
+
+Velocity control pid loop
+
+
+ */
+
+
+ void CALLBACK_FUNCTION toggleVelPid(int id) {
+    if (menuVelPIDToggle.getBoolean()){
+        velPidOn = true;
+        pidVel.SetMode(AUTOMATIC);
+    } else {
+        velPidOn = false;
+        menuPitchOfset.setFromFloatingPointValue(manualOfsetAngle);
+        pidVel.SetMode(MANUAL);
+        
+    }
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION SetKpVel(int id) {
+    KpVel = menuKpPitch.getAsFloatingPointValue();
+    pidVel.SetTunings(KpVel, KiVel, KdVel);
+    Serial.println("Vel Kp changed");
+
+}
+
+
+void CALLBACK_FUNCTION SetKdVel(int id) {
+    KdVel = menuKdPitch.getAsFloatingPointValue();
+    pidVel.SetTunings(KpVel, KiVel, KdVel);
+    Serial.println("Vel Kd changed");
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION SetKiVel(int id) {
+    KiVel = menuKiPitch.getAsFloatingPointValue();
+    pidVel.SetTunings(KpVel, KiVel, KdVel);
+    Serial.println("Vel Ki changed");
     // TODO - your menu change code
 }
 
@@ -588,13 +637,33 @@ void CALLBACK_FUNCTION setVelPIDPeriod(int id) {
 }
 
 
-void CALLBACK_FUNCTION SetKdPitch(int id) {
-    KdPitch = menuKdPitch.getAsFloatingPointValue();
-    pidPitch.SetTunings(KpPitch, KiPitch, KdPitch);
-    Serial.println("Pitch Kd changed");
 
+/* 
+
+Yaw rate control pid loop
+
+
+ */
+
+
+
+
+void CALLBACK_FUNCTION SetKiYaw(int id) {
+    KiYaw = menuKiPitch.getAsFloatingPointValue();
+    pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
+    Serial.println("Yaw Ki changed");
     // TODO - your menu change code
 }
+
+
+
+void CALLBACK_FUNCTION SetKpYaw(int id) {
+    KpYaw = menuKpPitch.getAsFloatingPointValue();
+    pidYaw.SetTunings(KpYaw, KiYaw, KdYaw);
+    Serial.println("Yaw Kp changed");
+    // TODO - your menu change code
+}
+
 
 
 void CALLBACK_FUNCTION SetKdYaw(int id) {
@@ -616,11 +685,6 @@ void CALLBACK_FUNCTION setYawPIDPeriod(int id) {
 }
 
 
-void CALLBACK_FUNCTION setTargetVel(int id) {
-    target_vel = menuSetVel.getAsFloatingPointValue();
-    // TODO - your menu change code
-}
-
 void CALLBACK_FUNCTION toggleYawPID(int id) {
     if (menuYawPIDToggle.getBoolean()){
         yawPidOn = true;
@@ -634,15 +698,48 @@ void CALLBACK_FUNCTION toggleYawPID(int id) {
     
 }
 
-void CALLBACK_FUNCTION toggleVelPid(int id) {
-    if (menuVelPIDToggle.getBoolean()){
-        velPidOn = true;
-        pidVel.SetMode(AUTOMATIC);
+
+/* 
+
+Utilities
+
+
+ */
+
+void CALLBACK_FUNCTION SavePID(int id) {
+    menuMgr.save(MENU_MAGIC_KEY);
+    EEPROM.commit();
+    Serial.println("Saved!!!");
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION SetPitchOfset(int id) {
+    if (!velPidOn){
+    manualOfsetAngle = menuPitchOfset.getAsFloatingPointValue();
+    ofsetAngle = manualOfsetAngle;
+    Serial.print("Pitch ofset changed to");
+    Serial.println(ofsetAngle);
+    
     } else {
-        velPidOn = false;
-        menuPitchOfset.setFromFloatingPointValue(manualOfsetAngle);
-        pidVel.SetMode(MANUAL);
-        
+        //menuPitchOfset.setFromFloatingPointValue(ofsetAngle);
     }
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION getBNOCalib(int id) {
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setTargetYawRa(int id) {
+    target_YawRate = menuSetYaw.getAsFloatingPointValue();
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setTargetVel(int id) {
+    target_vel = menuSetVel.getAsFloatingPointValue();
     // TODO - your menu change code
 }

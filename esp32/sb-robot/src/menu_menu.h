@@ -28,7 +28,12 @@ extern GraphicsDeviceRenderer renderer;
 
 
 // Global Menu Item exports
+extern AnalogMenuItem menuBNOCalib;
+extern BackMenuItem menuBackState;
+extern SubMenuItem menuState;
+extern FloatMenuItem menuYawRate;
 extern AnalogMenuItem menuSetYaw;
+extern FloatMenuItem menuVel;
 extern AnalogMenuItem menuSetVel;
 extern AnalogMenuItem menuPeriodY;
 extern AnalogMenuItem menuKdYaw;
@@ -48,41 +53,51 @@ extern AnalogMenuItem menuPeriodP;
 extern AnalogMenuItem menuKdPitch;
 extern AnalogMenuItem menuKiPitch;
 extern AnalogMenuItem menuKpPitch;
+extern BooleanMenuItem menuPitchPIDToggle;
 extern BackMenuItem menuBackPitchPID;
 extern SubMenuItem menuPitchPID;
-extern AnalogMenuItem menuBNOCalib;
-extern BackMenuItem menuBackState;
-extern SubMenuItem menuState;
+extern AnalogMenuItem menuPeriodPalst;
+extern AnalogMenuItem menuKdPalst;
+extern AnalogMenuItem menuKiPalst;
+extern AnalogMenuItem menuKpPalst;
+extern BooleanMenuItem menuPalstPIDToggle;
+extern BackMenuItem menuBackPalstPID;
+extern SubMenuItem menuPalstPID;
 extern ActionMenuItem menuSaveValues;
 extern AnalogMenuItem menuPitchOfset;
-extern FloatMenuItem menuYawRate;
-extern FloatMenuItem menuVel;
 extern FloatMenuItem menuPitch;
+extern FloatMenuItem menuPalstance;
 
 // Provide a wrapper to get hold of the root menu item and export setupMenu
-inline MenuItem& rootMenuItem() { return menuPitch; }
+inline MenuItem& rootMenuItem() { return menuPalstance; }
 void setupMenu();
 
 // Callback functions must always include CALLBACK_FUNCTION after the return type
 #define CALLBACK_FUNCTION
 
 void CALLBACK_FUNCTION SavePID(int id);
+void CALLBACK_FUNCTION SetKdPalst(int id);
 void CALLBACK_FUNCTION SetKdPitch(int id);
 void CALLBACK_FUNCTION SetKdVel(int id);
 void CALLBACK_FUNCTION SetKdYaw(int id);
+void CALLBACK_FUNCTION SetKiPalst(int id);
 void CALLBACK_FUNCTION SetKiPitch(int id);
 void CALLBACK_FUNCTION SetKiVel(int id);
 void CALLBACK_FUNCTION SetKiYaw(int id);
+void CALLBACK_FUNCTION SetKpPalst(int id);
 void CALLBACK_FUNCTION SetKpPitch(int id);
 void CALLBACK_FUNCTION SetKpVel(int id);
 void CALLBACK_FUNCTION SetKpYaw(int id);
 void CALLBACK_FUNCTION SetPitchOfset(int id);
 void CALLBACK_FUNCTION getBNOCalib(int id);
+void CALLBACK_FUNCTION setPalstPIDPeriod(int id);
 void CALLBACK_FUNCTION setPitchPIDPeriod(int id);
 void CALLBACK_FUNCTION setTargetVel(int id);
 void CALLBACK_FUNCTION setTargetYawRa(int id);
 void CALLBACK_FUNCTION setVelPIDPeriod(int id);
 void CALLBACK_FUNCTION setYawPIDPeriod(int id);
+void CALLBACK_FUNCTION togglePalstPid(int id);
+void CALLBACK_FUNCTION togglePitchPid(int id);
 void CALLBACK_FUNCTION toggleVelPid(int id);
 void CALLBACK_FUNCTION toggleYawPID(int id);
 

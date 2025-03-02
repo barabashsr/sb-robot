@@ -54,8 +54,8 @@ void MotorController::initMotor(MotorPins& motor) {
 }
 
 void MotorController::setMotorSpeed(const MotorPins& motor, int speed) {
-    speed = constrain(speed, -100, 100);
-    int pwmValue = abs(speed) * 255 / 100;
+    speed = constrain(speed, -255, 255);
+    int pwmValue = abs(speed);
 
     if (speed > 0) {
         digitalWrite(motor.in1, HIGH);

@@ -8,7 +8,7 @@
     use elsewhere.
  */
 
-// Generated for Arduino ESP32 by TcMenu 4.4.0 on 2025-03-01T19:43:00.228937Z.
+// Generated for Arduino ESP32 by TcMenu 4.4.0 on 2025-03-02T06:10:39.827315Z.
 
 #include <tcMenu.h>
 #include "menu_menu.h"
@@ -22,10 +22,19 @@ U8g2Drawable gfxDrawable(&gfx);
 GraphicsDeviceRenderer renderer(30, applicationInfo.name, &gfxDrawable);
 
 // Global Menu Item declarations
+const PROGMEM AnalogMenuInfo minfoBNOCalib = { "BNO calib.", 29, 0xffff, 3, getBNOCalib, 0, 1, "" };
+AnalogMenuItem menuBNOCalib(&minfoBNOCalib, 0, nullptr, INFO_LOCATION_PGM);
+const PROGMEM SubMenuInfo minfoState = { "State", 28, 0xffff, 0, NO_CALLBACK };
+BackMenuItem menuBackState(&minfoState, &menuBNOCalib, INFO_LOCATION_PGM);
+SubMenuItem menuState(&minfoState, &menuBackState, nullptr, INFO_LOCATION_PGM);
+const PROGMEM FloatMenuInfo minfoYawRate = { "Yaw Rate", 25, 0xffff, 3, NO_CALLBACK };
+FloatMenuItem menuYawRate(&minfoYawRate, 0.0, &menuState, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoSetYaw = { "Set Yaw", 27, 0xffff, 100, setTargetYawRa, -50, 100, "rps" };
-AnalogMenuItem menuSetYaw(&minfoSetYaw, 50, nullptr, INFO_LOCATION_PGM);
+AnalogMenuItem menuSetYaw(&minfoSetYaw, 50, &menuYawRate, INFO_LOCATION_PGM);
+const PROGMEM FloatMenuInfo minfoVel = { "Vel", 24, 0xffff, 3, NO_CALLBACK };
+FloatMenuItem menuVel(&minfoVel, 0.0, &menuSetYaw, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoSetVel = { "Set Vel", 26, 0xffff, 100, setTargetVel, -50, 100, "mps" };
-AnalogMenuItem menuSetVel(&minfoSetVel, 50, &menuSetYaw, INFO_LOCATION_PGM);
+AnalogMenuItem menuSetVel(&minfoSetVel, 50, &menuVel, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoPeriodY = { "Period Y", 33, 34, 1000, setYawPIDPeriod, 0, 1, "ms" };
 AnalogMenuItem menuPeriodY(&minfoPeriodY, 0, nullptr, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKdYaw = { "Kd Yaw", 22, 32, 500, SetKdYaw, 0, 10, "" };
@@ -60,24 +69,32 @@ const PROGMEM AnalogMenuInfo minfoKiPitch = { "Ki pitch", 5, 14, 700, SetKiPitch
 AnalogMenuItem menuKiPitch(&minfoKiPitch, 200, &menuKdPitch, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKpPitch = { "Kp pitch", 4, 12, 700, SetKpPitch, 0, 10, "" };
 AnalogMenuItem menuKpPitch(&minfoKpPitch, 300, &menuKiPitch, INFO_LOCATION_PGM);
+const PROGMEM BooleanMenuInfo minfoPitchPIDToggle = { "Pitch PID", 36, 47, 1, togglePitchPid, NAMING_ON_OFF };
+BooleanMenuItem menuPitchPIDToggle(&minfoPitchPIDToggle, true, &menuKpPitch, INFO_LOCATION_PGM);
 const PROGMEM SubMenuInfo minfoPitchPID = { "Pitch PID", 3, 0xffff, 0, NO_CALLBACK };
-BackMenuItem menuBackPitchPID(&minfoPitchPID, &menuKpPitch, INFO_LOCATION_PGM);
+BackMenuItem menuBackPitchPID(&minfoPitchPID, &menuPitchPIDToggle, INFO_LOCATION_PGM);
 SubMenuItem menuPitchPID(&minfoPitchPID, &menuBackPitchPID, &menuVelPID, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoBNOCalib = { "BNO calib.", 29, 0xffff, 3, getBNOCalib, 0, 1, "" };
-AnalogMenuItem menuBNOCalib(&minfoBNOCalib, 0, nullptr, INFO_LOCATION_PGM);
-const PROGMEM SubMenuInfo minfoState = { "State", 28, 0xffff, 0, NO_CALLBACK };
-BackMenuItem menuBackState(&minfoState, &menuBNOCalib, INFO_LOCATION_PGM);
-SubMenuItem menuState(&minfoState, &menuBackState, &menuPitchPID, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoPeriodPalst = { "Period Palst", 41, 44, 1000, setPalstPIDPeriod, 0, 1, "ms" };
+AnalogMenuItem menuPeriodPalst(&minfoPeriodPalst, 0, nullptr, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoKdPalst = { "Kd palst", 40, 42, 700, SetKdPalst, 0, 10, "" };
+AnalogMenuItem menuKdPalst(&minfoKdPalst, 5, &menuPeriodPalst, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoKiPalst = { "Ki palst", 39, 40, 700, SetKiPalst, 0, 10, "" };
+AnalogMenuItem menuKiPalst(&minfoKiPalst, 200, &menuKdPalst, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoKpPalst = { "Kp palst", 38, 38, 700, SetKpPalst, 0, 10, "" };
+AnalogMenuItem menuKpPalst(&minfoKpPalst, 300, &menuKiPalst, INFO_LOCATION_PGM);
+const PROGMEM BooleanMenuInfo minfoPalstPIDToggle = { "Palst PID", 42, 46, 1, togglePalstPid, NAMING_ON_OFF };
+BooleanMenuItem menuPalstPIDToggle(&minfoPalstPIDToggle, true, &menuKpPalst, INFO_LOCATION_PGM);
+const PROGMEM SubMenuInfo minfoPalstPID = { "Palst PID", 37, 0xffff, 0, NO_CALLBACK };
+BackMenuItem menuBackPalstPID(&minfoPalstPID, &menuPalstPIDToggle, INFO_LOCATION_PGM);
+SubMenuItem menuPalstPID(&minfoPalstPID, &menuBackPalstPID, &menuPitchPID, INFO_LOCATION_PGM);
 const PROGMEM AnyMenuInfo minfoSaveValues = { "Save", 14, 0xffff, 0, SavePID };
-ActionMenuItem menuSaveValues(&minfoSaveValues, &menuState, INFO_LOCATION_PGM);
+ActionMenuItem menuSaveValues(&minfoSaveValues, &menuPalstPID, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoPitchOfset = { "Pitch Ofset", 30, 10, 1000, SetPitchOfset, -500, 100, "deg" };
 AnalogMenuItem menuPitchOfset(&minfoPitchOfset, 0, &menuSaveValues, INFO_LOCATION_PGM);
-const PROGMEM FloatMenuInfo minfoYawRate = { "Yaw Rate", 25, 0xffff, 3, NO_CALLBACK };
-FloatMenuItem menuYawRate(&minfoYawRate, 0.0, &menuPitchOfset, INFO_LOCATION_PGM);
-const PROGMEM FloatMenuInfo minfoVel = { "Vel", 24, 0xffff, 3, NO_CALLBACK };
-FloatMenuItem menuVel(&minfoVel, 0.0, &menuYawRate, INFO_LOCATION_PGM);
 const PROGMEM FloatMenuInfo minfoPitch = { "Pitch", 23, 0xffff, 3, NO_CALLBACK };
-FloatMenuItem menuPitch(&minfoPitch, 0.0, &menuVel, INFO_LOCATION_PGM);
+FloatMenuItem menuPitch(&minfoPitch, 0.0, &menuPitchOfset, INFO_LOCATION_PGM);
+const PROGMEM FloatMenuInfo minfoPalstance = { "Palstance", 43, 0xffff, 3, NO_CALLBACK };
+FloatMenuItem menuPalstance(&minfoPalstance, 0.0, &menuPitch, INFO_LOCATION_PGM);
 
 void setupMenu() {
     // First we set up eeprom and authentication (if needed).
@@ -85,6 +102,7 @@ void setupMenu() {
     menuMgr.setEepromRef(&glArduinoEeprom);
     // Now add any readonly, non-remote and visible flags.
     menuPitch.setReadOnly(true);
+    menuPalstance.setReadOnly(true);
     menuVel.setReadOnly(true);
     menuYawRate.setReadOnly(true);
     menuBNOCalib.setReadOnly(true);
@@ -93,7 +111,7 @@ void setupMenu() {
     gfx.begin();
     renderer.setUpdatesPerSecond(5);
     switches.init(internalDigitalIo(), SWITCHES_NO_POLLING, true);
-    menuMgr.initForEncoder(&renderer, &menuPitch, 47, 21, 45);
+    menuMgr.initForEncoder(&renderer, &menuPalstance, 47, 21, 45);
     installMonoBorderTitleTheme(renderer, MenuFontDef(nullptr, 1), MenuFontDef(nullptr, 1), true, BaseGraphicalRenderer::TITLE_FIRST_ROW, false);
 }
 

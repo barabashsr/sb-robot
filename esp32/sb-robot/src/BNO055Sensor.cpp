@@ -21,20 +21,23 @@ bool BNO055Sensor::begin() {
     
     bno.setExtCrystalUse(true);
     return true;
+
 }
 
 void BNO055Sensor::update() {
+    sensors_event_t event;
+    bno.getEvent(&event);
+    angleY = event.orientation.y;
+    palstance = event.gyro.y;
     // This method is left empty as the sensor updates automatically
 }
 
-float BNO055Sensor::getAngleY() {
-    sensors_event_t event;
-    bno.getEvent(&event);
-    return event.orientation.y;
-}
+
 
 int BNO055Sensor::calibration() {
     uint8_t system, gyro, accel, mag;
     bno.getCalibration(&system, &gyro, &accel, &mag);
     return (system);
 }
+
+
