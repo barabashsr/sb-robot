@@ -76,6 +76,63 @@
       "type": "subMenu",
       "item": {
         "secured": false,
+        "name": "Motor config",
+        "variableName": "MotorConfig",
+        "id": 44,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 44,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Threshold A",
+        "variableName": "ThresholdA",
+        "id": 45,
+        "eepromAddress": 48,
+        "functionName": "setThresholdA",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 44,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Threshold B",
+        "variableName": "ThresholdB",
+        "id": 46,
+        "eepromAddress": 50,
+        "functionName": "setThresholdB",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
         "name": "Palst PID",
         "variableName": "PalstPID",
         "id": 37,
@@ -108,7 +165,7 @@
       "type": "analogItem",
       "defaultValue": "300",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -129,7 +186,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -150,7 +207,7 @@
       "type": "analogItem",
       "defaultValue": "5",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -340,7 +397,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -361,7 +418,7 @@
       "type": "analogItem",
       "defaultValue": "5",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -382,7 +439,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -392,6 +449,27 @@
         "id": 18,
         "eepromAddress": 24,
         "functionName": "SetKdVel",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ko vel",
+        "variableName": "KoVel",
+        "id": 47,
+        "eepromAddress": 52,
+        "functionName": "SetKoVel",
         "readOnly": false,
         "localOnly": false,
         "visible": true,

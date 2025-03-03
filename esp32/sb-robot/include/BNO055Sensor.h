@@ -31,6 +31,7 @@ private:
     double lastPitch;
     double palstance;
     double angleY;
+    double lastPalstance;
 };
 
 #endif // BNO055SENSOR_H

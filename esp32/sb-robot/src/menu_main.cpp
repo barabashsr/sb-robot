@@ -68,6 +68,8 @@ double targetPalst;
 double KpPalst = 20;   
 double KdPalst = 0.6;
 double KiPalst = 40.9;
+double OutputPalst = 0;
+float KoPalst = 1;
 int palstSampleTime = 10;
 bool palstPidOn = true;
 const int pidLimitPalst = 255;
@@ -80,7 +82,7 @@ double KdPitch = 0.6;
 double KiPitch = 40.9;
 int pitchSampleTime = 10;
 bool pitchPidOn = true;
-const float pidLimitPitch = 25.0;
+const float pidLimitPitch = 4.0;
 
 double target_angle = 0;
 
@@ -112,7 +114,7 @@ const float yawRateLimit = 200;
 double yawDelta = 0;
 double target_YawRate = 0;
 
-PID pidPalst(&currentPalst, &control_output, &targetPalst, KpPalst, KiPalst, KdPalst, REVERSE); //never gets to the saturation
+PID pidPalst(&currentPalst, &OutputPalst, &targetPalst, KpPalst, KiPalst, KdPalst, REVERSE); //never gets to the saturation
 
 PID pidPitch(&pitchAngle, &targetPalst, &target_angle, KpPitch, KiPitch, KdPitch, DIRECT); //should be inversed? no
 
@@ -153,6 +155,23 @@ void setLedColor(int calibration) {
     }
   }
 
+void  calculateVelocities(){
+    motors.updateSpeeds();
+    speedA = motors.getSpeedA();
+    speedB = motors.getSpeedB();
+    positionA = motors.getPositionA();
+    positionB = motors.getPositionB();
+    x_vel = (speedA+speedB) * wheelRadius /2;
+    yaw_rate = (speedA - speedB) * wheelRadius / wheelSeparation;
+
+
+
+
+
+    
+
+
+}
 
 void angleControl(){
     pitchAngle = bno.getAngleY();
@@ -163,14 +182,17 @@ void angleControl(){
     }
 }
     void palstanceControl(){
-    currentPalst = bno.getPalstance();
+    
     if(palstPidOn){
+    bno.update();
+    currentPalst = bno.getPalstance();
     pidPalst.Compute();
     } else {
         control_output = 0;
     }
     //speed_set = c;
-    motors.setSpeeds((int)control_output+(int)yawDelta, (int)control_output-(int)yawDelta);
+    control_output = constrain(OutputPalst * KoPalst, -pidLimitPalst, pidLimitPalst);
+    motors.setSpeeds(control_output+yawDelta, control_output-yawDelta);
     
 }
 
@@ -179,6 +201,7 @@ void angleControl(){
 
 void speedControl(){
     if(velPidOn){
+    calculateVelocities();
     pidVel.Compute();
     target_angle = constrain(KoVel * OutputVel, -velAngleLimit + manualOfsetAngle, velAngleLimit + manualOfsetAngle);
     
@@ -245,23 +268,7 @@ void updateMenuValues(){
     }
 }
 
-void calculateVelocities(){
-    motors.updateSpeeds();
-    speedA = motors.getSpeedA();
-    speedB = motors.getSpeedB();
-    positionA = motors.getPositionA();
-    positionB = motors.getPositionB();
-    x_vel = (speedA+speedB) * wheelRadius /2;
-    yaw_rate = (speedA - speedB) * wheelRadius / wheelSeparation;
 
-
-
-
-
-    
-
-
-}
 
 
 void processCommand(String command) {
@@ -351,6 +358,62 @@ void processCommand(String command) {
 
 }
 
+
+volatile TickType_t palstancePeriod = pdMS_TO_TICKS(5);
+volatile TickType_t anglePeriod = pdMS_TO_TICKS(10);
+volatile TickType_t speedPeriod = pdMS_TO_TICKS(50);
+volatile TickType_t yawRatePeriod = pdMS_TO_TICKS(50);
+
+
+    //Functions to implementt PID controls on core1
+    void palstanceControlTask(void * parameter) {
+        TickType_t xLastWakeTime;
+        //const TickType_t xFrequency = pdMS_TO_TICKS(5);
+        xLastWakeTime = xTaskGetTickCount();
+      
+        for(;;) {
+          palstanceControl();
+          vTaskDelayUntil(&xLastWakeTime, palstancePeriod);
+        }
+      }
+      
+      void angleControlTask(void * parameter) {
+        TickType_t xLastWakeTime;
+        //const TickType_t xFrequency = pdMS_TO_TICKS(10);
+        xLastWakeTime = xTaskGetTickCount();
+      
+        for(;;) {
+          angleControl();
+          vTaskDelayUntil(&xLastWakeTime, anglePeriod);
+        }
+      }
+      
+      void speedControlTask(void * parameter) {
+        TickType_t xLastWakeTime;
+        //const TickType_t xFrequency = pdMS_TO_TICKS(50);
+        xLastWakeTime = xTaskGetTickCount();
+      
+        for(;;) {
+          speedControl();
+          vTaskDelayUntil(&xLastWakeTime, speedPeriod);
+        }
+      }
+      
+      void yawRateControlTask(void * parameter) {
+        TickType_t xLastWakeTime;
+        //const TickType_t xFrequency = pdMS_TO_TICKS(50);
+        xLastWakeTime = xTaskGetTickCount();
+      
+        for(;;) {
+          yawRateControl();
+          vTaskDelayUntil(&xLastWakeTime, yawRatePeriod);
+        }
+      }
+      
+
+    
+
+
 void setup() {
     
 
@@ -385,6 +448,7 @@ void setup() {
     menuKpPalst.triggerCallback();
     menuKdPalst.triggerCallback();
     menuKiPalst.triggerCallback();
+    menuKoPalst.triggerCallback();
     menuPeriodPalst.triggerCallback();
     menuPalstPIDToggle.triggerCallback();
 
@@ -415,7 +479,7 @@ void setup() {
     menuThresholdA.triggerCallback();
     menuThresholdB.triggerCallback();
 
-    
+
 
 
  
@@ -464,6 +528,22 @@ void setup() {
      //Serial1.printf("Loaded Velocity PID values - Kp: %f, Ki: %f, Kd: %f\n", KpVel, KiVel, KdVel);
 
      motors.setMeasurementPeriod(velSampleTime);
+
+
+     // Put PID functions on core 1
+
+     xTaskCreatePinnedToCore(
+        palstanceControlTask,   // Function to implement the task
+        "PalstanceControl",     // Name of the task
+        10000,                  // Stack size in words
+        NULL,                   // Task input parameter
+        4,                      // Priority of the task (highest)
+        NULL,                   // Task handle
+        1);                     // Core where the task should run (1)
+    
+      xTaskCreatePinnedToCore(angleControlTask, "AngleControl", 10000, NULL, 3, NULL, 1);
+      xTaskCreatePinnedToCore(speedControlTask, "SpeedControl", 10000, NULL, 2, NULL, 1);
+      xTaskCreatePinnedToCore(yawRateControlTask, "YawRateControl", 10000, NULL, 1, NULL, 1);
  
 
 }
@@ -471,11 +551,11 @@ void setup() {
 void loop() {
     taskManager.runLoop();
     calculateVelocities();
-    bno.update();
-    palstanceControl();
-    angleControl();
-    speedControl();
-    yawRateControl();
+    //bno.update();
+    // palstanceControl();
+    // angleControl();
+    // speedControl();
+    // yawRateControl();
 
     updateMenuValues();
     /* while (//Serial1.available()) {
@@ -542,10 +622,18 @@ void CALLBACK_FUNCTION SetKpPalst(int id) {
     // TODO - your menu change code
 }
 
+void CALLBACK_FUNCTION SetKoPalst(int id) {
+    KoPalst = menuKoPalst.getAsFloatingPointValue();
+    Serial.println("Palst Ko changed");
+    // TODO - your menu change code
+}
+
 
 void CALLBACK_FUNCTION setPalstPIDPeriod(int id) {
-    palstSampleTime = menuPeriodPalst.getCurrentValue();
+    palstSampleTime = menuPeriodPalst.getCurrentValue()+1;
     pidPalst.SetSampleTime(palstSampleTime);
+    palstancePeriod = pdMS_TO_TICKS(palstSampleTime);
+
     bno.setMeasurementPeriod(palstSampleTime);
     // TODO - your menu change code
 }
@@ -599,7 +687,8 @@ void CALLBACK_FUNCTION SetKdPitch(int id) {
 
 
 void CALLBACK_FUNCTION setPitchPIDPeriod(int id) {
-    pitchSampleTime = menuPeriodP.getCurrentValue();
+    pitchSampleTime = menuPeriodP.getCurrentValue()+1;
+    anglePeriod = pdMS_TO_TICKS(pitchSampleTime);
     pidPitch.SetSampleTime(pitchSampleTime);
     // TODO - your menu change code
 }
@@ -653,7 +742,8 @@ void CALLBACK_FUNCTION SetKiVel(int id) {
 
 
 void CALLBACK_FUNCTION setVelPIDPeriod(int id) {
-    velSampleTime = menuPeriodV.getCurrentValue();
+    velSampleTime = menuPeriodV.getCurrentValue()+1;
+    speedPeriod = pdMS_TO_TICKS(velSampleTime);
     pidVel.SetSampleTime(pitchSampleTime);
     //motors.setMeasurementPeriod(velSampleTime);
     if (yawSampleTime>velSampleTime){
@@ -702,7 +792,8 @@ void CALLBACK_FUNCTION SetKdYaw(int id) {
 
 
 void CALLBACK_FUNCTION setYawPIDPeriod(int id) {
-    yawSampleTime = menuPeriodY.getCurrentValue();
+    yawSampleTime = menuPeriodY.getCurrentValue() + 1;
+    yawRatePeriod = pdMS_TO_TICKS(yawSampleTime);
     pidYaw.SetSampleTime(yawSampleTime);
     if (yawSampleTime<velSampleTime){
         motors.setMeasurementPeriod(yawSampleTime);

@@ -8,7 +8,7 @@
     use elsewhere.
  */
 
-// Generated for Arduino ESP32 by TcMenu 4.4.0 on 2025-03-03T13:42:07.789863Z.
+// Generated for Arduino ESP32 by TcMenu 4.4.0 on 2025-03-03T17:34:32.489408Z.
 
 #include <tcMenu.h>
 #include "menu_menu.h"
@@ -35,7 +35,7 @@ const PROGMEM FloatMenuInfo minfoVel = { "Vel", 24, 0xffff, 3, NO_CALLBACK };
 FloatMenuItem menuVel(&minfoVel, 0.0, &menuSetYaw, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoSetVel = { "Set Vel", 26, 0xffff, 100, setTargetVel, -50, 100, "mps" };
 AnalogMenuItem menuSetVel(&minfoSetVel, 50, &menuVel, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoPeriodY = { "Period Y", 33, 34, 1000, setYawPIDPeriod, 0, 1, "ms" };
+const PROGMEM AnalogMenuInfo minfoPeriodY = { "Period Y", 33, 34, 1000, setYawPIDPeriod, 1, 1, "ms" };
 AnalogMenuItem menuPeriodY(&minfoPeriodY, 0, nullptr, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKdYaw = { "Kd Yaw", 22, 32, 500, SetKdYaw, 0, 10, "" };
 AnalogMenuItem menuKdYaw(&minfoKdYaw, 20, &menuPeriodY, INFO_LOCATION_PGM);
@@ -48,7 +48,7 @@ BooleanMenuItem menuYawPIDToggle(&minfoYawPIDToggle, false, &menuKpYaw, INFO_LOC
 const PROGMEM SubMenuInfo minfoYawPID = { "Yaw PID", 19, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackYawPID(&minfoYawPID, &menuYawPIDToggle, INFO_LOCATION_PGM);
 SubMenuItem menuYawPID(&minfoYawPID, &menuBackYawPID, &menuSetVel, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoPeriodV = { "Period V", 32, 26, 1000, setVelPIDPeriod, 0, 1, "ms" };
+const PROGMEM AnalogMenuInfo minfoPeriodV = { "Period V", 32, 26, 1000, setVelPIDPeriod, 1, 1, "ms" };
 AnalogMenuItem menuPeriodV(&minfoPeriodV, 0, nullptr, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKoVel = { "Ko vel", 47, 52, 7000, SetKoVel, 0, 10, "" };
 AnalogMenuItem menuKoVel(&minfoKoVel, 200, &menuPeriodV, INFO_LOCATION_PGM);
@@ -63,7 +63,7 @@ BooleanMenuItem menuVelPIDToggle(&minfoVelPIDToggle, true, &menuKpVel, INFO_LOCA
 const PROGMEM SubMenuInfo minfoVelPID = { "Vel PID", 15, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackVelPID(&minfoVelPID, &menuVelPIDToggle, INFO_LOCATION_PGM);
 SubMenuItem menuVelPID(&minfoVelPID, &menuBackVelPID, &menuYawPID, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoPeriodP = { "Period P", 31, 18, 1000, setPitchPIDPeriod, 0, 1, "ms" };
+const PROGMEM AnalogMenuInfo minfoPeriodP = { "Period P", 31, 18, 1000, setPitchPIDPeriod, 1, 1, "ms" };
 AnalogMenuItem menuPeriodP(&minfoPeriodP, 0, nullptr, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKdPitch = { "Kd pitch", 6, 16, 700, SetKdPitch, 0, 10, "" };
 AnalogMenuItem menuKdPitch(&minfoKdPitch, 5, &menuPeriodP, INFO_LOCATION_PGM);
@@ -76,10 +76,12 @@ BooleanMenuItem menuPitchPIDToggle(&minfoPitchPIDToggle, true, &menuKpPitch, INF
 const PROGMEM SubMenuInfo minfoPitchPID = { "Pitch PID", 3, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackPitchPID(&minfoPitchPID, &menuPitchPIDToggle, INFO_LOCATION_PGM);
 SubMenuItem menuPitchPID(&minfoPitchPID, &menuBackPitchPID, &menuVelPID, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoPeriodPalst = { "Period Palst", 41, 44, 1000, setPalstPIDPeriod, 0, 1, "ms" };
+const PROGMEM AnalogMenuInfo minfoPeriodPalst = { "Period Palst", 41, 44, 1000, setPalstPIDPeriod, 1, 1, "ms" };
 AnalogMenuItem menuPeriodPalst(&minfoPeriodPalst, 0, nullptr, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoKoPalst = { "Ko palst", 48, 54, 7000, SetKoPalst, 0, 10, "" };
+AnalogMenuItem menuKoPalst(&minfoKoPalst, 10, &menuPeriodPalst, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKdPalst = { "Kd palst", 40, 42, 7000, SetKdPalst, 0, 10, "" };
-AnalogMenuItem menuKdPalst(&minfoKdPalst, 5, &menuPeriodPalst, INFO_LOCATION_PGM);
+AnalogMenuItem menuKdPalst(&minfoKdPalst, 5, &menuKoPalst, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKiPalst = { "Ki palst", 39, 40, 7000, SetKiPalst, 0, 10, "" };
 AnalogMenuItem menuKiPalst(&minfoKiPalst, 200, &menuKdPalst, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoKpPalst = { "Kp palst", 38, 38, 7000, SetKpPalst, 0, 10, "" };

@@ -226,10 +226,31 @@
     {
       "parentId": 37,
       "type": "analogItem",
+      "defaultValue": "10",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ko palst",
+        "variableName": "KoPalst",
+        "id": 48,
+        "eepromAddress": 54,
+        "functionName": "SetKoPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -345,7 +366,7 @@
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -482,7 +503,7 @@
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -598,7 +619,7 @@
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,

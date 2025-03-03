@@ -53,7 +53,7 @@ void BNO055Sensor::updatePalstance() {
     unsigned long currentTime = millis();
     if (currentTime - lastMeasurementTime >= measurementPeriod) {
         //float timeInSeconds = measurementPeriod / 1000.0f;
-        float deltaY = (angleY - lastPitch) * PI / 180;
+        double deltaY = (angleY - lastPitch) * PI / 1800.0f;
         
         // Only update palstance if the change is significant
         //if (abs(deltaY) > 0.01) { // Adjust this threshold as needed
@@ -66,6 +66,11 @@ void BNO055Sensor::updatePalstance() {
 
         lastMeasurementTime = currentTime;
         lastPitch = angleY;
+     /*    if (palstance == 0){
+            palstance = lastPalstance;
+        } else {
+            lastPalstance = palstance;
+        } */
     }
 }
 
