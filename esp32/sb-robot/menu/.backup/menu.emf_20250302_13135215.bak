@@ -88,6 +88,23 @@
     },
     {
       "parentId": 37,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Palst PID",
+        "variableName": "PalstPIDToggle",
+        "id": 42,
+        "eepromAddress": 46,
+        "functionName": "togglePalstPid",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
       "type": "analogItem",
       "defaultValue": "300",
       "item": {
@@ -99,7 +116,7 @@
         "name": "Kp palst",
         "variableName": "KpPalst",
         "id": 38,
-        "eepromAddress": -1,
+        "eepromAddress": 38,
         "functionName": "SetKpPalst",
         "readOnly": false,
         "localOnly": false,
@@ -120,7 +137,7 @@
         "name": "Ki palst",
         "variableName": "KiPalst",
         "id": 39,
-        "eepromAddress": -1,
+        "eepromAddress": 40,
         "functionName": "SetKiPalst",
         "readOnly": false,
         "localOnly": false,
@@ -141,7 +158,7 @@
         "name": "Kd palst",
         "variableName": "KdPalst",
         "id": 40,
-        "eepromAddress": -1,
+        "eepromAddress": 42,
         "functionName": "SetKdPalst",
         "readOnly": false,
         "localOnly": false,
@@ -162,25 +179,8 @@
         "name": "Period Palst",
         "variableName": "PeriodPalst",
         "id": 41,
-        "eepromAddress": -1,
+        "eepromAddress": 44,
         "functionName": "setPalstPIDPeriod",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 37,
-      "type": "boolItem",
-      "defaultValue": "true",
-      "item": {
-        "naming": "ON_OFF",
-        "name": "Palst PID",
-        "variableName": "PalstPIDToggle",
-        "id": 42,
-        "eepromAddress": -1,
-        "functionName": "togglePalstPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -196,6 +196,23 @@
         "variableName": "PitchPID",
         "id": 3,
         "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Pitch PID",
+        "variableName": "PitchPIDToggle",
+        "id": 36,
+        "eepromAddress": 47,
+        "functionName": "togglePitchPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -280,23 +297,6 @@
         "id": 31,
         "eepromAddress": 18,
         "functionName": "setPitchPIDPeriod",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 3,
-      "type": "boolItem",
-      "defaultValue": "true",
-      "item": {
-        "naming": "ON_OFF",
-        "name": "Pitch PID",
-        "variableName": "PitchPIDToggle",
-        "id": 36,
-        "eepromAddress": -1,
-        "functionName": "togglePitchPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,

@@ -8,7 +8,7 @@
     use elsewhere.
  */
 
-// Generated for Arduino ESP32 by TcMenu 4.4.0 on 2025-03-02T06:10:39.827315Z.
+// Generated for Arduino ESP32 by TcMenu 4.4.0 on 2025-03-03T13:42:07.789863Z.
 
 #include <tcMenu.h>
 #include "menu_menu.h"
@@ -50,11 +50,13 @@ BackMenuItem menuBackYawPID(&minfoYawPID, &menuYawPIDToggle, INFO_LOCATION_PGM);
 SubMenuItem menuYawPID(&minfoYawPID, &menuBackYawPID, &menuSetVel, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoPeriodV = { "Period V", 32, 26, 1000, setVelPIDPeriod, 0, 1, "ms" };
 AnalogMenuItem menuPeriodV(&minfoPeriodV, 0, nullptr, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoKdVel = { "Kd vel", 18, 24, 700, SetKdVel, 0, 10, "" };
-AnalogMenuItem menuKdVel(&minfoKdVel, 200, &menuPeriodV, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoKiVel = { "Ki vel", 17, 22, 700, SetKiVel, 0, 10, "" };
+const PROGMEM AnalogMenuInfo minfoKoVel = { "Ko vel", 47, 52, 7000, SetKoVel, 0, 10, "" };
+AnalogMenuItem menuKoVel(&minfoKoVel, 200, &menuPeriodV, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoKdVel = { "Kd vel", 18, 24, 7000, SetKdVel, 0, 10, "" };
+AnalogMenuItem menuKdVel(&minfoKdVel, 200, &menuKoVel, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoKiVel = { "Ki vel", 17, 22, 7000, SetKiVel, 0, 10, "" };
 AnalogMenuItem menuKiVel(&minfoKiVel, 5, &menuKdVel, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoKpVel = { "Kp vel", 16, 20, 700, SetKpVel, 0, 10, "" };
+const PROGMEM AnalogMenuInfo minfoKpVel = { "Kp vel", 16, 20, 7000, SetKpVel, 0, 10, "" };
 AnalogMenuItem menuKpVel(&minfoKpVel, 200, &menuKiVel, INFO_LOCATION_PGM);
 const PROGMEM BooleanMenuInfo minfoVelPIDToggle = { "Vel PID", 34, 36, 1, toggleVelPid, NAMING_ON_OFF };
 BooleanMenuItem menuVelPIDToggle(&minfoVelPIDToggle, true, &menuKpVel, INFO_LOCATION_PGM);
@@ -76,19 +78,26 @@ BackMenuItem menuBackPitchPID(&minfoPitchPID, &menuPitchPIDToggle, INFO_LOCATION
 SubMenuItem menuPitchPID(&minfoPitchPID, &menuBackPitchPID, &menuVelPID, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoPeriodPalst = { "Period Palst", 41, 44, 1000, setPalstPIDPeriod, 0, 1, "ms" };
 AnalogMenuItem menuPeriodPalst(&minfoPeriodPalst, 0, nullptr, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoKdPalst = { "Kd palst", 40, 42, 700, SetKdPalst, 0, 10, "" };
+const PROGMEM AnalogMenuInfo minfoKdPalst = { "Kd palst", 40, 42, 7000, SetKdPalst, 0, 10, "" };
 AnalogMenuItem menuKdPalst(&minfoKdPalst, 5, &menuPeriodPalst, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoKiPalst = { "Ki palst", 39, 40, 700, SetKiPalst, 0, 10, "" };
+const PROGMEM AnalogMenuInfo minfoKiPalst = { "Ki palst", 39, 40, 7000, SetKiPalst, 0, 10, "" };
 AnalogMenuItem menuKiPalst(&minfoKiPalst, 200, &menuKdPalst, INFO_LOCATION_PGM);
-const PROGMEM AnalogMenuInfo minfoKpPalst = { "Kp palst", 38, 38, 700, SetKpPalst, 0, 10, "" };
+const PROGMEM AnalogMenuInfo minfoKpPalst = { "Kp palst", 38, 38, 7000, SetKpPalst, 0, 10, "" };
 AnalogMenuItem menuKpPalst(&minfoKpPalst, 300, &menuKiPalst, INFO_LOCATION_PGM);
 const PROGMEM BooleanMenuInfo minfoPalstPIDToggle = { "Palst PID", 42, 46, 1, togglePalstPid, NAMING_ON_OFF };
 BooleanMenuItem menuPalstPIDToggle(&minfoPalstPIDToggle, true, &menuKpPalst, INFO_LOCATION_PGM);
 const PROGMEM SubMenuInfo minfoPalstPID = { "Palst PID", 37, 0xffff, 0, NO_CALLBACK };
 BackMenuItem menuBackPalstPID(&minfoPalstPID, &menuPalstPIDToggle, INFO_LOCATION_PGM);
 SubMenuItem menuPalstPID(&minfoPalstPID, &menuBackPalstPID, &menuPitchPID, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoThresholdB = { "Threshold B", 46, 50, 255, setThresholdB, 0, 1, "" };
+AnalogMenuItem menuThresholdB(&minfoThresholdB, 0, nullptr, INFO_LOCATION_PGM);
+const PROGMEM AnalogMenuInfo minfoThresholdA = { "Threshold A", 45, 48, 255, setThresholdA, 0, 1, "" };
+AnalogMenuItem menuThresholdA(&minfoThresholdA, 0, &menuThresholdB, INFO_LOCATION_PGM);
+const PROGMEM SubMenuInfo minfoMotorConfig = { "Motor config", 44, 0xffff, 0, NO_CALLBACK };
+BackMenuItem menuBackMotorConfig(&minfoMotorConfig, &menuThresholdA, INFO_LOCATION_PGM);
+SubMenuItem menuMotorConfig(&minfoMotorConfig, &menuBackMotorConfig, &menuPalstPID, INFO_LOCATION_PGM);
 const PROGMEM AnyMenuInfo minfoSaveValues = { "Save", 14, 0xffff, 0, SavePID };
-ActionMenuItem menuSaveValues(&minfoSaveValues, &menuPalstPID, INFO_LOCATION_PGM);
+ActionMenuItem menuSaveValues(&minfoSaveValues, &menuMotorConfig, INFO_LOCATION_PGM);
 const PROGMEM AnalogMenuInfo minfoPitchOfset = { "Pitch Ofset", 30, 10, 1000, SetPitchOfset, -500, 100, "deg" };
 AnalogMenuItem menuPitchOfset(&minfoPitchOfset, 0, &menuSaveValues, INFO_LOCATION_PGM);
 const PROGMEM FloatMenuInfo minfoPitch = { "Pitch", 23, 0xffff, 3, NO_CALLBACK };

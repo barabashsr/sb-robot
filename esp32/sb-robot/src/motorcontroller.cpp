@@ -83,15 +83,27 @@ void MotorController::init() {
     measurementPeriod = 20; // Default to 10ms
     lastEncoderCountA = 0;
     lastEncoderCountB = 0;
+    threshold_A = 40;
+    threshold_B = 40;
     stop();
     Serial.println("motors initialised");
 }
 
 void MotorController::setMotorA(int speed) {
+    if (abs(speedA) < 0.01){
+        setMotorSpeed(motorA, ((speed > 0) - (speed < 0)) * threshold_A);
+        return;
+
+    }
     setMotorSpeed(motorA, speed);
 }
 
 void MotorController::setMotorB(int speed) {
+    if (abs(speedB) < 0.01){
+        setMotorSpeed(motorB, ((speed > 0) - (speed < 0)) * threshold_B);
+        return;
+
+    }
     setMotorSpeed(motorB, speed);
 }
 

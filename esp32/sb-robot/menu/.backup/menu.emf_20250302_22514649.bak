@@ -9,6 +9,22 @@
       "defaultValue": "0.0",
       "item": {
         "numDecimalPlaces": 3,
+        "name": "Palstance",
+        "variableName": "Palstance",
+        "id": 43,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
         "name": "Pitch",
         "variableName": "Pitch",
         "id": 23,
@@ -42,6 +58,21 @@
     },
     {
       "parentId": 0,
+      "type": "actionMenu",
+      "item": {
+        "name": "Save",
+        "variableName": "SaveValues",
+        "id": 14,
+        "eepromAddress": -1,
+        "functionName": "SavePID",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
       "type": "subMenu",
       "item": {
         "secured": false,
@@ -49,6 +80,23 @@
         "variableName": "PalstPID",
         "id": 37,
         "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Palst PID",
+        "variableName": "PalstPIDToggle",
+        "id": 42,
+        "eepromAddress": 46,
+        "functionName": "togglePalstPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -68,8 +116,8 @@
         "name": "Kp palst",
         "variableName": "KpPalst",
         "id": 38,
-        "eepromAddress": -1,
-        "functionName": "SetKpPitch",
+        "eepromAddress": 38,
+        "functionName": "SetKpPalst",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -89,8 +137,8 @@
         "name": "Ki palst",
         "variableName": "KiPalst",
         "id": 39,
-        "eepromAddress": -1,
-        "functionName": "SetKiPitch",
+        "eepromAddress": 40,
+        "functionName": "SetKiPalst",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -110,8 +158,8 @@
         "name": "Kd palst",
         "variableName": "KdPalst",
         "id": 40,
-        "eepromAddress": -1,
-        "functionName": "SetKdPitch",
+        "eepromAddress": 42,
+        "functionName": "SetKdPalst",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -131,40 +179,8 @@
         "name": "Period Palst",
         "variableName": "PeriodPalst",
         "id": 41,
-        "eepromAddress": -1,
-        "functionName": "setPitchPIDPeriod",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 37,
-      "type": "boolItem",
-      "defaultValue": "true",
-      "item": {
-        "naming": "ON_OFF",
-        "name": "Palst PID",
-        "variableName": "PalstPIDToggle",
-        "id": 42,
-        "eepromAddress": -1,
-        "functionName": "togglePalstPid",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 0,
-      "type": "actionMenu",
-      "item": {
-        "name": "Save",
-        "variableName": "SaveValues",
-        "id": 14,
-        "eepromAddress": -1,
-        "functionName": "SavePID",
+        "eepromAddress": 44,
+        "functionName": "setPalstPIDPeriod",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -180,6 +196,23 @@
         "variableName": "PitchPID",
         "id": 3,
         "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Pitch PID",
+        "variableName": "PitchPIDToggle",
+        "id": 36,
+        "eepromAddress": 47,
+        "functionName": "togglePitchPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -271,23 +304,6 @@
       }
     },
     {
-      "parentId": 3,
-      "type": "boolItem",
-      "defaultValue": "true",
-      "item": {
-        "naming": "ON_OFF",
-        "name": "Pitch PID",
-        "variableName": "PitchPIDToggle",
-        "id": 36,
-        "eepromAddress": -1,
-        "functionName": "togglePitchPid",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
       "parentId": 0,
       "type": "subMenu",
       "item": {
@@ -324,9 +340,9 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kp vel",
@@ -345,9 +361,9 @@
       "type": "analogItem",
       "defaultValue": "5",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Ki vel",
@@ -366,9 +382,9 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kd vel",

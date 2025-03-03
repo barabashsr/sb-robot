@@ -105,3 +105,45 @@ void CALLBACK_FUNCTION setYawPIDPeriod(int id) {
 void CALLBACK_FUNCTION setTargetVel(int id) {
     // TODO - your menu change code
 }
+
+
+void CALLBACK_FUNCTION SetKdPalst(int id) {
+    // TODO - your menu change code
+}
+
+
+
+void CALLBACK_FUNCTION SetKiPalst(int id) {
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION togglePalstPid(int id) {
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION SetKpPalst(int id) {
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setPalstPIDPeriod(int id) {
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION togglePitchPid(int id) {
+    // TODO - your menu change code
+}
+
+
+
+void CALLBACK_FUNCTION setThresholdB(int id) {
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setThresholdA(int id) {
+    // TODO - your menu change code
+}

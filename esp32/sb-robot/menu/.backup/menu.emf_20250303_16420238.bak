@@ -76,6 +76,63 @@
       "type": "subMenu",
       "item": {
         "secured": false,
+        "name": "Motor config",
+        "variableName": "MotorConfig",
+        "id": 44,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 44,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Threshold A",
+        "variableName": "ThresholdA",
+        "id": 45,
+        "eepromAddress": 48,
+        "functionName": "setThresholdA",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 44,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Threshold B",
+        "variableName": "ThresholdB",
+        "id": 46,
+        "eepromAddress": 50,
+        "functionName": "setThresholdB",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
         "name": "Palst PID",
         "variableName": "PalstPID",
         "id": 37,
@@ -88,10 +145,27 @@
     },
     {
       "parentId": 37,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Palst PID",
+        "variableName": "PalstPIDToggle",
+        "id": 42,
+        "eepromAddress": 46,
+        "functionName": "togglePalstPid",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
       "type": "analogItem",
       "defaultValue": "300",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -99,7 +173,7 @@
         "name": "Kp palst",
         "variableName": "KpPalst",
         "id": 38,
-        "eepromAddress": -1,
+        "eepromAddress": 38,
         "functionName": "SetKpPalst",
         "readOnly": false,
         "localOnly": false,
@@ -112,7 +186,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -120,7 +194,7 @@
         "name": "Ki palst",
         "variableName": "KiPalst",
         "id": 39,
-        "eepromAddress": -1,
+        "eepromAddress": 40,
         "functionName": "SetKiPalst",
         "readOnly": false,
         "localOnly": false,
@@ -133,7 +207,7 @@
       "type": "analogItem",
       "defaultValue": "5",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -141,7 +215,7 @@
         "name": "Kd palst",
         "variableName": "KdPalst",
         "id": 40,
-        "eepromAddress": -1,
+        "eepromAddress": 42,
         "functionName": "SetKdPalst",
         "readOnly": false,
         "localOnly": false,
@@ -162,25 +236,8 @@
         "name": "Period Palst",
         "variableName": "PeriodPalst",
         "id": 41,
-        "eepromAddress": -1,
+        "eepromAddress": 44,
         "functionName": "setPalstPIDPeriod",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 37,
-      "type": "boolItem",
-      "defaultValue": "true",
-      "item": {
-        "naming": "ON_OFF",
-        "name": "Palst PID",
-        "variableName": "PalstPIDToggle",
-        "id": 42,
-        "eepromAddress": -1,
-        "functionName": "togglePalstPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -196,6 +253,23 @@
         "variableName": "PitchPID",
         "id": 3,
         "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Pitch PID",
+        "variableName": "PitchPIDToggle",
+        "id": 36,
+        "eepromAddress": 47,
+        "functionName": "togglePitchPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -287,23 +361,6 @@
       }
     },
     {
-      "parentId": 3,
-      "type": "boolItem",
-      "defaultValue": "true",
-      "item": {
-        "naming": "ON_OFF",
-        "name": "Pitch PID",
-        "variableName": "PitchPIDToggle",
-        "id": 36,
-        "eepromAddress": -1,
-        "functionName": "togglePitchPid",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
       "parentId": 0,
       "type": "subMenu",
       "item": {
@@ -340,7 +397,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -361,7 +418,7 @@
       "type": "analogItem",
       "defaultValue": "5",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -382,7 +439,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",

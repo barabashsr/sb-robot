@@ -9,41 +9,25 @@
       "defaultValue": "0.0",
       "item": {
         "numDecimalPlaces": 3,
+        "name": "Palstance",
+        "variableName": "Palstance",
+        "id": 43,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
         "name": "Pitch",
         "variableName": "Pitch",
         "id": 23,
-        "eepromAddress": -1,
-        "readOnly": true,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 0,
-      "type": "floatItem",
-      "defaultValue": "0.0",
-      "item": {
-        "numDecimalPlaces": 3,
-        "name": "Vel",
-        "variableName": "Vel",
-        "id": 24,
-        "eepromAddress": -1,
-        "readOnly": true,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 0,
-      "type": "floatItem",
-      "defaultValue": "0.0",
-      "item": {
-        "numDecimalPlaces": 3,
-        "name": "Yaw Rate",
-        "variableName": "YawRate",
-        "id": 25,
         "eepromAddress": -1,
         "readOnly": true,
         "localOnly": false,
@@ -92,9 +76,9 @@
       "type": "subMenu",
       "item": {
         "secured": false,
-        "name": "State",
-        "variableName": "State",
-        "id": 28,
+        "name": "Palst PID",
+        "variableName": "PalstPID",
+        "id": 37,
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
@@ -103,21 +87,101 @@
       }
     },
     {
-      "parentId": 28,
+      "parentId": 37,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Palst PID",
+        "variableName": "PalstPIDToggle",
+        "id": 42,
+        "eepromAddress": 46,
+        "functionName": "togglePalstPid",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
+      "defaultValue": "300",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Kp palst",
+        "variableName": "KpPalst",
+        "id": 38,
+        "eepromAddress": 38,
+        "functionName": "SetKpPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ki palst",
+        "variableName": "KiPalst",
+        "id": 39,
+        "eepromAddress": 40,
+        "functionName": "SetKiPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
+      "defaultValue": "5",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Kd palst",
+        "variableName": "KdPalst",
+        "id": 40,
+        "eepromAddress": 42,
+        "functionName": "SetKdPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
       "type": "analogItem",
       "defaultValue": "0",
       "item": {
-        "maxValue": 3,
+        "maxValue": 1000,
         "offset": 0,
         "divisor": 1,
-        "unitName": "",
+        "unitName": "ms",
         "step": 1,
-        "name": "BNO calib.",
-        "variableName": "BNOCalib",
-        "id": 29,
-        "eepromAddress": -1,
-        "functionName": "getBNOCalib",
-        "readOnly": true,
+        "name": "Period Palst",
+        "variableName": "PeriodPalst",
+        "id": 41,
+        "eepromAddress": 44,
+        "functionName": "setPalstPIDPeriod",
+        "readOnly": false,
         "localOnly": false,
         "visible": true,
         "staticDataInRAM": false
@@ -132,6 +196,23 @@
         "variableName": "PitchPID",
         "id": 3,
         "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Pitch PID",
+        "variableName": "PitchPIDToggle",
+        "id": 36,
+        "eepromAddress": 47,
+        "functionName": "togglePitchPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -244,7 +325,7 @@
       "item": {
         "naming": "ON_OFF",
         "name": "Vel PID",
-        "variableName": "VelPID",
+        "variableName": "VelPIDToggle",
         "id": 34,
         "eepromAddress": 36,
         "functionName": "toggleVelPid",
@@ -259,7 +340,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -280,7 +361,7 @@
       "type": "analogItem",
       "defaultValue": "5",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -301,7 +382,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -343,7 +424,8 @@
       "type": "subMenu",
       "item": {
         "secured": false,
-        "name": "Vel PID1",
+        "name": "Yaw PID",
+        "variableName": "YawPID",
         "id": 19,
         "eepromAddress": -1,
         "readOnly": false,
@@ -359,7 +441,7 @@
       "item": {
         "naming": "ON_OFF",
         "name": "Yaw PID",
-        "variableName": "YawPID",
+        "variableName": "YawPIDToggle",
         "id": 35,
         "eepromAddress": 37,
         "functionName": "toggleYawPID",
@@ -456,11 +538,11 @@
     {
       "parentId": 0,
       "type": "analogItem",
-      "defaultValue": "0",
+      "defaultValue": "50",
       "item": {
-        "maxValue": 255,
-        "offset": 0,
-        "divisor": 1,
+        "maxValue": 100,
+        "offset": -50,
+        "divisor": 100,
         "unitName": "mps",
         "step": 1,
         "name": "Set Vel",
@@ -476,12 +558,28 @@
     },
     {
       "parentId": 0,
-      "type": "analogItem",
-      "defaultValue": "0",
+      "type": "floatItem",
+      "defaultValue": "0.0",
       "item": {
-        "maxValue": 255,
-        "offset": 0,
-        "divisor": 1,
+        "numDecimalPlaces": 3,
+        "name": "Vel",
+        "variableName": "Vel",
+        "id": 24,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "50",
+      "item": {
+        "maxValue": 100,
+        "offset": -50,
+        "divisor": 100,
         "unitName": "rps",
         "step": 1,
         "name": "Set Yaw",
@@ -490,6 +588,58 @@
         "eepromAddress": -1,
         "functionName": "setTargetYawRa",
         "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "Yaw Rate",
+        "variableName": "YawRate",
+        "id": 25,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "State",
+        "variableName": "State",
+        "id": 28,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 28,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 3,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "BNO calib.",
+        "variableName": "BNOCalib",
+        "id": 29,
+        "eepromAddress": -1,
+        "functionName": "getBNOCalib",
+        "readOnly": true,
         "localOnly": false,
         "visible": true,
         "staticDataInRAM": false

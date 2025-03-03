@@ -16,8 +16,8 @@ public:
     void update();
     float getAngleY(){return angleY;};
     int calibration();
-    //void setMeasurementPeriod(int period);
-    //void updatePalstance();
+    void setMeasurementPeriod(int period){measurementPeriod = period;};
+    void updatePalstance();
     float getPalstance(){return palstance;};
 
 private:
@@ -26,15 +26,11 @@ private:
     uint8_t _sda_pin;
     uint8_t _scl_pin;
     uint32_t _i2c_freq;
-/* 
     unsigned long lastMeasurementTime;
     int measurementPeriod; // in milliseconds
-    float lastPitch;
-
-     */
-
-    float palstance;
-    float angleY;
+    double lastPitch;
+    double palstance;
+    double angleY;
 };
 
 #endif // BNO055SENSOR_H

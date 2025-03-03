@@ -36,6 +36,8 @@ private:
     long lastEncoderCountB;
     float speedA;
     float speedB;
+    int threshold_A;    //initial start threshold 0-255
+    int threshold_B;    //initial start threshold 0-255
 
 public:
     MotorController(
@@ -64,6 +66,8 @@ public:
     float getSpeedA(){return speedA;};
     float getSpeedB(){return speedB;};
     void updateSpeeds();
+    void setThresholdA(int threshold){threshold_A = threshold;};
+    void setThresholdB(int threshold){threshold_B = threshold;};
 };
 
 #endif

@@ -9,6 +9,22 @@
       "defaultValue": "0.0",
       "item": {
         "numDecimalPlaces": 3,
+        "name": "Palstance",
+        "variableName": "Palstance",
+        "id": 43,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
         "name": "Pitch",
         "variableName": "Pitch",
         "id": 23,
@@ -72,6 +88,23 @@
     },
     {
       "parentId": 37,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Palst PID",
+        "variableName": "PalstPIDToggle",
+        "id": 42,
+        "eepromAddress": 46,
+        "functionName": "togglePalstPid",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
       "type": "analogItem",
       "defaultValue": "300",
       "item": {
@@ -83,7 +116,7 @@
         "name": "Kp palst",
         "variableName": "KpPalst",
         "id": 38,
-        "eepromAddress": -1,
+        "eepromAddress": 38,
         "functionName": "SetKpPalst",
         "readOnly": false,
         "localOnly": false,
@@ -104,7 +137,7 @@
         "name": "Ki palst",
         "variableName": "KiPalst",
         "id": 39,
-        "eepromAddress": -1,
+        "eepromAddress": 40,
         "functionName": "SetKiPalst",
         "readOnly": false,
         "localOnly": false,
@@ -125,7 +158,7 @@
         "name": "Kd palst",
         "variableName": "KdPalst",
         "id": 40,
-        "eepromAddress": -1,
+        "eepromAddress": 42,
         "functionName": "SetKdPalst",
         "readOnly": false,
         "localOnly": false,
@@ -146,25 +179,8 @@
         "name": "Period Palst",
         "variableName": "PeriodPalst",
         "id": 41,
-        "eepromAddress": -1,
+        "eepromAddress": 44,
         "functionName": "setPalstPIDPeriod",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
-      "parentId": 37,
-      "type": "boolItem",
-      "defaultValue": "true",
-      "item": {
-        "naming": "ON_OFF",
-        "name": "Palst PID",
-        "variableName": "PalstPIDToggle",
-        "id": 42,
-        "eepromAddress": -1,
-        "functionName": "togglePalstPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -180,6 +196,23 @@
         "variableName": "PitchPID",
         "id": 3,
         "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Pitch PID",
+        "variableName": "PitchPIDToggle",
+        "id": 36,
+        "eepromAddress": 47,
+        "functionName": "togglePitchPid",
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -271,23 +304,6 @@
       }
     },
     {
-      "parentId": 3,
-      "type": "boolItem",
-      "defaultValue": "true",
-      "item": {
-        "naming": "ON_OFF",
-        "name": "Pitch PID",
-        "variableName": "PitchPIDToggle",
-        "id": 36,
-        "eepromAddress": -1,
-        "functionName": "togglePitchPid",
-        "readOnly": false,
-        "localOnly": false,
-        "visible": true,
-        "staticDataInRAM": false
-      }
-    },
-    {
       "parentId": 0,
       "type": "subMenu",
       "item": {
@@ -324,9 +340,9 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kp vel",
@@ -345,9 +361,9 @@
       "type": "analogItem",
       "defaultValue": "5",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Ki vel",
@@ -366,9 +382,9 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kd vel",

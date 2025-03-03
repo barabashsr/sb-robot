@@ -70,7 +70,7 @@ double KdPalst = 0.6;
 double KiPalst = 40.9;
 int palstSampleTime = 10;
 bool palstPidOn = true;
-const int pidLimitPalst = 200;
+const int pidLimitPalst = 255;
 
 
 //PID values for Pitch control
@@ -80,7 +80,7 @@ double KdPitch = 0.6;
 double KiPitch = 40.9;
 int pitchSampleTime = 10;
 bool pitchPidOn = true;
-const float pidLimitPitch = 100.0;
+const float pidLimitPitch = 25.0;
 
 double target_angle = 0;
 
@@ -88,8 +88,10 @@ double target_angle = 0;
 double KpVel = 20;   
 double KdVel = 0.0;
 double KiVel = 10;
+float KoVel = 1;
+double OutputVel = 0;
 int velSampleTime = 20;
-bool velPidOn = true;
+bool velPidOn = false;
 const float velAngleLimit = 2.0;
 
 //target angle
@@ -104,17 +106,17 @@ double KpYaw = 10;
 double KdYaw = 0.1;
 double KiYaw = 5;
 int yawSampleTime = 200;
-bool yawPidOn = true;
+bool yawPidOn = false;
 const float yawRateLimit = 200;
 
 double yawDelta = 0;
 double target_YawRate = 0;
 
-PID pidPalst(&currentPalst, &control_output, &targetPalst, KpPalst, KiPalst, KdPalst, REVERSE);
+PID pidPalst(&currentPalst, &control_output, &targetPalst, KpPalst, KiPalst, KdPalst, REVERSE); //never gets to the saturation
 
-PID pidPitch(&pitchAngle, &targetPalst, &target_angle, KpPitch, KiPitch, KdPitch, REVERSE);
+PID pidPitch(&pitchAngle, &targetPalst, &target_angle, KpPitch, KiPitch, KdPitch, DIRECT); //should be inversed? no
 
-PID pidVel(&x_vel, &target_angle, &target_vel, KpVel, KiVel, KdVel, DIRECT);
+PID pidVel(&x_vel, &OutputVel, &target_vel, KpVel, KiVel, KdVel, REVERSE); //should be inversed? yes
 PID pidYaw(&yaw_rate, &yawDelta, &target_YawRate, KpYaw, KiYaw, KdYaw, REVERSE);
 
 
@@ -154,11 +156,14 @@ void setLedColor(int calibration) {
 
 void angleControl(){
     pitchAngle = bno.getAngleY();
-    currentPalst = bno.getPalstance();
+    
     //pitchInput = pitchAngle + ofsetAngle;
     if(pitchPidOn){
     pidPitch.Compute();
     }
+}
+    void palstanceControl(){
+    currentPalst = bno.getPalstance();
     if(palstPidOn){
     pidPalst.Compute();
     } else {
@@ -175,12 +180,16 @@ void angleControl(){
 void speedControl(){
     if(velPidOn){
     pidVel.Compute();
+    target_angle = constrain(KoVel * OutputVel, -velAngleLimit + manualOfsetAngle, velAngleLimit + manualOfsetAngle);
     
     //speed_set = pitchOutput;
     //motors.setSpeeds(speed_set, speed_set); 
     } else {
-        target_angle = 0;
+        //target_angle = manualOfsetAngle;
     }
+}
+
+void yawRateControl(){
 
     if(yawPidOn){
         pidYaw.Compute();
@@ -188,7 +197,7 @@ void speedControl(){
         //speed_set = pitchOutput;
         //motors.setSpeeds(speed_set, speed_set); 
     } else {
-        yawDelta = 0;
+        //yawDelta = 0;
     }
 
 }
@@ -220,10 +229,17 @@ void updateMenuValues(){
 
     menuVel.setFloatValue(x_vel);
     menuYawRate.setFloatValue(yaw_rate);
-
-    if(velPidOn){
-        menuPitchOfset.setFromFloatingPointValue(ofsetAngle);
-    }
+    menuPalstance.setFloatValue(currentPalst);
+    //Serial.println(currentPalst);
+    menuPitchOfset.setFromFloatingPointValue(target_angle);
+    Serial.printf("T_angle: %f, Angle: %f, T_palst: %f, Palst: %f. output: %f\n", 
+        target_angle, 
+        pitchAngle, 
+        targetPalst, 
+        currentPalst, 
+        control_output
+    );
+    
 
     setLedColor(bnoCalib);
     }
@@ -384,6 +400,7 @@ void setup() {
     menuKpVel.triggerCallback();
     menuKdVel.triggerCallback();
     menuKiVel.triggerCallback();
+    menuKoVel.triggerCallback();
     menuPeriodV.triggerCallback();
     menuVelPIDToggle.triggerCallback();
 
@@ -393,6 +410,10 @@ void setup() {
     menuKiYaw.triggerCallback();
     menuPeriodY.triggerCallback();
     menuYawPIDToggle.triggerCallback();
+
+    //set motors thresholds
+    menuThresholdA.triggerCallback();
+    menuThresholdB.triggerCallback();
 
     
 
@@ -451,8 +472,11 @@ void loop() {
     taskManager.runLoop();
     calculateVelocities();
     bno.update();
+    palstanceControl();
     angleControl();
     speedControl();
+    yawRateControl();
+
     updateMenuValues();
     /* while (//Serial1.available()) {
         char inChar = (char)//Serial1.read();
@@ -522,6 +546,7 @@ void CALLBACK_FUNCTION SetKpPalst(int id) {
 void CALLBACK_FUNCTION setPalstPIDPeriod(int id) {
     palstSampleTime = menuPeriodPalst.getCurrentValue();
     pidPalst.SetSampleTime(palstSampleTime);
+    bno.setMeasurementPeriod(palstSampleTime);
     // TODO - your menu change code
 }
 
@@ -541,6 +566,7 @@ void CALLBACK_FUNCTION togglePitchPid(int id) {
         pitchPidOn = false;
         //menuPitchOfset.setFromFloatingPointValue(manualOfsetAngle);
         pidPitch.SetMode(MANUAL);
+        targetPalst = 0;
         
     }
     // TODO - your menu change code
@@ -594,6 +620,7 @@ Velocity control pid loop
     } else {
         velPidOn = false;
         menuPitchOfset.setFromFloatingPointValue(manualOfsetAngle);
+        target_angle = manualOfsetAngle;
         pidVel.SetMode(MANUAL);
         
     }
@@ -717,7 +744,7 @@ void CALLBACK_FUNCTION SavePID(int id) {
 void CALLBACK_FUNCTION SetPitchOfset(int id) {
     if (!velPidOn){
     manualOfsetAngle = menuPitchOfset.getAsFloatingPointValue();
-    ofsetAngle = manualOfsetAngle;
+    target_angle = manualOfsetAngle;
     Serial.print("Pitch ofset changed to");
     Serial.println(ofsetAngle);
     
@@ -741,5 +768,26 @@ void CALLBACK_FUNCTION setTargetYawRa(int id) {
 
 void CALLBACK_FUNCTION setTargetVel(int id) {
     target_vel = menuSetVel.getAsFloatingPointValue();
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setThresholdB(int id) {
+    int threshold = menuThresholdA.getCurrentValue();
+    motors.setThresholdA(threshold);
+    Serial.printf("Treshold motor A changet to: %3d", threshold);
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setThresholdA(int id) {
+    int threshold = menuThresholdB.getCurrentValue();
+    motors.setThresholdB(threshold);
+    Serial.printf("Treshold motor A changet to: %3d", threshold);
+    // TODO - your menu change code
+}
+
+void CALLBACK_FUNCTION SetKoVel(int id) {
+    KoVel =  menuKoVel.getAsFloatingPointValue();
     // TODO - your menu change code
 }
