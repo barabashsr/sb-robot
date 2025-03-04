@@ -24,3 +24,9 @@ Ki 8.3
 Kd 0.0
 Period 210ms
 ```
+
+### Motors thresholds:
+```text
+Motor A: 55
+Motor B: 55
+```
