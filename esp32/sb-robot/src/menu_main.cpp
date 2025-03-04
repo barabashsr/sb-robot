@@ -76,13 +76,13 @@ const int pidLimitPalst = 255;
 
 
 //PID values for Pitch control
-double pitchInput;
+double pitchInput, pitchOutput;
 double KpPitch = 20;   
 double KdPitch = 0.6;
 double KiPitch = 40.9;
 int pitchSampleTime = 10;
 bool pitchPidOn = true;
-const float pidLimitPitch = 4.0;
+const int pidLimitPitch = 255;
 
 double target_angle = 0;
 
@@ -94,7 +94,7 @@ float KoVel = 1;
 double OutputVel = 0;
 int velSampleTime = 20;
 bool velPidOn = false;
-const float velAngleLimit = 2.0;
+const float velAngleLimit = 4.0;
 
 //target angle
 int speed_set = 0;
@@ -114,9 +114,9 @@ const float yawRateLimit = 200;
 double yawDelta = 0;
 double target_YawRate = 0;
 
-PID pidPalst(&currentPalst, &OutputPalst, &targetPalst, KpPalst, KiPalst, KdPalst, REVERSE); //never gets to the saturation
+//PID pidPalst(&currentPalst, &OutputPalst, &targetPalst, KpPalst, KiPalst, KdPalst, REVERSE); //never gets to the saturation
 
-PID pidPitch(&pitchAngle, &targetPalst, &target_angle, KpPitch, KiPitch, KdPitch, DIRECT); //should be inversed? no
+PID pidPitch(&pitchAngle, &pitchOutput, &target_angle, KpPitch, KiPitch, KdPitch, REVERSE); //should be inversed? no
 
 PID pidVel(&x_vel, &OutputVel, &target_vel, KpVel, KiVel, KdVel, REVERSE); //should be inversed? yes
 PID pidYaw(&yaw_rate, &yawDelta, &target_YawRate, KpYaw, KiYaw, KdYaw, REVERSE);
@@ -174,14 +174,17 @@ void  calculateVelocities(){
 }
 
 void angleControl(){
+    
     pitchAngle = bno.getAngleY();
     
     //pitchInput = pitchAngle + ofsetAngle;
     if(pitchPidOn){
     pidPitch.Compute();
+    control_output = pitchOutput;
+    motors.setSpeeds(control_output+yawDelta, control_output-yawDelta);
     }
 }
-    void palstanceControl(){
+/*     void palstanceControl(){
     
     if(palstPidOn){
     bno.update();
@@ -194,16 +197,17 @@ void angleControl(){
     control_output = constrain(OutputPalst * KoPalst, -pidLimitPalst, pidLimitPalst);
     motors.setSpeeds(control_output+yawDelta, control_output-yawDelta);
     
-}
+} */
 
 
 
 
 void speedControl(){
-    if(velPidOn){
     calculateVelocities();
+    if(velPidOn){
+    //calculateVelocities();
     pidVel.Compute();
-    target_angle = constrain(KoVel * OutputVel, -velAngleLimit + manualOfsetAngle, velAngleLimit + manualOfsetAngle);
+    target_angle = OutputVel; // * KoVel;
     
     //speed_set = pitchOutput;
     //motors.setSpeeds(speed_set, speed_set); 
@@ -224,6 +228,13 @@ void yawRateControl(){
     }
 
 }
+
+void robotControl(){
+    angleControl();
+    speedControl();
+    yawRateControl();
+
+};
 
 
 void updateMenuValues(){
@@ -249,17 +260,18 @@ void updateMenuValues(){
     menuPitch.setFloatValue(pitchAngle);
     int bnoCalib = bno.calibration();
     menuBNOCalib.setCurrentValue(bnoCalib);
+    currentPalst = bno.getPalstance();
 
     menuVel.setFloatValue(x_vel);
     menuYawRate.setFloatValue(yaw_rate);
     menuPalstance.setFloatValue(currentPalst);
     //Serial.println(currentPalst);
     menuPitchOfset.setFromFloatingPointValue(target_angle);
-    Serial.printf("T_angle: %f, Angle: %f, T_palst: %f, Palst: %f. output: %f\n", 
+    Serial.printf(" T_vel: %.2f, Vel: %.2f, T_angle: %.2f, Angle: %.2f output: %.2f\n", 
+        target_vel,
+        x_vel,
         target_angle, 
         pitchAngle, 
-        targetPalst, 
-        currentPalst, 
         control_output
     );
     
@@ -360,13 +372,13 @@ void processCommand(String command) {
 
 
 volatile TickType_t palstancePeriod = pdMS_TO_TICKS(5);
-volatile TickType_t anglePeriod = pdMS_TO_TICKS(10);
+volatile TickType_t robotControlPeriod = pdMS_TO_TICKS(10);
 volatile TickType_t speedPeriod = pdMS_TO_TICKS(50);
 volatile TickType_t yawRatePeriod = pdMS_TO_TICKS(50);
 
 
     //Functions to implementt PID controls on core1
-    void palstanceControlTask(void * parameter) {
+/*     void palstanceControlTask(void * parameter) {
         TickType_t xLastWakeTime;
         //const TickType_t xFrequency = pdMS_TO_TICKS(5);
         xLastWakeTime = xTaskGetTickCount();
@@ -375,19 +387,19 @@ volatile TickType_t yawRatePeriod = pdMS_TO_TICKS(50);
           palstanceControl();
           vTaskDelayUntil(&xLastWakeTime, palstancePeriod);
         }
-      }
+      } */
       
-      void angleControlTask(void * parameter) {
+      void robotControlTask(void * parameter) {
         TickType_t xLastWakeTime;
         //const TickType_t xFrequency = pdMS_TO_TICKS(10);
         xLastWakeTime = xTaskGetTickCount();
       
         for(;;) {
-          angleControl();
-          vTaskDelayUntil(&xLastWakeTime, anglePeriod);
+          robotControl();
+          vTaskDelayUntil(&xLastWakeTime, robotControlPeriod);
         }
       }
-      
+      /* 
       void speedControlTask(void * parameter) {
         TickType_t xLastWakeTime;
         //const TickType_t xFrequency = pdMS_TO_TICKS(50);
@@ -410,7 +422,7 @@ volatile TickType_t yawRatePeriod = pdMS_TO_TICKS(50);
         }
       }
       
-
+ */
     
 
 
@@ -445,12 +457,12 @@ void setup() {
     //manualOfsetAngle = ofsetAngle;
     
     //Assign Palst PID values
-    menuKpPalst.triggerCallback();
+/*     menuKpPalst.triggerCallback();
     menuKdPalst.triggerCallback();
     menuKiPalst.triggerCallback();
     menuKoPalst.triggerCallback();
     menuPeriodPalst.triggerCallback();
-    menuPalstPIDToggle.triggerCallback();
+    menuPalstPIDToggle.triggerCallback(); */
 
     //Assign Pitch PID values
     menuKpPitch.triggerCallback();
@@ -495,13 +507,14 @@ void setup() {
         //Serial1.println("BNO055 initialized successfully");
 
     }
+    bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
 
-
+/* 
     //setup Palst PID
     pidPalst.SetMode(AUTOMATIC);  
     pidPalst.SetOutputLimits(-pidLimitPalst, pidLimitPalst); 
     Serial.printf("Loaded Palst PID values - Kp: %f, Ki: %f, Kd: %f\n", KpPalst, KiPalst, KdPalst);
-
+ */
 
     //setup Pitch PID
     pidPitch.SetMode(AUTOMATIC);  
@@ -531,7 +544,7 @@ void setup() {
 
 
      // Put PID functions on core 1
-
+/* 
      xTaskCreatePinnedToCore(
         palstanceControlTask,   // Function to implement the task
         "PalstanceControl",     // Name of the task
@@ -540,21 +553,22 @@ void setup() {
         4,                      // Priority of the task (highest)
         NULL,                   // Task handle
         1);                     // Core where the task should run (1)
-    
-      xTaskCreatePinnedToCore(angleControlTask, "AngleControl", 10000, NULL, 3, NULL, 1);
-      xTaskCreatePinnedToCore(speedControlTask, "SpeedControl", 10000, NULL, 2, NULL, 1);
-      xTaskCreatePinnedToCore(yawRateControlTask, "YawRateControl", 10000, NULL, 1, NULL, 1);
+     */
+      xTaskCreatePinnedToCore(robotControlTask, "AngleControl", 10000, NULL, 3, NULL, 1);
+      //xTaskCreatePinnedToCore(speedControlTask, "SpeedControl", 10000, NULL, 2, NULL, 1);
+      //xTaskCreatePinnedToCore(yawRateControlTask, "YawRateControl", 10000, NULL, 1, NULL, 1);
  
 
 }
 
 void loop() {
     taskManager.runLoop();
-    calculateVelocities();
+    
+    bno.update();
     //bno.update();
     // palstanceControl();
     // angleControl();
-    // speedControl();
+    //speedControl();
     // yawRateControl();
 
     updateMenuValues();
@@ -586,24 +600,24 @@ Palstance control pid loop
  */
 
  void CALLBACK_FUNCTION SetKdPalst(int id) {
-    KdPalst = menuKdPitch.getAsFloatingPointValue();
+/*     KdPalst = menuKdPitch.getAsFloatingPointValue();
     pidPalst.SetTunings(KpPalst, KiPalst, KdPalst);
-    Serial.println("Palst Kd changed");
+    Serial.println("Palst Kd changed"); */
     // TODO - your menu change code
 }
 
 
 
 void CALLBACK_FUNCTION SetKiPalst(int id) {
-    KiPalst = menuKiPitch.getAsFloatingPointValue();
+/*     KiPalst = menuKiPitch.getAsFloatingPointValue();
     pidPalst.SetTunings(KpPalst, KiPalst, KdPalst);
-    Serial.println("Palst Ki changed");
+    Serial.println("Palst Ki changed"); */
     // TODO - your menu change code
 }
 
 
 void CALLBACK_FUNCTION togglePalstPid(int id) {
-    if (menuPalstPIDToggle.getBoolean()){
+/*     if (menuPalstPIDToggle.getBoolean()){
         palstPidOn = true;
         pidPalst.SetMode(AUTOMATIC);
     } else {
@@ -611,30 +625,30 @@ void CALLBACK_FUNCTION togglePalstPid(int id) {
         //menuPitchOfset.setFromFloatingPointValue(manualOfsetAngle);
         pidPalst.SetMode(MANUAL);
         
-    }
+    } */
 }
 
 
 void CALLBACK_FUNCTION SetKpPalst(int id) {
-    KpPalst = menuKpPitch.getAsFloatingPointValue();
+/*     KpPalst = menuKpPitch.getAsFloatingPointValue();
     pidPalst.SetTunings(KpPalst, KiPalst, KdPalst);
     Serial.println("Palst Kp changed");
-    // TODO - your menu change code
+    // TODO - your menu change code */
 }
 
 void CALLBACK_FUNCTION SetKoPalst(int id) {
-    KoPalst = menuKoPalst.getAsFloatingPointValue();
+/*     KoPalst = menuKoPalst.getAsFloatingPointValue();
     Serial.println("Palst Ko changed");
-    // TODO - your menu change code
+    // TODO - your menu change code */
 }
 
 
 void CALLBACK_FUNCTION setPalstPIDPeriod(int id) {
-    palstSampleTime = menuPeriodPalst.getCurrentValue()+1;
+/*     palstSampleTime = menuPeriodPalst.getCurrentValue()+1;
     pidPalst.SetSampleTime(palstSampleTime);
     palstancePeriod = pdMS_TO_TICKS(palstSampleTime);
 
-    bno.setMeasurementPeriod(palstSampleTime);
+    bno.setMeasurementPeriod(palstSampleTime); */
     // TODO - your menu change code
 }
 
@@ -688,7 +702,7 @@ void CALLBACK_FUNCTION SetKdPitch(int id) {
 
 void CALLBACK_FUNCTION setPitchPIDPeriod(int id) {
     pitchSampleTime = menuPeriodP.getCurrentValue()+1;
-    anglePeriod = pdMS_TO_TICKS(pitchSampleTime);
+    robotControlPeriod = pdMS_TO_TICKS(pitchSampleTime);
     pidPitch.SetSampleTime(pitchSampleTime);
     // TODO - your menu change code
 }
@@ -718,38 +732,43 @@ Velocity control pid loop
 
 
 void CALLBACK_FUNCTION SetKpVel(int id) {
-    KpVel = menuKpPitch.getAsFloatingPointValue();
+    KpVel = menuKpVel.getAsFloatingPointValue();
     pidVel.SetTunings(KpVel, KiVel, KdVel);
-    Serial.println("Vel Kp changed");
+    Serial.printf("Vel Kp: %2f, Vel Ki: %2f,Vel Kd: %2f\n", pidVel.GetKp(), pidVel.GetKi(),pidVel.GetKd());
 
 }
 
 
 void CALLBACK_FUNCTION SetKdVel(int id) {
-    KdVel = menuKdPitch.getAsFloatingPointValue();
+    KdVel = menuKdVel.getAsFloatingPointValue();
     pidVel.SetTunings(KpVel, KiVel, KdVel);
-    Serial.println("Vel Kd changed");
+    Serial.printf("Vel Kp: %2f, Vel Ki: %2f,Vel Kd: %2f\n", pidVel.GetKp(), pidVel.GetKi(),pidVel.GetKd());
     // TODO - your menu change code
 }
 
 
 void CALLBACK_FUNCTION SetKiVel(int id) {
-    KiVel = menuKiPitch.getAsFloatingPointValue();
+    KiVel = menuKiVel.getAsFloatingPointValue();
     pidVel.SetTunings(KpVel, KiVel, KdVel);
-    Serial.println("Vel Ki changed");
+    Serial.printf("Vel Kp: %2f, Vel Ki: %2f,Vel Kd: %2f\n", pidVel.GetKp(), pidVel.GetKi(),pidVel.GetKd());
     // TODO - your menu change code
 }
 
 
 void CALLBACK_FUNCTION setVelPIDPeriod(int id) {
     velSampleTime = menuPeriodV.getCurrentValue()+1;
-    speedPeriod = pdMS_TO_TICKS(velSampleTime);
+    //speedPeriod = pdMS_TO_TICKS(velSampleTime);
     pidVel.SetSampleTime(pitchSampleTime);
     //motors.setMeasurementPeriod(velSampleTime);
     if (yawSampleTime>velSampleTime){
         motors.setMeasurementPeriod(velSampleTime);
 
     }
+    // TODO - your menu change code
+}
+
+void CALLBACK_FUNCTION SetKoVel(int id) {
+    KoVel =  menuKoVel.getAsFloatingPointValue();
     // TODO - your menu change code
 }
 
@@ -793,7 +812,7 @@ void CALLBACK_FUNCTION SetKdYaw(int id) {
 
 void CALLBACK_FUNCTION setYawPIDPeriod(int id) {
     yawSampleTime = menuPeriodY.getCurrentValue() + 1;
-    yawRatePeriod = pdMS_TO_TICKS(yawSampleTime);
+    //yawRatePeriod = pdMS_TO_TICKS(yawSampleTime);
     pidYaw.SetSampleTime(yawSampleTime);
     if (yawSampleTime<velSampleTime){
         motors.setMeasurementPeriod(yawSampleTime);
@@ -878,7 +897,4 @@ void CALLBACK_FUNCTION setThresholdA(int id) {
     // TODO - your menu change code
 }
 
-void CALLBACK_FUNCTION SetKoVel(int id) {
-    KoVel =  menuKoVel.getAsFloatingPointValue();
-    // TODO - your menu change code
-}
+

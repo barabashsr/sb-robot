@@ -136,3 +136,25 @@ void CALLBACK_FUNCTION setPalstPIDPeriod(int id) {
 void CALLBACK_FUNCTION togglePitchPid(int id) {
     // TODO - your menu change code
 }
+
+
+
+void CALLBACK_FUNCTION setThresholdB(int id) {
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION setThresholdA(int id) {
+    // TODO - your menu change code
+}
+
+
+
+void CALLBACK_FUNCTION SetKoVel(int id) {
+    // TODO - your menu change code
+}
+
+
+void CALLBACK_FUNCTION SetKoPalst(int id) {
+    // TODO - your menu change code
+}

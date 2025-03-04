@@ -15,7 +15,7 @@
         "eepromAddress": -1,
         "readOnly": true,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },
@@ -87,6 +87,48 @@
       }
     },
     {
+      "parentId": 44,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Threshold A",
+        "variableName": "ThresholdA",
+        "id": 45,
+        "eepromAddress": 48,
+        "functionName": "setThresholdA",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 44,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Threshold B",
+        "variableName": "ThresholdB",
+        "id": 46,
+        "eepromAddress": 50,
+        "functionName": "setThresholdB",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
       "parentId": 0,
       "type": "subMenu",
       "item": {
@@ -97,7 +139,7 @@
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },
@@ -184,10 +226,31 @@
     {
       "parentId": 37,
       "type": "analogItem",
+      "defaultValue": "10",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ko palst",
+        "variableName": "KoPalst",
+        "id": 48,
+        "eepromAddress": 54,
+        "functionName": "SetKoPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -303,7 +366,7 @@
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -357,7 +420,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kp vel",
@@ -378,7 +441,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Ki vel",
@@ -399,7 +462,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kd vel",
@@ -416,10 +479,31 @@
     {
       "parentId": 15,
       "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 700,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ko vel",
+        "variableName": "KoVel",
+        "id": 47,
+        "eepromAddress": 52,
+        "functionName": "SetKoVel",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": false,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
+      "type": "analogItem",
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -535,7 +619,7 @@
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,

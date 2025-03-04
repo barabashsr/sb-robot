@@ -15,7 +15,7 @@
         "eepromAddress": -1,
         "readOnly": true,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },
@@ -139,7 +139,7 @@
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },
@@ -420,7 +420,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kp vel",
@@ -441,7 +441,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Ki vel",
@@ -462,7 +462,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kd vel",
@@ -481,7 +481,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 7000,
+        "maxValue": 700,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -493,7 +493,7 @@
         "functionName": "SetKoVel",
         "readOnly": false,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },

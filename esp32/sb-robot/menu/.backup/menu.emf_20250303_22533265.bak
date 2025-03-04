@@ -237,7 +237,7 @@
         "variableName": "KoPalst",
         "id": 48,
         "eepromAddress": 54,
-        "functionName": "SetKoVel",
+        "functionName": "SetKoPalst",
         "readOnly": false,
         "localOnly": false,
         "visible": true,

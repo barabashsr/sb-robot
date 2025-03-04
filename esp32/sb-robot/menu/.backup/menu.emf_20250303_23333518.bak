@@ -15,7 +15,7 @@
         "eepromAddress": -1,
         "readOnly": true,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },
@@ -139,7 +139,7 @@
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },
@@ -226,10 +226,31 @@
     {
       "parentId": 37,
       "type": "analogItem",
+      "defaultValue": "10",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ko palst",
+        "variableName": "KoPalst",
+        "id": 48,
+        "eepromAddress": 54,
+        "functionName": "SetKoPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -345,7 +366,7 @@
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -399,7 +420,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 1000,
         "unitName": "",
         "step": 1,
         "name": "Kp vel",
@@ -420,7 +441,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 1000,
         "unitName": "",
         "step": 1,
         "name": "Ki vel",
@@ -441,7 +462,7 @@
       "item": {
         "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 1000,
         "unitName": "",
         "step": 1,
         "name": "Kd vel",
@@ -460,7 +481,7 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 7000,
+        "maxValue": 700,
         "offset": 0,
         "divisor": 10,
         "unitName": "",
@@ -472,7 +493,7 @@
         "functionName": "SetKoVel",
         "readOnly": false,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },
@@ -482,7 +503,7 @@
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,
@@ -598,7 +619,7 @@
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
-        "offset": 0,
+        "offset": 1,
         "divisor": 1,
         "unitName": "ms",
         "step": 1,

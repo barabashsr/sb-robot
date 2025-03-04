@@ -22,7 +22,7 @@ bool BNO055Sensor::begin() {
     bno.setExtCrystalUse(true);
     return true;
 
-    measurementPeriod = 1000; // Increase to 100ms
+    measurementPeriod = 100.0; // Increase to 100ms
     lastMeasurementTime = 0;
     lastPitch = 0;
     palstance = 0;
@@ -53,7 +53,7 @@ void BNO055Sensor::updatePalstance() {
     unsigned long currentTime = millis();
     if (currentTime - lastMeasurementTime >= measurementPeriod) {
         //float timeInSeconds = measurementPeriod / 1000.0f;
-        double deltaY = (angleY - lastPitch) * PI / 1800.0f;
+        float deltaY = (angleY - lastPitch) * PI / 180;
         
         // Only update palstance if the change is significant
         //if (abs(deltaY) > 0.01) { // Adjust this threshold as needed

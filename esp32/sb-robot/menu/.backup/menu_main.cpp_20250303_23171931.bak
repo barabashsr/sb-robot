@@ -153,3 +153,8 @@ void CALLBACK_FUNCTION setThresholdA(int id) {
 void CALLBACK_FUNCTION SetKoVel(int id) {
     // TODO - your menu change code
 }
+
+
+void CALLBACK_FUNCTION SetKoPalst(int id) {
+    // TODO - your menu change code
+}

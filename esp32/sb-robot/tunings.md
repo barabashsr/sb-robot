@@ -3,24 +3,24 @@
 
 ### Pitch PID:
 ```text
-Kp 13.6
-Ki 28.0
-Kd 0.6
+Kp 33.8
+Ki 40.8
+Kd 0.4
 Period 7ms
 ```
 
 ### Vel PID:
 ```text
-Kp 9.4
-Ki 14.7
-Kd 0.0
-Period 7ms
+Kp 25.9
+Ki 14.93
+Kd 1.33
+Period 210ms
 ```
 
 ### Yaw rate PID:
 ```text
-Kp 9.2
-Ki 1.6
-Kd 0.1
-Period 7ms
+Kp 7.8
+Ki 8.3
+Kd 0.0
+Period 210ms
 ```
