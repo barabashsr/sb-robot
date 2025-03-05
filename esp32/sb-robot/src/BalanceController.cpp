@@ -1,30 +1,40 @@
 #include "BalanceController.h"
 
-BalanceController::BalanceController(MotorController& motors, 
-                                        BNO055Sensor& bno, 
-                                        pidParams& pitchParams, 
-                                        pidParams& velParams, 
-                                        pidParams& yawParams,
-                                        controllerState& controllerState, 
-                                        float wheelRadius, 
-                                        float wheelSeparation,
-                                        double& targetVelocity,
-                                        double& targetYawRate,
-                                        double& targetAngle
-                                    )
-    : _motors(motors), _bno(bno), _targetVelocity(targetVelocity), _targetYawRate(targetYawRate), _manualAngle(targetAngle), _state(controllerState),
+BalanceController::BalanceController(MotorController &motors,
+    BNO055Sensor &bno,
+    pidParams &pitchParams,
+    pidParams &velParams,
+    pidParams &yawParams,
+    controllerState &controllerState,
+    float wheelRadius,
+    float wheelSeparation,
+    double &targetVelocity,
+    double &targetYawRate,
+    double &targetAngle)
+    : _motors(motors), _bno(bno), 
       _pidParamsPitch(pitchParams), _pidParamsVel(velParams), _pidParamsYaw(yawParams),
-      _pitchPID(&_currentPitch, &_pitchOutput, &_targetPitch, pitchParams.Kp, pitchParams.Ki, pitchParams.Kd, pitchParams.direct ? DIRECT : REVERSE),
-      _velPID(&_currentVel, &_velocityOutput, &_targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, velParams.direct ? DIRECT : REVERSE),
-      _yawPID(&_currentYawRate, &_yawOutput, &_targetYawRate, yawParams.Kp, yawParams.Ki, yawParams.Kd, yawParams.direct ? DIRECT : REVERSE)
+      _targetVelocity(targetVelocity), _targetYawRate(targetYawRate), _manualAngle(targetAngle),
+      _wheelRadius(wheelRadius), _wheelSeparation(wheelSeparation),
+      _currentPitch(0), _pitchOutput(0), _targetPitch(0),
+      _currentVel(0), _velocityOutput(0),
+      _currentYawRate(0), _yawOutput(0),
+      _state(controllerState),
+      _positionA(0), _positionB(0), _speedA(0), _speedB(0),
+      _pitchPidOn(false), _velPidOn(false), _yawPidOn(false),
+      _taskPeriod(0),
+      _pitchPID(&_currentPitch, &_pitchOutput, &_targetPitch, pitchParams.Kp, pitchParams.Ki, pitchParams.Kd, DIRECT),
+      _velPID(&_currentVel, &_velocityOutput, &_targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, REVERSE),
+      _yawPID(&_currentYawRate, &_yawOutput, &_targetYawRate, yawParams.Kp, yawParams.Ki, yawParams.Kd, REVERSE)
+  
       
 { 
 
 
     _wheelRadius = wheelRadius;
     _wheelSeparation = wheelSeparation;
+    Serial.println("constructed");
     
-
+/* 
     _state.speedA = &_speedA;
     _state.speedB = &_speedB;
     _state.positionA = &_positionA;
@@ -39,7 +49,9 @@ BalanceController::BalanceController(MotorController& motors,
     _state.velPIDOn = &_velPidOn;
     _state.controlOutput = &_pitchOutput;
 
+ */
 
+ 
 
     
 
@@ -63,10 +75,10 @@ void BalanceController::updateVelPID(){
 };
 
 void BalanceController::updatePitchPID(){
-    _velPID.SetMode(_pidParamsPitch.modeAuto ? AUTOMATIC : MANUAL);
-    _velPID.SetOutputLimits(_pidParamsPitch.min, _pidParamsPitch.max);
-    _velPID.SetSampleTime(_pidParamsPitch.period);
-    _velPID.SetControllerDirection(_pidParamsPitch.direct ? DIRECT : REVERSE);
+    _pitchPID.SetMode(_pidParamsPitch.modeAuto ? AUTOMATIC : MANUAL);
+    _pitchPID.SetOutputLimits(_pidParamsPitch.min, _pidParamsPitch.max);
+    _pitchPID.SetSampleTime(_pidParamsPitch.period);
+    _pitchPID.SetControllerDirection(_pidParamsPitch.direct ? DIRECT : REVERSE);
     _taskPeriod = pdMS_TO_TICKS(_pidParamsPitch.period);
 };
 
@@ -81,7 +93,7 @@ void BalanceController::setTuningsVel(){
 }
 
 void BalanceController::setTuningsYaw(){
-    _velPID.SetTunings(_pidParamsYaw.Kp, _pidParamsYaw.Ki, _pidParamsYaw.Kd);
+    _yawPID.SetTunings(_pidParamsYaw.Kp, _pidParamsYaw.Ki, _pidParamsYaw.Kd);
 
 }
 
@@ -98,19 +110,24 @@ void BalanceController::begin() {
 
     updateYawPID();
     setTuningsYaw();
+    Serial.println("init");
 
-    xTaskCreatePinnedToCore(controlTask, "BalanceControl", 10000, NULL, 3, NULL, 1);
+    xTaskCreatePinnedToCore(controlTask, "BalanceControl", 20000, this, 3, NULL, 1);
 
 }
 
 void BalanceController::update() {
     _currentPitch = _bno.getAngleY();
     updatePitchControl();
+    //Serial.printf("pitch updated: current: %f, target: %f, output \n", _currentPitch, _targetPitch,  _pitchOutput);
 
     calculateVelocities();
+    //Serial.println("vel calculated");
 
     updateVelocityControl();
+    //Serial.println("vel updated");
     updateYawControl();
+    //Serial.println("yaw updated");
      
 }
 
@@ -209,6 +226,7 @@ void BalanceController::setPitchPIDOn(bool state) {
 void BalanceController::setVelPIDOn(bool state) {
     _velPidOn = state;
     _velPID.SetMode(state ? AUTOMATIC : MANUAL);
+    
 }
 
 void BalanceController::setYawPIDOn(bool state) {
@@ -216,3 +234,19 @@ void BalanceController::setYawPIDOn(bool state) {
     _yawPID.SetMode(state ? AUTOMATIC : MANUAL);
 
 }
+
+void BalanceController::updateState(){
+    
+    _state.speedA = _speedA;
+    _state.speedB = _speedB;
+    _state.positionA = _positionA;
+    _state.positionB = _positionB;
+    _state.currentVel = _currentVel;
+    _state.currentYawRate = _currentYawRate;
+    _state.currentPitch = _currentPitch;
+    _state.targetPitch = _targetPitch;
+    _state.controlOutput = _pitchOutput;
+    _state.pitchPIDOn = _pitchPidOn;
+    _state.velPIDOn = _velPidOn;
+    _state.yawPIDOn = _yawPidOn;
+};

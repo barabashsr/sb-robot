@@ -65,13 +65,14 @@ MotorController motors(
     MOTOR_B_ENC_A, MOTOR_B_ENC_B
 );
 
-BalanceController::pidParams paramsPitch, paramsVel, paramsYaw;
+BalanceController::pidParams paramsPitch{0.0, 0.0, 0.0, 0.0f, 0.0f, 7, false, true};
+BalanceController::pidParams paramsVel{0.0, 0.0, 0.0, 0.0f, 0.0f, 7, false, true}, paramsYaw{0.0, 0.0, 0.0, 0.0f, 0.0f, 7, false, true};
 
 BalanceController::controllerState controllerState;
 
 double targetVel = 0.0;
 double targetYawRate = 0.0;
-double targetPitch = 0.0;
+double targetPitch = 0.7;
 
 
 BalanceController controller(motors, 
@@ -131,23 +132,27 @@ void updateMenuValues(){
         Serial.print(" pitchOutput: ");
         Serial.print(speed_set); */
     //float angleY = bno.getAngleY();
-    menuPitch.setFloatValue(static_cast<float>(*controllerState.currentPitch));
+    controller.updateState();
+    menuPitch.setFloatValue(static_cast<float>(controllerState.currentPitch));
     int bnoCalib = bno.calibration();
     menuBNOCalib.setCurrentValue(bnoCalib);
     //currentPalst = bno.getPalstance();
 
-    menuVel.setFloatValue(static_cast<float>(*controllerState.currentVel));
-    menuYawRate.setFloatValue(static_cast<float>(*controllerState.currentYawRate));
+    menuVel.setFloatValue(static_cast<float>(controllerState.currentVel));
+    menuYawRate.setFloatValue(static_cast<float>(controllerState.currentYawRate));
     //menuPalstance.setFloatValue(currentPalst);
     //Serial.println(currentPalst);
-    menuPitchOfset.setFromFloatingPointValue(static_cast<float>(*controllerState.targetPitch));
-    Serial.printf(" T_vel: %.2f, Vel: %.2f, T_angle: %.2f, Angle: %.2f output: %.2f\n", 
-        targetVel,
-        *controllerState.currentVel,
-        *controllerState.targetPitch, 
-        *controllerState.currentPitch, 
-        *controllerState.controlOutput
+    if (controllerState.velPIDOn){
+        menuPitchOfset.setFromFloatingPointValue(static_cast<float>(controllerState.targetPitch));
+    }
+    double Kp, Ki, Kd;
+    controller.getPitchPID(Kp, Ki, Kd);
+    
+    Serial.printf(" Pitch: Kp: %.2f, Kd: %.2f, Ki: %.2f, output:  %.2f, pitch:  %.2f\n", 
+       Kp, Ki, Kd, controllerState.controlOutput, controllerState.currentPitch
     );
+
+
     
 
     setLedColor(bnoCalib);
@@ -158,7 +163,7 @@ void updateMenuValues(){
 
 
 void processCommand(String command) {
-    command.trim();
+    // command.trim();
     /* if (command.startsWith("ma ")) {
         int speed = command.substring(3).toInt();
         motors.setMotorA(speed);
@@ -314,7 +319,21 @@ void setup() {
     }
     bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
 
+    paramsPitch.direct = false;
+    paramsPitch.max = 255;
+    paramsPitch.min = -255;
+    
+    paramsVel.direct = false;
+    paramsVel.max = 4.0;
+    paramsVel.min = -4.0;
+   
+    paramsYaw.direct = false;
+    paramsYaw.max = 200;
+    paramsYaw.max = -200;
+
+
     controller.begin();
+    Serial.println("Balance controller started");
 
 
 }
@@ -322,6 +341,7 @@ void setup() {
 void loop() {
     taskManager.runLoop();
     bno.update();
+    //controller.update();
 
     updateMenuValues();
 }
@@ -399,7 +419,7 @@ void CALLBACK_FUNCTION SetKdPitch(int id) {
 
 void CALLBACK_FUNCTION setPitchPIDPeriod(int id) {
     paramsPitch.period = menuPeriodP.getCurrentValue() + 1;
-    controller.setTuningsPitch();
+    controller.updatePitchPID();
     
     // TODO - your menu change code
 }
@@ -414,7 +434,13 @@ Velocity control pid loop
 
 
  void CALLBACK_FUNCTION toggleVelPid(int id) {
-    controller.setPitchPIDOn(menuVelPIDToggle.getBoolean());
+    bool state = menuVelPIDToggle.getBoolean();
+    if (!state){
+        menuPitchOfset.setFromFloatingPointValue(targetPitch);
+
+    }
+
+    controller.setVelPIDOn(state);
 }
 
 
@@ -442,7 +468,7 @@ void CALLBACK_FUNCTION SetKiVel(int id) {
 
 void CALLBACK_FUNCTION setVelPIDPeriod(int id) {
     paramsVel.period = menuPeriodV.getCurrentValue() + 1;
-    controller.setTuningsVel();
+    controller.updateVelPID();
 }
 
 void CALLBACK_FUNCTION SetKoVel(int id) {
@@ -490,7 +516,7 @@ void CALLBACK_FUNCTION SetKdYaw(int id) {
 
 void CALLBACK_FUNCTION setYawPIDPeriod(int id) {
     paramsYaw.period = menuPeriodY.getCurrentValue() + 1;
-    controller.setTuningsYaw();
+    controller.updateYawPID();
    
 }
 
@@ -518,8 +544,9 @@ void CALLBACK_FUNCTION SavePID(int id) {
 
 
 void CALLBACK_FUNCTION SetPitchOfset(int id) {
+    if(!controllerState.velPIDOn){
     targetPitch = menuPitchOfset.getAsFloatingPointValue();
-    
+    }
     // TODO - your menu change code
 }
 

@@ -11,45 +11,45 @@ class BalanceController {
 public:
     struct pidParams
             {
-                double Kp = 0;
-                double Ki = 0;
-                double Kd = 0;
-                float max = 0;
-                float min = 0;
-                float period = 7;
-                bool direct = true;
-                bool modeAuto = true;
+                double Kp;
+                double Ki;
+                double Kd;
+                float max;
+                float min;
+                float period;
+                bool direct;
+                bool modeAuto;
                 /* data */
             };
     struct controllerState 
             {
-                float* speedA;
-                float* speedB;
-                float* positionA;
-                float* positionB;
-                double* currentVel;
-                double* currentYawRate;
-                double* currentPitch;
-                double* targetPitch;
-                double* controlOutput;
-                bool* pitchPIDOn;
-                bool* velPIDOn;
-                bool* yawPIDOn;
+                float speedA;
+                float speedB;
+                float positionA;
+                float positionB;
+                double currentVel;
+                double currentYawRate;
+                double currentPitch;
+                double targetPitch;
+                double controlOutput;
+                bool pitchPIDOn;
+                bool velPIDOn;
+                bool yawPIDOn;
                 
 
             };
 
-    BalanceController(MotorController& motors, 
-                        BNO055Sensor& bno, 
-                        pidParams& pitchParams, 
-                        pidParams& velParams, 
-                        pidParams& yawParams,
-                        controllerState& controllerState, 
+    BalanceController(MotorController &motors, 
+                        BNO055Sensor &bno, 
+                        pidParams &pitchParams, 
+                        pidParams &velParams, 
+                        pidParams &yawParams,
+                        controllerState &controllerState, 
                         const float wheelRadius, 
                         const float wheelSeparation, 
-                        double& targetVelocity, 
-                        double& targetYawRate,
-                        double& targetAngle
+                        double &targetVelocity, 
+                        double &targetYawRate,
+                        double &targetAngle
                     );
     
     void begin();
@@ -80,7 +80,8 @@ public:
     // void setYawPIDDirection(bool reverse);
     void updateYawPID();
     
-    
+    void updateState();
+
     // Other control methods
     // void setTargetVelocity(double& velocity);
     // void setTargetYawRate(double& yawRate);
@@ -105,15 +106,16 @@ private:
     PID _velPID;
     PID _yawPID;
 
-    pidParams _pidParamsPitch;
-    pidParams _pidParamsVel;
-    pidParams _pidParamsYaw;
+    pidParams& _pidParamsPitch;
+    pidParams& _pidParamsVel;
+    pidParams& _pidParamsYaw;
 
-    controllerState _state;
+    controllerState& _state;
     
     double _currentPitch, _pitchOutput, _targetPitch;
-    double _currentVel, _velocityOutput, _targetVelocity;
-    double _currentYawRate, _yawOutput, _targetYawRate;
+    double _currentVel, _velocityOutput;
+    double _currentYawRate, _yawOutput;
+    double& _targetYawRate, _targetVelocity, _manualAngle;
     float _positionA, _positionB, _speedA, _speedB;
     bool _pitchPidOn, _velPidOn, _yawPidOn;
 
@@ -122,12 +124,12 @@ private:
     float _wheelRadius;
     float _wheelSeparation;
 
-    float _manualAngle;
+   // float& _manualAngle;
     void updatePitchControl();
     void updateVelocityControl();
     void updateYawControl();
     void calculateVelocities();
-
+    
     void static controlTask(void * parameter);
     
 
