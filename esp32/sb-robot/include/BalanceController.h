@@ -11,12 +11,12 @@ class BalanceController {
 public:
     struct pidParams
             {
-                double Kp;
-                double Ki;
-                double Kd;
-                float max;
-                float min;
-                float period;
+                double Kp = 0;
+                double Ki = 0;
+                double Kd = 0;
+                float max = 0;
+                float min = 0;
+                float period = 7;
                 bool direct = true;
                 bool modeAuto = true;
                 /* data */
@@ -31,6 +31,7 @@ public:
                 double* currentYawRate;
                 double* currentPitch;
                 double* targetPitch;
+                double* controlOutput;
                 bool* pitchPIDOn;
                 bool* velPIDOn;
                 bool* yawPIDOn;
@@ -48,10 +49,10 @@ public:
                         const float wheelSeparation, 
                         double& targetVelocity, 
                         double& targetYawRate,
-                        float& targetAngle
+                        double& targetAngle
                     );
     
-    void begin(pidParams& pitchParams, pidParams& velParams, pidParams& yawParams);
+    void begin();
     void update();
     void stop();
     

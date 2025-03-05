@@ -10,7 +10,7 @@ BalanceController::BalanceController(MotorController& motors,
                                         float wheelSeparation,
                                         double& targetVelocity,
                                         double& targetYawRate,
-                                        float& targetAngle
+                                        double& targetAngle
                                     )
     : _motors(motors), _bno(bno), _targetVelocity(targetVelocity), _targetYawRate(targetYawRate), _manualAngle(targetAngle), _state(controllerState),
       _pidParamsPitch(pitchParams), _pidParamsVel(velParams), _pidParamsYaw(yawParams),
@@ -37,6 +37,7 @@ BalanceController::BalanceController(MotorController& motors,
     _state.pitchPIDOn = &_pitchPidOn;
     _state.yawPIDOn = &_yawPidOn;
     _state.velPIDOn = &_velPidOn;
+    _state.controlOutput = &_pitchOutput;
 
 
 
@@ -58,6 +59,7 @@ void BalanceController::updateVelPID(){
     _velPID.SetOutputLimits(_pidParamsVel.min, _pidParamsVel.max);
     _velPID.SetSampleTime(_pidParamsVel.period);
     _velPID.SetControllerDirection(_pidParamsVel.direct ? DIRECT : REVERSE);
+    _motors.setMeasurementPeriod(_pidParamsVel.period);
 };
 
 void BalanceController::updatePitchPID(){
@@ -86,14 +88,17 @@ void BalanceController::setTuningsYaw(){
 
 
 
-void BalanceController::begin(pidParams& pitchParams, pidParams& velParams, pidParams& yawParams) {
+void BalanceController::begin() {
 
     updatePitchPID();  
     setTuningsPitch();
+
     updateVelPID();
     setTuningsVel();
+
     updateYawPID();
     setTuningsYaw();
+
     xTaskCreatePinnedToCore(controlTask, "BalanceControl", 10000, NULL, 3, NULL, 1);
 
 }
@@ -157,33 +162,11 @@ void BalanceController::updateYawControl() {
     }
 }
 
-// Pitch PID methods
-// void BalanceController::setPitchPID(double kp, double ki, double kd) {
-//     _pitchPID.SetTunings(kp, ki, kd);
-// }
-
 void BalanceController::getPitchPID(double& kp, double& ki, double& kd) {
     kp = _pitchPID.GetKp();
     ki = _pitchPID.GetKi();
     kd = _pitchPID.GetKd();
 }
-
-// void BalanceController::setPitchPIDLimits(double lower, double upper) {
-//     _pitchPID.SetOutputLimits(lower, upper);
-// }
-
-// void BalanceController::setPitchPIDSampleTime(int sampleTime) {
-//     _pitchPID.SetSampleTime(sampleTime);
-// }
-
-// void BalanceController::setPitchPIDDirection(bool reverse) {
-//     _pitchPID.SetControllerDirection(reverse ? REVERSE : DIRECT);
-// }
-
-// Velocity PID methods
-// void BalanceController::setVelocityPID(double kp, double ki, double kd) {
-//     _velocityPID.SetTunings(kp, ki, kd);
-// }
 
 void BalanceController::getVelocityPID(double& kp, double& ki, double& kd) {
     kp = _velPID.GetKp();
@@ -191,60 +174,11 @@ void BalanceController::getVelocityPID(double& kp, double& ki, double& kd) {
     kd = _velPID.GetKd();
 }
 
-// void BalanceController::setVelocityPIDLimits(double lower, double upper) {
-//     _velocityPID.SetOutputLimits(lower, upper);
-// }
-
-// void BalanceController::setVelocityPIDSampleTime(int sampleTime) {
-//     _velocityPID.SetSampleTime(sampleTime);
-// }
-
-// void BalanceController::setVelocityPIDDirection(bool reverse) {
-//     _velocityPID.SetControllerDirection(reverse ? REVERSE : DIRECT);
-// }
-
-// Yaw PID methods
-// void BalanceController::setYawPID(double kp, double ki, double kd) {
-//     _yawPID.SetTunings(kp, ki, kd);
-// }
-
 void BalanceController::getYawPID(double& kp, double& ki, double& kd) {
     kp = _yawPID.GetKp();
     ki = _yawPID.GetKi();
     kd = _yawPID.GetKd();
 }
-
-// void BalanceController::setYawPIDLimits(double lower, double upper) {
-//     _yawPID.SetOutputLimits(lower, upper);
-// }
-
-// void BalanceController::setYawPIDSampleTime(int sampleTime) {
-//     _yawPID.SetSampleTime(sampleTime);
-// }
-
-// void BalanceController::setYawPIDDirection(bool reverse) {
-//     _yawPID.SetControllerDirection(reverse ? REVERSE : DIRECT);
-// }
-
-// Other control methods
-// void BalanceController::setTargetVelocity(double& velocity) {
-//     _targetVelocity = velocity;
-// }
-
-// void BalanceController::setTargetYawRate(double& yawRate) {
-//     _targetYawRate = yawRate;
-// }
-
-// void BalanceController::getWheelSpeeds(float& speedA, float& speedB){
-//     speedA = _speedA;
-//     speedB = _speedB;
-
-// }
-
-// void BalanceController::getWheelPositions(float& positionA, float& positionB){
-//     positionA = _positionA;
-//     positionB = _positionB;
-// }
 
 void BalanceController::calculateVelocities(){
 
@@ -282,6 +216,3 @@ void BalanceController::setYawPIDOn(bool state) {
     _yawPID.SetMode(state ? AUTOMATIC : MANUAL);
 
 }
-
-void BalanceController::setPitchPIDOn(bool state) {_velPidOn = state;};
-void BalanceController::setPitchPIDOn(bool state) {_yawPidOn = state;};
