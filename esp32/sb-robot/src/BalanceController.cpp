@@ -10,24 +10,29 @@ BalanceController::BalanceController(MotorController &motors,
     float wheelSeparation,
     double &targetVelocity,
     double &targetYawRate,
-    double &targetAngle)
+    double &targetAngle,
+    int coreNum, 
+    int bnoTaskPeriod)
+    
     : _motors(motors), _bno(bno), 
       _pidParamsPitch(pitchParams), _pidParamsVel(velParams), _pidParamsYaw(yawParams),
       _targetVelocity(targetVelocity), _targetYawRate(targetYawRate), _manualAngle(targetAngle),
       _wheelRadius(wheelRadius), _wheelSeparation(wheelSeparation),
+      _coreNum(coreNum),
       _currentPitch(0), _pitchOutput(0), _targetPitch(0),
       _currentVel(0), _velocityOutput(0),
       _currentYawRate(0), _yawOutput(0),
       _state(controllerState),
       _positionA(0), _positionB(0), _speedA(0), _speedB(0),
       _pitchPidOn(false), _velPidOn(false), _yawPidOn(false),
-      _taskPeriod(0),
+      _controllerUpdatetaskPeriod(0),
       _pitchPID(&_currentPitch, &_pitchOutput, &_targetPitch, pitchParams.Kp, pitchParams.Ki, pitchParams.Kd, DIRECT),
       _velPID(&_currentVel, &_velocityOutput, &_targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, REVERSE),
       _yawPID(&_currentYawRate, &_yawOutput, &_targetYawRate, yawParams.Kp, yawParams.Ki, yawParams.Kd, REVERSE)
   
       
 { 
+    setBNOTaskPeriod(bnoTaskPeriod);
 
 
     _wheelRadius = wheelRadius;
@@ -79,7 +84,7 @@ void BalanceController::updatePitchPID(){
     _pitchPID.SetOutputLimits(_pidParamsPitch.min, _pidParamsPitch.max);
     _pitchPID.SetSampleTime(_pidParamsPitch.period);
     _pitchPID.SetControllerDirection(_pidParamsPitch.direct ? DIRECT : REVERSE);
-    _taskPeriod = pdMS_TO_TICKS(_pidParamsPitch.period);
+    _controllerUpdatetaskPeriod = pdMS_TO_TICKS(_pidParamsPitch.period);
 };
 
 void BalanceController::setTuningsPitch(){
@@ -112,7 +117,8 @@ void BalanceController::begin() {
     setTuningsYaw();
     Serial.println("init");
 
-    xTaskCreatePinnedToCore(controlTask, "BalanceControl", 20000, this, 3, NULL, 1);
+    xTaskCreatePinnedToCore(controlTask, "BalanceControl", 10000, this, 3, NULL, static_cast<BaseType_t>(_coreNum));
+    xTaskCreatePinnedToCore(bnoTask, "BNOUpdateTask", 10000, this, 3, NULL, static_cast<BaseType_t>(_coreNum));
 
 }
 
@@ -131,6 +137,11 @@ void BalanceController::update() {
      
 }
 
+void BalanceController::updateBno(){
+    _bno.update();
+}
+
+
 void BalanceController::controlTask(void * parameter) {
     BalanceController* controller = static_cast<BalanceController*>(parameter);
     TickType_t xLastWakeTime;
@@ -138,9 +149,21 @@ void BalanceController::controlTask(void * parameter) {
   
     for(;;) {
       controller->update();
-      vTaskDelayUntil(&xLastWakeTime, controller->_taskPeriod);
+      vTaskDelayUntil(&xLastWakeTime, controller->_controllerUpdatetaskPeriod);
     }
 }
+
+void BalanceController::bnoTask(void * parameter) {
+    BalanceController* controller = static_cast<BalanceController*>(parameter);
+    TickType_t xLastWakeTime;
+    xLastWakeTime = xTaskGetTickCount();
+  
+    for(;;) {
+      controller->updateBno();
+      vTaskDelayUntil(&xLastWakeTime, controller->_bnoUpdatetaskPeriod);
+    }
+}
+
 
 
 void BalanceController::stop(){
@@ -215,8 +238,14 @@ void BalanceController::setTargetAngle(float angle) {
 };
 
 void BalanceController::setTaskPeriod(int period){
-    _taskPeriod = pdMS_TO_TICKS(period);
+    _controllerUpdatetaskPeriod = pdMS_TO_TICKS(period);
 };
+
+void BalanceController::setBNOTaskPeriod(int period){
+    _bnoUpdatetaskPeriod = pdMS_TO_TICKS(period);
+};
+
+
 
 void BalanceController::setPitchPIDOn(bool state) {
     _pitchPidOn = state;

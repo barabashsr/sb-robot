@@ -74,6 +74,9 @@ double targetVel = 0.0;
 double targetYawRate = 0.0;
 double targetPitch = 0.7;
 
+int BalanceTaskCore = 0;
+int bnoTaskPeriod = 3;
+
 
 BalanceController controller(motors, 
                             bno, 
@@ -85,7 +88,9 @@ BalanceController controller(motors,
                             wheelSeparation,
                             targetVel,
                             targetYawRate,
-                            targetPitch
+                            targetPitch,
+                            BalanceTaskCore,
+                            bnoTaskPeriod
                         );
 
 
@@ -340,7 +345,7 @@ void setup() {
 
 void loop() {
     taskManager.runLoop();
-    bno.update();
+    //bno.update();
     //controller.update();
 
     updateMenuValues();

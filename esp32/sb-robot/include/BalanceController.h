@@ -49,7 +49,9 @@ public:
                         const float wheelSeparation, 
                         double &targetVelocity, 
                         double &targetYawRate,
-                        double &targetAngle
+                        double &targetAngle,
+                        int coreNum,
+                        int bnoTaskPeriod
                     );
     
     void begin();
@@ -81,6 +83,7 @@ public:
     void updateYawPID();
     
     void updateState();
+    void updateBno();
 
     // Other control methods
     // void setTargetVelocity(double& velocity);
@@ -93,6 +96,7 @@ public:
     void setPitchPIDOn(bool state);
     void setVelPIDOn(bool state);
     void setYawPIDOn(bool state);
+    void setBNOTaskPeriod(int period);
 
    
 
@@ -111,6 +115,8 @@ private:
     pidParams& _pidParamsYaw;
 
     controllerState& _state;
+
+    int _coreNum;
     
     double _currentPitch, _pitchOutput, _targetPitch;
     double _currentVel, _velocityOutput;
@@ -119,7 +125,8 @@ private:
     float _positionA, _positionB, _speedA, _speedB;
     bool _pitchPidOn, _velPidOn, _yawPidOn;
 
-    volatile TickType_t _taskPeriod;
+    volatile TickType_t _controllerUpdatetaskPeriod;
+    volatile TickType_t _bnoUpdatetaskPeriod;
 
     float _wheelRadius;
     float _wheelSeparation;
@@ -131,7 +138,7 @@ private:
     void calculateVelocities();
     
     void static controlTask(void * parameter);
-    
+    void static bnoTask(void * parameter);
 
 
 };
