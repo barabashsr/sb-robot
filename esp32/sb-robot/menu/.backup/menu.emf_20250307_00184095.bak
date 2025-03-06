@@ -1,7 +1,7 @@
 {
   "version": "1.00",
   "projectName": "Project description",
-  "author": "sergeybarabash",
+  "author": "user",
   "items": [
     {
       "parentId": 0,
@@ -82,7 +82,7 @@
         "eepromAddress": -1,
         "readOnly": false,
         "localOnly": false,
-        "visible": true,
+        "visible": false,
         "staticDataInRAM": false
       }
     },
@@ -418,9 +418,9 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kp vel",
@@ -439,9 +439,9 @@
       "type": "analogItem",
       "defaultValue": "5",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Ki vel",
@@ -460,9 +460,9 @@
       "type": "analogItem",
       "defaultValue": "200",
       "item": {
-        "maxValue": 700,
+        "maxValue": 7000,
         "offset": 0,
-        "divisor": 10,
+        "divisor": 100,
         "unitName": "",
         "step": 1,
         "name": "Kd vel",
