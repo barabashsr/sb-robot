@@ -16,7 +16,7 @@ public:
                 double Kd;
                 float max;
                 float min;
-                float period;
+                int period;
                 bool direct;
                 bool modeAuto;
                 /* data */
