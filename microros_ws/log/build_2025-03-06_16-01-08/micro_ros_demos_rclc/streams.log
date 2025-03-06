@@ -1,0 +1,1337 @@
+[0.050s] Invoking command in '/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc': AMENT_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/microcdr:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/src/install/microcdr:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent:/opt/ros/humble LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter/lib:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/install/rclc/lib:/home/user/robo/sb-robot/microros_ws/install/test_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/std_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs/lib:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib:/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/test_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/std_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/action_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/user/robo/sb-robot/microros_ws/src/uros/micro-ROS-demos/rclc -DCMAKE_INSTALL_PREFIX=/home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc
+[0.096s] -- The C compiler identification is GNU 11.4.0
+[0.141s] -- The CXX compiler identification is GNU 11.4.0
+[0.146s] -- Detecting C compiler ABI info
+[0.206s] -- Detecting C compiler ABI info - done
+[0.213s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.213s] -- Detecting C compile features
+[0.213s] -- Detecting C compile features - done
+[0.216s] -- Detecting CXX compiler ABI info
+[0.285s] -- Detecting CXX compiler ABI info - done
+[0.289s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.289s] -- Detecting CXX compile features
+[0.290s] -- Detecting CXX compile features - done
+[0.293s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.421s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.670s] -- Configuring done
+[0.687s] -- Generating done
+[0.690s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc
+[0.698s] Invoked command in '/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc' returned '0': AMENT_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/microcdr:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/src/install/microcdr:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent:/opt/ros/humble LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter/lib:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/install/rclc/lib:/home/user/robo/sb-robot/microros_ws/install/test_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/std_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs/lib:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib:/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/test_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/std_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/action_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/user/robo/sb-robot/microros_ws/src/uros/micro-ROS-demos/rclc -DCMAKE_INSTALL_PREFIX=/home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc
+[0.700s] Invoking command in '/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc': AMENT_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/microcdr:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/src/install/microcdr:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent:/opt/ros/humble LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter/lib:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/install/rclc/lib:/home/user/robo/sb-robot/microros_ws/install/test_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/std_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs/lib:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib:/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/test_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/std_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/action_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc -- -j20 -l20
+[0.754s] [  0%] [34m[1mCreating directories for 'int32_publisher'[0m
+[0.755s] [  1%] [34m[1mCreating directories for 'int32_subscriber'[0m
+[0.755s] [  1%] [34m[1mCreating directories for 'publisher_count'[0m
+[0.755s] [  2%] [34m[1mCreating directories for 'configured_subscriber'[0m
+[0.755s] [  2%] [34m[1mCreating directories for 'addtwoints_server'[0m
+[0.756s] [  3%] [34m[1mCreating directories for 'subscription_count'[0m
+[0.757s] [  3%] [34m[1mCreating directories for 'addtwoints_client'[0m
+[0.757s] [  6%] [34m[1mCreating directories for 'configured_publisher'[0m
+[0.757s] [  4%] [34m[1mCreating directories for 'graph_visualizer'[0m
+[0.757s] [  7%] [34m[1mCreating directories for 'ping_pong'[0m
+[0.757s] [  5%] [34m[1mCreating directories for 'fibonacci_action_client'[0m
+[0.757s] [  8%] [34m[1mCreating directories for 'fibonacci_action_server'[0m
+[0.757s] [  8%] [34m[1mCreating directories for 'fragmented_subscription'[0m
+[0.757s] [  8%] [34m[1mCreating directories for 'int32_multinode'[0m
+[0.757s] [  8%] [34m[1mCreating directories for 'ping_uros_agent'[0m
+[0.757s] [  8%] [34m[1mCreating directories for 'complex_msg_publisher'[0m
+[0.758s] [  9%] [34m[1mCreating directories for 'int32_publisher_subscriber'[0m
+[0.758s] [  9%] [34m[1mCreating directories for 'complex_msg_subscriber'[0m
+[0.759s] [  9%] [34m[1mCreating directories for 'fragmented_publication'[0m
+[0.767s] [ 10%] [34m[1mCreating directories for 'timer'[0m
+[0.849s] [ 11%] [34m[1mNo download step for 'fibonacci_action_client'[0m
+[0.849s] [ 11%] [34m[1mNo download step for 'int32_subscriber'[0m
+[0.849s] [ 11%] [34m[1mNo download step for 'addtwoints_server'[0m
+[0.851s] [ 12%] [34m[1mNo download step for 'int32_publisher_subscriber'[0m
+[0.851s] [ 12%] [34m[1mNo download step for 'complex_msg_subscriber'[0m
+[0.851s] [ 12%] [34m[1mNo download step for 'fragmented_subscription'[0m
+[0.851s] [ 13%] [34m[1mNo download step for 'ping_pong'[0m
+[0.851s] [ 14%] [34m[1mNo download step for 'configured_subscriber'[0m
+[0.851s] [ 14%] [34m[1mNo download step for 'publisher_count'[0m
+[0.851s] [ 14%] [34m[1mNo download step for 'int32_publisher'[0m
+[0.857s] [ 14%] [34m[1mNo download step for 'addtwoints_client'[0m
+[0.858s] [ 14%] [34m[1mNo download step for 'complex_msg_publisher'[0m
+[0.859s] [ 16%] [34m[1mNo download step for 'configured_publisher'[0m
+[0.859s] [ 16%] [34m[1mNo download step for 'int32_multinode'[0m
+[0.861s] [ 17%] [34m[1mNo download step for 'fibonacci_action_server'[0m
+[0.864s] [ 17%] [34m[1mNo download step for 'ping_uros_agent'[0m
+[0.864s] [ 18%] [34m[1mNo download step for 'graph_visualizer'[0m
+[0.865s] [ 19%] [34m[1mNo download step for 'subscription_count'[0m
+[0.869s] [ 19%] [34m[1mNo download step for 'fragmented_publication'[0m
+[0.873s] [ 20%] [34m[1mNo download step for 'timer'[0m
+[0.881s] [ 21%] [34m[1mNo update step for 'fibonacci_action_client'[0m
+[0.883s] [ 22%] [34m[1mNo update step for 'int32_publisher_subscriber'[0m
+[0.883s] [ 23%] [34m[1mNo update step for 'int32_subscriber'[0m
+[0.883s] [ 23%] [34m[1mNo update step for 'int32_publisher'[0m
+[0.883s] [ 23%] [34m[1mNo update step for 'addtwoints_server'[0m
+[0.884s] [ 23%] [34m[1mNo update step for 'configured_subscriber'[0m
+[0.885s] [ 24%] [34m[1mNo update step for 'ping_pong'[0m
+[0.886s] [ 24%] [34m[1mNo update step for 'complex_msg_subscriber'[0m
+[0.889s] [ 25%] [34m[1mNo update step for 'fragmented_subscription'[0m
+[0.891s] [ 25%] [34m[1mNo update step for 'publisher_count'[0m
+[0.893s] [ 25%] [34m[1mNo update step for 'complex_msg_publisher'[0m
+[0.893s] [ 25%] [34m[1mNo update step for 'addtwoints_client'[0m
+[0.894s] [ 26%] [34m[1mNo update step for 'fibonacci_action_server'[0m
+[0.894s] [ 27%] [34m[1mNo update step for 'configured_publisher'[0m
+[0.895s] [ 27%] [34m[1mNo update step for 'int32_multinode'[0m
+[0.898s] [ 28%] [34m[1mNo update step for 'graph_visualizer'[0m
+[0.900s] [ 29%] [34m[1mNo update step for 'subscription_count'[0m
+[0.902s] [ 29%] [34m[1mNo update step for 'ping_uros_agent'[0m
+[0.909s] [ 29%] [34m[1mNo update step for 'fragmented_publication'[0m
+[0.911s] [ 30%] [34m[1mNo update step for 'timer'[0m
+[0.913s] [ 30%] [34m[1mNo patch step for 'int32_subscriber'[0m
+[0.914s] [ 30%] [34m[1mNo patch step for 'fibonacci_action_client'[0m
+[0.914s] [ 30%] [34m[1mNo patch step for 'addtwoints_server'[0m
+[0.916s] [ 30%] [34m[1mNo patch step for 'ping_pong'[0m
+[0.916s] [ 30%] [34m[1mNo patch step for 'int32_publisher_subscriber'[0m
+[0.925s] [ 30%] [34m[1mNo patch step for 'configured_subscriber'[0m
+[0.925s] [ 30%] [34m[1mNo patch step for 'fragmented_subscription'[0m
+[0.925s] [ 30%] [34m[1mNo patch step for 'fibonacci_action_server'[0m
+[0.927s] [ 31%] [34m[1mNo patch step for 'complex_msg_publisher'[0m
+[0.928s] [ 32%] [34m[1mNo patch step for 'complex_msg_subscriber'[0m
+[0.928s] [ 33%] [34m[1mNo patch step for 'publisher_count'[0m
+[0.930s] [ 34%] [34m[1mNo patch step for 'int32_publisher'[0m
+[0.935s] [ 35%] [34m[1mNo patch step for 'addtwoints_client'[0m
+[0.935s] [ 36%] [34m[1mNo patch step for 'int32_multinode'[0m
+[0.938s] [ 37%] [34m[1mNo patch step for 'ping_uros_agent'[0m
+[0.938s] [ 37%] [34m[1mNo patch step for 'configured_publisher'[0m
+[0.938s] [ 37%] [34m[1mNo patch step for 'subscription_count'[0m
+[0.939s] [ 37%] [34m[1mNo patch step for 'graph_visualizer'[0m
+[0.943s] [ 38%] [34m[1mNo patch step for 'fragmented_publication'[0m
+[0.943s] [ 38%] [34m[1mNo patch step for 'timer'[0m
+[0.945s] [ 39%] [34m[1mPerforming configure step for 'addtwoints_server'[0m
+[0.946s] [ 39%] [34m[1mPerforming configure step for 'int32_subscriber'[0m
+[0.948s] [ 39%] [34m[1mPerforming configure step for 'int32_publisher_subscriber'[0m
+[0.948s] [ 40%] [34m[1mPerforming configure step for 'fibonacci_action_client'[0m
+[0.954s] [ 40%] [34m[1mPerforming configure step for 'ping_pong'[0m
+[0.959s] [ 41%] [34m[1mPerforming configure step for 'complex_msg_subscriber'[0m
+[0.960s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/addtwoints_server/tmp/addtwoints_server-cache-.cmake
+[0.960s] [ 41%] [34m[1mPerforming configure step for 'configured_subscriber'[0m
+[0.960s] [ 41%] [34m[1mPerforming configure step for 'fibonacci_action_server'[0m
+[0.960s] [ 42%] [34m[1mPerforming configure step for 'fragmented_subscription'[0m
+[0.960s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/int32_subscriber/tmp/int32_subscriber-cache-.cmake
+[0.961s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/fibonacci_action_client/tmp/fibonacci_action_client-cache-.cmake
+[0.961s] [ 43%] [34m[1mPerforming configure step for 'int32_publisher'[0m
+[0.961s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/int32_publisher_subscriber/tmp/int32_publisher_subscriber-cache-.cmake
+[0.962s] [ 44%] [34m[1mPerforming configure step for 'addtwoints_client'[0m
+[0.963s] [ 45%] [34m[1mPerforming configure step for 'publisher_count'[0m
+[0.966s] [ 45%] [34m[1mPerforming configure step for 'complex_msg_publisher'[0m
+[0.967s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/ping_pong/tmp/ping_pong-cache-.cmake
+[0.967s] [ 45%] [34m[1mPerforming configure step for 'int32_multinode'[0m
+[0.968s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/complex_msg_subscriber/tmp/complex_msg_subscriber-cache-.cmake
+[0.968s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/fragmented_subscription/tmp/fragmented_subscription-cache-.cmake
+[0.968s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/configuration_example/configured_subscriber/tmp/configured_subscriber-cache-.cmake
+[0.969s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/fibonacci_action_server/tmp/fibonacci_action_server-cache-.cmake
+[0.976s] [ 45%] [34m[1mPerforming configure step for 'ping_uros_agent'[0m
+[0.976s] [ 45%] [34m[1mPerforming configure step for 'configured_publisher'[0m
+[0.976s] [ 45%] [34m[1mPerforming configure step for 'subscription_count'[0m
+[0.976s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/int32_publisher/tmp/int32_publisher-cache-.cmake
+[0.976s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/addtwoints_client/tmp/addtwoints_client-cache-.cmake
+[0.976s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/graph_introspection/publisher_count/tmp/publisher_count-cache-.cmake
+[0.982s] [ 45%] [34m[1mPerforming configure step for 'timer'[0m
+[0.982s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/complex_msg_publisher/tmp/complex_msg_publisher-cache-.cmake
+[0.982s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/int32_multinode/tmp/int32_multinode-cache-.cmake
+[0.982s] [ 46%] [34m[1mPerforming configure step for 'fragmented_publication'[0m
+[0.982s] [ 46%] [34m[1mPerforming configure step for 'graph_visualizer'[0m
+[0.986s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/ping_uros_agent/tmp/ping_uros_agent-cache-.cmake
+[0.986s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/configuration_example/configured_publisher/tmp/configured_publisher-cache-.cmake
+[0.987s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/graph_introspection/subscription_count/tmp/subscription_count-cache-.cmake
+[0.995s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/timer/tmp/timer-cache-.cmake
+[0.997s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/graph_introspection/graph_visualizer/tmp/graph_visualizer-cache-.cmake
+[0.997s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/fragmented_publication/tmp/fragmented_publication-cache-.cmake
+[1.032s] -- The C compiler identification is GNU 11.4.0
+[1.033s] -- The C compiler identification is GNU 11.4.0
+[1.036s] -- The C compiler identification is GNU 11.4.0
+[1.036s] -- The C compiler identification is GNU 11.4.0
+[1.037s] -- The C compiler identification is GNU 11.4.0
+[1.042s] -- Detecting C compiler ABI info
+[1.042s] -- The C compiler identification is GNU 11.4.0
+[1.044s] -- The C compiler identification is GNU 11.4.0
+[1.045s] -- The C compiler identification is GNU 11.4.0
+[1.048s] -- The C compiler identification is GNU 11.4.0
+[1.049s] -- Detecting C compiler ABI info
+[1.049s] -- Detecting C compiler ABI info
+[1.050s] -- Detecting C compiler ABI info
+[1.051s] -- Detecting C compiler ABI info
+[1.052s] -- Detecting C compiler ABI info
+[1.053s] -- The C compiler identification is GNU 11.4.0
+[1.054s] -- The C compiler identification is GNU 11.4.0
+[1.054s] -- The C compiler identification is GNU 11.4.0
+[1.056s] -- Detecting C compiler ABI info
+[1.056s] -- The C compiler identification is GNU 11.4.0
+[1.058s] -- The C compiler identification is GNU 11.4.0
+[1.058s] -- Detecting C compiler ABI info
+[1.058s] -- Detecting C compiler ABI info
+[1.058s] -- The C compiler identification is GNU 11.4.0
+[1.063s] -- The C compiler identification is GNU 11.4.0
+[1.063s] -- Detecting C compiler ABI info
+[1.063s] -- Detecting C compiler ABI info
+[1.064s] -- Detecting C compiler ABI info
+[1.064s] -- Detecting C compiler ABI info
+[1.065s] -- The C compiler identification is GNU 11.4.0
+[1.065s] -- Detecting C compiler ABI info
+[1.066s] -- The C compiler identification is GNU 11.4.0
+[1.067s] -- Detecting C compiler ABI info
+[1.075s] -- Detecting C compiler ABI info
+[1.075s] -- The C compiler identification is GNU 11.4.0
+[1.075s] -- Detecting C compiler ABI info
+[1.076s] -- Detecting C compiler ABI info
+[1.083s] -- Detecting C compiler ABI info
+[1.083s] -- The C compiler identification is GNU 11.4.0
+[1.097s] -- Detecting C compiler ABI info
+[1.153s] -- Detecting C compiler ABI info - done
+[1.155s] -- Detecting C compiler ABI info - done
+[1.156s] -- Detecting C compiler ABI info - done
+[1.159s] -- Detecting C compiler ABI info - done
+[1.162s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.162s] -- Detecting C compile features
+[1.163s] -- Detecting C compile features - done
+[1.163s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.163s] -- Detecting C compile features
+[1.164s] -- Detecting C compile features - done
+[1.164s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.165s] -- Detecting C compile features
+[1.165s] -- Detecting C compile features - done
+[1.165s] -- Detecting C compiler ABI info - done
+[1.165s] -- Detecting C compiler ABI info - done
+[1.166s] -- Detecting C compiler ABI info - done
+[1.167s] -- Detecting C compiler ABI info - done
+[1.168s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.168s] -- Detecting C compiler ABI info - done
+[1.168s] -- Detecting C compile features
+[1.168s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.168s] -- Detecting C compile features - done
+[1.170s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.170s] -- Detecting C compiler ABI info - done
+[1.174s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.175s] -- Detecting C compiler ABI info - done
+[1.175s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.175s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.175s] -- Detecting C compile features
+[1.175s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.176s] -- Detecting C compile features
+[1.176s] -- Detecting C compile features - done
+[1.176s] -- Detecting C compile features - done
+[1.176s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.176s] -- Detecting C compile features
+[1.176s] -- Detecting C compile features - done
+[1.176s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.177s] -- Detecting C compile features
+[1.177s] -- Detecting C compile features - done
+[1.178s] -- Detecting C compiler ABI info - done
+[1.180s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.180s] -- Detecting C compile features
+[1.181s] -- Detecting C compiler ABI info - done
+[1.181s] -- Detecting C compile features - done
+[1.182s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.183s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.183s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.183s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.184s] -- Detecting C compile features
+[1.184s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.184s] -- Detecting C compile features - done
+[1.184s] -- Detecting C compile features
+[1.184s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.184s] -- Detecting C compile features - done
+[1.189s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.189s] -- Detecting C compiler ABI info - done
+[1.189s] -- Detecting C compiler ABI info - done
+[1.189s] -- Detecting C compiler ABI info - done
+[1.189s] -- Detecting C compiler ABI info - done
+[1.191s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.192s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.192s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.192s] -- Detecting C compile features
+[1.192s] -- Detecting C compile features
+[1.192s] -- Detecting C compile features - done
+[1.192s] -- Detecting C compile features - done
+[1.192s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.196s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.201s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.201s] -- Detecting C compile features
+[1.201s] -- Detecting C compiler ABI info - done
+[1.202s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.202s] -- Detecting C compile features
+[1.202s] -- Detecting C compile features - done
+[1.202s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.202s] -- Detecting C compile features - done
+[1.202s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.202s] -- Detecting C compile features
+[1.202s] -- Detecting C compile features - done
+[1.202s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.204s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.209s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.209s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.210s] -- Detecting C compile features
+[1.210s] -- Detecting C compile features - done
+[1.210s] -- Detecting C compile features
+[1.210s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.210s] -- Detecting C compile features - done
+[1.210s] -- Detecting C compiler ABI info - done
+[1.211s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.214s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.215s] -- Detecting C compiler ABI info - done
+[1.222s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.222s] -- Detecting C compile features
+[1.222s] -- Detecting C compile features - done
+[1.225s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.225s] -- Detecting C compile features
+[1.226s] -- Detecting C compile features - done
+[1.229s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.233s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.445s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.452s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.453s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.454s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.461s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.465s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.466s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.471s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.471s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.471s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.478s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.478s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.481s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.481s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.493s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.493s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.498s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.505s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.520s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.522s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.651s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.652s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.656s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.673s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.679s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.682s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.684s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.684s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.687s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.691s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.695s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.695s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.695s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.695s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.696s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.699s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.705s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.706s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.711s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.723s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.729s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.733s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[1.736s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.736s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.741s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.744s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.751s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.752s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.753s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.757s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.758s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.758s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.758s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.764s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.764s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.768s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.768s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.770s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.770s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.771s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.771s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.771s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.773s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.776s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.776s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.776s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.777s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.778s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.779s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.779s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.780s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.781s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.782s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.785s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.786s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.787s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.787s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.788s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.789s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.791s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.792s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.793s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.794s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.798s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.798s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.798s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.798s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.799s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.802s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.804s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.805s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.805s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.806s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.809s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.810s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.810s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.810s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.811s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.812s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.815s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.816s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.816s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.819s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.820s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.820s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.822s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.823s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.825s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.829s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.830s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.832s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.833s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.837s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.837s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.837s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.837s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.837s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.838s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.846s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.847s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.850s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.851s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.854s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.854s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.859s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.859s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.866s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.867s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.870s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.873s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.875s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.875s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.877s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.879s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.880s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.886s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.896s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.898s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.898s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.901s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.904s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.907s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.908s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.914s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.919s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.922s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.923s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.928s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.929s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.930s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.932s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.932s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.932s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.934s] -- Looking for pthread.h
+[1.934s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.934s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.937s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.938s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.939s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.939s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.943s] -- Looking for pthread.h
+[1.944s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.944s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.945s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.947s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.950s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.954s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.954s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.954s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.955s] -- Looking for pthread.h
+[1.961s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.961s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.961s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.967s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.967s] -- Looking for pthread.h
+[1.967s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.967s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.968s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.968s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.968s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.969s] -- Looking for pthread.h
+[1.970s] -- Looking for pthread.h
+[1.970s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.970s] -- Looking for pthread.h
+[1.970s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.971s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.971s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.973s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.975s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.975s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.977s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.978s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.981s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.981s] -- Looking for pthread.h
+[1.982s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.984s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[1.987s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.990s] -- Looking for pthread.h
+[1.990s] -- Looking for pthread.h
+[1.990s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.992s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.995s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[1.999s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[2.001s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[2.002s] -- Looking for pthread.h
+[2.002s] -- Looking for pthread.h
+[2.008s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.009s] -- Looking for pthread.h
+[2.015s] -- Looking for pthread.h
+[2.015s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[2.015s] -- Looking for pthread.h
+[2.016s] -- Looking for pthread.h
+[2.017s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[2.026s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.029s] -- Looking for pthread.h
+[2.030s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[2.039s] -- Looking for pthread.h - found
+[2.039s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.039s] -- Looking for pthread.h
+[2.039s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[2.046s] -- Looking for pthread.h - found
+[2.046s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.052s] -- Looking for pthread.h
+[2.053s] -- Looking for pthread.h - found
+[2.054s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.067s] -- Looking for pthread.h - found
+[2.068s] -- Looking for pthread.h
+[2.068s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.073s] -- Looking for pthread.h - found
+[2.073s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.077s] -- Looking for pthread.h - found
+[2.077s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.078s] -- Looking for pthread.h - found
+[2.079s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.092s] -- Looking for pthread.h - found
+[2.092s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.097s] -- Looking for pthread.h - found
+[2.097s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.103s] -- Looking for pthread.h - found
+[2.103s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.110s] -- Looking for pthread.h - found
+[2.112s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.114s] -- Looking for pthread.h - found
+[2.115s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.116s] -- Looking for pthread.h - found
+[2.116s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.123s] -- Looking for pthread.h - found
+[2.124s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.124s] -- Looking for pthread.h - found
+[2.124s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.133s] -- Looking for pthread.h - found
+[2.134s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.148s] -- Looking for pthread.h - found
+[2.148s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.156s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.157s] -- Looking for pthread.h - found
+[2.157s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.157s] -- Found Threads: TRUE  
+[2.164s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.167s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.167s] -- Found Threads: TRUE  
+[2.167s] -- Found Threads: TRUE  
+[2.170s] -- Looking for pthread.h - found
+[2.170s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.174s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.184s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.185s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.185s] -- Looking for pthread.h - found
+[2.185s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.186s] -- Found Threads: TRUE  
+[2.186s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.196s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.196s] -- Found Threads: TRUE  
+[2.200s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.201s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.202s] -- Found Threads: TRUE  
+[2.202s] -- Found Threads: TRUE  
+[2.203s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.210s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.210s] -- Found Threads: TRUE  
+[2.215s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.218s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.218s] -- Found Threads: TRUE  
+[2.223s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.224s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.224s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.224s] -- Found Threads: TRUE  
+[2.224s] -- Found example_interfaces: 0.9.3 (/home/user/robo/sb-robot/microros_ws/install/example_interfaces/share/example_interfaces/cmake)
+[2.225s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.228s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.228s] -- Found Threads: TRUE  
+[2.228s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.228s] -- Found Threads: TRUE  
+[2.234s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.234s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.234s] -- Found Threads: TRUE  
+[2.234s] -- Found Threads: TRUE  
+[2.240s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.240s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.241s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.241s] -- Found Threads: TRUE  
+[2.242s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.242s] -- Found complex_msgs: 3.0.2 (/home/user/robo/sb-robot/microros_ws/install/complex_msgs/share/complex_msgs/cmake)
+[2.245s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.248s] -- Configuring done
+[2.249s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.251s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.251s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.252s] -- Found Threads: TRUE  
+[2.256s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.256s] -- Found Threads: TRUE  
+[2.256s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.257s] -- Generating done
+[2.259s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/fibonacci_action_client/src/fibonacci_action_client-build
+[2.259s] -- Configuring done
+[2.265s] -- Found example_interfaces: 0.9.3 (/home/user/robo/sb-robot/microros_ws/install/example_interfaces/share/example_interfaces/cmake)
+[2.267s] -- Configuring done
+[2.267s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.269s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.269s] -- Generating done
+[2.269s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.270s] -- Configuring done
+[2.271s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/int32_subscriber/src/int32_subscriber-build
+[2.271s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.271s] -- Configuring done
+[2.273s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.274s] -- Found Threads: TRUE  
+[2.275s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.277s] -- Generating done
+[2.280s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.280s] -- Generating done
+[2.280s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/complex_msg_subscriber/src/complex_msg_subscriber-build
+[2.280s] -- Found Threads: TRUE  
+[2.281s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/graph_introspection/publisher_count/src/publisher_count-build
+[2.281s] -- Generating done
+[2.286s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/fragmented_subscription/src/fragmented_subscription-build
+[2.287s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.287s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.289s] -- Configuring done
+[2.289s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.294s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.295s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.295s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.295s] -- Found Threads: TRUE  
+[2.297s] [ 46%] [34m[1mPerforming build step for 'fibonacci_action_client'[0m
+[2.298s] -- Generating done
+[2.299s] -- Configuring done
+[2.300s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/fibonacci_action_server/src/fibonacci_action_server-build
+[2.304s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.306s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.307s] [ 47%] [34m[1mPerforming build step for 'int32_subscriber'[0m
+[2.309s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.310s] -- Configuring done
+[2.310s] -- Generating done
+[2.313s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/int32_publisher_subscriber/src/int32_publisher_subscriber-build
+[2.313s] -- Configuring done
+[2.313s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[2.315s] [ 47%] [34m[1mPerforming build step for 'publisher_count'[0m
+[2.315s] -- Configuring done
+[2.315s] -- Configuring done
+[2.315s] -- Found example_interfaces: 0.9.3 (/home/user/robo/sb-robot/microros_ws/install/example_interfaces/share/example_interfaces/cmake)
+[2.323s] -- Found example_interfaces: 0.9.3 (/home/user/robo/sb-robot/microros_ws/install/example_interfaces/share/example_interfaces/cmake)
+[2.323s] -- Generating done
+[2.324s] -- Found complex_msgs: 3.0.2 (/home/user/robo/sb-robot/microros_ws/install/complex_msgs/share/complex_msgs/cmake)
+[2.324s] [ 47%] [34m[1mPerforming build step for 'fragmented_subscription'[0m
+[2.324s] [ 47%] [34m[1mPerforming build step for 'complex_msg_subscriber'[0m
+[2.324s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/ping_uros_agent/src/ping_uros_agent-build
+[2.326s] -- Generating done
+[2.327s] -- Configuring done
+[2.327s] -- Generating done
+[2.327s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/configuration_example/configured_subscriber/src/configured_subscriber-build
+[2.327s] -- Generating done
+[2.327s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.327s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/timer/src/timer-build
+[2.327s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/graph_introspection/graph_visualizer/src/graph_visualizer-build
+[2.331s] -- Configuring done
+[2.332s] [ 48%] [34m[1mPerforming build step for 'fibonacci_action_server'[0m
+[2.335s] -- Generating done
+[2.336s] -- Configuring done
+[2.337s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/int32_multinode/src/int32_multinode-build
+[2.341s] -- Generating done
+[2.343s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/ping_pong/src/ping_pong-build
+[2.344s] -- Configuring done
+[2.347s] -- Configuring done
+[2.348s] -- Generating done
+[2.348s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/addtwoints_server/src/addtwoints_server-build
+[2.349s] [ 48%] [34m[1mPerforming build step for 'int32_publisher_subscriber'[0m
+[2.350s] -- Configuring done
+[2.354s] -- Generating done
+[2.355s] -- Generating done
+[2.356s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/addtwoints_client/src/addtwoints_client-build
+[2.360s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/complex_msg_publisher/src/complex_msg_publisher-build
+[2.360s] [ 50%] [34m[1mPerforming build step for 'ping_uros_agent'[0m
+[2.360s] [ 50%] [34m[1mPerforming build step for 'graph_visualizer'[0m
+[2.361s] -- Generating done
+[2.363s] [ 51%] [34m[1mPerforming build step for 'configured_subscriber'[0m
+[2.363s] [ 50%] [32mBuilding C object CMakeFiles/fibonacci_action_client.dir/main.c.o[0m
+[2.363s] -- Configuring done
+[2.363s] [ 52%] [34m[1mPerforming build step for 'timer'[0m
+[2.363s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/int32_publisher/src/int32_publisher-build
+[2.367s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.370s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[2.376s] -- Generating done
+[2.377s] [ 53%] [34m[1mPerforming build step for 'int32_multinode'[0m
+[2.377s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/graph_introspection/subscription_count/src/subscription_count-build
+[2.377s] [ 50%] [32mBuilding C object CMakeFiles/publisher_count.dir/main.c.o[0m
+[2.377s] [ 50%] [32mBuilding C object CMakeFiles/int32_subscriber.dir/main.c.o[0m
+[2.380s] [ 54%] [34m[1mPerforming build step for 'ping_pong'[0m
+[2.380s] [ 54%] [34m[1mPerforming build step for 'addtwoints_server'[0m
+[2.386s] [ 50%] [32mBuilding C object CMakeFiles/fragmented_subscription.dir/main.c.o[0m
+[2.389s] [ 50%] [32mBuilding C object CMakeFiles/complex_msg_subscriber.dir/main.c.o[0m
+[2.391s] [ 54%] [34m[1mPerforming build step for 'addtwoints_client'[0m
+[2.396s] -- Configuring done
+[2.396s] -- Configuring done
+[2.396s] [ 55%] [34m[1mPerforming build step for 'complex_msg_publisher'[0m
+[2.400s] [ 55%] [34m[1mPerforming build step for 'int32_publisher'[0m
+[2.401s] [ 50%] [32mBuilding C object CMakeFiles/fibonacci_action_server.dir/main.c.o[0m
+[2.408s] -- Generating done
+[2.409s] -- Generating done
+[2.410s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/fragmented_publication/src/fragmented_publication-build
+[2.411s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/configuration_example/configured_publisher/src/configured_publisher-build
+[2.411s] [ 50%] [32mBuilding C object CMakeFiles/int32_publisher_subscriber.dir/main.c.o[0m
+[2.411s] [ 55%] [34m[1mPerforming build step for 'subscription_count'[0m
+[2.427s] [ 50%] [32mBuilding C object CMakeFiles/ping_uros_agent.dir/main.c.o[0m
+[2.427s] [ 50%] [32mBuilding C object CMakeFiles/configured_subscriber.dir/main.c.o[0m
+[2.428s] [ 50%] [32mBuilding C object CMakeFiles/graph_visualizer.dir/main.c.o[0m
+[2.434s] [ 50%] [32mBuilding C object CMakeFiles/timer.dir/main.c.o[0m
+[2.440s] [ 50%] [32mBuilding C object CMakeFiles/addtwoints_server.dir/main.c.o[0m
+[2.441s] [ 50%] [32mBuilding C object CMakeFiles/ping_pong.dir/main.c.o[0m
+[2.443s] [ 50%] [32mBuilding C object CMakeFiles/int32_multinode.dir/main.c.o[0m
+[2.449s] [ 55%] [34m[1mPerforming build step for 'fragmented_publication'[0m
+[2.450s] [ 56%] [34m[1mPerforming build step for 'configured_publisher'[0m
+[2.455s] [ 50%] [32mBuilding C object CMakeFiles/addtwoints_client.dir/main.c.o[0m
+[2.457s] [ 50%] [32mBuilding C object CMakeFiles/complex_msg_publisher.dir/main.c.o[0m
+[2.465s] [ 50%] [32mBuilding C object CMakeFiles/int32_publisher.dir/main.c.o[0m
+[2.468s] [100%] [32m[1mLinking C executable publisher_count[0m
+[2.469s] [100%] [32m[1mLinking C executable fibonacci_action_client[0m
+[2.469s] [100%] [32m[1mLinking C executable int32_subscriber[0m
+[2.469s] [100%] [32m[1mLinking C executable fragmented_subscription[0m
+[2.481s] [ 50%] [32mBuilding C object CMakeFiles/subscription_count.dir/main.c.o[0m
+[2.487s] [100%] [32m[1mLinking C executable complex_msg_subscriber[0m
+[2.503s] [100%] [32m[1mLinking C executable int32_publisher_subscriber[0m
+[2.514s] [ 50%] [32mBuilding C object CMakeFiles/fragmented_publication.dir/main.c.o[0m
+[2.514s] [100%] [32m[1mLinking C executable configured_subscriber[0m
+[2.514s] [100%] [32m[1mLinking C executable fibonacci_action_server[0m
+[2.514s] [ 50%] [32mBuilding C object CMakeFiles/configured_publisher.dir/main.c.o[0m
+[2.521s] [100%] [32m[1mLinking C executable graph_visualizer[0m
+[2.539s] [100%] [32m[1mLinking C executable timer[0m
+[2.539s] [100%] [32m[1mLinking C executable addtwoints_server[0m
+[2.543s] [100%] [32m[1mLinking C executable ping_uros_agent[0m
+[2.544s] [100%] [32m[1mLinking C executable int32_multinode[0m
+[2.549s] [100%] [32m[1mLinking C executable complex_msg_publisher[0m
+[2.550s] [100%] [32m[1mLinking C executable addtwoints_client[0m
+[2.553s] [100%] [32m[1mLinking C executable ping_pong[0m
+[2.567s] [100%] [32m[1mLinking C executable int32_publisher[0m
+[2.600s] [100%] [32m[1mLinking C executable subscription_count[0m
+[2.652s] [100%] [32m[1mLinking C executable configured_publisher[0m
+[2.652s] [100%] [32m[1mLinking C executable fragmented_publication[0m
+[2.674s] [100%] Built target int32_subscriber
+[2.690s] [100%] Built target fibonacci_action_client
+[2.697s] [100%] Built target publisher_count
+[2.705s] [100%] Built target fragmented_subscription
+[2.730s] [100%] Built target int32_publisher_subscriber
+[2.737s] [ 56%] [34m[1mPerforming install step for 'int32_subscriber'[0m
+[2.743s] [100%] Built target complex_msg_subscriber
+[2.753s] [ 56%] [34m[1mPerforming install step for 'fibonacci_action_client'[0m
+[2.759s] [ 57%] [34m[1mPerforming install step for 'publisher_count'[0m
+[2.760s] [ 58%] [34m[1mPerforming install step for 'fragmented_subscription'[0m
+[2.774s] [100%] Built target graph_visualizer
+[2.778s] [ 58%] [34m[1mPerforming install step for 'int32_publisher_subscriber'[0m
+[2.783s] [100%] Built target timer
+[2.785s] [100%] Built target ping_uros_agent
+[2.792s] [ 59%] [34m[1mPerforming install step for 'complex_msg_subscriber'[0m
+[2.792s] [100%] Built target fibonacci_action_server
+[2.792s] [100%] Built target configured_subscriber
+[2.796s] [100%] Built target addtwoints_server
+[2.800s] [100%] Built target int32_multinode
+[2.806s] [ 59%] [34m[1mPerforming install step for 'graph_visualizer'[0m
+[2.807s] [100%] Built target int32_publisher
+[2.807s] [35m[1mConsolidate compiler generated dependencies of target int32_subscriber[0m
+[2.813s] [ 59%] [34m[1mPerforming install step for 'timer'[0m
+[2.813s] [100%] Built target complex_msg_publisher
+[2.814s] [100%] Built target addtwoints_client
+[2.814s] [35m[1mConsolidate compiler generated dependencies of target fibonacci_action_client[0m
+[2.816s] [ 60%] [34m[1mPerforming install step for 'ping_uros_agent'[0m
+[2.816s] [35m[1mConsolidate compiler generated dependencies of target publisher_count[0m
+[2.819s] [ 60%] [34m[1mPerforming install step for 'configured_subscriber'[0m
+[2.820s] [ 60%] [34m[1mPerforming install step for 'fibonacci_action_server'[0m
+[2.821s] [100%] Built target ping_pong
+[2.825s] [ 61%] [34m[1mPerforming install step for 'addtwoints_server'[0m
+[2.825s] [35m[1mConsolidate compiler generated dependencies of target fragmented_subscription[0m
+[2.826s] [ 61%] [34m[1mPerforming install step for 'int32_multinode'[0m
+[2.829s] [100%] Built target int32_subscriber
+[2.831s] [100%] Built target subscription_count
+[2.832s] [35m[1mConsolidate compiler generated dependencies of target int32_publisher_subscriber[0m
+[2.834s] [100%] Built target fibonacci_action_client
+[2.835s] [ 62%] [34m[1mPerforming install step for 'int32_publisher'[0m
+[2.835s] [100%] Built target publisher_count
+[2.838s] [ 63%] [34m[1mPerforming install step for 'complex_msg_publisher'[0m
+[2.839s] [ 64%] [34m[1mPerforming install step for 'addtwoints_client'[0m
+[2.843s] [35m[1mConsolidate compiler generated dependencies of target complex_msg_subscriber[0m
+[2.843s] [ 64%] [34m[1mPerforming install step for 'ping_pong'[0m
+[2.843s] [100%] Built target fragmented_subscription
+[2.852s] [100%] Built target int32_publisher_subscriber
+[2.856s] [ 64%] [34m[1mPerforming install step for 'subscription_count'[0m
+[2.856s] [36mInstall the project...[0m
+[2.857s] [35m[1mConsolidate compiler generated dependencies of target graph_visualizer[0m
+[2.861s] [36mInstall the project...[0m
+[2.861s] [100%] Built target complex_msg_subscriber
+[2.863s] [36mInstall the project...[0m
+[2.864s] [35m[1mConsolidate compiler generated dependencies of target ping_uros_agent[0m
+[2.864s] [35m[1mConsolidate compiler generated dependencies of target timer[0m
+[2.867s] -- Install configuration: ""
+[2.868s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/int32_subscriber/int32_subscriber
+[2.870s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/int32_subscriber/int32_subscriber" to ""
+[2.871s] [35m[1mConsolidate compiler generated dependencies of target fibonacci_action_server[0m
+[2.871s] [100%] Built target fragmented_publication
+[2.871s] [36mInstall the project...[0m
+[2.871s] [35m[1mConsolidate compiler generated dependencies of target int32_multinode[0m
+[2.871s] [35m[1mConsolidate compiler generated dependencies of target configured_subscriber[0m
+[2.873s] -- Install configuration: ""
+[2.873s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/fibonacci_action_client/fibonacci_action_client
+[2.873s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/fibonacci_action_client/fibonacci_action_client" to ""
+[2.875s] [100%] Built target graph_visualizer
+[2.876s] -- Install configuration: ""
+[2.876s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/publisher_count/publisher_count
+[2.879s] [100%] Built target configured_publisher
+[2.879s] [35m[1mConsolidate compiler generated dependencies of target addtwoints_server[0m
+[2.880s] [35m[1mConsolidate compiler generated dependencies of target int32_publisher[0m
+[2.880s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/publisher_count/publisher_count" to ""
+[2.881s] -- Install configuration: ""
+[2.883s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/fragmented_subscription/fragmented_subscription
+[2.884s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/fragmented_subscription/fragmented_subscription" to ""
+[2.884s] [100%] Built target timer
+[2.884s] [100%] Built target ping_uros_agent
+[2.884s] [36mInstall the project...[0m
+[2.884s] [35m[1mConsolidate compiler generated dependencies of target complex_msg_publisher[0m
+[2.885s] [35m[1mConsolidate compiler generated dependencies of target addtwoints_client[0m
+[2.891s] [36mInstall the project...[0m
+[2.891s] [100%] Built target int32_multinode
+[2.892s] [35m[1mConsolidate compiler generated dependencies of target ping_pong[0m
+[2.893s] [ 64%] [34m[1mCompleted 'int32_subscriber'[0m
+[2.894s] [100%] Built target fibonacci_action_server
+[2.894s] [100%] Built target configured_subscriber
+[2.895s] -- Install configuration: ""
+[2.895s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/int32_publisher_subscriber/int32_publisher_subscriber
+[2.897s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/int32_publisher_subscriber/int32_publisher_subscriber" to ""
+[2.897s] [100%] Built target int32_publisher
+[2.897s] [100%] Built target addtwoints_server
+[2.897s] [ 65%] [34m[1mCompleted 'fibonacci_action_client'[0m
+[2.898s] [ 66%] [34m[1mPerforming install step for 'fragmented_publication'[0m
+[2.901s] [36mInstall the project...[0m
+[2.903s] [100%] Built target addtwoints_client
+[2.903s] [ 66%] [34m[1mPerforming install step for 'configured_publisher'[0m
+[2.903s] [100%] Built target complex_msg_publisher
+[2.904s] [35m[1mConsolidate compiler generated dependencies of target subscription_count[0m
+[2.905s] -- Install configuration: ""
+[2.906s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/complex_msg_subscriber/complex_msg_subscriber
+[2.907s] [ 67%] [34m[1mCompleted 'publisher_count'[0m
+[2.907s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/complex_msg_subscriber/complex_msg_subscriber" to ""
+[2.907s] [ 68%] [34m[1mCompleted 'fragmented_subscription'[0m
+[2.909s] [36mInstall the project...[0m
+[2.911s] [36mInstall the project...[0m
+[2.911s] -- Install configuration: ""
+[2.911s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/graph_visualizer/graph_visualizer
+[2.911s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/graph_visualizer/graph_visualizer" to ""
+[2.916s] [100%] Built target ping_pong
+[2.916s] [36mInstall the project...[0m
+[2.920s] [36mInstall the project...[0m
+[2.922s] -- Install configuration: ""
+[2.923s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/ping_uros_agent/ping_uros_agent
+[2.923s] -- Install configuration: ""
+[2.923s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/ping_uros_agent/ping_uros_agent" to ""
+[2.923s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/timer/timer
+[2.923s] [36mInstall the project...[0m
+[2.923s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/timer/timer" to ""
+[2.923s] [36mInstall the project...[0m
+[2.924s] [100%] Built target subscription_count
+[2.924s] [ 69%] [34m[1mCompleted 'int32_publisher_subscriber'[0m
+[2.929s] [36mInstall the project...[0m
+[2.929s] [36mInstall the project...[0m
+[2.929s] [36mInstall the project...[0m
+[2.929s] -- Install configuration: ""
+[2.929s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/int32_multinode/int32_multinode
+[2.929s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/int32_multinode/int32_multinode" to ""
+[2.933s] [ 70%] [34m[1mCompleted 'complex_msg_subscriber'[0m
+[2.935s] -- Install configuration: ""
+[2.935s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/fibonacci_action_server/fibonacci_action_server
+[2.936s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/fibonacci_action_server/fibonacci_action_server" to ""
+[2.936s] -- Install configuration: ""
+[2.936s] -- Install configuration: ""
+[2.936s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/addtwoints_server/addtwoints_server
+[2.936s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/int32_publisher/int32_publisher
+[2.936s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/addtwoints_server/addtwoints_server" to ""
+[2.936s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/int32_publisher/int32_publisher" to ""
+[2.937s] -- Install configuration: ""
+[2.937s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/addtwoints_client/addtwoints_client
+[2.939s] -- Install configuration: ""
+[2.939s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/addtwoints_client/addtwoints_client" to ""
+[2.939s] -- Install configuration: ""
+[2.939s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/configured_subscriber/configured_subscriber
+[2.939s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/complex_msg_publisher/complex_msg_publisher
+[2.939s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/configured_subscriber/configured_subscriber" to ""
+[2.939s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/complex_msg_publisher/complex_msg_publisher" to ""
+[2.941s] [36mInstall the project...[0m
+[2.942s] [ 70%] Built target int32_subscriber
+[2.942s] [ 70%] Built target fibonacci_action_client
+[2.942s] [ 70%] [34m[1mCompleted 'graph_visualizer'[0m
+[2.946s] [36mInstall the project...[0m
+[2.949s] [ 70%] Built target publisher_count
+[2.949s] [ 70%] [34m[1mCompleted 'ping_uros_agent'[0m
+[2.950s] [ 70%] [34m[1mCompleted 'timer'[0m
+[2.950s] [35m[1mConsolidate compiler generated dependencies of target fragmented_publication[0m
+[2.952s] [35m[1mConsolidate compiler generated dependencies of target configured_publisher[0m
+[2.957s] -- Install configuration: ""
+[2.957s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/subscription_count/subscription_count
+[2.957s] -- Install configuration: ""
+[2.958s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/ping_pong/ping_pong
+[2.958s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/subscription_count/subscription_count" to ""
+[2.958s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/ping_pong/ping_pong" to ""
+[2.958s] [ 71%] [34m[1mCompleted 'addtwoints_server'[0m
+[2.958s] [ 71%] Built target fragmented_subscription
+[2.963s] [ 71%] [34m[1mCompleted 'fibonacci_action_server'[0m
+[2.963s] [ 71%] [34m[1mCompleted 'configured_subscriber'[0m
+[2.965s] [ 71%] [34m[1mCompleted 'addtwoints_client'[0m
+[2.965s] [ 72%] [34m[1mCompleted 'int32_publisher'[0m
+[2.965s] [ 72%] [34m[1mCompleted 'complex_msg_publisher'[0m
+[2.972s] [ 72%] [34m[1mCompleted 'int32_multinode'[0m
+[2.973s] [100%] Built target fragmented_publication
+[2.973s] [100%] Built target configured_publisher
+[2.974s] [ 72%] [34m[1mCreating directories for 'string_subscriber'[0m
+[2.974s] [ 72%] Built target int32_publisher_subscriber
+[2.977s] [ 72%] Built target complex_msg_subscriber
+[2.979s] [ 72%] [34m[1mCreating directories for 'string_publisher'[0m
+[2.982s] [ 73%] [34m[1mCompleted 'subscription_count'[0m
+[2.985s] [ 74%] [34m[1mCreating directories for 'autodiscover_agent'[0m
+[2.989s] [ 74%] [34m[1mCompleted 'ping_pong'[0m
+[2.990s] [ 74%] Built target graph_visualizer
+[2.991s] [ 75%] [34m[1mCreating directories for 'static_type_handling'[0m
+[2.993s] [ 75%] Built target timer
+[2.994s] [36mInstall the project...[0m
+[2.999s] [36mInstall the project...[0m
+[3.001s] [ 75%] Built target ping_uros_agent
+[3.004s] [ 75%] Built target addtwoints_server
+[3.007s] -- Install configuration: ""
+[3.007s] [ 75%] Built target addtwoints_client
+[3.007s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/configured_publisher/configured_publisher
+[3.007s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/configured_publisher/configured_publisher" to ""
+[3.008s] [ 75%] Built target complex_msg_publisher
+[3.008s] [ 75%] Built target configured_subscriber
+[3.008s] [ 75%] [34m[1mCreating directories for 'epoch_synchronization'[0m
+[3.009s] [ 76%] [34m[1mCreating directories for 'parameter_server'[0m
+[3.009s] -- Install configuration: ""
+[3.009s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/fragmented_publication/fragmented_publication
+[3.009s] [ 76%] Built target fibonacci_action_server
+[3.009s] [ 76%] Built target int32_publisher
+[3.009s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/fragmented_publication/fragmented_publication" to ""
+[3.014s] [ 76%] Built target int32_multinode
+[3.016s] [ 76%] [34m[1mCreating directories for 'multithread_publisher_subscriber'[0m
+[3.019s] [ 76%] Built target subscription_count
+[3.024s] [ 76%] [34m[1mCompleted 'configured_publisher'[0m
+[3.029s] [ 76%] [34m[1mCompleted 'fragmented_publication'[0m
+[3.032s] [ 76%] Built target ping_pong
+[3.051s] [ 76%] [34m[1mNo download step for 'string_subscriber'[0m
+[3.051s] [ 76%] Built target configured_publisher
+[3.053s] [ 76%] Built target fragmented_publication
+[3.058s] [ 77%] [34m[1mNo download step for 'string_publisher'[0m
+[3.064s] [ 77%] [34m[1mNo download step for 'parameter_server'[0m
+[3.071s] [ 77%] [34m[1mNo download step for 'multithread_publisher_subscriber'[0m
+[3.071s] [ 77%] [34m[1mNo update step for 'string_subscriber'[0m
+[3.072s] [ 78%] [34m[1mNo download step for 'autodiscover_agent'[0m
+[3.072s] [ 79%] [34m[1mNo download step for 'static_type_handling'[0m
+[3.080s] [ 79%] [34m[1mNo update step for 'string_publisher'[0m
+[3.085s] [ 79%] [34m[1mNo download step for 'epoch_synchronization'[0m
+[3.089s] [ 80%] [34m[1mNo update step for 'parameter_server'[0m
+[3.091s] [ 82%] [34m[1mNo update step for 'autodiscover_agent'[0m
+[3.091s] [ 82%] [34m[1mNo patch step for 'string_subscriber'[0m
+[3.093s] [ 82%] [34m[1mNo update step for 'multithread_publisher_subscriber'[0m
+[3.093s] [ 83%] [34m[1mNo update step for 'static_type_handling'[0m
+[3.105s] [ 83%] [34m[1mNo update step for 'epoch_synchronization'[0m
+[3.107s] [ 83%] [34m[1mNo patch step for 'parameter_server'[0m
+[3.108s] [ 84%] [34m[1mNo patch step for 'string_publisher'[0m
+[3.111s] [ 84%] [34m[1mNo patch step for 'static_type_handling'[0m
+[3.112s] [ 85%] [34m[1mPerforming configure step for 'string_subscriber'[0m
+[3.117s] [ 86%] [34m[1mNo patch step for 'multithread_publisher_subscriber'[0m
+[3.118s] [ 86%] [34m[1mNo patch step for 'autodiscover_agent'[0m
+[3.119s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/string_subscriber/tmp/string_subscriber-cache-.cmake
+[3.123s] [ 87%] [34m[1mNo patch step for 'epoch_synchronization'[0m
+[3.126s] [ 88%] [34m[1mPerforming configure step for 'parameter_server'[0m
+[3.129s] [ 88%] [34m[1mPerforming configure step for 'string_publisher'[0m
+[3.133s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/parameter_server/tmp/parameter_server-cache-.cmake
+[3.135s] [ 88%] [34m[1mPerforming configure step for 'static_type_handling'[0m
+[3.135s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/string_publisher/tmp/string_publisher-cache-.cmake
+[3.137s] [ 89%] [34m[1mPerforming configure step for 'multithread_publisher_subscriber'[0m
+[3.143s] [ 89%] [34m[1mPerforming configure step for 'autodiscover_agent'[0m
+[3.144s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/multithread_publisher_subscriber/tmp/multithread_publisher_subscriber-cache-.cmake
+[3.144s] [ 90%] [34m[1mPerforming configure step for 'epoch_synchronization'[0m
+[3.145s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/static_type_handling/tmp/static_type_handling-cache-.cmake
+[3.151s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/autodiscover_agent/tmp/autodiscover_agent-cache-.cmake
+[3.156s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/epoch_synchronization/tmp/epoch_synchronization-cache-.cmake
+[3.161s] -- The C compiler identification is GNU 11.4.0
+[3.167s] -- Detecting C compiler ABI info
+[3.171s] -- The C compiler identification is GNU 11.4.0
+[3.174s] -- The C compiler identification is GNU 11.4.0
+[3.176s] -- Detecting C compiler ABI info
+[3.178s] -- Detecting C compiler ABI info
+[3.179s] -- The C compiler identification is GNU 11.4.0
+[3.186s] -- The C compiler identification is GNU 11.4.0
+[3.186s] -- Detecting C compiler ABI info
+[3.191s] -- The C compiler identification is GNU 11.4.0
+[3.193s] -- Detecting C compiler ABI info
+[3.197s] -- Detecting C compiler ABI info
+[3.198s] -- The C compiler identification is GNU 11.4.0
+[3.204s] -- Detecting C compiler ABI info
+[3.224s] -- Detecting C compiler ABI info - done
+[3.231s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.231s] -- Detecting C compile features
+[3.232s] -- Detecting C compile features - done
+[3.234s] -- Detecting C compiler ABI info - done
+[3.238s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.238s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.239s] -- Detecting C compiler ABI info - done
+[3.239s] -- Detecting C compile features
+[3.239s] -- Detecting C compile features - done
+[3.242s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.243s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.243s] -- Detecting C compile features
+[3.243s] -- Detecting C compile features - done
+[3.244s] -- Detecting C compiler ABI info - done
+[3.246s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.250s] -- Detecting C compiler ABI info - done
+[3.251s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.251s] -- Detecting C compile features
+[3.252s] -- Detecting C compile features - done
+[3.252s] -- Detecting C compiler ABI info - done
+[3.257s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.257s] -- Detecting C compile features
+[3.257s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.257s] -- Detecting C compile features - done
+[3.259s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.259s] -- Detecting C compile features
+[3.260s] -- Detecting C compile features - done
+[3.263s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.263s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.266s] -- Detecting C compiler ABI info - done
+[3.273s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.273s] -- Detecting C compile features
+[3.274s] -- Detecting C compile features - done
+[3.279s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[3.371s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.378s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.396s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.399s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.403s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.404s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.443s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[3.475s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[3.478s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[3.493s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[3.493s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[3.507s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[3.512s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.519s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.527s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.529s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[3.530s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.530s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.530s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.537s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.537s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.537s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.539s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.545s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.545s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.545s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.549s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.556s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.557s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.557s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.557s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.559s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.564s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.566s] -- Found rcl: 5.3.9 (/opt/ros/humble/share/rcl/cmake)
+[3.576s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.577s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.577s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.577s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.580s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.587s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.595s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.596s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.606s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.607s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.607s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[3.611s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[3.619s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.619s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.619s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.621s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[3.621s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[3.621s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[3.624s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[3.624s] -- Looking for pthread.h
+[3.624s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[3.625s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[3.628s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.635s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[3.637s] -- Looking for pthread.h
+[3.638s] -- Looking for pthread.h
+[3.638s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.638s] -- Looking for pthread.h
+[3.640s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[3.643s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[3.647s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[3.656s] -- Looking for pthread.h
+[3.662s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[3.669s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.671s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[3.675s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[3.683s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_microxrcedds_c;rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[3.684s] -- Looking for pthread.h - found
+[3.684s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.688s] -- Looking for pthread.h
+[3.697s] -- Looking for pthread.h - found
+[3.697s] -- Looking for pthread.h - found
+[3.697s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.697s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.703s] -- Looking for pthread.h - found
+[3.703s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.719s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_microxrcedds_cpp;rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[3.722s] -- Looking for pthread.h - found
+[3.722s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.743s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.743s] -- Found Threads: TRUE  
+[3.743s] -- Looking for pthread.h - found
+[3.744s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.756s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.757s] -- Found Threads: TRUE  
+[3.759s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.759s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[3.759s] -- Found Threads: TRUE  
+[3.765s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.765s] -- Found Threads: TRUE  
+[3.766s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[3.768s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[3.774s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[3.780s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.781s] -- Found Threads: TRUE  
+[3.786s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[3.788s] -- Found rmw_microxrcedds: 3.0.3 (/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/share/rmw_microxrcedds/cmake)
+[3.788s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[3.789s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[3.791s] -- Using RMW implementation 'rmw_microxrcedds' as default
+[3.791s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[3.793s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[3.797s] -- Found rclc_parameter: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc_parameter/share/rclc_parameter/cmake)
+[3.797s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[3.800s] -- Configuring done
+[3.800s] -- Found micro_ros_utilities: 3.0.2 (/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities/share/micro_ros_utilities/cmake)
+[3.803s] -- Configuring done
+[3.805s] -- Looking for pthread.h
+[3.805s] -- Generating done
+[3.806s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/string_subscriber/src/string_subscriber-build
+[3.807s] -- Configuring done
+[3.808s] -- Generating done
+[3.809s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/parameter_server/src/parameter_server-build
+[3.809s] -- Configuring done
+[3.812s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.812s] -- Generating done
+[3.812s] -- Found Threads: TRUE  
+[3.813s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/multithread_publisher_subscriber/src/multithread_publisher_subscriber-build
+[3.814s] -- Generating done
+[3.815s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/string_publisher/src/string_publisher-build
+[3.817s] -- Found visualization_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/share/visualization_msgs/cmake)
+[3.822s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[3.828s] [ 90%] [34m[1mPerforming build step for 'parameter_server'[0m
+[3.831s] [ 90%] [34m[1mPerforming build step for 'string_subscriber'[0m
+[3.834s] [ 90%] [34m[1mPerforming build step for 'multithread_publisher_subscriber'[0m
+[3.836s] [ 91%] [34m[1mPerforming build step for 'string_publisher'[0m
+[3.846s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[3.859s] -- Configuring done
+[3.862s] -- Found micro_ros_utilities: 3.0.2 (/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities/share/micro_ros_utilities/cmake)
+[3.863s] -- Generating done
+[3.864s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/autodiscover_agent/src/autodiscover_agent-build
+[3.868s] -- Configuring done
+[3.870s] [ 50%] [32mBuilding C object CMakeFiles/parameter_server.dir/main.c.o[0m
+[3.871s] [ 50%] [32mBuilding C object CMakeFiles/string_subscriber.dir/main.c.o[0m
+[3.871s] -- Looking for pthread.h - found
+[3.871s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[3.875s] -- Generating done
+[3.876s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/static_type_handling/src/static_type_handling-build
+[3.877s] [ 50%] [32mBuilding C object CMakeFiles/string_publisher.dir/main.c.o[0m
+[3.878s] [ 50%] [32mBuilding C object CMakeFiles/multithread_publisher_subscriber.dir/main.c.o[0m
+[3.886s] [ 92%] [34m[1mPerforming build step for 'autodiscover_agent'[0m
+[3.898s] [ 93%] [34m[1mPerforming build step for 'static_type_handling'[0m
+[3.919s] [100%] [32m[1mLinking C executable string_subscriber[0m
+[3.923s] [100%] [32m[1mLinking C executable parameter_server[0m
+[3.925s] [100%] [32m[1mLinking C executable string_publisher[0m
+[3.929s] [100%] [32m[1mLinking C executable multithread_publisher_subscriber[0m
+[3.932s] [ 50%] [32mBuilding C object CMakeFiles/autodiscover_agent.dir/main.c.o[0m
+[3.940s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[3.941s] -- Found Threads: TRUE  
+[3.945s] [ 50%] [32mBuilding C object CMakeFiles/static_type_handling.dir/main.c.o[0m
+[3.950s] -- Found rclc: 4.0.2 (/home/user/robo/sb-robot/microros_ws/install/rclc/share/rclc/cmake)
+[3.975s] -- Found std_msgs: 4.2.4 (/home/user/robo/sb-robot/microros_ws/install/std_msgs/share/std_msgs/cmake)
+[3.976s] [100%] Built target string_subscriber
+[3.986s] [100%] [32m[1mLinking C executable autodiscover_agent[0m
+[3.986s] [100%] Built target parameter_server
+[3.986s] -- Configuring done
+[3.992s] -- Generating done
+[3.993s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/epoch_synchronization/src/epoch_synchronization-build
+[3.994s] [100%] Built target multithread_publisher_subscriber
+[3.996s] [ 94%] [34m[1mPerforming install step for 'string_subscriber'[0m
+[3.999s] [100%] Built target string_publisher
+[4.000s] [ 94%] [34m[1mPerforming install step for 'parameter_server'[0m
+[4.002s] [100%] [32m[1mLinking C executable static_type_handling[0m
+[4.007s] [ 95%] [34m[1mPerforming install step for 'multithread_publisher_subscriber'[0m
+[4.014s] [ 95%] [34m[1mPerforming install step for 'string_publisher'[0m
+[4.017s] [ 95%] [34m[1mPerforming build step for 'epoch_synchronization'[0m
+[4.026s] [35m[1mConsolidate compiler generated dependencies of target parameter_server[0m
+[4.028s] [35m[1mConsolidate compiler generated dependencies of target string_subscriber[0m
+[4.037s] [35m[1mConsolidate compiler generated dependencies of target multithread_publisher_subscriber[0m
+[4.040s] [100%] Built target parameter_server
+[4.042s] [100%] Built target string_subscriber
+[4.043s] [35m[1mConsolidate compiler generated dependencies of target string_publisher[0m
+[4.049s] [100%] Built target multithread_publisher_subscriber
+[4.050s] [100%] Built target autodiscover_agent
+[4.054s] [100%] Built target string_publisher
+[4.057s] [ 50%] [32mBuilding C object CMakeFiles/epoch_synchronization.dir/main.c.o[0m
+[4.060s] [36mInstall the project...[0m
+[4.063s] [36mInstall the project...[0m
+[4.066s] [ 95%] [34m[1mPerforming install step for 'autodiscover_agent'[0m
+[4.066s] -- Install configuration: ""
+[4.066s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/parameter_server/parameter_server
+[4.067s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/parameter_server/parameter_server" to ""
+[4.067s] [36mInstall the project...[0m
+[4.068s] [36mInstall the project...[0m
+[4.071s] -- Install configuration: ""
+[4.071s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/string_subscriber/string_subscriber
+[4.071s] [100%] Built target static_type_handling
+[4.072s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/string_subscriber/string_subscriber" to ""
+[4.073s] -- Install configuration: ""
+[4.073s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/multithread_publisher_subscriber/multithread_publisher_subscriber
+[4.073s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/multithread_publisher_subscriber/multithread_publisher_subscriber" to ""
+[4.077s] -- Install configuration: ""
+[4.077s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/string_publisher/string_publisher
+[4.077s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/string_publisher/string_publisher" to ""
+[4.084s] [ 96%] [34m[1mCompleted 'parameter_server'[0m
+[4.085s] [ 97%] [34m[1mCompleted 'string_subscriber'[0m
+[4.089s] [ 98%] [34m[1mCompleted 'multithread_publisher_subscriber'[0m
+[4.090s] [ 98%] [34m[1mPerforming install step for 'static_type_handling'[0m
+[4.092s] [35m[1mConsolidate compiler generated dependencies of target autodiscover_agent[0m
+[4.095s] [ 98%] [34m[1mCompleted 'string_publisher'[0m
+[4.103s] [100%] [32m[1mLinking C executable epoch_synchronization[0m
+[4.104s] [100%] Built target autodiscover_agent
+[4.113s] [ 98%] Built target string_subscriber
+[4.113s] [ 98%] Built target multithread_publisher_subscriber
+[4.114s] [ 98%] Built target parameter_server
+[4.119s] [36mInstall the project...[0m
+[4.120s] [35m[1mConsolidate compiler generated dependencies of target static_type_handling[0m
+[4.124s] [ 98%] Built target string_publisher
+[4.127s] -- Install configuration: ""
+[4.127s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/autodiscover_agent/autodiscover_agent
+[4.127s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/autodiscover_agent/autodiscover_agent" to ""
+[4.131s] [100%] Built target static_type_handling
+[4.144s] [ 98%] [34m[1mCompleted 'autodiscover_agent'[0m
+[4.148s] [36mInstall the project...[0m
+[4.154s] -- Install configuration: ""
+[4.154s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/static_type_handling/static_type_handling
+[4.154s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/static_type_handling/static_type_handling" to ""
+[4.162s] [100%] Built target epoch_synchronization
+[4.171s] [ 98%] [34m[1mCompleted 'static_type_handling'[0m
+[4.174s] [ 98%] Built target autodiscover_agent
+[4.178s] [ 99%] [34m[1mPerforming install step for 'epoch_synchronization'[0m
+[4.199s] [ 99%] Built target static_type_handling
+[4.204s] [35m[1mConsolidate compiler generated dependencies of target epoch_synchronization[0m
+[4.215s] [100%] Built target epoch_synchronization
+[4.232s] [36mInstall the project...[0m
+[4.240s] -- Install configuration: ""
+[4.240s] -- Installing: /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/epoch_synchronization/epoch_synchronization
+[4.240s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc/temp_install/epoch_synchronization/epoch_synchronization" to ""
+[4.255s] [100%] [34m[1mCompleted 'epoch_synchronization'[0m
+[4.284s] [100%] Built target epoch_synchronization
+[4.293s] Invoked command in '/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc' returned '0': AMENT_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/microcdr:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/src/install/microcdr:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent:/opt/ros/humble LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter/lib:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/install/rclc/lib:/home/user/robo/sb-robot/microros_ws/install/test_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/std_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs/lib:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib:/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/test_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/std_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/action_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc -- -j20 -l20
+[4.294s] Invoking command in '/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc': AMENT_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/microcdr:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/src/install/microcdr:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent:/opt/ros/humble LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter/lib:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/install/rclc/lib:/home/user/robo/sb-robot/microros_ws/install/test_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/std_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs/lib:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib:/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/test_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/std_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/action_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc
+[4.300s] -- Install configuration: ""
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/autodiscover_agent
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/autodiscover_agent/autodiscover_agent
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/string_subscriber
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/string_subscriber/string_subscriber
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/static_type_handling
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/static_type_handling/static_type_handling
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/int32_subscriber
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/int32_subscriber/int32_subscriber
+[4.300s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/configured_publisher
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/configured_publisher/configured_publisher
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/int32_publisher
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/int32_publisher/int32_publisher
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/multithread_publisher_subscriber
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/multithread_publisher_subscriber/multithread_publisher_subscriber
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/complex_msg_subscriber
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/complex_msg_subscriber/complex_msg_subscriber
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/fragmented_publication
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/fragmented_publication/fragmented_publication
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/addtwoints_server
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/addtwoints_server/addtwoints_server
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/fibonacci_action_server
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/fibonacci_action_server/fibonacci_action_server
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/addtwoints_client
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/addtwoints_client/addtwoints_client
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/epoch_synchronization
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/epoch_synchronization/epoch_synchronization
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/publisher_count
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/publisher_count/publisher_count
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/int32_multinode
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/int32_multinode/int32_multinode
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/graph_visualizer
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/graph_visualizer/graph_visualizer
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/ping_uros_agent
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/ping_uros_agent/ping_uros_agent
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/complex_msg_publisher
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/complex_msg_publisher/complex_msg_publisher
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/string_publisher
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/string_publisher/string_publisher
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/fibonacci_action_client
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/fibonacci_action_client/fibonacci_action_client
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/fragmented_subscription
+[4.301s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/fragmented_subscription/fragmented_subscription
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/subscription_count
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/subscription_count/subscription_count
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/int32_publisher_subscriber
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/int32_publisher_subscriber/int32_publisher_subscriber
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/configured_subscriber
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/configured_subscriber/configured_subscriber
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/ping_pong
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/ping_pong/ping_pong
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/timer
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/timer/timer
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/parameter_server
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/lib/micro_ros_demos_rclc/parameter_server/parameter_server
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/ament_index/resource_index/package_run_dependencies/micro_ros_demos_rclc
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/ament_index/resource_index/parent_prefix_path/micro_ros_demos_rclc
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/environment/ament_prefix_path.sh
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/environment/ament_prefix_path.dsv
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/environment/path.sh
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/environment/path.dsv
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/local_setup.bash
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/local_setup.sh
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/local_setup.zsh
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/local_setup.dsv
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/package.dsv
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/ament_index/resource_index/packages/micro_ros_demos_rclc
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/cmake/micro_ros_demos_rclcConfig.cmake
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/cmake/micro_ros_demos_rclcConfig-version.cmake
+[4.302s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/micro_ros_demos_rclc/share/micro_ros_demos_rclc/package.xml
+[4.304s] Invoked command in '/home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc' returned '0': AMENT_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/install/rclc:/home/user/robo/sb-robot/microros_ws/install/test_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs:/home/user/robo/sb-robot/microros_ws/install/example_interfaces:/home/user/robo/sb-robot/microros_ws/install/std_msgs:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces:/home/user/robo/sb-robot/microros_ws/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/install/action_msgs:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/install/microcdr:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client:/home/user/robo/sb-robot/microros_ws/src/install/microcdr:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces:/home/user/robo/sb-robot/microros_ws/install/micro_ros_setup:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent:/opt/ros/humble LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rclc_parameter/lib:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/install/rclc/lib:/home/user/robo/sb-robot/microros_ws/install/test_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/std_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/src/install/action_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/unique_identifier_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/std_srvs/lib:/home/user/robo/sb-robot/microros_ws/src/install/statistics_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/rmw_microxrcedds/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_cpp/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosidl_typesupport_microxrcedds_c/lib:/home/user/robo/sb-robot/microros_ws/src/install/rosgraph_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib:/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_utilities/lib:/home/user/robo/sb-robot/microros_ws/src/install/micro_ros_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/lifecycle_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/complex_msgs/lib:/home/user/robo/sb-robot/microros_ws/src/install/builtin_interfaces/lib:/home/user/robo/sb-robot/microros_ws/install/micro_ros_agent/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib PYTHONPATH=/home/user/robo/sb-robot/microros_ws/install/visualization_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/sensor_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/test_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_cpp/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/geometry_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/example_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/std_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rosidl_typesupport_microxrcedds_c/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/rcl_interfaces/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/complex_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/action_msgs/local/lib/python3.10/dist-packages:/home/user/robo/sb-robot/microros_ws/install/unique_identifier_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/user/robo/sb-robot/microros_ws/build/micro_ros_demos_rclc

@@ -4,40 +4,41 @@
 #include "motorcontroller.h"
 #include "BNO055Sensor.h"
 #include <PID_v1.h>
+#include "utils.h"
 
 
 
 class BalanceController {
 public:
-    struct pidParams
-            {
-                double Kp;
-                double Ki;
-                double Kd;
-                float max;
-                float min;
-                int period;
-                bool direct;
-                bool modeAuto;
-                /* data */
-            };
-    struct controllerState 
-            {
-                float speedA;
-                float speedB;
-                float positionA;
-                float positionB;
-                double currentVel;
-                double currentYawRate;
-                double currentPitch;
-                double targetPitch;
-                double controlOutput;
-                bool pitchPIDOn;
-                bool velPIDOn;
-                bool yawPIDOn;
+    // struct pidParams
+    //         {
+    //             double Kp;
+    //             double Ki;
+    //             double Kd;
+    //             float max;
+    //             float min;
+    //             int period;
+    //             bool direct;
+    //             bool modeAuto;
+    //             /* data */
+    //         };
+    // struct controllerState 
+    //         {
+    //             float speedA;
+    //             float speedB;
+    //             float positionA;
+    //             float positionB;
+    //             double currentVel;
+    //             double currentYawRate;
+    //             double currentPitch;
+    //             double targetPitch;
+    //             double controlOutput;
+    //             bool pitchPIDOn;
+    //             bool velPIDOn;
+    //             bool yawPIDOn;
                 
 
-            };
+    //         };
 
     BalanceController(MotorController &motors, 
                         BNO055Sensor &bno, 

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "complex_msgs__py",
+		"source" : "/home/user/robo/sb-robot/microros_ws/src/build/complex_msgs/complex_msgs__py"
+	}
+}

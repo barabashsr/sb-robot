@@ -1,0 +1,13 @@
+{
+  "package_name": "rosidl_typesupport_microxrcedds_test_msg",
+  "non_idl_tuples": [
+    "/home/user/robo/sb-robot/microros_ws/src/uros/rosidl_typesupport_microxrcedds/test/msg:msg/UnboundedString.msg",
+    "/home/user/robo/sb-robot/microros_ws/src/uros/rosidl_typesupport_microxrcedds/test/msg:msg/Primitive.msg",
+    "/home/user/robo/sb-robot/microros_ws/src/uros/rosidl_typesupport_microxrcedds/test/msg:msg/NotEnoughtMemoryTest.msg",
+    "/home/user/robo/sb-robot/microros_ws/src/uros/rosidl_typesupport_microxrcedds/test/msg:msg/Sequence.msg",
+    "/home/user/robo/sb-robot/microros_ws/src/uros/rosidl_typesupport_microxrcedds/test/msg:msg/Compound.msg",
+    "/home/user/robo/sb-robot/microros_ws/src/uros/rosidl_typesupport_microxrcedds/test/msg:msg/BasicPrimitive.msg",
+    "/home/user/robo/sb-robot/microros_ws/src/uros/rosidl_typesupport_microxrcedds/test/msg:msg/Regression10.msg",
+    "/home/user/robo/sb-robot/microros_ws/src/uros/rosidl_typesupport_microxrcedds/test/msg:msg/Regression11.msg"
+  ]
+}

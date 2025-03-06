@@ -1,0 +1,134 @@
+[0.011s] Invoking command in '/home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client': CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /home/user/robo/sb-robot/microros_ws/src/eProsima/Micro-XRCE-DDS-Client -DUCLIENT_ISOLATED_INSTALL=OFF -DUCLIENT_SUPERBUILD=OFF -DBUILD_SHARED_LIBS=ON -DUCLIENT_PROFILE_MULTITHREAD=ON -DCMAKE_INSTALL_PREFIX=/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client
+[0.057s] -- The C compiler identification is GNU 11.4.0
+[0.062s] -- Detecting C compiler ABI info
+[0.126s] -- Detecting C compiler ABI info - done
+[0.134s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.134s] -- Detecting C compile features
+[0.135s] -- Detecting C compile features - done
+[0.136s] -- Setting build type to 'Release' as none was specified.
+[0.139s] -- Looking for pthread.h
+[0.197s] -- Looking for pthread.h - found
+[0.197s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.275s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[0.276s] -- Found Threads: TRUE  
+[0.280s] -- Configuring done
+[0.288s] -- Generating done
+[0.288s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client
+[0.297s] Invoked command in '/home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client' returned '0': CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:${LD_LIBRARY_PATH} /usr/bin/cmake /home/user/robo/sb-robot/microros_ws/src/eProsima/Micro-XRCE-DDS-Client -DUCLIENT_ISOLATED_INSTALL=OFF -DUCLIENT_SUPERBUILD=OFF -DBUILD_SHARED_LIBS=ON -DUCLIENT_PROFILE_MULTITHREAD=ON -DCMAKE_INSTALL_PREFIX=/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client
+[0.298s] Invoking command in '/home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client': CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client -- -j20 -l20
+[0.392s] [  2%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/stream/input_best_effort_stream.c.o[0m
+[0.397s] [  5%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/stream/output_best_effort_stream.c.o[0m
+[0.398s] [  8%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/stream/input_reliable_stream.c.o[0m
+[0.400s] [ 11%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/stream/output_reliable_stream.c.o[0m
+[0.409s] [ 17%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/stream/stream_storage.c.o[0m
+[0.409s] [ 20%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/stream/seq_num.c.o[0m
+[0.409s] [ 20%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/stream/stream_id.c.o[0m
+[0.420s] [ 22%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/session_info.c.o[0m
+[0.424s] [ 25%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/submessage.c.o[0m
+[0.425s] [ 28%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/object_id.c.o[0m
+[0.428s] [ 31%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/session.c.o[0m
+[0.447s] [ 34%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/serialization/xrce_types.c.o[0m
+[0.450s] [ 37%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/serialization/xrce_subheader.c.o[0m
+[0.450s] [ 40%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/serialization/xrce_header.c.o[0m
+[0.458s] [ 42%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/util/time.c.o[0m
+[0.466s] [ 45%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/common_create_entities.c.o[0m
+[0.467s] [ 48%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/util/ping.c.o[0m
+[0.470s] [ 51%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/create_entities_bin.c.o[0m
+[0.473s] [ 54%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/create_entities_xml.c.o[0m
+[0.479s] [ 57%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/create_entities_ref.c.o[0m
+[0.509s] [ 60%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/read_access.c.o[0m
+[0.520s] [ 62%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/multithread/multithread.c.o[0m
+[0.521s] [ 65%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/core/session/write_access.c.o[0m
+[0.527s] [ 68%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/ip/udp/udp_transport.c.o[0m
+[0.527s] [ 71%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/stream_framing/stream_framing_protocol.c.o[0m
+[0.528s] [ 74%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/ip/udp/udp_transport_posix.c.o[0m
+[0.543s] [ 77%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/ip/tcp/tcp_transport.c.o[0m
+[0.569s] [ 80%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/ip/tcp/tcp_transport_posix.c.o[0m
+[0.570s] [ 82%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/serial/serial_transport.c.o[0m
+[0.580s] [ 85%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/serial/serial_transport_posix.c.o[0m
+[0.601s] [ 88%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/ip/ip_posix.c.o[0m
+[0.611s] [ 91%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/discovery/discovery.c.o[0m
+[0.638s] [ 94%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/discovery/transport/udp_transport_datagram_posix.c.o[0m
+[0.654s] [ 97%] [32mBuilding C object CMakeFiles/microxrcedds_client.dir/src/c/profile/transport/custom/custom_transport.c.o[0m
+[1.485s] [100%] [32m[1mLinking C shared library libmicroxrcedds_client.so[0m
+[1.675s] [100%] Built target microxrcedds_client
+[1.712s] Invoked command in '/home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client' returned '0': CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --build /home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client -- -j20 -l20
+[1.714s] Invoking command in '/home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client': CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client
+[1.741s] -- Install configuration: "Release"
+[1.742s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib/libmicroxrcedds_client.so.2.4.2
+[1.742s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib/libmicroxrcedds_client.so.2.4
+[1.742s] -- Set runtime path of "/home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib/libmicroxrcedds_client.so.2.4.2" to ""
+[1.742s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/lib/libmicroxrcedds_client.so
+[1.742s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client
+[1.742s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/defines.h
+[1.742s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/visibility.h
+[1.742s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/transport.h
+[1.743s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/util
+[1.743s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/util/ping.h
+[1.743s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/util/time.h
+[1.743s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/client.h
+[1.743s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core
+[1.743s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session
+[1.744s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/object_id.h
+[1.744s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/time_sync.h
+[1.744s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/create_entities_bin.h
+[1.744s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/read_access.h
+[1.744s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/write_access.h
+[1.760s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/create_entities_ref.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/common_create_entities.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream/output_best_effort_stream.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream/reliable_stream.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream/input_reliable_stream.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream/seq_num.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream/stream_storage.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream/input_best_effort_stream.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream/stream_id.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/stream/output_reliable_stream.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/create_entities_xml.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/session.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/session/session_info.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/type
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/type/xrce_types.h
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/communication
+[1.761s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/core/communication/communication.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/stream_framing
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/stream_framing/stream_framing_protocol.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/tcp
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/tcp/tcp_transport_posix_nopoll.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/tcp/tcp_transport_windows.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/tcp/tcp_transport_rtems_bsd_net.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/tcp/tcp_transport_posix.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/tcp/tcp_transport_freertos_plus_tcp.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/tcp/tcp_transport.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/ip.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/udp
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/udp/udp_transport_windows.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/udp/udp_transport_rtems_bsd_net.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/udp/udp_transport_posix_nopoll.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/udp/udp_transport_posix.h
+[1.762s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/udp/udp_transport_freertos_plus_tcp.h
+[1.763s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/ip/udp/udp_transport.h
+[1.763s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/serial
+[1.763s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/serial/serial_transport_platform.h
+[1.763s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/serial/serial_transport_posix.h
+[1.763s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/serial/serial_transport_rtems_bsd_net.h
+[1.763s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/serial/serial_transport.h
+[1.763s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/custom
+[1.778s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/custom/custom_transport.h
+[1.778s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/can
+[1.778s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/can/can_transport_posix.h
+[1.778s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/transport/can/can_transport.h
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/discovery
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/discovery/discovery.h
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/multithread
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/profile/multithread/multithread.h
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/include/uxr/client/config.h
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/share/microxrcedds_client/cmake/microxrcedds_clientTargets.cmake
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/share/microxrcedds_client/cmake/microxrcedds_clientTargets-release.cmake
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/share/microxrcedds_client/cmake/microxrcedds_clientConfig.cmake
+[1.779s] -- Installing: /home/user/robo/sb-robot/microros_ws/src/install/microxrcedds_client/share/microxrcedds_client/cmake/microxrcedds_clientConfigVersion.cmake
+[1.832s] Invoked command in '/home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client' returned '0': CMAKE_PREFIX_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/user/robo/sb-robot/microros_ws/src/install/microcdr/lib:${LD_LIBRARY_PATH} /usr/bin/cmake --install /home/user/robo/sb-robot/microros_ws/src/build/microxrcedds_client

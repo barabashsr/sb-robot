@@ -1,0 +1,4 @@
+/home/user/robo/sb-robot/microros_ws/src/build/action_msgs/rosidl_adapter/action_msgs:msg/GoalInfo.idl
+/home/user/robo/sb-robot/microros_ws/src/build/action_msgs/rosidl_adapter/action_msgs:msg/GoalStatus.idl
+/home/user/robo/sb-robot/microros_ws/src/build/action_msgs/rosidl_adapter/action_msgs:msg/GoalStatusArray.idl
+/home/user/robo/sb-robot/microros_ws/src/build/action_msgs/rosidl_adapter/action_msgs:srv/CancelGoal.idl

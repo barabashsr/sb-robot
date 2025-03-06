@@ -1,0 +1,52 @@
+[0.023s] Invoking command in '/home/user/robo/sb-robot/microros_ws/build/microcdr': /usr/bin/cmake /home/user/robo/sb-robot/microros_ws/src/eProsima/Micro-CDR -DUCDR_ISOLATED_INSTALL=OFF -DCMAKE_INSTALL_PREFIX=/home/user/robo/sb-robot/microros_ws/install/microcdr
+[0.032s] -- Setting build type to 'Release' as none was specified.
+[0.072s] -- The C compiler identification is GNU 11.4.0
+[0.078s] -- Detecting C compiler ABI info
+[0.137s] -- Detecting C compiler ABI info - done
+[0.142s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.142s] -- Detecting C compile features
+[0.142s] -- Detecting C compile features - done
+[0.181s] -- The CXX compiler identification is GNU 11.4.0
+[0.188s] -- Detecting CXX compiler ABI info
+[0.249s] -- Detecting CXX compiler ABI info - done
+[0.257s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.257s] -- Detecting CXX compile features
+[0.258s] -- Detecting CXX compile features - done
+[0.266s] -- Configuring done
+[0.268s] -- Generating done
+[0.269s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/microcdr
+[0.273s] Invoked command in '/home/user/robo/sb-robot/microros_ws/build/microcdr' returned '0': /usr/bin/cmake /home/user/robo/sb-robot/microros_ws/src/eProsima/Micro-CDR -DUCDR_ISOLATED_INSTALL=OFF -DCMAKE_INSTALL_PREFIX=/home/user/robo/sb-robot/microros_ws/install/microcdr
+[0.274s] Invoking command in '/home/user/robo/sb-robot/microros_ws/build/microcdr': /usr/bin/cmake --build /home/user/robo/sb-robot/microros_ws/build/microcdr -- -j20 -l20
+[0.321s] [ 12%] [34m[1mCreating directories for 'ucdr'[0m
+[0.389s] [ 25%] [34m[1mNo download step for 'ucdr'[0m
+[0.412s] [ 37%] [34m[1mNo update step for 'ucdr'[0m
+[0.433s] [ 50%] [34m[1mNo patch step for 'ucdr'[0m
+[0.455s] [ 62%] [34m[1mPerforming configure step for 'ucdr'[0m
+[0.464s] loading initial cache file /home/user/robo/sb-robot/microros_ws/build/microcdr/ucdr-prefix/tmp/ucdr-cache-Release.cmake
+[0.468s] -- Configuring done
+[0.470s] -- Generating done
+[0.470s] -- Build files have been written to: /home/user/robo/sb-robot/microros_ws/build/microcdr
+[0.485s] [ 75%] [34m[1mPerforming build step for 'ucdr'[0m
+[0.521s] [ 16%] [32mBuilding C object CMakeFiles/microcdr.dir/src/c/types/string.c.o[0m
+[0.521s] [ 33%] [32mBuilding C object CMakeFiles/microcdr.dir/src/c/types/sequence.c.o[0m
+[0.523s] [ 50%] [32mBuilding C object CMakeFiles/microcdr.dir/src/c/common.c.o[0m
+[0.523s] [ 66%] [32mBuilding C object CMakeFiles/microcdr.dir/src/c/types/basic.c.o[0m
+[0.523s] [ 83%] [32mBuilding C object CMakeFiles/microcdr.dir/src/c/types/array.c.o[0m
+[1.012s] [100%] [32m[1mLinking C static library libmicrocdr.a[0m
+[1.085s] [100%] Built target microcdr
+[1.136s] [34m[1mNo install step for 'ucdr'[0m
+[1.176s] [34m[1mCompleted 'ucdr'[0m
+[1.226s] Built target ucdr
+[1.240s] Invoked command in '/home/user/robo/sb-robot/microros_ws/build/microcdr' returned '0': /usr/bin/cmake --build /home/user/robo/sb-robot/microros_ws/build/microcdr -- -j20 -l20
+[1.240s] Invoking command in '/home/user/robo/sb-robot/microros_ws/build/microcdr': /usr/bin/cmake --install /home/user/robo/sb-robot/microros_ws/build/microcdr
+[1.251s] -- Install configuration: "Release"
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/lib/libmicrocdr.a
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/include/ucdr
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/include/ucdr/visibility.h
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/include/ucdr/microcdr.h
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/include/ucdr/config.h
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/share/microcdr/cmake/microcdrTargets.cmake
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/share/microcdr/cmake/microcdrTargets-release.cmake
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/share/microcdr/cmake/microcdrConfig.cmake
+[1.251s] -- Installing: /home/user/robo/sb-robot/microros_ws/install/microcdr/share/microcdr/cmake/microcdrConfigVersion.cmake
+[1.255s] Invoked command in '/home/user/robo/sb-robot/microros_ws/build/microcdr' returned '0': /usr/bin/cmake --install /home/user/robo/sb-robot/microros_ws/build/microcdr

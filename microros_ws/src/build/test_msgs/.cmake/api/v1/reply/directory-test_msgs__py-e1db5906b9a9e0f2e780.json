@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "test_msgs__py",
+		"source" : "/home/user/robo/sb-robot/microros_ws/src/build/test_msgs/test_msgs__py"
+	}
+}

@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/CMakeFiles/ucdr"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/CMakeFiles/ucdr.rule"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/CMakeFiles/ucdr-complete.rule"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/ucdr-prefix/src/ucdr-stamp/ucdr-build.rule"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/ucdr-prefix/src/ucdr-stamp/ucdr-configure.rule"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/ucdr-prefix/src/ucdr-stamp/ucdr-download.rule"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/ucdr-prefix/src/ucdr-stamp/ucdr-install.rule"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/ucdr-prefix/src/ucdr-stamp/ucdr-mkdir.rule"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/ucdr-prefix/src/ucdr-stamp/ucdr-patch.rule"
+		},
+		{
+			"file" : "/home/user/robo/sb-robot/microros_ws/src/build/microcdr/ucdr-prefix/src/ucdr-stamp/ucdr-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"ucdr"
+		],
+		"name" : "ucdr"
+	}
+}
