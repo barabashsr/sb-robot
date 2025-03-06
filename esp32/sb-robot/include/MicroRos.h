@@ -9,19 +9,37 @@
 #include <rcl/error_handling.h>
 #include <stdio.h>
 #include <string.h>
+#include <rcl/timer.h>
 #include <geometry_msgs/msg/twist.h>
-#define ROS_DOMAIN_ID 77
+//#define ROS_DOMAIN_ID 77
+
+#define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc); return;}}
+#define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Continuing.\n",__LINE__,(int)temp_rc);}}
 
 class controllerNode {
     public:
         
-    controllerNode(String& agent_port, String& agentIP, String& ssid, String& password, String& twist_topic){
-
-    }
+    controllerNode  (
+                    uint ros_domain_id, 
+                    uint16_t& agent_port, 
+                    String& agentIP, 
+                    String& ssid, 
+                    String& password, 
+                    String& twist_topic,
+                    double& targetVel,
+                    double& targetYawRate,
+                    controllerState& contrState,
+                    pidParams& pitchParams,
+                    pidParams& velParams,
+                    pidParams& yawParams
+                    );
 
     void connect_to_wifi();
     void setup();
     void spinNode();
+
+    
+   
        
     
      
@@ -29,15 +47,26 @@ class controllerNode {
     private:
 
         
-        String _twist_topic;
-        uint16_t _agent_port;
-        String _agentIP;
-        String _ssid = "Beeline_2G_F13F37";
-        String _password = "1122334455667788";
+        uint8_t _ros_domain_id;
+        String& _agentIP;
+        uint16_t& _agent_port;
+        String& _ssid;
+        String& _password;
 
-        rcl_publisher_t _publisher;
+        String& _twist_topic;
+
+        double& _targetVel;
+        double& _targetYawRate;
+        
+        controllerState& _controllerState;
+        pidParams& _pitchParams;
+        pidParams& _velParams;
+        pidParams& _yawParams;
+        
+
+        
         rcl_subscription_t _subscriber_twist;
-        //std_msgs__msg__Int32 msgIn, msgOut;
+        
         
 
         rclc_executor_t _executor;
@@ -48,7 +77,16 @@ class controllerNode {
         rcl_timer_t _timer;
 
         geometry_msgs__msg__Twist _twst_msg;
-        int _handle_count;
+        const int _handle_count = 4;
+
+        static std_msgs__msg__Int32 _msgOut;
+        static rcl_publisher_t _publisher;
+
+        static void timer_callback(rcl_timer_t * timer, int64_t last_call_time);
+        static void subscription_callback_twist(const void * msgin);
+
+        
+
 
         
         
