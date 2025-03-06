@@ -37,6 +37,9 @@ class controllerNode {
     void connect_to_wifi();
     void setup();
     void spinNode();
+    void handle_twist_message(const void * msgin);
+    double& _targetVel;
+    double& _targetYawRate;
 
     
    
@@ -55,8 +58,7 @@ class controllerNode {
 
         String& _twist_topic;
 
-        double& _targetVel;
-        double& _targetYawRate;
+        
         
         controllerState& _controllerState;
         pidParams& _pitchParams;
@@ -83,7 +85,9 @@ class controllerNode {
         static rcl_publisher_t _publisher;
 
         static void timer_callback(rcl_timer_t * timer, int64_t last_call_time);
-        static void subscription_callback_twist(const void * msgin);
+        static void subscription_callback_twist(const void * msgin, void * context);
+        
+
 
         
 

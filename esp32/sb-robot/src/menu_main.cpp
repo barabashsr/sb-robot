@@ -275,6 +275,8 @@ void updateMenuValues(){
     //currentPalst = bno.getPalstance();
 
     menuVel.setFloatValue(static_cast<float>(contrState.currentVel));
+    menuSetVel.setFromFloatingPointValue(static_cast<float>(targetVel));
+    menuSetYaw.setFromFloatingPointValue(static_cast<float>(targetYawRate));
     menuYawRate.setFloatValue(static_cast<float>(contrState.currentYawRate));
     //menuPalstance.setFloatValue(currentPalst);
     //Serial.println(currentPalst);
@@ -774,13 +776,13 @@ void CALLBACK_FUNCTION getBNOCalib(int id) {
 
 
 void CALLBACK_FUNCTION setTargetYawRa(int id) {
-    targetYawRate = menuSetYaw.getAsFloatingPointValue();
+    //targetYawRate = menuSetYaw.getAsFloatingPointValue();
     // TODO - your menu change code
 }
 
 
 void CALLBACK_FUNCTION setTargetVel(int id) {
-    targetVel = menuSetVel.getAsFloatingPointValue();
+    //targetVel = menuSetVel.getAsFloatingPointValue();
     // TODO - your menu change code
 }
 

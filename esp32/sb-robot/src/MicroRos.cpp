@@ -26,6 +26,7 @@ controllerNode::controllerNode  (
 
     std_msgs__msg__Int32 controllerNode::_msgOut;
     rcl_publisher_t controllerNode::_publisher;
+    
 
     void controllerNode::connect_to_wifi() {
         char ssidR[_ssid.length() + 1];
@@ -52,11 +53,36 @@ controllerNode::controllerNode  (
         }
     }
 
-    void controllerNode::subscription_callback_twist(const void * msgin){
-        const std_msgs__msg__Int32 * msg = (const std_msgs__msg__Int32 *)msgin;
-	    Serial.printf("Received: %d\n", msg->data);
+    // void controllerNode::subscription_callback_twist(const void * msgin){
+    //     const geometry_msgs__msg__Twist * msg = (const geometry_msgs__msg__Twist *)msgin;
+    //     _targetVel = msg->linear.x;
+    //     //steer_velocity = msg->linear.y;
+    //     //float eq_change = msg->linear.z;
+    //     //float kp_change  = msg->angular.x;
+    //     _targetYawRate = msg->angular.y;
 
-    };
+        
+    //     //kd_change = msg->angular.z;
+	//     //Serial.printf("Received: %d\n", msg->data);
+
+    // };
+
+    void controllerNode::subscription_callback_twist(const void * msgin, void * context) {
+        controllerNode* node = static_cast<controllerNode*>(context);
+        // Use node to access non-static members
+        // Process the message
+        if (node) {
+            node->handle_twist_message(msgin);
+        }
+    }
+
+    void controllerNode::handle_twist_message(const void * msgin) {
+        const geometry_msgs__msg__Twist * msg = (const geometry_msgs__msg__Twist *)msgin;
+        _targetVel = msg->linear.x;
+        _targetYawRate = msg->angular.z;
+        Serial.printf("vel_x: %f, yawRate: %f\n", _targetVel, _targetYawRate);
+    }
+    
 
     void controllerNode::setup(){
 
@@ -92,8 +118,8 @@ controllerNode::controllerNode  (
         RCCHECK(rclc_subscription_init_default(
             &_subscriber_twist,
             &_node,
-            ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-            "micro_ros_platformio_node_publisher"));
+            ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
+            "twist_topic"));
 
         // create timer,
         Serial.println("Subscr init");
@@ -111,10 +137,16 @@ controllerNode::controllerNode  (
         RCCHECK(rclc_executor_init(&_executor, &_support.context, _handle_count, &_allocator));
         delay(1000);
         RCCHECK(rclc_executor_add_timer(&_executor, &_timer));
-        RCCHECK(rclc_executor_add_subscription(&_executor, &_subscriber_twist, &_twst_msg, &subscription_callback_twist, ON_NEW_DATA));
-        
-
+        RCCHECK(rclc_executor_add_subscription_with_context(
+            &_executor,
+            &_subscriber_twist,
+            &_twst_msg,
+            &subscription_callback_twist,
+            this,
+            ON_NEW_DATA
+        ));
         //_msgOut.data = 0;
+        //rclc_executor_set_context(&_executor, this);
         
     }
 
