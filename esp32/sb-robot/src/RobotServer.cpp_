@@ -1,0 +1,42 @@
+#include "RobotServer.h"
+
+RobotServer::RobotServer(controllerState& state,  BalanceController& controller) 
+    : _state(state), _controller(controller), server(8011) {}
+
+void RobotServer::begin() {
+    
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.println("Connecting to WiFi..");
+    }
+    Serial.println(WiFi.localIP());
+
+    server.on("/state", HTTP_GET, [this](AsyncWebServerRequest *request) {
+        DynamicJsonDocument doc(2048);
+        doc["RW_position"] = (double)_state.positionA;
+        doc["LW_position"] = (double)_state.positionB;
+        doc["RW_velocity"] = (double)_state.speedA;
+        doc["LW_velocity"] = (double)_state.speedB;
+    
+        String json;
+        serializeJson(doc, json);
+        request->send(200, "application/json", json);
+
+    });
+    server.on("/reset", HTTP_GET, [this](AsyncWebServerRequest *request) {
+        DynamicJsonDocument doc(2048);
+        _controller.resetMotors();
+        bool reply = true;
+        doc["Reset_complete"] = (bool)reply;
+        String json;
+        serializeJson(doc, json);
+        request->send(200, "application/json", json);
+
+    });
+
+    server.begin();
+}
+
+
+
+

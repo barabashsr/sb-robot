@@ -9,6 +9,7 @@
 #include "utils.h"
 #include <WiFi.h>
 #include "MicroRos.h"
+#include "RobotServer.h"
 
 
 
@@ -155,7 +156,7 @@ controllerNode rosNode(
                 paramsYaw
                 );
 
-
+RobotServer robotServer(contrState, controller);
 ///ros setup
 
 
@@ -226,7 +227,7 @@ void updateMenuValues(){
     // Serial.printf(" Pitch: Kp: %.2f, Ki: %.2f, Kd: %.2f, output:  %s, pitch:  %.2f\n", 
     //     Kp, Ki, Kd, contrState.pitchPIDOn, contrState.currentPitch
     //  );
-    Serial.println(contrState.pitchPIDOn);
+    //Serial.println(contrState.pitchPIDOn);
 
 
 
@@ -424,6 +425,7 @@ void setup() {
     ///MICRO ROS SETUP
 
     rosNode.setup();
+    robotServer.begin();
     //MICRO ROS SETUP
 
 

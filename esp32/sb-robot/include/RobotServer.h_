@@ -1,0 +1,27 @@
+#ifndef ROBOTSERVER_H
+#define ROBOTSERVER_H
+
+#include <WiFi.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+#include <ArduinoJson.h>
+#include "utils.h"
+#include "BalanceController.h"
+
+
+class RobotServer {
+public:
+    RobotServer(controllerState& state, BalanceController& controller);
+    void begin();
+    
+
+private:
+    BalanceController& _controller;
+    controllerState& _state;
+    AsyncWebServer server;
+
+    void handleCommand(AsyncWebServerRequest *request);
+
+};
+
+#endif // ROBOTSERVER_H

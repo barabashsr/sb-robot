@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<!-- BNO055 SENSOR LINK-->
+
+  <joint
+    name="imu_chassis_joint"
+    type="fixed">
+    <origin
+      xyz="0.180 -0.065 0.004"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="imu" />
+    
+  </joint>
+
+  <link
+    name="imu">
+
+  </link>
+<!-- 
+    <gazebo reference="bno055">
+        <material>Gazebo/Red</material>
+
+        <sensor name="imu" type="imu">
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <camera>
+              <horizontal_fov>1.089</horizontal_fov>
+                <image>
+                    <format>R8G8B8</format>
+                    <width>640</width>
+                    <height>480</height>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>8.0</far>
+                </clip>
+            </camera>
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                
+                <frame_name>camera_link_optical</frame_name>
+            </plugin>
+        </sensor>
+    </gazebo>
+ -->
+</robot>

@@ -288,3 +288,10 @@ void BalanceController::setRWSreshold(int value){
     _motors.setThresholdA(value);
 
 };
+
+void BalanceController::resetMotors(){
+    _motors.resetEncoders();
+    
+    this->calculateVelocities();
+    this->updateState();
+};

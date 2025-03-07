@@ -1,0 +1,9 @@
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/uninstall.dir
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/sb_robot_uninstall.dir
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/test.dir
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/edit_cache.dir
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/rebuild_cache.dir
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/list_install_components.dir
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/install.dir
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/install/local.dir
+/home/user/robo/sb-robot/ros_ws/build/sb_robot/CMakeFiles/install/strip.dir

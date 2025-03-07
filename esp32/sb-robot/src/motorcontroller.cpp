@@ -125,6 +125,8 @@ long MotorController::getEncoderB() {
 }
 
 void MotorController::resetEncoders() {
+    lastEncoderCountA =0;
+    lastEncoderCountB = 0;
     motorA.encoderCount = 0;
     motorB.encoderCount = 0;
 }
