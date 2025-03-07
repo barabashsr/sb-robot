@@ -389,7 +389,7 @@ void setup() {
 
     ///MICRO ROS SETUP
 
-    rosNode.setup();
+    //rosNode.setup();
     //MICRO ROS SETUP
 
 
@@ -397,7 +397,7 @@ void setup() {
 
 void loop() {
     taskManager.runLoop();
-    rosNode.spinNode();
+    //rosNode.spinNode();
     //RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
     //bno.update();
     //controller.update();

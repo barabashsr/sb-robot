@@ -11,6 +11,7 @@
 #include <string.h>
 #include <rcl/timer.h>
 #include <geometry_msgs/msg/twist.h>
+#include <rclc_parameter/rclc_parameter.h>
 //#define ROS_DOMAIN_ID 77
 
 #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc); return;}}
@@ -67,7 +68,10 @@ class controllerNode {
         
 
         
-        rcl_subscription_t _subscriber_twist;
+        rcl_subscription_t _subscriber_twist;   //twist subscriber object
+          
+        static rclc_parameter_server_t _param_server;  // Parameter server object
+        static rcl_publisher_t _publisher; //publisher object
         
         
 
@@ -75,17 +79,20 @@ class controllerNode {
         rclc_support_t _support;
         rcl_allocator_t _allocator;
         rcl_init_options_t _init_options;
-        rcl_node_t _node;
+        static rclc_parameter_options_t _param_options;
+        static rcl_node_t _node;
         rcl_timer_t _timer;
 
         geometry_msgs__msg__Twist _twst_msg;
         const int _handle_count = 4;
 
         static std_msgs__msg__Int32 _msgOut;
-        static rcl_publisher_t _publisher;
+        
 
         static void timer_callback(rcl_timer_t * timer, int64_t last_call_time);
         static void subscription_callback_twist(const void * msgin, void * context);
+        static bool on_parameter_changed(const Parameter * old_param, const Parameter * new_param, void * context);
+        void set_parameters();
         
 
 
@@ -99,4 +106,4 @@ class controllerNode {
 
 
 
-#endif // MICROROS_H
+#endif // MICROROS

@@ -32,9 +32,7 @@ extern AnalogMenuItem menuBNOCalib;
 extern BackMenuItem menuBackState;
 extern SubMenuItem menuState;
 extern FloatMenuItem menuYawRate;
-extern AnalogMenuItem menuSetYaw;
 extern FloatMenuItem menuVel;
-extern AnalogMenuItem menuSetVel;
 extern AnalogMenuItem menuPeriodY;
 extern AnalogMenuItem menuKdYaw;
 extern AnalogMenuItem menuKiYaw;
@@ -72,6 +70,8 @@ extern SubMenuItem menuMotorConfig;
 extern ActionMenuItem menuSaveValues;
 extern AnalogMenuItem menuPitchOfset;
 extern FloatMenuItem menuPitch;
+extern AnalogMenuItem menuSetYaw;
+extern AnalogMenuItem menuSetVel;
 extern FloatMenuItem menuPalstance;
 
 // Provide a wrapper to get hold of the root menu item and export setupMenu
