@@ -104,26 +104,12 @@ BalanceController controller(motors,
 ///ros setup
 
 
-
-// #include <std_msgs/msg/int32.h>
-// #include <micro_ros_platformio.h>
-// #include <rcl/rcl.h>
-// #include <rclc/rclc.h>
-// #include <rclc/executor.h>
-// #include <rcl/error_handling.h>
-// #include <stdio.h>
-
-// #define ROS_DOMAIN_ID 77    
 IPAddress agent_ip; //(192, 168, 1, 74);
 uint16_t agent_port = 8888;
 uint ros_domain_id = 77;
 String twist_topic = "twist_topic";
-
-
 String localIP = "192.168.1.74";
 
-// char ssid[] = "Beeline_5G_F13F37";
-// char psk[]= "1122334455667788";
 
 String ssid = "Beeline_2G_F13F37";
 String password = "1122334455667788";
@@ -142,84 +128,6 @@ controllerNode rosNode(
                 paramsVel,
                 paramsYaw
                 );
-
-// char ssidR[] = "Beeline_2G_F13F37";
-// char passwordR[] = "1122334455667788";
-
-// int argc;
-// const char * const * argv;
-
-// rcl_publisher_t publisher;
-// rcl_subscription_t subscriber;
-// std_msgs__msg__Int32 msgIn, msgOut;
-
-// rclc_executor_t executor;
-// rclc_support_t support;
-// rcl_allocator_t allocator;
-// rcl_init_options_t init_options;
-// rcl_node_t node;
-// rcl_timer_t timer;
-
-// #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc); return;}}
-// #define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Continuing.\n",__LINE__,(int)temp_rc);}}
-// #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc); return;}}
-// #define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Continuing.\n",__LINE__,(int)temp_rc);}}
-
-// Error handle loop
-// void error_loop() {
-//   while(1) {
-//     //printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc);
-//     delay(100);
-//   }
-// }
-
-// void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
-//     RCLC_UNUSED(last_call_time);
-//     if (timer != NULL) {
-//       RCSOFTCHECK(rcl_publish(&publisher, &msgOut, NULL));
-//       msgOut.data++;
-//       //Serial.println(msg.data);
-//     }
-// }
-
-// void subscription_callback(const void * msgin)
-// {
-// 	const std_msgs__msg__Int32 * msg = (const std_msgs__msg__Int32 *)msgin;
-// 	Serial.printf("Received: %d\n", msg->data);
-// }
-
-
-
-// void connectToWiFi(const String& ssid, const String& password, IPAddress agent_ip, uint16_t agent_port) {
-//     // Convert String to char array
-//     char ssidR[ssid.length() + 1];
-//     char passwordR[password.length() + 1];
-    
-//     // Copy the contents of the String to the char array
-//     strcpy(ssidR, ssid.c_str());
-//     strcpy(passwordR, password.c_str());
-    
-//     // Now use these char arrays with set_microros_wifi_transports
-//     set_microros_wifi_transports(ssidR, passwordR, agent_ip, agent_port);
-// }
-
-// void connectToWiFi(const String& ssid, const String& password, const String& agent_ip_str, uint16_t agent_port) {
-//     char ssidR[ssid.length() + 1];
-//     char passwordR[password.length() + 1];
-    
-//     strcpy(ssidR, ssid.c_str());
-//     strcpy(passwordR, password.c_str());
-    
-//     IPAddress agent_ip;
-//     if (!agent_ip.fromString(agent_ip_str)) {
-//         Serial.println("Invalid IP address format");
-//         return;
-//     }
-    
-//     set_microros_wifi_transports(ssidR, passwordR, agent_ip, agent_port);
-// }
-
-
 
 
 ///ros setup
@@ -409,15 +317,6 @@ void setup() {
     delay(100);
 
 
-/* 
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-    }
-    Serial.printf("Connected to WiFi IP: %s", WiFi.localIP());
-
- */
-
     motors.init();
     //inputString.reserve(200);
     
@@ -490,65 +389,6 @@ void setup() {
 
     ///MICRO ROS SETUP
 
-    //set_microros_wifi_transports(ssidR, passwordR, agent_ip, agent_port);
-    // connectToWiFi(ssid, password, localIP, agent_port);
-
-
-
-    // allocator = rcl_get_default_allocator();
-    // init_options = rcl_get_zero_initialized_init_options();
-
-    // // Initialize init options
-    // RCCHECK(rcl_init_options_init(&init_options, allocator));
-
-    // // Set ROS_DOMAIN_ID
-    // RCCHECK(rcl_init_options_set_domain_id(&init_options, ROS_DOMAIN_ID));
-
-    // // Initialize support with options
-    // RCCHECK(rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator));
-
-    // //create init_options
-    // //RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
-
-
-    // // create node
-    // RCCHECK(rclc_node_init_default(&node, "micro_ros_platformio_node", "", &support));
-
-    // // create publisher
-    // RCCHECK(rclc_publisher_init_default(
-    //     &publisher,
-    //     &node,
-    //     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-    //     "micro_ros_platformio_node_publisher"));
-    
-
-    // RCCHECK(rclc_subscription_init_default(
-    //     &subscriber,
-    //     &node,
-    //     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-    //     "micro_ros_platformio_node_publisher"));
-
-    // // create timer,
-    // const unsigned int timer_timeout = 1000;
-    // RCCHECK(rclc_timer_init_default(
-    //     &timer,
-    //     &support,
-    //     RCL_MS_TO_NS(timer_timeout),
-    //     timer_callback));
-
-    // // create executor
-
-    // RCCHECK(rclc_executor_init(&executor, &support.context, 3, &allocator));
-    // delay(1000);
-    // RCCHECK(rclc_executor_add_timer(&executor, &timer));
-    // RCCHECK(rclc_executor_add_subscription(&executor, &subscriber, &msgIn, &subscription_callback, ON_NEW_DATA));
-    
-
-    // msgOut.data = 0;
-
-
-
-    //rosNode.connect_to_wifi();
     rosNode.setup();
     //MICRO ROS SETUP
 
@@ -782,7 +622,8 @@ void CALLBACK_FUNCTION setTargetYawRa(int id) {
 
 
 void CALLBACK_FUNCTION setTargetVel(int id) {
-    //targetVel = menuSetVel.getAsFloatingPointValue();
+    // targetVel = menuSetVel.getAsFloatingPointValue();
+    // Serial.println(targetVel);
     // TODO - your menu change code
 }
 

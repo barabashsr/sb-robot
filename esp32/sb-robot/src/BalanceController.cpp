@@ -27,8 +27,8 @@ BalanceController::BalanceController(MotorController &motors,
       _pitchPidOn(false), _velPidOn(false), _yawPidOn(false),
       _controllerUpdatetaskPeriod(0),
       _pitchPID(&_currentPitch, &_pitchOutput, &_targetPitch, pitchParams.Kp, pitchParams.Ki, pitchParams.Kd, DIRECT),
-      _velPID(&_currentVel, &_velocityOutput, &_targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, REVERSE),
-      _yawPID(&_currentYawRate, &_yawOutput, &_targetYawRate, yawParams.Kp, yawParams.Ki, yawParams.Kd, REVERSE)
+      _velPID(&_currentVel, &_velocityOutput, &targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, REVERSE),
+      _yawPID(&_currentYawRate, &_yawOutput, &targetYawRate, yawParams.Kp, yawParams.Ki, yawParams.Kd, REVERSE)
   
       
 { 
