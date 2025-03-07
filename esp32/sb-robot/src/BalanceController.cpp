@@ -279,3 +279,12 @@ void BalanceController::updateState(){
     _state.velPIDOn = _velPidOn;
     _state.yawPIDOn = _yawPidOn;
 };
+
+void BalanceController::setLWSreshold(int value){
+    _motors.setThresholdB(value);
+
+};
+void BalanceController::setRWSreshold(int value){
+    _motors.setThresholdA(value);
+
+};

@@ -71,8 +71,33 @@ MotorController motors(
     MOTOR_B_ENC_A, MOTOR_B_ENC_B
 );
 
-pidParams paramsPitch{0.0, 0.0, 0.0, 0.0f, 0.0f, 7, false, true};
-pidParams paramsVel{0.0, 0.0, 0.0, 0.0f, 0.0f, 7, false, true}, paramsYaw{0.0, 0.0, 0.0, 0.0f, 0.0f, 7, false, true};
+pidParams paramsPitch{
+    .Kp = 33.8, 
+    .Ki = 40.8, 
+    .Kd = 0.4, 
+    .max = 255.0f, 
+    .min = -255.0f, 
+    .period = 7, 
+    .direct = false, 
+    .modeAuto = true};
+pidParams paramsVel{
+    .Kp = 25.95, 
+    .Ki = 14.93, 
+    .Kd = 1.33, 
+    .max = 4.0f, 
+    .min = -4.0f, 
+    .period = 210, 
+    .direct = false, 
+    .modeAuto = true}; 
+pidParams paramsYaw{
+    .Kp = 7.8, 
+    .Ki = 8.3, 
+    .Kd = 0.0, 
+    .max = 200.0f, 
+    .min = -200.0f, 
+    .period = 187, 
+    .direct = false, 
+    .modeAuto = true}; 
 
 controllerState contrState;
 
@@ -115,6 +140,7 @@ String ssid = "Beeline_2G_F13F37";
 String password = "1122334455667788";
 
 controllerNode rosNode(
+                controller,
                 ros_domain_id, 
                 agent_port, 
                 localIP, 
@@ -197,6 +223,11 @@ void updateMenuValues(){
     /* Serial.printf(" Pitch: Kp: %.2f, Kd: %.2f, Ki: %.2f, output:  %.2f, pitch:  %.2f\n", 
        Kp, Ki, Kd, contrState.controlOutput, contrState.currentPitch
     ); */
+    // Serial.printf(" Pitch: Kp: %.2f, Ki: %.2f, Kd: %.2f, output:  %s, pitch:  %.2f\n", 
+    //     Kp, Ki, Kd, contrState.pitchPIDOn, contrState.currentPitch
+    //  );
+    Serial.println(contrState.pitchPIDOn);
+
 
 
     
@@ -322,31 +353,31 @@ void setup() {
     
     //Serial.println("\nMotor Controller Test with TB6612FNG");
     setupMenu();
-    menuMgr.load(MENU_MAGIC_KEY);
+    // menuMgr.load(MENU_MAGIC_KEY);
 
 
-    //Assign Pitch PID values
-    menuKpPitch.triggerCallback();
-    menuKdPitch.triggerCallback();
-    menuKiPitch.triggerCallback();
-    menuPeriodP.triggerCallback();
-    //ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
-    menuPitchPIDToggle.triggerCallback();
+    // //Assign Pitch PID values
+    // menuKpPitch.triggerCallback();
+    // menuKdPitch.triggerCallback();
+    // menuKiPitch.triggerCallback();
+    // menuPeriodP.triggerCallback();
+    // //ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
+    // menuPitchPIDToggle.triggerCallback();
 
-    //Assign Velocity PID values
-    menuKpVel.triggerCallback();
-    menuKdVel.triggerCallback();
-    menuKiVel.triggerCallback();
-    menuKoVel.triggerCallback();
-    menuPeriodV.triggerCallback();
-    menuVelPIDToggle.triggerCallback();
+    // //Assign Velocity PID values
+    // menuKpVel.triggerCallback();
+    // menuKdVel.triggerCallback();
+    // menuKiVel.triggerCallback();
+    // menuKoVel.triggerCallback();
+    // menuPeriodV.triggerCallback();
+    // menuVelPIDToggle.triggerCallback();
 
-    //Assign Yaw raye PID values
-    menuKpYaw.triggerCallback();
-    menuKdYaw.triggerCallback();
-    menuKiYaw.triggerCallback();
-    menuPeriodY.triggerCallback();
-    menuYawPIDToggle.triggerCallback();
+    // //Assign Yaw raye PID values
+    // menuKpYaw.triggerCallback();
+    // menuKdYaw.triggerCallback();
+    // menuKiYaw.triggerCallback();
+    // menuPeriodY.triggerCallback();
+    // menuYawPIDToggle.triggerCallback();
 
     //set motors thresholds
     menuThresholdA.triggerCallback();
@@ -370,17 +401,17 @@ void setup() {
     }
     bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
 
-    paramsPitch.direct = false;
-    paramsPitch.max = 255;
-    paramsPitch.min = -255;
+    // paramsPitch.direct = false;
+    // paramsPitch.max = 255;
+    // paramsPitch.min = -255;
     
-    paramsVel.direct = false;
-    paramsVel.max = 4.0;
-    paramsVel.min = -4.0;
+    // paramsVel.direct = false;
+    // paramsVel.max = 4.0;
+    // paramsVel.min = -4.0;
    
-    paramsYaw.direct = false;
-    paramsYaw.max = 200;
-    paramsYaw.max = -200;
+    // paramsYaw.direct = false;
+    // paramsYaw.max = 200;
+    // paramsYaw.max = -200;
 
 
     controller.begin();
@@ -389,7 +420,7 @@ void setup() {
 
     ///MICRO ROS SETUP
 
-    //rosNode.setup();
+    rosNode.setup();
     //MICRO ROS SETUP
 
 
@@ -397,7 +428,7 @@ void setup() {
 
 void loop() {
     taskManager.runLoop();
-    //rosNode.spinNode();
+    rosNode.spinNode();
     //RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
     //bno.update();
     //controller.update();

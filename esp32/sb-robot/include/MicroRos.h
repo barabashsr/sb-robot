@@ -12,6 +12,7 @@
 #include <rcl/timer.h>
 #include <geometry_msgs/msg/twist.h>
 #include <rclc_parameter/rclc_parameter.h>
+#include "BalanceController.h"
 //#define ROS_DOMAIN_ID 77
 
 #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc); return;}}
@@ -21,6 +22,7 @@ class controllerNode {
     public:
         
     controllerNode  (
+                    BalanceController& balance_controller,
                     uint ros_domain_id, 
                     uint16_t& agent_port, 
                     String& agentIP, 
@@ -50,7 +52,7 @@ class controllerNode {
         
     private:
 
-        
+        BalanceController& _balance_controller; 
         uint8_t _ros_domain_id;
         String& _agentIP;
         uint16_t& _agent_port;

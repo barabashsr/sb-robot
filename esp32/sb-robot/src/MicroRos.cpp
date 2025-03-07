@@ -1,6 +1,7 @@
 #include "MicroRos.h"
 
 controllerNode::controllerNode  (
+                                BalanceController& balance_controller,
                                 uint ros_domain_id, 
                                 uint16_t& agent_port, 
                                 String& agentIP, 
@@ -14,7 +15,7 @@ controllerNode::controllerNode  (
                                 pidParams& velParams,
                                 pidParams& yawParams
                                 )
-    :  _ros_domain_id(ros_domain_id),_agentIP(agentIP), _ssid(ssid), _password(password), _agent_port(agent_port),
+    :  _balance_controller(balance_controller) ,_ros_domain_id(ros_domain_id),_agentIP(agentIP), _ssid(ssid), _password(password), _agent_port(agent_port),
         _twist_topic(twist_topic), _targetVel(targetVel), _targetYawRate(targetYawRate),
         _controllerState(contrState), _pitchParams(pitchParams), _velParams(velParams), _yawParams(yawParams)
     {
@@ -131,20 +132,20 @@ controllerNode::controllerNode  (
 
         //create param server
 
-        // // Initialize parameter server options
-        // _param_options = {
-        //     .notify_changed_over_dds = true,
-        //     .max_params = 30,
-        //     .allow_undeclared_parameters = true,
-        //     .low_mem_mode = false };
+        // Initialize parameter server options
+        _param_options = {
+            .notify_changed_over_dds = true,
+            .max_params = 40,
+            .allow_undeclared_parameters = true,
+            .low_mem_mode = false };
 
-        // // Initialize parameter server with configured options
-        // RCCHECK(rclc_parameter_server_init_with_option(
-        //     &_param_server, 
-        //     &_node, 
-        //     &_param_options));
+        // Initialize parameter server with configured options
+        RCCHECK(rclc_parameter_server_init_with_option(
+            &_param_server, 
+            &_node, 
+            &_param_options));
 
-        RCCHECK(rclc_parameter_server_init_default(&_param_server, &_node));
+        //rclc_parameter_server_init_default(&_param_server, &_node);
         Serial.println("Param server init");
 
         // create executor
@@ -158,10 +159,11 @@ controllerNode::controllerNode  (
 
 
         delay(1000);
-        RCCHECK(rclc_executor_add_parameter_server(
+        RCCHECK(rclc_executor_add_parameter_server_with_context(
             &_executor, 
             &_param_server, 
-            NULL//on_parameter_changed
+            on_parameter_changed,//on_parameter_changed
+            this
         ));
 
         RCCHECK(rclc_executor_add_timer(&_executor, &_timer));
@@ -174,7 +176,7 @@ controllerNode::controllerNode  (
             ON_NEW_DATA
         ));
 
-        //set_parameters();
+        set_parameters();
         //_msgOut.data = 0;
         //rclc_executor_set_context(&_executor, this);
         
@@ -233,6 +235,11 @@ controllerNode::controllerNode  (
         rclc_add_parameter(&_param_server, "Direction_yaw", RCLC_PARAMETER_BOOL);
         rclc_add_parameter(&_param_server, "Auto_yaw", RCLC_PARAMETER_BOOL);
 
+        // Wheels sresholds
+
+        rclc_add_parameter(&_param_server, "Left_wheel_threshold", RCLC_PARAMETER_INT);
+        rclc_add_parameter(&_param_server, "Right_wheel_threshold", RCLC_PARAMETER_INT);
+
         // Add parameters descriptions 
         //Pitch parameters descriptions
         rclc_add_parameter_description(&_param_server, "Kp_pitch", "Pitch PID Kp", "");
@@ -264,6 +271,12 @@ controllerNode::controllerNode  (
         rclc_add_parameter_description(&_param_server, "Direction_yaw", "Yaw rate PID Direction", "");
         rclc_add_parameter_description(&_param_server, "Auto_yaw", "Yaw rate PID auto", "");
 
+        // Wheels sresholds
+
+        rclc_add_parameter_description(&_param_server, "Left_wheel_threshold", "Left whhel starting sreshold", "");
+        rclc_add_parameter_description(&_param_server, "Right_wheel_threshold", "Right whhel starting sreshold", "");
+
+
 
         // Add parameters constrains 
         //Pitch parameters constrains
@@ -289,6 +302,10 @@ controllerNode::controllerNode  (
         rclc_add_parameter_constraint_double(&_param_server, "Max_yaw", -255, 255, 1);
         rclc_add_parameter_constraint_double(&_param_server, "Min_yaw", -255, 255, 1);
         rclc_add_parameter_constraint_double(&_param_server, "Period_yaw", period_from, period_to, period_step);
+
+          //Wheel sresholds parameters constrains
+        rclc_add_parameter_constraint_double(&_param_server, "Left_wheel_threshold", 0, 255, 1);
+        rclc_add_parameter_constraint_double(&_param_server, "Right_wheel_threshold", 0, 255, 1);
 
 
         // Set parameter initial values
@@ -322,6 +339,8 @@ controllerNode::controllerNode  (
         rclc_parameter_set_bool(&_param_server, "Direction_yaw", _yawParams.direct);
         rclc_parameter_set_bool(&_param_server, "Auto_yaw", _yawParams.modeAuto);
 
+
+
         }
 
     
@@ -338,34 +357,233 @@ controllerNode::controllerNode  (
 
 
     bool controllerNode::on_parameter_changed(const Parameter * old_param, const Parameter * new_param, void * context)
-        {
-            // (void) context;
-
-            // if (old_param == NULL && new_param == NULL) {
-            //     printf("Callback error, both parameters are NULL\n");
-            //     return false;
-            // }
-
-            bool ret = true;
-            // if (new_param == NULL) {
-            //     printf("Delete parameter %s rejected\n", old_param->name.data);
-            //     ret = false;
-            // } else if (strcmp(
-            //     new_param->name.data,
-            //     "publish_toogle") == 0 && new_param->value.type == RCLC_PARAMETER_BOOL)
-            // {
-            //     publish = new_param->value.bool_value;
-            //     printf("Publish %s\n", (publish) ? "ON" : "OFF");
-            // } else if (strcmp(
-            //     new_param->name.data,
-            //     "publish_rate_ms") == 0 && new_param->value.type == RCLC_PARAMETER_INT)
-            // {
-            //     int64_t old;
-            //     RCSOFTCHECK(rcl_timer_exchange_period(&timer, RCL_MS_TO_NS(new_param->value.integer_value), &old));
-            //     printf("Publish rate %ld ms\n", new_param->value.integer_value);
-            // }
-
-            return ret;
+    {
+       // (void) context;
+        controllerNode* node = static_cast<controllerNode*>(context);
+    
+        if (old_param == NULL && new_param == NULL) {
+            printf("Callback error, both parameters are NULL\n");
+            return false;
         }
+    
+        bool ret = true;
+    
+        if (new_param == NULL) {
+            printf("Delete parameter %s rejected\n", old_param->name.data);
+            ret = false;
+        } else {
+            // Check parameter type and assign value
+            if (strcmp(new_param->name.data, "Kp_pitch") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_pitchParams.Kp = new_param->value.double_value;
+                node->_balance_controller.setTuningsPitch();
+                printf("Kp_pitch updated to %f\n", node->_pitchParams.Kp);
+
+
+            } else if (strcmp(new_param->name.data, "Ki_pitch") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_pitchParams.Ki = new_param->value.double_value;
+                node->_balance_controller.setTuningsPitch();
+                printf("Ki_pitch updated to %f\n", node->_pitchParams.Ki);
+
+
+            } else if (strcmp(new_param->name.data, "Kd_pitch") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_pitchParams.Kd = new_param->value.double_value;
+                node->_balance_controller.setTuningsPitch();
+                printf("Kd_pitch updated to %f\n", node->_pitchParams.Kd);
+
+
+            } else if (strcmp(new_param->name.data, "Max_pitch") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                if (new_param->value.double_value >= 0 && new_param->value.double_value <= 255) {
+                    node->_pitchParams.max = new_param->value.double_value;
+                    node->_balance_controller.updatePitchPID();
+                    printf("Max_pitch updated to %f\n", node->_pitchParams.max);
+                } else {
+                    printf("Invalid Max_pitch value: %f. Must be between 0 and 255.\n", new_param->value.double_value);
+                    ret = false;
+                }
+
+
+            } else if (strcmp(new_param->name.data, "Min_pitch") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                if (new_param->value.double_value >= -255 && new_param->value.double_value <= 0) {
+                    node->_pitchParams.min = new_param->value.double_value;
+                    node->_balance_controller.updatePitchPID();
+                    printf("Min_pitch updated to %f\n", node->_pitchParams.min);
+                } else {
+                    printf("Invalid Min_pitch value: %f. Must be between -255 and 0.\n", new_param->value.double_value);
+                    ret = false;
+                }
+
+
+            } else if (strcmp(new_param->name.data, "Period_pitch") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
+                if (new_param->value.integer_value >= 1 && new_param->value.integer_value <= 1000) {
+                    node->_pitchParams.period = new_param->value.integer_value;
+                    node->_balance_controller.updatePitchPID();
+                    printf("Period_pitch updated to %d\n", node->_pitchParams.period);
+                } else {
+                    printf("Invalid Period_pitch value: %d. Must be between 1 and 1000.\n", new_param->value.integer_value);
+                    ret = false;
+                }
+
+
+            } else if (strcmp(new_param->name.data, "Direction_pitch") == 0 && new_param->value.type == RCLC_PARAMETER_BOOL) {
+                node->_pitchParams.direct = new_param->value.bool_value;
+                printf("Direction_pitch updated to %s\n", (node->_pitchParams.direct) ? "true" : "false");
+
+            } else if (strcmp(new_param->name.data, "Auto_pitch") == 0 && new_param->value.type == RCLC_PARAMETER_BOOL) {
+                node->_pitchParams.modeAuto = new_param->value.bool_value;
+                node->_balance_controller.setPitchPIDOn(new_param->value.bool_value);
+                node->_balance_controller.updatePitchPID();
+                printf("Auto_pitch updated to %s\n", (node->_pitchParams.modeAuto) ? "true" : "false");
+            }
+    
+            // Vel PID
+            else if (strcmp(new_param->name.data, "Kp_vel") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_velParams.Kp = new_param->value.double_value;
+                node->_balance_controller.setTuningsVel();
+                printf("Kp_vel updated to %f\n", node->_velParams.Kp);
+
+
+            } else if (strcmp(new_param->name.data, "Ki_vel") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_velParams.Ki = new_param->value.double_value;
+                node->_balance_controller.setTuningsVel();
+                printf("Ki_vel updated to %f\n", node->_velParams.Ki);
+
+
+            } else if (strcmp(new_param->name.data, "Kd_vel") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_velParams.Kd = new_param->value.double_value;
+                node->_balance_controller.setTuningsVel();
+                printf("Kd_vel updated to %f\n", node->_velParams.Kd);
+
+
+            } else if (strcmp(new_param->name.data, "Max_vel") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                if (new_param->value.double_value >= -4.0 && new_param->value.double_value <= 4.0) {
+                    node->_velParams.max = new_param->value.double_value;
+                    node->_balance_controller.updateVelPID();
+                    printf("Max_vel updated to %f\n", node->_velParams.max);
+                } else {
+                    printf("Invalid Max_vel value: %f. Must be between -4.0 and 4.0.\n", new_param->value.double_value);
+                    ret = false;
+                }
+
+
+            } else if (strcmp(new_param->name.data, "Min_vel") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                if (new_param->value.double_value >= -4.0 && new_param->value.double_value <= 4.0) {
+                    node->_velParams.min = new_param->value.double_value;
+                    node->_balance_controller.updateVelPID();
+                    printf("Min_vel updated to %f\n", node->_velParams.min);
+                } else {
+                    printf("Invalid Min_vel value: %f. Must be between -4.0 and 4.0.\n", new_param->value.double_value);
+                    ret = false;
+                }
+
+
+            } else if (strcmp(new_param->name.data, "Period_vel") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
+                if (new_param->value.integer_value >= 1 && new_param->value.integer_value <= 1000) {
+                    node->_velParams.period = new_param->value.integer_value;
+                    node->_balance_controller.updateVelPID();
+                    printf("Period_vel updated to %d\n", node->_velParams.period);
+                } else {
+                    printf("Invalid Period_vel value: %d. Must be between 1 and 1000.\n", new_param->value.integer_value);
+                    ret = false;
+                }
+
+
+            } else if (strcmp(new_param->name.data, "Direction_vel") == 0 && new_param->value.type == RCLC_PARAMETER_BOOL) {
+                node->_velParams.direct = new_param->value.bool_value;
+                node->_balance_controller.updateVelPID();
+                printf("Direction_vel updated to %s\n", (node->_velParams.direct) ? "true" : "false");
+
+
+            } else if (strcmp(new_param->name.data, "Auto_vel") == 0 && new_param->value.type == RCLC_PARAMETER_BOOL) {
+                node->_velParams.modeAuto = new_param->value.bool_value;
+                node->_balance_controller.setVelPIDOn(new_param->value.bool_value);
+                node->_balance_controller.updateVelPID();
+                printf("Auto_vel updated to %s\n", (node->_velParams.modeAuto) ? "true" : "false");
+            }
+
+            //Yaw PID
+            else if (strcmp(new_param->name.data, "Kp_yaw") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_yawParams.Kp = new_param->value.double_value;
+                node->_balance_controller.setTuningsYaw();
+                printf("Kp_yaw updated to %f\n", node->_yawParams.Kp);
+
+
+            } else if (strcmp(new_param->name.data, "Ki_yaw") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_yawParams.Ki = new_param->value.double_value;
+                node->_balance_controller.setTuningsYaw();
+                printf("Ki_yaw updated to %f\n", node->_yawParams.Ki);
+
+
+            } else if (strcmp(new_param->name.data, "Kd_yaw") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                node->_yawParams.Kd = new_param->value.double_value;
+                node->_balance_controller.setTuningsYaw();
+                printf("Kd_yaw updated to %f\n", node->_yawParams.Kd);
+
+
+            } else if (strcmp(new_param->name.data, "Max_yaw") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                if (new_param->value.double_value >= -255 && new_param->value.double_value <= 255) {
+                    node->_yawParams.max = new_param->value.double_value;
+                    node->_balance_controller.updateYawPID();
+                    printf("Max_yaw updated to %f\n", node->_yawParams.max);
+                } else {
+                    printf("Invalid Max_yaw value: %f. Must be between -255 and 255.\n", new_param->value.double_value);
+                    ret = false;
+                }
+
+            } else if (strcmp(new_param->name.data, "Min_yaw") == 0 && new_param->value.type == RCLC_PARAMETER_DOUBLE) {
+                if (new_param->value.double_value >= -255 && new_param->value.double_value <= 255) {
+                    node->_yawParams.min = new_param->value.double_value;
+                    node->_balance_controller.updateYawPID();
+                    printf("Min_yaw updated to %f\n", node->_yawParams.min);
+                } else {
+                    printf("Invalid Min_yaw value: %f. Must be between -255 and 255.\n", new_param->value.double_value);
+                    ret = false;
+                }
+
+            } else if (strcmp(new_param->name.data, "Period_yaw") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
+                if (new_param->value.integer_value >= 1 && new_param->value.integer_value <= 1000) {
+                    node->_yawParams.period = new_param->value.integer_value;
+                    node->_balance_controller.updateYawPID();
+                    printf("Period_yaw updated to %d\n", node->_yawParams.period);
+                } else {
+                    printf("Invalid Period_yaw value: %d. Must be between 1 and 1000.\n", new_param->value.integer_value);
+                    ret = false;
+                }
+
+            } else if (strcmp(new_param->name.data, "Direction_yaw") == 0 && new_param->value.type == RCLC_PARAMETER_BOOL) {
+                node->_yawParams.direct = new_param->value.bool_value;
+                node->_balance_controller.updateYawPID();
+                printf("Direction_yaw updated to %s\n", (node->_yawParams.direct) ? "true" : "false");
+
+            } else if (strcmp(new_param->name.data, "Auto_yaw") == 0 && new_param->value.type == RCLC_PARAMETER_BOOL) {
+                node->_yawParams.modeAuto = new_param->value.bool_value;
+                node->_balance_controller.setYawPIDOn(new_param->value.bool_value);
+                node->_balance_controller.updateYawPID();
+                printf("Auto_yaw updated to %s\n", (node->_yawParams.modeAuto) ? "true" : "false");
+               
+            //Whheel sresholds
+            } else if (strcmp(new_param->name.data, "Left_wheel_threshold") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
+                if (new_param->value.integer_value >= 0 && new_param->value.integer_value <= 255) {
+                    node->_balance_controller.setLWSreshold(new_param->value.integer_value);
+                    printf("Left_wheel_threshold updated to %d\n", new_param->value.integer_value);
+                } else {
+                    printf("Invalid Left_wheel_threshold value: %d. Must be between 0 and 255.\n", new_param->value.integer_value);
+                    ret = false;
+                }
+
+            } else if (strcmp(new_param->name.data, "Right_wheel_threshold") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
+                if (new_param->value.integer_value >= 0 && new_param->value.integer_value <= 255) {
+                    node->_balance_controller.setRWSreshold(new_param->value.integer_value);
+                    printf("Right_wheel_threshold updated to %d\n", new_param->value.integer_value);
+                } else {
+                    printf("Invalid Right_wheel_threshold value: %d. Must be between 0 and 255.\n", new_param->value.integer_value);
+                    ret = false;
+                }
+            }
+        }
+
+    
+        return ret;
+    }
+    
 
  

@@ -98,6 +98,8 @@ public:
     void setVelPIDOn(bool state);
     void setYawPIDOn(bool state);
     void setBNOTaskPeriod(int period);
+    void setLWSreshold(int value);
+    void setRWSreshold(int value);
 
    
 
