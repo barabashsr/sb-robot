@@ -43,6 +43,9 @@ class controllerNode {
     void handle_twist_message(const void * msgin);
     double& _targetVel;
     double& _targetYawRate;
+    static controllerNode* getInstance() {
+        return instance;
+    };
 
     
    
@@ -51,6 +54,8 @@ class controllerNode {
      
         
     private:
+
+        static controllerNode* instance;
 
         BalanceController& _balance_controller; 
         uint8_t _ros_domain_id;
@@ -88,12 +93,17 @@ class controllerNode {
         geometry_msgs__msg__Twist _twst_msg;
         const int _handle_count = 4;
 
-        static std_msgs__msg__Int32 _msgOut;
+        static geometry_msgs__msg__Twist _msgOut;
         
 
         static void timer_callback(rcl_timer_t * timer, int64_t last_call_time);
         static void subscription_callback_twist(const void * msgin, void * context);
         static bool on_parameter_changed(const Parameter * old_param, const Parameter * new_param, void * context);
+        //static void timer_callback_wrapper(rcl_timer_t * timer, int64_t last_call_time);
+        //void controllerNode::timer_callback_impl(rcl_timer_t * timer, int64_t last_call_time);
+        //controllerNode getInstance(){return this};
+
+
         void set_parameters();
         
 

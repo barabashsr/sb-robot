@@ -380,8 +380,11 @@ void setup() {
     // menuYawPIDToggle.triggerCallback();
 
     //set motors thresholds
-    menuThresholdA.triggerCallback();
-    menuThresholdB.triggerCallback();
+    // menuThresholdA.triggerCallback();
+    // menuThresholdB.triggerCallback();
+    // controller.setVelPIDOn(true);
+    // controller.setVelPIDOn(true);
+    // controller.setVelPIDOn(true);
 
 
 

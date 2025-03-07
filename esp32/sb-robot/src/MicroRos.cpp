@@ -20,16 +20,20 @@ controllerNode::controllerNode  (
         _controllerState(contrState), _pitchParams(pitchParams), _velParams(velParams), _yawParams(yawParams)
     {
 
+        instance = this;
+
         //_msgOut.data = 0;
 
 
     };
 
     rcl_node_t controllerNode::_node;
-    std_msgs__msg__Int32 controllerNode::_msgOut;
+    geometry_msgs__msg__Twist controllerNode::_msgOut;
     rcl_publisher_t controllerNode::_publisher;
     rclc_parameter_server_t controllerNode::_param_server;
     rclc_parameter_options_t controllerNode::_param_options;
+    controllerNode* controllerNode::instance = nullptr; // Definition
+    
     
 
     void controllerNode::connect_to_wifi() {
@@ -48,14 +52,43 @@ controllerNode::controllerNode  (
         set_microros_wifi_transports(ssidR, passwordR, agent_ip, _agent_port);
     }
 
+
+    // Static wrapper function
     void controllerNode::timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
-        RCLC_UNUSED(last_call_time);
+            // Assuming you have a way to get the instance of controllerNode
+            // For example, if you have a global or static instance:
+            controllerNode* node = controllerNode::getInstance();
+            RCLC_UNUSED(last_call_time);
         if (timer != NULL) {
-          RCSOFTCHECK(rcl_publish(&_publisher, &_msgOut, NULL));
-          _msgOut.data++;
-          //Serial.println(msg.data);
+            _msgOut.linear.x = node->_controllerState.currentVel;
+            _msgOut.angular.y = node->_controllerState.currentPitch;
+            RCSOFTCHECK(rcl_publish(&_publisher, &_msgOut, NULL));   
         }
-    }
+            // controllerNode* node = controllerNode::getInstance(); // You need to implement getInstance()
+            // node->timer_callback_impl(timer, last_call_time);
+        }
+
+    // Non-static member function to handle the timer callback
+    // void controllerNode::timer_callback_impl(rcl_timer_t * timer, int64_t last_call_time) {
+    //     RCLC_UNUSED(last_call_time);
+    //     if (timer != NULL) {
+    //         RCSOFTCHECK(rcl_publish(&_publisher, &_msgOut, NULL));
+    //         _msgOut.linear.x = _controllerState.currentVel;
+    //         _msgOut.linear.x = _controllerState.currentPitch;
+            
+    //     }
+    // }
+
+    // void controllerNode::timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
+    //     //controllerNode* node = static_cast<controllerNode*>(timer);
+
+    //     RCLC_UNUSED(last_call_time);
+    //     if (timer != NULL) {
+    //       RCSOFTCHECK(rcl_publish(&_publisher, &_msgOut, NULL));
+    //       _msgOut.linear.x = _controllerState;
+    //       //Serial.println(msg.data);
+    //     }
+    // }
 
 
     void controllerNode::subscription_callback_twist(const void * msgin, void * context) {
@@ -87,7 +120,7 @@ controllerNode::controllerNode  (
         
         _allocator = rcl_get_default_allocator();
         _init_options = rcl_get_zero_initialized_init_options();
-        _msgOut.data = 0; 
+        //_msgOut.data = 0; 
         // Initialize init options
         RCCHECK(rcl_init_options_init(&_init_options, _allocator));
         Serial.println("Options init");
@@ -100,14 +133,14 @@ controllerNode::controllerNode  (
     
 
         // create node
-        RCCHECK(rclc_node_init_default(&_node, "micro_ros_platformio_node", "", &_support));
+        RCCHECK(rclc_node_init_default(&_node, "mr_sb_robot_node", "", &_support));
         Serial.println("Node init");
         // create publisher
         RCCHECK(rclc_publisher_init_default(
             &_publisher,
             &_node,
-            ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-            "micro_ros_platformio_node_publisher"));
+            ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
+            "sb_robot_output"));
         
         Serial.println("Publisher init");
 
@@ -120,7 +153,7 @@ controllerNode::controllerNode  (
 
         // create timer,
         Serial.println("Subscr init");
-        const unsigned int timer_timeout = 1000;
+        const unsigned int timer_timeout = 500;
         RCCHECK(rclc_timer_init_default(
             &_timer,
             &_support,
@@ -158,7 +191,7 @@ controllerNode::controllerNode  (
 
 
 
-        delay(1000);
+        //delay(1000);
         RCCHECK(rclc_executor_add_parameter_server_with_context(
             &_executor, 
             &_param_server, 
