@@ -13,13 +13,17 @@ void RobotServer::begin() {
 
     _ws.onEvent([this](AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len) {
         handleWebSocketEvent(server, client, type, arg, data, len);
-    });
+    }); 
 
     _httpServer.addHandler(&_ws);
     _httpServer.begin();
 }
 
 void RobotServer::handleWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len) {
+    String message = reinterpret_cast<const char*>(data);
+    
+    Serial.println(type);
+    Serial.println(message);
     switch (type) {
         case WS_EVT_CONNECT:
             clientAuthenticated = false;
@@ -31,7 +35,6 @@ void RobotServer::handleWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketCli
             break;
         case WS_EVT_DATA:
         {
-            // Use block scope to avoid initialization issues
             String message = reinterpret_cast<const char*>(data);
             message = message.substring(0, len);
 
@@ -81,5 +84,6 @@ void RobotServer::handleWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketCli
             break;
     }
 }
+
 
 

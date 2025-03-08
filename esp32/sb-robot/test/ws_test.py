@@ -4,6 +4,8 @@ import json
 def test_websocket_server():
     ws_url = f"ws://192.168.1.77:80/ws"
     ws = websocket.create_connection(ws_url)
+    response = ws.recv()
+    
 
     # Authenticate
     ws.send(f"token:your_secret_token")
