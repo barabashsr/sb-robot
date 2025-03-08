@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/test.dir/src/main.cpp.o CMakeFiles/test.dir/src/ws_driver.cpp.o -o test  /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 

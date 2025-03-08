@@ -59,10 +59,10 @@ void RobotServer::handleWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketCli
                 } else if (message == "state") {
                     // Handle state command
                     DynamicJsonDocument doc(2048);
-                    doc["RW_position"] = (double)_state.positionA;
-                    doc["LW_position"] = (double)_state.positionB;
-                    doc["RW_velocity"] = (double)_state.speedA;
-                    doc["LW_velocity"] = (double)_state.speedB;
+                    doc["PositionA"] = (double)_state.positionA;
+                    doc["PositionB"] = (double)_state.positionB;
+                    doc["VelocityA"] = (double)_state.speedA;
+                    doc["VelocityB"] = (double)_state.speedB;
                     String json;
                     serializeJson(doc, json);
                     client->text(json);

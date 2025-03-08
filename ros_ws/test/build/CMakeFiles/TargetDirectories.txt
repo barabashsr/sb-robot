@@ -1,0 +1,3 @@
+/home/user/robo/sb-robot/ros_ws/test/build/CMakeFiles/test.dir
+/home/user/robo/sb-robot/ros_ws/test/build/CMakeFiles/edit_cache.dir
+/home/user/robo/sb-robot/ros_ws/test/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,49 @@
+  #ifndef WS_HW_INTERFACE_WS_DRIVER_HPP
+#define WS_HW_INTERFACE_WS_DRIVER_HPP
+
+#include <cstdint>
+#include <map>
+
+namespace ws_hw_interface
+{
+
+class ws_driver
+{
+public:
+  ws_driver();
+  ~ws_driver();
+
+  // Connect to the I2C device with given parameters
+  bool connect(int device_addr, int motor_type, int encoder_polarity, int32_t timeout_ms);
+
+  // Disconnect from the I2C device
+  void disconnect();
+
+  // Check if connected
+  bool is_connected() const;
+
+  // Reads encoder values for all channels (up to 4)
+  // Returns a map where key is channel number, value is encoder count
+  bool read_encoder_values(std::map<int, int> &encoder_values);
+
+  // Set motor values for specified channels
+  // motor_speeds: map of channel number to speed value (counts/10ms)
+  bool set_motor_values(const std::map<int, int> &motor_speeds);
+
+private:
+  // Resets encoder counts to 0 for all channels
+  bool reset_encoders();
+
+  int fd_;            // File descriptor from wiringPi
+  bool connected_;
+  int device_addr_;
+  int motor_type_;
+  int encoder_polarity_;
+
+  // Constants
+  static constexpr int MAX_CHANNELS = 4; // Maximum number of channels supported
+};
+
+} // namespace ws_hw_interface
+
+#endif // WS_HW_INTERFACE_WS_DRIVER_HPP

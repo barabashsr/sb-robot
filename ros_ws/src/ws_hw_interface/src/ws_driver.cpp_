@@ -1,0 +1,202 @@
+#include "ws_hw_interface/WS_driver.hpp"
+#include <unistd.h>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+// Register definitions
+static constexpr int MOTOR_TYPE_ADDR = 0x14;
+static constexpr int MOTOR_ENCODER_POLARITY_ADDR = 0x15;
+static constexpr int MOTOR_FIXED_SPEED_ADDR = 0x33;
+static constexpr int MOTOR_ENCODER_TOTAL_ADDR = 0x3C;
+
+// Number of bytes per encoder
+static constexpr int ENCODER_BYTES_PER_CHANNEL = 4;
+
+namespace ws_hw_interface
+{
+
+ws_driver::ws_driver()
+: fd_(-1), connected_(false), device_addr_(0), motor_type_(0), encoder_polarity_(0)
+{}
+
+ws_driver::~ws_driver()
+{
+  disconnect();
+}
+
+bool ws_driver::connect(int device_addr, int motor_type, int encoder_polarity, int32_t /*timeout_ms*/)
+{
+  device_addr_ = device_addr;
+  motor_type_ = motor_type;
+  encoder_polarity_ = encoder_polarity;
+
+  // Initialize I2C
+  fd_ = wiringPiI2CSetup(device_addr_);
+  if (fd_ < 0)
+  {
+    std::cerr << "[ws_driver] Failed to setup I2C for device addr 0x" 
+              << std::hex << device_addr_ << std::dec << std::endl;
+    connected_ = false;
+    return false;
+  }
+
+  // Write motor type
+  if (wiringPiI2CWriteReg8(fd_, MOTOR_TYPE_ADDR, motor_type_) < 0)
+  {
+    std::cerr << "[ws_driver] Failed to write motor type to register 0x14" << std::endl;
+    disconnect();
+    return false;
+  }
+  usleep(500000); // 0.5s delay
+
+  // Write encoder polarity
+  if (wiringPiI2CWriteReg8(fd_, MOTOR_ENCODER_POLARITY_ADDR, encoder_polarity_) < 0)
+  {
+    std::cerr << "[ws_driver] Failed to write encoder polarity to register 0x15" << std::endl;
+    disconnect();
+    return false;
+  }
+
+  // Set connected_ to true before resetting encoders
+  connected_ = true;
+
+  // Reset encoders to 0
+  if (!reset_encoders())
+  {
+    std::cerr << "[ws_driver] Failed to reset encoders during connect." << std::endl;
+    disconnect();
+    return false;
+  }
+
+  std::cout << "[ws_driver] Connected to I2C device at 0x" << std::hex << device_addr_ << std::dec << std::endl;
+  return true;
+}
+
+void ws_driver::disconnect()
+{
+  if (connected_)
+  {
+    close(fd_);
+    fd_ = -1;
+    connected_ = false;
+    std::cout << "[ws_driver] Disconnected." << std::endl;
+  }
+}
+
+bool ws_driver::is_connected() const
+{
+  return connected_;
+}
+
+bool ws_driver::read_encoder_values(std::map<int, int> &encoder_values)
+{
+  if (!connected_)
+  {
+    std::cerr << "[ws_driver] read_encoder_values() called but not connected." << std::endl;
+    return false;
+  }
+
+  // Iterate over all possible channels
+  for (int channel = 0; channel < MAX_CHANNELS; ++channel)
+  {
+    // Calculate the register address for this channel's encoder
+    int encoder_reg_addr = MOTOR_ENCODER_TOTAL_ADDR + (channel * ENCODER_BYTES_PER_CHANNEL);
+
+    // Read 4 bytes for the encoder count
+    uint32_t encoder_count = 0;
+    for (int byte = 0; byte < ENCODER_BYTES_PER_CHANNEL; ++byte)
+    {
+      int val = wiringPiI2CReadReg8(fd_, encoder_reg_addr + byte);
+      if (val < 0)
+      {
+        std::cerr << "[ws_driver] Failed to read byte " << byte 
+                  << " from 0x" << std::hex << (encoder_reg_addr + byte) << std::dec 
+                  << " for channel " << channel << std::endl;
+        return false;
+      }
+      encoder_count |= (static_cast<uint32_t>(val) << (8 * byte));
+    }
+
+    // Apply encoder polarity if necessary
+    // Assuming encoder_polarity_ is a multiplier: 1 or -1
+    int signed_encoder_count = static_cast<int>(encoder_count) * encoder_polarity_;
+
+    // Store in map
+    encoder_values[channel] = signed_encoder_count;
+  }
+
+  return true;
+}
+
+bool ws_driver::set_motor_values(const std::map<int, int> &motor_speeds)
+{
+  if (!connected_)
+  {
+    std::cerr << "[ws_driver] set_motor_values() called but not connected." << std::endl;
+    return false;
+  }
+
+  for (const auto & [channel, speed] : motor_speeds)
+  {
+    if (channel < 0 || channel >= MAX_CHANNELS)
+    {
+      std::cerr << "[ws_driver] Invalid channel number: " << channel << std::endl;
+      continue; // Skip invalid channels
+    }
+
+    // Clamp speed to [-100, 100]
+    int clamped_speed = std::max(-100, std::min(100, speed));
+
+    // Calculate the register address for this channel's speed
+    int speed_reg_addr = MOTOR_FIXED_SPEED_ADDR + channel;
+
+    // Write the clamped speed to the speed register
+    if (wiringPiI2CWriteReg8(fd_, speed_reg_addr, clamped_speed) < 0)
+    {
+      std::cerr << "[ws_driver] Failed to write speed " << clamped_speed 
+                << " to register 0x" << std::hex << speed_reg_addr << std::dec 
+                << " for channel " << channel << std::endl;
+      return false;
+    }
+
+    std::cout << "[ws_driver] Set speed " << clamped_speed 
+              << " to channel " << channel << " (reg 0x" 
+              << std::hex << speed_reg_addr << std::dec << ")" << std::endl;
+  }
+
+  return true;
+}
+
+bool ws_driver::reset_encoders()
+{
+  if (!connected_)
+  {
+    std::cerr << "[ws_driver] reset_encoders() called but not connected." << std::endl;
+    return false;
+  }
+
+  for (int channel = 0; channel < MAX_CHANNELS; ++channel)
+  {
+    int encoder_reg_addr = MOTOR_ENCODER_TOTAL_ADDR + (channel * ENCODER_BYTES_PER_CHANNEL);
+
+    // Write 0 to all 4 bytes of encoder count
+    for (int byte = 0; byte < ENCODER_BYTES_PER_CHANNEL; ++byte)
+    {
+      if (wiringPiI2CWriteReg8(fd_, encoder_reg_addr + byte, 0) < 0)
+      {
+        std::cerr << "[ws_driver] Failed to reset encoder byte " << byte 
+                  << " at register 0x" << std::hex << (encoder_reg_addr + byte) 
+                  << std::dec << " for channel " << channel << std::endl;
+        return false;
+      }
+    }
+
+    std::cout << "[ws_driver] Reset encoder for channel " << channel 
+              << " (reg 0x" << std::hex << encoder_reg_addr << std::dec << ")" << std::endl;
+  }
+
+  return true;
+}
+
+} // namespace ws_hw_interface

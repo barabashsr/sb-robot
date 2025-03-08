@@ -1,0 +1,9 @@
+<library path="ws_hw_interface">
+  <class name="ws_hw_interface/SBRobotSystemHardware"
+         type="ws_hw_interface::SBRobotSystemHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      ROS 2 Control hardware interface plugin for SB robot using web sockets driver and fake command interfaces.
+    </description>
+  </class>
+</library>
