@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(boxbot_hardware2)
+project(ws_hw_interface)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
@@ -14,7 +14,7 @@ find_package(pluginlib REQUIRED)
 
 include_directories(
   include
-  /usr/include/wiringPi
+  # /usr/include/wiringPi
 )
 
 # Find wiringPi
@@ -40,7 +40,7 @@ ament_target_dependencies(${PROJECT_NAME}
 # Export plugin
 pluginlib_export_plugin_description_file(
   hardware_interface 
-  boxbot_hardware2.xml
+  ws_hw_interface.xml
 )
 
 # Install

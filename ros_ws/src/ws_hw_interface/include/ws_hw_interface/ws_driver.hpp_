@@ -1,4 +1,4 @@
-  #ifndef WS_HW_INTERFACE_WS_DRIVER_HPP
+#ifndef WS_HW_INTERFACE_WS_DRIVER_HPP
 #define WS_HW_INTERFACE_WS_DRIVER_HPP
 
 #include <cstdint>
@@ -7,6 +7,9 @@
 namespace ws_hw_interface
 {
 
+
+  
+
 class ws_driver
 {
 public:
@@ -14,7 +17,7 @@ public:
   ~ws_driver();
 
   // Connect to the I2C device with given parameters
-  bool connect(int device_addr, int motor_type, int encoder_polarity, int32_t timeout_ms);
+  bool connect(std::Stri device_addr, int32_t timeout_ms);
 
   // Disconnect from the I2C device
   void disconnect();

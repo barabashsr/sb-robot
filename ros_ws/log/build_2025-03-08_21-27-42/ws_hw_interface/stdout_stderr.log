@@ -1,0 +1,21 @@
+[35m[1mConsolidate compiler generated dependencies of target ws_hw_interface[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/ws_hw_interface.dir/src/ws_driver.cpp.o[0m
+[ 66%] [32m[1mLinking CXX shared library libws_hw_interface.so[0m
+[100%] Built target ws_hw_interface
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface//ws_hw_interface.xml
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/lib/libws_hw_interface.so
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/sb_system.hpp
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/wheel.hpp
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/ws_driver.hpp
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/ws_driver.hpp_
+-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/ws_hw_interface.xml
+[31mCMake Error at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:100 (message):
+  ament_cmake_symlink_install_directory() can't find
+  '/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/launch'
+Call Stack (most recent call first):
+  ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:326 (ament_cmake_symlink_install_directory)
+  cmake_install.cmake:46 (include)
+
+[0m

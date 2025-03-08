@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>boxbot_hardware2</name>
+  <name>ws_hw_interface</name>
   <version>0.1.0</version>
-  <description>BoxBot hardware interface using wiringPi I2C.</description>
+  <description>SB robot web sockets hardware interface</description>
   <maintainer email="barabashsr@gmail.com">Your Name</maintainer>
   <license>Apache-2.0</license>
 

@@ -1,0 +1,23 @@
+[0.006s] Invoking command in '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface -- -j20 -l20
+[0.037s] [35m[1mConsolidate compiler generated dependencies of target ws_hw_interface[0m
+[0.056s] [100%] Built target ws_hw_interface
+[0.064s] Invoked command in '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface -- -j20 -l20
+[0.065s] Invoking command in '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface
+[0.069s] -- Install configuration: ""
+[0.069s] -- Execute custom install script
+[0.069s] -- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface//ws_hw_interface.xml
+[0.069s] -- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/lib/libws_hw_interface.so
+[0.070s] -- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/sb_system.hpp
+[0.070s] -- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/wheel.hpp
+[0.070s] -- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/ws_driver.hpp
+[0.070s] -- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/ws_driver.hpp_
+[0.070s] -- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/ws_hw_interface.xml
+[0.071s] [31mCMake Error at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:100 (message):
+[0.071s]   ament_cmake_symlink_install_directory() can't find
+[0.071s]   '/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/config'
+[0.071s] Call Stack (most recent call first):
+[0.071s]   ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:326 (ament_cmake_symlink_install_directory)
+[0.071s]   cmake_install.cmake:46 (include)
+[0.071s] 
+[0.071s] [0m
+[0.071s] Invoked command in '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface

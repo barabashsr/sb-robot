@@ -1,0 +1,113 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50
+    use_sim_time: false
+
+    diff_cont:
+      type: diff_drive_controller/DiffDriveController
+
+    joint_broad:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    
+    #lidar_rotation_controller:
+    #  type: joint_trajectory_controller/JointTrajectoryController
+
+    # lidar_rotation_controller:
+    #   type: forward_command_controller/ForwardCommandController
+    
+
+diff_cont:
+  ros__parameters:
+
+    publish_rate: 50.0
+
+    base_frame_id: base_link
+    odom_frame_id: odom
+
+    left_wheel_names: ["LW_joint"]
+    right_wheel_names: ["RW_joint"]
+    wheel_separation: 0.175
+    wheel_radius: 0.0335
+
+    use_stamped_vel: false
+    enable_odom_tf: true 
+    velocity_command_topic: cmd_vel  # Command topic
+    odom_topic: odom  # Odometry topic
+
+    # open_loop: false    
+
+    # wheels_per_side: x
+    # wheel_separation_multiplier: x
+    # left_wheel_radius_multiplier: x
+    # right_wheel_radius_multiplier: x
+
+    # odom_frame_id: x
+    # pose_covariance_diagonal: 0.1
+    # twist_covariance_diagonal: 0.1
+    # open_loop: x
+    # enable_odom_tf: x
+
+    cmd_vel_timeout: 1000
+    publish_limited_velocity: true
+    # velocity_rolling_window_size: x
+    
+
+    # linear.x.has_velocity_limits: false
+    # linear.x.has_acceleration_limits: false
+    # linear.x.has_jerk_limits: false
+    # linear.x.max_velocity: NAN
+    # linear.x.min_velocity: NAN
+    # linear.x.max_acceleration: NAN
+    # linear.x.min_acceleration: NAN
+    # linear.x.max_jerk: NAN
+    # linear.x.min_jerk: NAN
+
+    # angular.z.has_velocity_limits: false
+    # angular.z.has_acceleration_limits: false
+    # angular.z.has_jerk_limits: false
+    # angular.z.max_velocity: NAN
+    # angular.z.min_velocity: NAN
+    # angular.z.max_acceleration: NAN
+    # angular.z.min_acceleration: NAN
+    # angular.z.max_jerk: NAN
+    # angular.z.min_jerk: NAN
+
+
+
+
+# joint_broad:
+#   ros__parameters:
+
+
+
+# lidar_rotation_controller:
+#   ros__parameters:
+#     joints: 
+#       - laser_joint
+#     command_interfaces:
+#       - velocity
+#     state_interfaces:
+#       - position
+#       - velocity
+#     state_publish_rate: 50.0
+#     action_monitor_rate: 20.0
+#     allow_partial_joints_goal: true
+#     constraints:
+#       stopped_velocity_tolerance: 0.05
+#       goal_time: 5.0
+#       laser_joint:
+#         trajectory: 2.0
+#         goal: 0.2
+#     gains:
+#       laser_joint:
+#         p: 5.0     # Even lower gains
+#         i: 0.01
+#         d: 0.5
+#         i_clamp: 0.1
+#         ff_velocity_scale: 0.2
+
+# lidar_rotation_controller:
+#   ros__parameters:
+#     joints:
+#       - laser_joint
+#     interface_name: velocity

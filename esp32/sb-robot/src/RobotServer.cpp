@@ -51,6 +51,8 @@ void RobotServer::handleWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketCli
             } else if (clientAuthenticated) {
                 if (message == "init") {
                     // Handle init command
+                    _controller.resetMotors();
+
                     client->text("Initialization command received");
                 } else if (message == "reset") {
                     // Handle reset command

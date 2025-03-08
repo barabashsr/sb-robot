@@ -1,0 +1,3 @@
+[35m[1mConsolidate compiler generated dependencies of target ws_hw_interface[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/ws_hw_interface.dir/src/sb_system.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/ws_hw_interface.dir/src/ws_driver.cpp.o[0m

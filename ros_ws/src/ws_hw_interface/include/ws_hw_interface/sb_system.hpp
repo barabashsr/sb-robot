@@ -12,16 +12,17 @@
 #include "rclcpp/logger.hpp"
 #include "rclcpp/clock.hpp"
 
-#include "ws_hw_interface/WS_driver.hpp"
-#include "ws_hw_interface/wheel.hpp"
+#include "ws_driver.hpp"
+#include "wheel.hpp"
+
 
 namespace ws_hw_interface
 {
 
-class BoxbotSystemHardware : public hardware_interface::SystemInterface
+class SBRobotSystemHardware : public hardware_interface::SystemInterface
 {
 public:
-  RCLCPP_SHARED_PTR_DEFINITIONS(BoxbotSystemHardware);
+  RCLCPP_SHARED_PTR_DEFINITIONS(SBRobotSystemHardware); 
 
   // 1) Initialization from hardware_info
   hardware_interface::CallbackReturn on_init(const hardware_interface::HardwareInfo & info) override;
@@ -39,22 +40,24 @@ public:
   hardware_interface::return_type write(const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
 private:
-  // I2C driver instance
-  ws_driver comms_;
-
+  // WS driver instance
+  WS_Driver comms_;
+  
   // Configuration
   struct Config
   {
     std::string left_wheel_name;
     std::string right_wheel_name;
-    int device_addr;
-    int left_wheel_channel;
-    int right_wheel_channel;
-    int left_wheel_direction;
-    int right_wheel_direction;
-    int motor_type;
-    int encoder_polarity;
-    int enc_counts_per_rev;
+    std::string left_wheel_letter;
+    std::string right_wheel_letter;
+    std::string device_addr;
+    std::string device_token;
+    // int right_wheel_channel;
+    // int left_wheel_direction;
+    // int right_wheel_direction;
+    // int motor_type;
+    // int encoder_polarity;
+    // int enc_counts_per_rev;
     int timeout_ms;
   } cfg_;
 
@@ -72,7 +75,7 @@ private:
   std::shared_ptr<rclcpp::Clock> clock_;
 
   // Helper function to convert a velocity in rad/s to counts per 10ms
-  int velocityRadSecToCounts10Ms(double velocity_rad_s, double rad_per_count) const;
+//   int velocityRadSecToCounts10Ms(double velocity_rad_s, double rad_per_count) const;
 };
 
 }  // namespace ws_hw_interface

@@ -1,0 +1,26 @@
+[100%] Built target ws_hw_interface
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface//ws_hw_interface.xml
+-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/lib/libws_hw_interface.so
+-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/sb_system.hpp
+-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/wheel.hpp
+-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/ws_driver.hpp
+-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/ws_driver.hpp_
+-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/ws_hw_interface.xml
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ament_index/resource_index/package_run_dependencies/ws_hw_interface
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ament_index/resource_index/parent_prefix_path/ws_hw_interface
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/environment/ament_prefix_path.sh
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/environment/ament_prefix_path.dsv
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/environment/path.sh
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/environment/path.dsv
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/local_setup.bash
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/local_setup.sh
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/local_setup.zsh
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/local_setup.dsv
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/package.dsv
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ament_index/resource_index/packages/ws_hw_interface
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/ws_hw_interface
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/cmake/ws_hw_interfaceConfig.cmake
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/cmake/ws_hw_interfaceConfig-version.cmake
+-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/package.xml

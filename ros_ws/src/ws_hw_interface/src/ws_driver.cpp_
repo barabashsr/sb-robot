@@ -1,4 +1,4 @@
-#include "ws_hw_interface/WS_driver.hpp"
+#include "ws_hw_interface/ws_driver.hpp"
 #include <unistd.h>
 #include <iostream>
 #include <algorithm>
