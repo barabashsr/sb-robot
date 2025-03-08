@@ -73,8 +73,8 @@ hardware_interface::CallbackReturn SBRobotSystemHardware::on_init(const hardware
   };
 
   // Setup wheels with direction
-  // wheel_l_.setup(cfg_.left_wheel_name, cfg_.enc_counts_per_rev, cfg_.left_wheel_channel, cfg_.left_wheel_direction);
-  // wheel_r_.setup(cfg_.right_wheel_name, cfg_.enc_counts_per_rev, cfg_.right_wheel_channel, cfg_.right_wheel_direction);
+  wheel_l_.setup(cfg_.left_wheel_name);
+  wheel_r_.setup(cfg_.right_wheel_name);
 
   // Prepare logger & clock
   logger_ = std::make_shared<rclcpp::Logger>(rclcpp::get_logger("ws_hw_interface.sb_system"));
@@ -174,13 +174,13 @@ hardware_interface::CallbackReturn SBRobotSystemHardware::on_activate(
 
 
   //bool ok = comms_.connect();
-  if (comms_.connect())
+  if (!comms_.connect())
   {
     RCLCPP_ERROR(*logger_, "Failed to connect to WS device at %s with token %s", cfg_.device_addr.c_str(), cfg_.device_token.c_str());
     return hardware_interface::CallbackReturn::ERROR;
   }
 
-  if (comms_.init())
+  if (!comms_.init())
   {
     RCLCPP_ERROR(*logger_, "Failed to connect to init WS device");
     return hardware_interface::CallbackReturn::ERROR;

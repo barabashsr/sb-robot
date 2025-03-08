@@ -19,7 +19,7 @@ controller_manager:
 diff_cont:
   ros__parameters:
 
-    publish_rate: 50.0
+    publish_rate: 10.0
 
     base_frame_id: base_link
     odom_frame_id: odom
@@ -31,7 +31,7 @@ diff_cont:
 
     use_stamped_vel: false
     enable_odom_tf: true 
-    velocity_command_topic: cmd_vel  # Command topic
+    #velocity_command_topic: cmd_vel  # Command topic
     odom_topic: odom  # Odometry topic
 
     # open_loop: false    
@@ -47,8 +47,8 @@ diff_cont:
     # open_loop: x
     # enable_odom_tf: x
 
-    cmd_vel_timeout: 1000
-    publish_limited_velocity: true
+    #cmd_vel_timeout: 1000
+    #publish_limited_velocity: true
     # velocity_rolling_window_size: x
     
 
