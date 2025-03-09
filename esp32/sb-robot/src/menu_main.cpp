@@ -61,9 +61,9 @@ pidParams paramsYaw{
 
 
 // Wheel threshold bindings
-int64_t leftThreshold = 0;
-int64_t rightThreshold = 0;
-int64_t ticksPerRev = 292;
+int64_t leftThreshold = 45;
+int64_t rightThreshold = 45;
+int64_t ticksPerRev = 293;
 
 
 
@@ -205,21 +205,7 @@ void updateMenuValues(){
     unsigned long currentMillis = millis();
     if (currentMillis - lastPrintTime >= STATE_PRINT_INTERVAL) {
         lastPrintTime = currentMillis;
-        /* Serial.printf("A: Pose: %.1f (Vel: %.1f rad/s), B: Pose: %.1f (Vel: %.1f rad/s)\n",
-            positionA,
-            speedA,
-            positionB,
-            speedB
-        );
-        //float angle_y = bno.getAngleY();
-        Serial.print("Input : ");
-        Serial.print(pitchInput);
-        float error = pitchInput - target_angle;
-        Serial.print(" error: ");
-        Serial.print(error);
-        Serial.print(" pitchOutput: ");
-        Serial.print(speed_set); */
-    //float angleY = bno.getAngleY();
+
     controller.updateState();
     menuPitch.setFloatValue(static_cast<float>(contrState.currentPitch));
     int bnoCalib = bno.calibration();
