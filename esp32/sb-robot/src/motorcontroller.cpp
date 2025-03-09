@@ -33,9 +33,6 @@ motorB{
 standbyPin(standby)
 
  {
-    // motorA = {motorA_in1, motorA_in2, motorA_pwm, motorA_encA, motorA_encB, 0, motorA_ticks};
-    // motorB = {motorB_in1, motorB_in2, motorB_pwm, motorB_encA, motorB_encB, 0, motorB_ticks};
-    // standbyPin = standby;
     instance = this;
 }
 

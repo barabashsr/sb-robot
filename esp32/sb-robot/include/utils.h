@@ -14,9 +14,9 @@ struct pidParams
                     double Kp;
                     double Ki;
                     double Kd;
-                    float max;
-                    float min;
-                    int period;
+                    double max;
+                    double min;
+                    int64_t period;
                     bool direct;
                     bool modeAuto;
                     /* data */

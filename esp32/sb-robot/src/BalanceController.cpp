@@ -295,3 +295,7 @@ void BalanceController::resetMotors(){
     this->calculateVelocities();
     this->updateState();
 };
+
+void BalanceController::setTicksPerRevolution(int value){
+    _motors.setTicksPerRevolution(value);
+};

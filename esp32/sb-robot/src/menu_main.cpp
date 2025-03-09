@@ -10,6 +10,7 @@
 #include <WiFi.h>
 #include "MicroRos.h"
 #include "RobotServer.h"
+#include "ParameterRegistry.h"
 
 
 
@@ -23,6 +24,46 @@
 
 //#define BT_RX 19
 //#define BT_TX 20
+
+
+ParameterRegistry paramRegistry;
+pidParams paramsPitch{
+    .Kp = 33.8, 
+    .Ki = 40.8, 
+    .Kd = 0.4, 
+    .max = 255.0f, 
+    .min = -255.0f, 
+    .period = 7, 
+    .direct = false, 
+    .modeAuto = true};
+pidParams paramsVel{
+    .Kp = 25.95, 
+    .Ki = 14.93, 
+    .Kd = 1.33, 
+    .max = 4.0f, 
+    .min = -4.0f, 
+    .period = 210, 
+    .direct = false, 
+    .modeAuto = true}; 
+pidParams paramsYaw{
+    .Kp = 7.8, 
+    .Ki = 8.3, 
+    .Kd = 0.0, 
+    .max = 200.0f, 
+    .min = -200.0f, 
+    .period = 187, 
+    .direct = false, 
+    .modeAuto = true}; 
+
+// Create bindings between registry parameters and PID struct members
+
+// Pitch PID bindings
+
+
+// Wheel threshold bindings
+int64_t leftThreshold = 0;
+int64_t rightThreshold = 0;
+int64_t ticksPerRev = 292;
 
 
 
@@ -54,7 +95,7 @@ const int MOTOR_A_ENC_A = 17;
 const int MOTOR_A_ENC_B = 18;
 const int MOTOR_B_ENC_A = 4;
 const int MOTOR_B_ENC_B = 5;
-int ticks_per_revolution;
+int64_t ticks_per_revolution;
 
 // BNO055 pins
 const int BNO_SDA = 15;
@@ -74,33 +115,6 @@ MotorController motors(
     ticks_per_revolution, ticks_per_revolution
 );
 
-pidParams paramsPitch{
-    .Kp = 33.8, 
-    .Ki = 40.8, 
-    .Kd = 0.4, 
-    .max = 255.0f, 
-    .min = -255.0f, 
-    .period = 7, 
-    .direct = false, 
-    .modeAuto = true};
-pidParams paramsVel{
-    .Kp = 25.95, 
-    .Ki = 14.93, 
-    .Kd = 1.33, 
-    .max = 4.0f, 
-    .min = -4.0f, 
-    .period = 210, 
-    .direct = false, 
-    .modeAuto = true}; 
-pidParams paramsYaw{
-    .Kp = 7.8, 
-    .Ki = 8.3, 
-    .Kd = 0.0, 
-    .max = 200.0f, 
-    .min = -200.0f, 
-    .period = 187, 
-    .direct = false, 
-    .modeAuto = true}; 
 
 controllerState contrState;
 
@@ -143,6 +157,7 @@ String ssid = "Beeline_2G_F13F37";
 String password = "1122334455667788";
 
 controllerNode rosNode(
+                paramRegistry,
                 controller,
                 ros_domain_id, 
                 agent_port, 
@@ -329,6 +344,52 @@ void processCommand(String command) {
 
 }
 
+void loadParams(){
+    paramRegistry.loadAllParameters();
+    //Serial1.println("EEPROM initialized");
+    paramRegistry.bindDoubleParameter("Kp_pitch", &paramsPitch.Kp);
+    paramRegistry.bindDoubleParameter("Ki_pitch", &paramsPitch.Ki);
+    paramRegistry.bindDoubleParameter("Kd_pitch", &paramsPitch.Kd);
+    paramRegistry.bindDoubleParameter("Max_pitch", &paramsPitch.max);
+    paramRegistry.bindDoubleParameter("Min_pitch", &paramsPitch.min);
+    paramRegistry.bindIntParameter("Period_pitch", &paramsPitch.period);
+    paramRegistry.bindBoolParameter("Direction_pitch", &paramsPitch.direct);
+    paramRegistry.bindBoolParameter("Auto_pitch", &paramsPitch.modeAuto);
+
+    // Vel PID bindings
+    paramRegistry.bindDoubleParameter("Kp_vel", &paramsVel.Kp);
+    paramRegistry.bindDoubleParameter("Ki_vel", &paramsVel.Ki);
+    paramRegistry.bindDoubleParameter("Kd_vel", &paramsVel.Kd);
+    paramRegistry.bindDoubleParameter("Max_vel", &paramsVel.max);
+    paramRegistry.bindDoubleParameter("Min_vel", &paramsVel.min);
+    paramRegistry.bindIntParameter("Period_vel", &paramsVel.period);
+    paramRegistry.bindBoolParameter("Direction_vel", &paramsVel.direct);
+    paramRegistry.bindBoolParameter("Auto_vel", &paramsVel.modeAuto);
+
+    // Yaw PID bindings
+    paramRegistry.bindDoubleParameter("Kp_yaw", &paramsYaw.Kp);
+    paramRegistry.bindDoubleParameter("Ki_yaw", &paramsYaw.Ki);
+    paramRegistry.bindDoubleParameter("Kd_yaw", &paramsYaw.Kd);
+    paramRegistry.bindDoubleParameter("Max_yaw", &paramsYaw.max);
+    paramRegistry.bindDoubleParameter("Min_yaw", &paramsYaw.min);
+    paramRegistry.bindIntParameter("Period_yaw", &paramsYaw.period);
+    paramRegistry.bindBoolParameter("Direction_yaw", &paramsYaw.direct);
+    paramRegistry.bindBoolParameter("Auto_yaw", &paramsYaw.modeAuto);
+
+    // Wheel threshold bindings
+    // int64_t leftThreshold = 0;
+    // int64_t rightThreshold = 0;
+    // int64_t ticksPerRev = 292;
+
+    paramRegistry.bindIntParameter("Left_wheel_threshold", &leftThreshold);
+    paramRegistry.bindIntParameter("Right_wheel_threshold", &rightThreshold);
+    paramRegistry.bindIntParameter("Ticks_per_revolution", &ticks_per_revolution);
+
+    // Update all bindings to ensure external variables are synchronized
+    paramRegistry.updateAllBindings(); 
+    
+}
+
 
 
 
@@ -343,9 +404,11 @@ void setup() {
     Serial.println("Serial started");
     //Serial1.println("//Serial1 started");
 
-    EEPROM.begin(EEPROM_SIZE);
-    Serial.println("EEPROM initialized"); 
-    //Serial1.println("EEPROM initialized"); 
+    //EEPROM.begin(EEPROM_SIZE);
+    //Serial.println("EEPROM initialized"); 
+    loadParams();
+    Serial.println("Parameters are loaded from EEPROM"); 
+    
     
     //EEPROM.begin(EEPROM_SIZE);
     delay(100);

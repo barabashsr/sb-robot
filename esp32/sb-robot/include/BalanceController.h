@@ -100,6 +100,7 @@ public:
     void setBNOTaskPeriod(int period);
     void setLWSreshold(int value);
     void setRWSreshold(int value);
+    void setTicksPerRevolution(int value);
     void resetMotors();
 
    
