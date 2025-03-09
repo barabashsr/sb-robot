@@ -15,6 +15,10 @@
 #include <rclc_parameter/rclc_parameter.h>
 #include "BalanceController.h"
 #include "ParameterRegistry.h"
+#include <geometry_msgs/msg/transform_stamped.h>
+#include <micro_ros_utilities/type_utilities.h>
+
+
 // #define ROS_DOMAIN_ID 77
 
 #define JOINT_COUNT 1
@@ -71,6 +75,7 @@ public:
     controllerState &_controllerState;
 
 private:
+    transform _tf;
     ParameterRegistry &_parameterRegistry;
     static controllerNode *instance;
 
@@ -91,6 +96,8 @@ private:
 
     static rclc_parameter_server_t _param_server; // Parameter server object
     static rcl_publisher_t _publisher;            // publisher object
+    static rcl_publisher_t _tf_publisher;
+    static geometry_msgs__msg__TransformStamped _tf_msg;
 
     static rcl_publisher_t _joint_state_publisher;
     static sensor_msgs__msg__JointState _joint_state_msg;
@@ -102,6 +109,23 @@ private:
     static rclc_parameter_options_t _param_options;
     static rcl_node_t _node;
     rcl_timer_t _timer;
+
+    micro_ros_utilities_memory_conf_t _memory_conf = {0};
+
+
+    const char * tf_topic_name = "tf";
+    const char * base_link_name = "base_link";
+   
+
+    //const unsigned int _tf_timer_time = 20;
+    const unsigned int timer_timeout = 500;
+    const unsigned int timer_timeout_joint_state = 20;
+
+    rcl_timer_t _timer_tf;
+    const unsigned int timer_timeout_tf = 50; // 20Hz TF updates
+    const char * odom_frame_name = "odom";
+
+
     rcl_timer_t _timer_joint_state;
 
     geometry_msgs__msg__Twist _twst_msg;
@@ -114,6 +138,8 @@ private:
 
     static void timer_callback(rcl_timer_t *timer, int64_t last_call_time);
     static void timer_callback_joint_state(rcl_timer_t *timer, int64_t last_call_time);
+    static void timer_callback_tf(rcl_timer_t *timer, int64_t last_call_time);
+
     static void subscription_callback_twist(const void *msgin, void *context);
     static bool on_parameter_changed(const Parameter *old_param, const Parameter *new_param, void *context);
     // static void timer_callback_wrapper(rcl_timer_t * timer, int64_t last_call_time);
@@ -122,6 +148,9 @@ private:
     void joint_state_message_init();
 
     void set_parameters();
+    //void initTfMessage(geometry_msgs__msg__TransformStamped* msg);
+    void initTfMessage();
+
 };
 
 #endif // MICROROS

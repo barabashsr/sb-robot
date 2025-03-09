@@ -194,30 +194,29 @@ void updateMenuValues()
     {
         lastPrintTime = currentMillis;
 
-        controller.updateState();
+        
         menuPitch.setFloatValue(static_cast<float>(contrState.currentPitch));
         int bnoCalib = bno.calibration();
         menuBNOCalib.setCurrentValue(bnoCalib);
-        // currentPalst = bno.getPalstance();
+  
 
         menuVel.setFloatValue(static_cast<float>(contrState.currentVel));
         menuSetVel.setFromFloatingPointValue(static_cast<float>(targetVel));
         menuSetYaw.setFromFloatingPointValue(static_cast<float>(targetYawRate));
         menuYawRate.setFloatValue(static_cast<float>(contrState.currentYawRate));
-        // menuPalstance.setFloatValue(currentPalst);
-        // Serial.println(currentPalst);
+
         if (contrState.velPIDOn)
         {
             menuPitchOfset.setFromFloatingPointValue(static_cast<float>(contrState.targetPitch));
         }
-        // double Kp, Ki, Kd;
-        // controller.getPitchPID(Kp, Ki, Kd);
+        double Kp, Ki, Kd;
+        controller.getYawPID(Kp, Ki, Kd);
 
         /* Serial.printf(" Pitch: Kp: %.2f, Kd: %.2f, Ki: %.2f, output:  %.2f, pitch:  %.2f\n",
            Kp, Ki, Kd, contrState.controlOutput, contrState.currentPitch
         ); */
-        // Serial.printf(" Pitch: Kp: %.2f, Ki: %.2f, Kd: %.2f, VelPitchOn: %d  , pitch:  %.2f\n",
-        //               Kp, Ki, Kd, contrState.pitchPIDOn ? "true" : "false", contrState.currentPitch);
+        Serial.printf(" Vel: Kp: %.2f, Ki: %.2f, Kd: %.2f, On: %s  , pitch:  %.2f\n",
+                      Kp, Ki, Kd, contrState.yawPIDOn ? "true" : "false", contrState.currentPitch);
         // Serial.print(contrState.pitchPIDOn);
 
         setLedColor(bnoCalib);
@@ -398,73 +397,27 @@ void loadParams()
 
 void setup()
 {   
-    delay(2000);
-
+ 
     Serial.begin(115200);
-    // Serial1.begin(9600, SERIAL_8N1, BT_RX, BT_TX); // Speed, Mode, RX pin, TX pin
+    Serial.println("Serial started"); 
 
-    Serial.println("Serial started");
-    // Serial1.println("//Serial1 started");
-
-    // EEPROM.begin(EEPROM_SIZE);
-    // Serial.println("EEPROM initialized");
     loadParams();
     Serial.println("Parameters are loaded from EEPROM");
 
-    // EEPROM.begin(EEPROM_SIZE);
-    delay(100);
-
     motors.init();
-    // inputString.reserve(200);
-
-    // Serial.println("\nMotor Controller Test with TB6612FNG");
     setupMenu();
-    // menuMgr.load(MENU_MAGIC_KEY);
-
-    // //Assign Pitch PID values
-    // menuKpPitch.triggerCallback();
-    // menuKdPitch.triggerCallback();
-    // menuKiPitch.triggerCallback();
-    // menuPeriodP.triggerCallback();
-    // //ofsetAngle = menuPitchOfset.getAsFloatingPointValue();
-    // menuPitchPIDToggle.triggerCallback();
-
-    // //Assign Velocity PID values
-    // menuKpVel.triggerCallback();
-    // menuKdVel.triggerCallback();
-    // menuKiVel.triggerCallback();
-    // menuKoVel.triggerCallback();
-    // menuPeriodV.triggerCallback();
-    // menuVelPIDToggle.triggerCallback();
-
-    // //Assign Yaw raye PID values
-    // menuKpYaw.triggerCallback();
-    // menuKdYaw.triggerCallback();
-    // menuKiYaw.triggerCallback();
-    // menuPeriodY.triggerCallback();
-    // menuYawPIDToggle.triggerCallback();
-
-    // set motors thresholds
-    //  menuThresholdA.triggerCallback();
-    //  menuThresholdB.triggerCallback();
-    //  controller.setVelPIDOn(true);
-    //  controller.setVelPIDOn(true);
-    //  controller.setVelPIDOn(true);
-
     pinMode(RGB_BUILTIN, OUTPUT);
 
     // setup bno
     if (!bno.begin())
     {
         Serial.println("BNO055 initialization failed");
-        // Serial1.println("BNO055 initialization failed");
         while (1)
             ;
     }
     else
     {
         Serial.println("BNO055 initialized successfully");
-        // Serial1.println("BNO055 initialized successfully");
     }
     bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
 
@@ -492,6 +445,7 @@ void setup()
 
 void loop()
 {
+    controller.updateState();
     taskManager.runLoop();
     rosNode.spinNode();
     // RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));

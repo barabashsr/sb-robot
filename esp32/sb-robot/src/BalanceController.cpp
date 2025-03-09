@@ -309,3 +309,49 @@ void BalanceController::resetMotors(){
 void BalanceController::setTicksPerRevolution(int value){
     _motors.setTicksPerRevolution(value);
 };
+
+
+void BalanceController::calculateTransform(transform& tf) {
+    // Get current wheel positions in radians
+    double currentPosA = _state.positionA;  // Left wheel position
+    double currentPosB = _state.positionB;  // Right wheel position
+    
+    // Calculate wheel position changes since last update
+    double deltaA = currentPosA - _lastPosA;  // Left wheel delta
+    double deltaB = currentPosB - _lastPosB;  // Right wheel delta
+    
+    // Convert wheel rotation to distance traveled
+    double distanceA = deltaA * _wheelRadius;  // Left wheel distance
+    double distanceB = deltaB * _wheelRadius;  // Right wheel distance
+    
+    // Calculate robot movement
+    double distanceCenter = (distanceA + distanceB) / 2.0;  // Linear distance
+    double deltaTheta = (distanceB - distanceA) / _wheelSeparation;  // Angular change
+    
+    // Update robot pose
+    // First rotate, then translate
+    _theta += deltaTheta;
+    
+    // Normalize theta to [-π, π]
+    while (_theta > M_PI) _theta -= 2 * M_PI;
+    while (_theta < -M_PI) _theta += 2 * M_PI;
+    
+    // Calculate displacement in global frame
+    _x += distanceCenter * cos(_theta);
+    _y += distanceCenter * sin(_theta);
+    double cy = cos(_theta * 0.5);
+    double sy = sin(_theta * 0.5);
+
+    tf.t_x = _x;
+    tf.t_y = _y;
+    tf.t_z = 0;
+    tf.r_x = 0;
+    tf.r_y = 0;
+    tf.r_z = sy;
+    tf.r_w = cy;
+
+    
+    // Store current positions for next update
+    _lastPosA = currentPosA;
+    _lastPosB = currentPosB;
+}

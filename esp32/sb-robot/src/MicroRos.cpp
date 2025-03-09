@@ -30,6 +30,9 @@ geometry_msgs__msg__Twist controllerNode::_msgOut;
 rcl_publisher_t controllerNode::_publisher;
 rcl_publisher_t controllerNode::_joint_state_publisher;
 sensor_msgs__msg__JointState controllerNode::_joint_state_msg;
+geometry_msgs__msg__TransformStamped controllerNode::_tf_msg;
+
+rcl_publisher_t controllerNode::_tf_publisher;
 
 rclc_parameter_server_t controllerNode::_param_server;
 rclc_parameter_options_t controllerNode::_param_options;
@@ -88,7 +91,7 @@ void controllerNode::timer_callback_joint_state(rcl_timer_t *timer, int64_t last
         // Update joint position (convert degrees to radians)
         _joint_state_msg.position.data[0] = node->_controllerState.currentPitch * (-3.14159265359 / 180.0);
         RCSOFTCHECK(rcl_publish(&_joint_state_publisher, &_joint_state_msg, NULL));
-        //Serial.println("joint states published");
+        // Serial.println("joint states published");
     }
 }
 
@@ -214,10 +217,15 @@ void controllerNode::setup()
         ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, JointState),
         "joint_states"));
 
+    RCCHECK(rclc_publisher_init_default(
+        &_tf_publisher,
+        &_node,
+        ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, TransformStamped),
+        tf_topic_name));
+
     // create timer,
     Serial.println("Subscr init");
-    const unsigned int timer_timeout = 500;
-    const unsigned int timer_timeout_joint_state = 50;
+
     RCCHECK(rclc_timer_init_default(
         &_timer,
         &_support,
@@ -264,6 +272,19 @@ void controllerNode::setup()
         on_parameter_changed, // on_parameter_changed
         this));
 
+    RCCHECK(rclc_publisher_init_default(
+        &_tf_publisher,
+        &_node,
+        ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, TransformStamped),
+        tf_topic_name));
+
+    // Initialize TF timer
+    RCCHECK(rclc_timer_init_default(
+        &_timer_tf,
+        &_support,
+        RCL_MS_TO_NS(timer_timeout_tf),
+        timer_callback_tf));
+
     RCCHECK(rclc_executor_add_timer(&_executor, &_timer));
     RCCHECK(rclc_executor_add_timer(&_executor, &_timer_joint_state));
     RCCHECK(rclc_executor_add_subscription_with_context(
@@ -273,9 +294,18 @@ void controllerNode::setup()
         &subscription_callback_twist,
         this,
         ON_NEW_DATA));
+    
+    RCCHECK(rclc_executor_add_timer(&_executor, &_timer_tf));
+    
+
+    // RCCHECK(micro_ros_utilities_create_message_memory(
+    //     ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, TransformStamped),
+    //     &_tf_msg,
+    //     _memory_conf));
 
     set_parameters();
     joint_state_message_init();
+    initTfMessage();
     //_msgOut.data = 0;
     // rclc_executor_set_context(&_executor, this);
 }
@@ -482,7 +512,7 @@ bool controllerNode::on_parameter_changed(const Parameter *old_param, const Para
                     node->_balance_controller.setTuningsPitch();
                 }
                 if (strcmp(new_param->name.data, "Auto_pitch") == 0)
-                {   
+                {
                     Serial.println("Auto_pitch changed");
                     node->_balance_controller.setPitchPIDOn(node->_pitchParams.modeAuto);
                 }
@@ -556,4 +586,57 @@ bool controllerNode::on_parameter_changed(const Parameter *old_param, const Para
     }
 
     return ret;
+}
+
+void controllerNode::initTfMessage()
+{
+    // Initialize transform stamped message
+    _tf_msg.header.frame_id.data = (char *)malloc(strlen(odom_frame_name) + 1);
+    _tf_msg.header.frame_id.size = strlen(odom_frame_name);
+    _tf_msg.header.frame_id.capacity = strlen(odom_frame_name) + 1;
+    strcpy(_tf_msg.header.frame_id.data, odom_frame_name);
+
+    _tf_msg.child_frame_id.data = (char *)malloc(strlen(base_link_name) + 1);
+    _tf_msg.child_frame_id.size = strlen(base_link_name);
+    _tf_msg.child_frame_id.capacity = strlen(base_link_name) + 1;
+    strcpy(_tf_msg.child_frame_id.data, base_link_name);
+
+    // Initialize transform values to identity
+    _tf_msg.transform.translation.x = 0.0;
+    _tf_msg.transform.translation.y = 0.0;
+    _tf_msg.transform.translation.z = 0.0;
+    _tf_msg.transform.rotation.x = 0.0;
+    _tf_msg.transform.rotation.y = 0.0;
+    _tf_msg.transform.rotation.z = 0.0;
+    _tf_msg.transform.rotation.w = 1.0;
+}
+
+void controllerNode::timer_callback_tf(rcl_timer_t *timer, int64_t last_call_time)
+{
+    controllerNode *node = controllerNode::getInstance();
+
+    RCLC_UNUSED(last_call_time);
+    if (timer != NULL)
+    {
+        // Get latest transform from balance controller
+        node->_balance_controller.calculateTransform(node->_tf);
+
+        // Update timestamp
+        rmw_uros_sync_session(10); // Sync time with agent (timeout 10ms)
+        int64_t time_ns = rmw_uros_epoch_nanos();
+        _tf_msg.header.stamp.sec = time_ns / 1000000000;
+        _tf_msg.header.stamp.nanosec = time_ns % 1000000000;
+
+        // Update transform with latest values
+        _tf_msg.transform.translation.x = node->_tf.t_x;
+        _tf_msg.transform.translation.y = node->_tf.t_y;
+        _tf_msg.transform.translation.z = node->_tf.t_z;
+        _tf_msg.transform.rotation.x = node->_tf.r_x;
+        _tf_msg.transform.rotation.y = node->_tf.r_y;
+        _tf_msg.transform.rotation.z = node->_tf.r_z;
+        _tf_msg.transform.rotation.w = node->_tf.r_w;
+
+        // Publish the transform
+        RCSOFTCHECK(rcl_publish(&_tf_publisher, &_tf_msg, NULL));
+    }
 }

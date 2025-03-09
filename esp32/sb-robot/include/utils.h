@@ -8,6 +8,17 @@
 // std::unique_ptr<T> make_unique(Args&&... args) {
 //     return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 // }
+struct transform
+                {
+                    double t_x;
+                    double t_y;
+                    double t_z;
+                    double r_x;
+                    double r_y;
+                    double r_z;
+                    double r_w;
+
+                };
 
 struct pidParams
                 {

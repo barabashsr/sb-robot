@@ -102,6 +102,7 @@ public:
     void setRWSreshold(int value);
     void setTicksPerRevolution(int value);
     void resetMotors();
+    void calculateTransform(transform& tf);
 
    
 
@@ -144,6 +145,12 @@ private:
     
     void static controlTask(void * parameter);
     void static bnoTask(void * parameter);
+
+    double _lastPosA = 0.0;
+    double _lastPosB = 0.0;
+    double _theta = 0.0;
+    double _x = 0.0;
+    double _y = 0.0;
 
 
 };
