@@ -130,7 +130,7 @@ std::vector<hardware_interface::StateInterface> SBRobotSystemHardware::export_st
 
   // Left wheel
   state_interfaces.emplace_back(
-    hardware_interface::StateInterface(wheel_l_.name, hardware_interface::HW_IF_POSITION, &wheel_l_.vel));
+    hardware_interface::StateInterface(wheel_l_.name, hardware_interface::HW_IF_POSITION, &wheel_l_.pos));
   state_interfaces.emplace_back(
     hardware_interface::StateInterface(wheel_l_.name, hardware_interface::HW_IF_VELOCITY, &wheel_l_.vel));
 
@@ -223,14 +223,18 @@ hardware_interface::return_type SBRobotSystemHardware::read(
 
 
   
-
+  double old_r_pos = wheel_r_.pos;
+  double old_l_pos = wheel_l_.pos;
+  double dt = period.seconds();
 
   if (comms_.updateState())
   {
-    wheel_l_.pos = comms_.getPoseA();
-    wheel_l_.vel = comms_.getVelA();
-    wheel_r_.pos = comms_.getPoseB();
-    wheel_r_.vel = comms_.getVelB();
+    
+    wheel_l_.pos = comms_.getPoseB();
+    //wheel_l_.vel = comms_.getVelB();
+    
+    wheel_r_.pos = comms_.getPoseA();
+    //wheel_r_.vel = comms_.getVelA();
   }
   else
   {
@@ -240,29 +244,13 @@ hardware_interface::return_type SBRobotSystemHardware::read(
 
 
   
-
-
-  // // Read encoders from the I2C device
-  // std::map<int, int> encoder_values;
-  // if (!comms_.read_encoder_values(encoder_values))
-  // {
-  //   // If read fails, log warning but keep going
-  //   RCLCPP_WARN(*logger_, "Failed to read encoder values from hardware.");
-  //   return hardware_interface::return_type::ERROR;
-  // }
-
-  // // Update wheels
   
-  // if (true)
-  // {
-    
-   
-  // }
-  // else
-  // {
-  //   RCLCPP_WARN(*logger_, "Encoder value for left wheel channel %d not found.", left_channel);
-  //   return hardware_interface::return_type::ERROR;
-  // }
+  
+  wheel_r_.vel = (wheel_r_.pos - old_r_pos) / dt;
+  wheel_r_.vel = (wheel_r_.pos - old_r_pos) / dt;
+
+
+  
 
   // // Right wheel
   // double old_r_pos = wheel_r_.pos;

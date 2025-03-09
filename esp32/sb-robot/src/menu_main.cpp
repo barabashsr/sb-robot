@@ -54,6 +54,7 @@ const int MOTOR_A_ENC_A = 17;
 const int MOTOR_A_ENC_B = 18;
 const int MOTOR_B_ENC_A = 4;
 const int MOTOR_B_ENC_B = 5;
+int ticks_per_revolution;
 
 // BNO055 pins
 const int BNO_SDA = 15;
@@ -69,7 +70,8 @@ MotorController motors(
     MOTOR_B_IN1, MOTOR_B_IN2, MOTOR_B_PWM,
     STANDBY,
     MOTOR_A_ENC_A, MOTOR_A_ENC_B,
-    MOTOR_B_ENC_A, MOTOR_B_ENC_B
+    MOTOR_B_ENC_A, MOTOR_B_ENC_B,
+    ticks_per_revolution, ticks_per_revolution
 );
 
 pidParams paramsPitch{

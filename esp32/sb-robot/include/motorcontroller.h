@@ -17,7 +17,7 @@ private:
 
         
     };
-
+  
     MotorPins motorA;
     MotorPins motorB;
     int standbyPin;
@@ -47,8 +47,8 @@ public:
         int standby,
         int motorA_encA, int motorA_encB,
         int motorB_encA, int motorB_encB,
-        int motorA_ticks = 585,
-        int motorB_ticks = 585
+        int motorA_ticks,
+        int motorB_ticks
     );
 
     void init();
@@ -69,6 +69,7 @@ public:
     void updateSpeeds();
     void setThresholdA(int threshold){threshold_A = threshold;};
     void setThresholdB(int threshold){threshold_B = threshold;};
+    void setTicksPerRevolution(int value){motorA.ticksPerRevolution = value; motorB.ticksPerRevolution = value;};
 };
 
 #endif

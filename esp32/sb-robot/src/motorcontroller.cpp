@@ -10,10 +10,32 @@ MotorController::MotorController(
     int motorB_encA, int motorB_encB,
     int motorA_ticks,
     int motorB_ticks
-) {
-    motorA = {motorA_in1, motorA_in2, motorA_pwm, motorA_encA, motorA_encB, 0, motorA_ticks};
-    motorB = {motorB_in1, motorB_in2, motorB_pwm, motorB_encA, motorB_encB, 0, motorB_ticks};
-    standbyPin = standby;
+): motorA{
+    
+    .in1 = motorA_in1,
+    .in2 = motorA_in2,
+    .pwm = motorA_pwm,
+    .encoderA = motorA_encA,
+    .encoderB = motorA_encB,
+    .encoderCount = 0,
+    .ticksPerRevolution = motorA_ticks   
+},
+motorB{
+    
+    .in1 = motorB_in1,
+    .in2 = motorB_in2,
+    .pwm = motorB_pwm,
+    .encoderA = motorB_encA,
+    .encoderB = motorB_encB,
+    .encoderCount = 0,
+    .ticksPerRevolution = motorB_ticks   
+},
+standbyPin(standby)
+
+ {
+    // motorA = {motorA_in1, motorA_in2, motorA_pwm, motorA_encA, motorA_encB, 0, motorA_ticks};
+    // motorB = {motorB_in1, motorB_in2, motorB_pwm, motorB_encA, motorB_encB, 0, motorB_ticks};
+    // standbyPin = standby;
     instance = this;
 }
 
