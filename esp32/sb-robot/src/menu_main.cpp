@@ -95,7 +95,7 @@ const int MOTOR_A_ENC_A = 17;
 const int MOTOR_A_ENC_B = 18;
 const int MOTOR_B_ENC_A = 4;
 const int MOTOR_B_ENC_B = 5;
-int64_t ticks_per_revolution;
+int64_t TicKs_p_r;
 
 // BNO055 pins
 const int BNO_SDA = 15;
@@ -112,7 +112,7 @@ MotorController motors(
     STANDBY,
     MOTOR_A_ENC_A, MOTOR_A_ENC_B,
     MOTOR_B_ENC_A, MOTOR_B_ENC_B,
-    ticks_per_revolution, ticks_per_revolution
+    TicKs_p_r, TicKs_p_r
 );
 
 
@@ -381,9 +381,9 @@ void loadParams(){
     // int64_t rightThreshold = 0;
     // int64_t ticksPerRev = 292;
 
-    paramRegistry.bindIntParameter("Left_wheel_threshold", &leftThreshold);
-    paramRegistry.bindIntParameter("Right_wheel_threshold", &rightThreshold);
-    paramRegistry.bindIntParameter("Ticks_per_revolution", &ticks_per_revolution);
+    paramRegistry.bindIntParameter("LW_threshold", &leftThreshold);
+    paramRegistry.bindIntParameter("RW_threshold", &rightThreshold);
+    paramRegistry.bindIntParameter("TicKs_p_r", &TicKs_p_r);
 
     // Update all bindings to ensure external variables are synchronized
     paramRegistry.updateAllBindings(); 

@@ -264,9 +264,9 @@ controllerNode::controllerNode  (
         _parameterRegistry.addBoolParameter("Auto_yaw", _yawParams.modeAuto, "Yaw rate PID auto", "");
         
         // Wheel thresholds
-        _parameterRegistry.addIntParameter("Left_wheel_threshold", 0, "Left wheel starting threshold", "", 0, 255, 1);
-        _parameterRegistry.addIntParameter("Right_wheel_threshold", 0, "Right wheel starting threshold", "", 0, 255, 1);
-        _parameterRegistry.addIntParameter("Ticks_per_revolution", 292, "Ticks of encoder per full revolution", "", 0, 2000, 1);
+        _parameterRegistry.addIntParameter("LW_threshold", 0, "Left wheel starting threshold", "", 0, 255, 1);
+        _parameterRegistry.addIntParameter("RW_threshold", 0, "Right wheel starting threshold", "", 0, 255, 1);
+        _parameterRegistry.addIntParameter("TicKs_p_r", 292, "Ticks of encoder per full revolution", "", 0, 2000, 1);
         
         // Now update the local variables with values from registry
         _parameterRegistry.getDouble("Kp_pitch", &_pitchParams.Kp);
@@ -314,13 +314,13 @@ controllerNode::controllerNode  (
         
         // Update wheel thresholds
         int64_t leftThreshold, rightThreshold, ticksPerRev;
-        if (_parameterRegistry.getInt("Left_wheel_threshold", &leftThreshold)) {
+        if (_parameterRegistry.getInt("LW_threshold", &leftThreshold)) {
             _balance_controller.setLWSreshold(leftThreshold);
         }
-        if (_parameterRegistry.getInt("Right_wheel_threshold", &rightThreshold)) {
+        if (_parameterRegistry.getInt("RW_threshold", &rightThreshold)) {
             _balance_controller.setRWSreshold(rightThreshold);
         }
-        if (_parameterRegistry.getInt("Ticks_per_revolution", &ticksPerRev)) {
+        if (_parameterRegistry.getInt("TicKs_p_r", &ticksPerRev)) {
             _balance_controller.setTicksPerRevolution(ticksPerRev);
         }
     }
@@ -381,9 +381,9 @@ controllerNode::controllerNode  (
 
     //     // Wheels parameters
 
-    //     rclc_add_parameter(&_param_server, "Left_wheel_threshold", RCLC_PARAMETER_INT);
-    //     rclc_add_parameter(&_param_server, "Right_wheel_threshold", RCLC_PARAMETER_INT);
-    //     rclc_add_parameter(&_param_server, "Ticks_per_revolution", RCLC_PARAMETER_INT);
+    //     rclc_add_parameter(&_param_server, "LW_threshold", RCLC_PARAMETER_INT);
+    //     rclc_add_parameter(&_param_server, "RW_threshold", RCLC_PARAMETER_INT);
+    //     rclc_add_parameter(&_param_server, "TicKs_p_r", RCLC_PARAMETER_INT);
 
     //     // Add parameters descriptions 
     //     //Pitch parameters descriptions
@@ -418,9 +418,9 @@ controllerNode::controllerNode  (
 
     //     // Wheels sresholds
         
-    //     rclc_add_parameter_description(&_param_server, "Left_wheel_threshold", "Left whhel starting sreshold", "");
-    //     rclc_add_parameter_description(&_param_server, "Right_wheel_threshold", "Right whhel starting sreshold", "");
-    //     rclc_add_parameter_description(&_param_server, "Ticks_per_revolution", "Ticks of encoder per full revolution", "");
+    //     rclc_add_parameter_description(&_param_server, "LW_threshold", "Left whhel starting sreshold", "");
+    //     rclc_add_parameter_description(&_param_server, "RW_threshold", "Right whhel starting sreshold", "");
+    //     rclc_add_parameter_description(&_param_server, "TicKs_p_r", "Ticks of encoder per full revolution", "");
 
 
 
@@ -450,9 +450,9 @@ controllerNode::controllerNode  (
     //     rclc_add_parameter_constraint_double(&_param_server, "Period_yaw", period_from, period_to, period_step);
 
     //       //Wheel sresholds parameters constrains
-    //     rclc_add_parameter_constraint_double(&_param_server, "Left_wheel_threshold", 0, 255, 1);
-    //     rclc_add_parameter_constraint_double(&_param_server, "Right_wheel_threshold", 0, 255, 1);
-    //     rclc_add_parameter_constraint_double(&_param_server, "Ticks_per_revolution", 0, 2000, 1);
+    //     rclc_add_parameter_constraint_double(&_param_server, "LW_threshold", 0, 255, 1);
+    //     rclc_add_parameter_constraint_double(&_param_server, "RW_threshold", 0, 255, 1);
+    //     rclc_add_parameter_constraint_double(&_param_server, "TicKs_p_r", 0, 2000, 1);
 
 
 
@@ -487,7 +487,7 @@ controllerNode::controllerNode  (
     //     rclc_parameter_set_bool(&_param_server, "Direction_yaw", _yawParams.direct);
     //     rclc_parameter_set_bool(&_param_server, "Auto_yaw", _yawParams.modeAuto);
     //     //wheel params
-    //     rclc_parameter_set_int(&_param_server, "Ticks_per_revolution", 292);
+    //     rclc_parameter_set_int(&_param_server, "TicKs_p_r", 292);
 
     //     }
 
@@ -709,21 +709,21 @@ controllerNode::controllerNode  (
     //             printf("Auto_yaw updated to %s\n", (node->_yawParams.modeAuto) ? "true" : "false");
                
     //         //Whheel sresholds
-    //         } else if (strcmp(new_param->name.data, "Left_wheel_threshold") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
+    //         } else if (strcmp(new_param->name.data, "LW_threshold") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
     //             if (new_param->value.integer_value >= 0 && new_param->value.integer_value <= 255) {
     //                 node->_balance_controller.setLWSreshold(new_param->value.integer_value);
-    //                 printf("Left_wheel_threshold updated to %d\n", new_param->value.integer_value);
+    //                 printf("LW_threshold updated to %d\n", new_param->value.integer_value);
     //             } else {
-    //                 printf("Invalid Left_wheel_threshold value: %d. Must be between 0 and 255.\n", new_param->value.integer_value);
+    //                 printf("Invalid LW_threshold value: %d. Must be between 0 and 255.\n", new_param->value.integer_value);
     //                 ret = false;
     //             }
 
-    //         } else if (strcmp(new_param->name.data, "Right_wheel_threshold") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
+    //         } else if (strcmp(new_param->name.data, "RW_threshold") == 0 && new_param->value.type == RCLC_PARAMETER_INT) {
     //             if (new_param->value.integer_value >= 0 && new_param->value.integer_value <= 255) {
     //                 node->_balance_controller.setRWSreshold(new_param->value.integer_value);
-    //                 printf("Right_wheel_threshold updated to %d\n", new_param->value.integer_value);
+    //                 printf("RW_threshold updated to %d\n", new_param->value.integer_value);
     //             } else {
-    //                 printf("Invalid Right_wheel_threshold value: %d. Must be between 0 and 255.\n", new_param->value.integer_value);
+    //                 printf("Invalid RW_threshold value: %d. Must be between 0 and 255.\n", new_param->value.integer_value);
     //                 ret = false;
     //             }
     //         }
@@ -832,15 +832,15 @@ controllerNode::controllerNode  (
 //                     }
 //                 }
 //             }
-//             else if (strcmp(new_param->name.data, "Left_wheel_threshold") == 0) {
+//             else if (strcmp(new_param->name.data, "LW_threshold") == 0) {
 //                 int64_t threshold;
-//                 if (node->_parameterRegistry.getInt("Left_wheel_threshold", &threshold)) {
+//                 if (node->_parameterRegistry.getInt("LW_threshold", &threshold)) {
 //                     node->_balance_controller.setLWSreshold(threshold);
 //                 }
 //             }
-//             else if (strcmp(new_param->name.data, "Right_wheel_threshold") == 0) {
+//             else if (strcmp(new_param->name.data, "RW_threshold") == 0) {
 //                 int64_t threshold;
-//                 if (node->_parameterRegistry.getInt("Right_wheel_threshold", &threshold)) {
+//                 if (node->_parameterRegistry.getInt("RW_threshold", &threshold)) {
 //                     node->_balance_controller.setRWSreshold(threshold);
 //                 }
 //             }
@@ -947,29 +947,29 @@ bool controllerNode::on_parameter_changed(const Parameter * old_param, const Par
                     node->_balance_controller.setYawPIDOn(node->_yawParams.modeAuto);
                 }
             }
-            else if (strcmp(new_param->name.data, "Left_wheel_threshold") == 0) {
+            else if (strcmp(new_param->name.data, "LW_threshold") == 0) {
                 int64_t threshold;
-                if (node->_parameterRegistry.getInt("Left_wheel_threshold", &threshold)) {
+                if (node->_parameterRegistry.getInt("LW_threshold", &threshold)) {
                     node->_balance_controller.setLWSreshold(threshold);
                 }
             }
-            else if (strcmp(new_param->name.data, "Right_wheel_threshold") == 0) {
+            else if (strcmp(new_param->name.data, "RW_threshold") == 0) {
                 int64_t threshold;
-                if (node->_parameterRegistry.getInt("Right_wheel_threshold", &threshold)) {
+                if (node->_parameterRegistry.getInt("RW_threshold", &threshold)) {
                     node->_balance_controller.setRWSreshold(threshold);
                 }
             }
 
-            else if (strcmp(new_param->name.data, "Right_wheel_threshold") == 0) {
+            else if (strcmp(new_param->name.data, "RW_threshold") == 0) {
                 int64_t threshold;
-                if (node->_parameterRegistry.getInt("Right_wheel_threshold", &threshold)) {
+                if (node->_parameterRegistry.getInt("RW_threshold", &threshold)) {
                     node->_balance_controller.setRWSreshold(threshold);
                 }
             }
             
-            else if (strcmp(new_param->name.data, "Ticks_per_revolution") == 0) {
+            else if (strcmp(new_param->name.data, "TicKs_p_r") == 0) {
                 int64_t value;
-                if (node->_parameterRegistry.getInt("Ticks_per_revolution", &value)) {
+                if (node->_parameterRegistry.getInt("TicKs_p_r", &value)) {
                     node->_balance_controller.setTicksPerRevolution(value);
                 }
             }
