@@ -31,6 +31,7 @@ struct controllerState
                     double currentYawRate;
                     double currentPitch;
                     double targetPitch;
+                    double targetVel;
                     double controlOutput;
                     bool pitchPIDOn;
                     bool velPIDOn;

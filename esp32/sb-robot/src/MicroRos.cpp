@@ -63,7 +63,10 @@ void controllerNode::timer_callback(rcl_timer_t *timer, int64_t last_call_time)
     if (timer != NULL)
     {
         _msgOut.linear.x = node->_controllerState.currentVel;
+        _msgOut.linear.y = node->_controllerState.targetVel;
         _msgOut.angular.y = node->_controllerState.currentPitch;
+        _msgOut.angular.y = node->_controllerState.targetPitch;
+
         RCSOFTCHECK(rcl_publish(&_publisher, &_msgOut, NULL));
     }
     // controllerNode* node = controllerNode::getInstance(); // You need to implement getInstance()
@@ -479,7 +482,8 @@ bool controllerNode::on_parameter_changed(const Parameter *old_param, const Para
                     node->_balance_controller.setTuningsPitch();
                 }
                 if (strcmp(new_param->name.data, "Auto_pitch") == 0)
-                {
+                {   
+                    Serial.println("Auto_pitch changed");
                     node->_balance_controller.setPitchPIDOn(node->_pitchParams.modeAuto);
                 }
             }

@@ -593,6 +593,7 @@ bool ParameterRegistry::bindBoolParameter(const char* name, bool* target) {
         
         // Initialize target with current value
         *target = param->value.bool_value;
+        Serial.printf("Bound %s to %s, binding count: %d \n", name, *target ? "true" : "false", bool_binding_count);
         return true;
     }
     
@@ -616,6 +617,7 @@ bool ParameterRegistry::bindIntParameter(const char* name, int64_t* target) {
         
         // Initialize target with current value
         *target = param->value.integer_value;
+        Serial.printf("Bound %s to %d, binding count: %d \n", name, *target, int_binding_count);
         return true;
     }
     
@@ -639,6 +641,7 @@ bool ParameterRegistry::bindDoubleParameter(const char* name, double* target) {
         
         // Initialize target with current value
         *target = param->value.double_value;
+        Serial.printf("Bound %s to %f, binding count: %d \n", name, *target, double_binding_count); 
         return true;
     }
     
@@ -647,11 +650,14 @@ bool ParameterRegistry::bindDoubleParameter(const char* name, double* target) {
 }
 
 void ParameterRegistry::updateAllBindings() {
+    Serial.println("Updating all parameter bindings");
     // Update all bool bindings
     for (size_t i = 0; i < bool_binding_count; i++) {
         ParameterInfo* param = getParameter(bool_bindings[i].name);
         if (param && param->type == PARAM_BOOL) {
             *(bool_bindings[i].target) = param->value.bool_value;
+            //Serial.printf("Updated %s to %s(%s)\n", bool_bindings[i].name, *(bool_bindings[i].target) ? "true" : "false", param->value.bool_value ? "true" : "false");
+            Serial.println("Updated bool binding");
         }
     }
     
@@ -660,6 +666,8 @@ void ParameterRegistry::updateAllBindings() {
         ParameterInfo* param = getParameter(int_bindings[i].name);
         if (param && param->type == PARAM_INT) {
             *(int_bindings[i].target) = param->value.integer_value;
+            //Serial.printf("Updated %s to %d(%d)\n", int_bindings[i].name, *(int_bindings[i].target), param->value.integer_value);
+            Serial.println("Updated int binding");
         }
     }
     
@@ -668,6 +676,8 @@ void ParameterRegistry::updateAllBindings() {
         ParameterInfo* param = getParameter(double_bindings[i].name);
         if (param && param->type == PARAM_DOUBLE) {
             *(double_bindings[i].target) = param->value.double_value;
+            //Serial.printf("Updated %s to %f(%f)\n", double_bindings[i].name, *(double_bindings[i].target), param->value.double_value);
+            Serial.println("Updated double binding");
         }
     }
 }

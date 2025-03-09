@@ -69,6 +69,7 @@ void BalanceController::updateYawPID(){
     _yawPID.SetOutputLimits(_pidParamsYaw.min, _pidParamsYaw.max);
     _yawPID.SetSampleTime(_pidParamsYaw.period);
     _yawPID.SetControllerDirection(_pidParamsYaw.direct ? DIRECT : REVERSE);
+    setYawPIDOn(_pidParamsYaw.modeAuto);
 };
 
 void BalanceController::updateVelPID(){
@@ -77,6 +78,7 @@ void BalanceController::updateVelPID(){
     _velPID.SetSampleTime(_pidParamsVel.period);
     _velPID.SetControllerDirection(_pidParamsVel.direct ? DIRECT : REVERSE);
     _motors.setMeasurementPeriod(_pidParamsVel.period);
+    setVelPIDOn(_pidParamsVel.modeAuto);
 };
 
 void BalanceController::updatePitchPID(){
@@ -84,6 +86,7 @@ void BalanceController::updatePitchPID(){
     _pitchPID.SetOutputLimits(_pidParamsPitch.min, _pidParamsPitch.max);
     _pitchPID.SetSampleTime(_pidParamsPitch.period);
     _pitchPID.SetControllerDirection(_pidParamsPitch.direct ? DIRECT : REVERSE);
+    setPitchPIDOn(_pidParamsPitch.modeAuto);
     _controllerUpdatetaskPeriod = pdMS_TO_TICKS(_pidParamsPitch.period);
 };
 
@@ -249,18 +252,24 @@ void BalanceController::setBNOTaskPeriod(int period){
 
 void BalanceController::setPitchPIDOn(bool state) {
     _pitchPidOn = state;
+    _state.pitchPIDOn = state;
     _pitchPID.SetMode(state ? AUTOMATIC : MANUAL);
+    Serial.printf("Pitch PID set to %d\n", _state.pitchPIDOn);
 }
 
 void BalanceController::setVelPIDOn(bool state) {
     _velPidOn = state;
+    _state.velPIDOn = state;
     _velPID.SetMode(state ? AUTOMATIC : MANUAL);
+    Serial.printf("Vel PID set to %d\n", _state.velPIDOn);
     
 }
 
 void BalanceController::setYawPIDOn(bool state) {
     _yawPidOn = state;
+    _state.yawPIDOn = state;
     _yawPID.SetMode(state ? AUTOMATIC : MANUAL);
+    Serial.printf("Yaw PID set to %d\n", _state.yawPIDOn);
 
 }
 
@@ -278,6 +287,7 @@ void BalanceController::updateState(){
     _state.pitchPIDOn = _pitchPidOn;
     _state.velPIDOn = _velPidOn;
     _state.yawPIDOn = _yawPidOn;
+    _state.targetVel = _targetVelocity;
 };
 
 void BalanceController::setLWSreshold(int value){
