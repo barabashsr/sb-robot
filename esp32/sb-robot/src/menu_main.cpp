@@ -458,14 +458,14 @@ void setup()
 
 void loop()
 {
-    //controller.updateState();
-    //taskManager.runLoop();
-    //rosNode.spinNode();
+    controller.updateState();
+    taskManager.runLoop();
+    rosNode.spinNode();
     // RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
     // bno.update();
     // controller.update();
 
-    //updateMenuValues();
+    updateMenuValues();
 }
 
 void CALLBACK_FUNCTION SetKdPalst(int id)
