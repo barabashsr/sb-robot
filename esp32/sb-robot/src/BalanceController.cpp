@@ -19,13 +19,13 @@ BalanceController::BalanceController(MotorController &motors,
       _targetVelocity(targetVelocity), _targetYawRate(targetYawRate), _manualAngle(targetAngle),
       _wheelRadius(wheelRadius), _wheelSeparation(wheelSeparation),
       _coreNum(coreNum),
-      _currentPitch(0), _pitchOutput(0), _targetPitch(0),
-      _currentVel(0), _velocityOutput(0),
-      _currentYawRate(0), _yawOutput(0),
+      _currentPitch(0.0), _pitchOutput(0.0), _targetPitch(0.0),
+      _currentVel(0.0), _velocityOutput(0.0),
+      _currentYawRate(0.0), _yawOutput(0.0),
       _state(controllerState),
       _positionA(0), _positionB(0), _speedA(0), _speedB(0),
       _pitchPidOn(false), _velPidOn(false), _yawPidOn(false),
-      _controllerUpdatetaskPeriod(0),
+      _controllerUpdatetaskPeriod(0), _x(0), _y(0), _theta(0), _lastPosA(0), _lastPosB(0), 
       _pitchPID(&_currentPitch, &_pitchOutput, &_targetPitch, pitchParams.Kp, pitchParams.Ki, pitchParams.Kd, DIRECT),
       _velPID(&_currentVel, &_velocityOutput, &targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, REVERSE),
       _yawPID(&_currentYawRate, &_yawOutput, &targetYawRate, yawParams.Kp, yawParams.Ki, yawParams.Kd, REVERSE)
@@ -127,6 +127,7 @@ void BalanceController::begin() {
 
 void BalanceController::update() {
     _currentPitch = _bno.getAngleY();
+    
     updatePitchControl();
     //Serial.printf("pitch updated: current: %f, target: %f, output \n", _currentPitch, _targetPitch,  _pitchOutput);
 

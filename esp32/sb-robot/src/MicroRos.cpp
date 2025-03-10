@@ -30,7 +30,9 @@ geometry_msgs__msg__Twist controllerNode::_msgOut;
 rcl_publisher_t controllerNode::_publisher;
 rcl_publisher_t controllerNode::_joint_state_publisher;
 sensor_msgs__msg__JointState controllerNode::_joint_state_msg;
-geometry_msgs__msg__TransformStamped controllerNode::_tf_msg;
+//geometry_msgs__msg__TransformStamped controllerNode::_tf_msg;
+tf2_msgs__msg__TFMessage controllerNode::_tf_msg;
+
 
 rcl_publisher_t controllerNode::_tf_publisher;
 
@@ -76,28 +78,34 @@ void controllerNode::timer_callback(rcl_timer_t *timer, int64_t last_call_time)
     // node->timer_callback_impl(timer, last_call_time);
 }
 
-void controllerNode::timer_callback_joint_state(rcl_timer_t *timer, int64_t last_call_time)
-{
+void controllerNode::timer_callback_joint_state(rcl_timer_t *timer, int64_t last_call_time) {
     controllerNode *node = controllerNode::getInstance();
 
     RCLC_UNUSED(last_call_time);
-    if (timer != NULL)
-    {
+    if (timer != NULL) {
         // Update timestamp
         rmw_uros_sync_session(10); // Sync time with agent (timeout 10ms)
         int64_t time_ns = rmw_uros_epoch_nanos();
         _joint_state_msg.header.stamp.sec = time_ns / 1000000000;
         _joint_state_msg.header.stamp.nanosec = time_ns % 1000000000;
-        // Update joint position (convert degrees to radians)
+        
+        // Update chassis joint position (convert degrees to radians)
         _joint_state_msg.position.data[0] = node->_controllerState.currentPitch * (-3.14159265359 / 180.0);
+        
+        // Update wheel joint positions (in radians)
+        _joint_state_msg.position.data[1] = node->_controllerState.positionB;
+        _joint_state_msg.position.data[2] = node->_controllerState.positionA;
+        
+        // Update wheel velocities if available
+        _joint_state_msg.velocity.data[1] = node->_controllerState.speedB;
+        _joint_state_msg.velocity.data[2] = node->_controllerState.speedA;
+        
         RCSOFTCHECK(rcl_publish(&_joint_state_publisher, &_joint_state_msg, NULL));
-        // Serial.println("joint states published");
     }
 }
 
-void controllerNode::joint_state_message_init()
-{
 
+void controllerNode::joint_state_message_init() {
     // Initialize joint state message
     _joint_state_msg.header.frame_id.data = (char *)"";
     _joint_state_msg.header.frame_id.size = 0;
@@ -108,11 +116,15 @@ void controllerNode::joint_state_message_init()
     _joint_state_msg.name.size = JOINT_COUNT;
     _joint_state_msg.name.capacity = JOINT_COUNT;
 
-    // Set joint name
-    _joint_state_msg.name.data[0].data = (char *)malloc(strlen(joint_name) + 1);
-    strcpy(_joint_state_msg.name.data[0].data, joint_name);
-    _joint_state_msg.name.data[0].size = strlen(joint_name);
-    _joint_state_msg.name.data[0].capacity = strlen(joint_name) + 1;
+    // Set joint names
+    const char* joint_names[JOINT_COUNT] = {chassis_joint_name, lw_joint, rw_joint};
+    
+    for (int i = 0; i < JOINT_COUNT; i++) {
+        _joint_state_msg.name.data[i].data = (char *)malloc(strlen(joint_names[i]) + 1);
+        strcpy(_joint_state_msg.name.data[i].data, joint_names[i]);
+        _joint_state_msg.name.data[i].size = strlen(joint_names[i]);
+        _joint_state_msg.name.data[i].capacity = strlen(joint_names[i]) + 1;
+    }
 
     // Allocate memory for position, velocity, and effort arrays
     _joint_state_msg.position.data = (double *)malloc(JOINT_COUNT * sizeof(double));
@@ -128,10 +140,13 @@ void controllerNode::joint_state_message_init()
     _joint_state_msg.effort.capacity = JOINT_COUNT;
 
     // Initialize values
-    _joint_state_msg.position.data[0] = 0.0;
-    _joint_state_msg.velocity.data[0] = 0.0;
-    _joint_state_msg.effort.data[0] = 0.0;
+    for (int i = 0; i < JOINT_COUNT; i++) {
+        _joint_state_msg.position.data[i] = 0.0;
+        _joint_state_msg.velocity.data[i] = 0.0;
+        _joint_state_msg.effort.data[i] = 0.0;
+    }
 }
+
 
 // Non-static member function to handle the timer callback
 // void controllerNode::timer_callback_impl(rcl_timer_t * timer, int64_t last_call_time) {
@@ -217,10 +232,10 @@ void controllerNode::setup()
         ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, JointState),
         "joint_states"));
 
-    RCCHECK(rclc_publisher_init_default(
+   RCCHECK(rclc_publisher_init_default(
         &_tf_publisher,
         &_node,
-        ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, TransformStamped),
+        ROSIDL_GET_MSG_TYPE_SUPPORT(tf2_msgs, msg, TFMessage),
         tf_topic_name));
 
     // create timer,
@@ -272,11 +287,10 @@ void controllerNode::setup()
         on_parameter_changed, // on_parameter_changed
         this));
 
-    RCCHECK(rclc_publisher_init_default(
-        &_tf_publisher,
-        &_node,
-        ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, TransformStamped),
-        tf_topic_name));
+
+
+ 
+    
 
     // Initialize TF timer
     RCCHECK(rclc_timer_init_default(
@@ -588,55 +602,120 @@ bool controllerNode::on_parameter_changed(const Parameter *old_param, const Para
     return ret;
 }
 
-void controllerNode::initTfMessage()
-{
-    // Initialize transform stamped message
-    _tf_msg.header.frame_id.data = (char *)malloc(strlen(odom_frame_name) + 1);
-    _tf_msg.header.frame_id.size = strlen(odom_frame_name);
-    _tf_msg.header.frame_id.capacity = strlen(odom_frame_name) + 1;
-    strcpy(_tf_msg.header.frame_id.data, odom_frame_name);
+// void controllerNode::initTfMessage()
+// {
+//     // Initialize transform stamped message
+//     _tf_msg.header.frame_id.data = (char *)malloc(strlen(odom_frame_name) + 1);
+//     _tf_msg.header.frame_id.size = strlen(odom_frame_name);
+//     _tf_msg.header.frame_id.capacity = strlen(odom_frame_name) + 1;
+//     strcpy(_tf_msg.header.frame_id.data, odom_frame_name);
 
-    _tf_msg.child_frame_id.data = (char *)malloc(strlen(base_link_name) + 1);
-    _tf_msg.child_frame_id.size = strlen(base_link_name);
-    _tf_msg.child_frame_id.capacity = strlen(base_link_name) + 1;
-    strcpy(_tf_msg.child_frame_id.data, base_link_name);
+//     _tf_msg.child_frame_id.data = (char *)malloc(strlen(base_link_name) + 1);
+//     _tf_msg.child_frame_id.size = strlen(base_link_name);
+//     _tf_msg.child_frame_id.capacity = strlen(base_link_name) + 1;
+//     strcpy(_tf_msg.child_frame_id.data, base_link_name);
 
+//     // Initialize transform values to identity
+//     _tf_msg.transform.translation.x = 0.0;
+//     _tf_msg.transform.translation.y = 0.0;
+//     _tf_msg.transform.translation.z = 0.0;
+//     _tf_msg.transform.rotation.x = 0.0;
+//     _tf_msg.transform.rotation.y = 0.0;
+//     _tf_msg.transform.rotation.z = 0.0;
+//     _tf_msg.transform.rotation.w = 1.0;
+// }
+
+void controllerNode::initTfMessage() {
+    // Allocate memory for the transforms array (initially with 1 transform)
+    _tf_msg.transforms.capacity = 1;
+    _tf_msg.transforms.size = 1;
+    _tf_msg.transforms.data = (geometry_msgs__msg__TransformStamped*)malloc(
+        sizeof(geometry_msgs__msg__TransformStamped));
+    
+    // Initialize the transform
+    geometry_msgs__msg__TransformStamped* transform = &_tf_msg.transforms.data[0];
+    
+    // Set frame IDs
+    transform->header.frame_id.data = (char*)malloc(strlen(odom_frame_name) + 1);
+    transform->header.frame_id.size = strlen(odom_frame_name);
+    transform->header.frame_id.capacity = strlen(odom_frame_name) + 1;
+    strcpy(transform->header.frame_id.data, odom_frame_name);
+    
+    transform->child_frame_id.data = (char*)malloc(strlen(base_link_name) + 1);
+    transform->child_frame_id.size = strlen(base_link_name);
+    transform->child_frame_id.capacity = strlen(base_link_name) + 1;
+    strcpy(transform->child_frame_id.data, base_link_name);
+    
     // Initialize transform values to identity
-    _tf_msg.transform.translation.x = 0.0;
-    _tf_msg.transform.translation.y = 0.0;
-    _tf_msg.transform.translation.z = 0.0;
-    _tf_msg.transform.rotation.x = 0.0;
-    _tf_msg.transform.rotation.y = 0.0;
-    _tf_msg.transform.rotation.z = 0.0;
-    _tf_msg.transform.rotation.w = 1.0;
+    transform->transform.translation.x = 0.0;
+    transform->transform.translation.y = 0.0;
+    transform->transform.translation.z = 0.0;
+    transform->transform.rotation.x = 0.0;
+    transform->transform.rotation.y = 0.0;
+    transform->transform.rotation.z = 0.0;
+    transform->transform.rotation.w = 1.0;
 }
 
-void controllerNode::timer_callback_tf(rcl_timer_t *timer, int64_t last_call_time)
-{
-    controllerNode *node = controllerNode::getInstance();
 
+// void controllerNode::timer_callback_tf(rcl_timer_t *timer, int64_t last_call_time)
+// {
+//     controllerNode *node = controllerNode::getInstance();
+
+//     RCLC_UNUSED(last_call_time);
+//     if (timer != NULL)
+//     {
+//         // Get latest transform from balance controller
+//         node->_balance_controller.calculateTransform(node->_tf);
+
+//         // Update timestamp
+//         rmw_uros_sync_session(10); // Sync time with agent (timeout 10ms)
+//         int64_t time_ns = rmw_uros_epoch_nanos();
+//         //_tf_msg.header.frame_id.data = node->odom_frame_name;
+//         _tf_msg.header.stamp.sec = time_ns / 1000000000;
+//         _tf_msg.header.stamp.nanosec = time_ns % 1000000000;
+
+//         // Update transform with latest values
+//         _tf_msg.transform.translation.x = node->_tf.t_x;
+//         _tf_msg.transform.translation.y = node->_tf.t_y;
+//         _tf_msg.transform.translation.z = node->_tf.t_z;
+//         _tf_msg.transform.rotation.x = node->_tf.r_x;
+//         _tf_msg.transform.rotation.y = node->_tf.r_y;
+//         _tf_msg.transform.rotation.z = node->_tf.r_z;
+//         _tf_msg.transform.rotation.w = node->_tf.r_w;
+
+//         // Publish the transform
+//         RCSOFTCHECK(rcl_publish(&_tf_publisher, &_tf_msg, NULL));
+//     }
+// }
+
+void controllerNode::timer_callback_tf(rcl_timer_t *timer, int64_t last_call_time) {
+    controllerNode *node = controllerNode::getInstance();
+    
     RCLC_UNUSED(last_call_time);
-    if (timer != NULL)
-    {
+    if (timer != NULL) {
         // Get latest transform from balance controller
         node->_balance_controller.calculateTransform(node->_tf);
-
+        
+        // Get pointer to the first transform in the array
+        geometry_msgs__msg__TransformStamped* transform = &_tf_msg.transforms.data[0];
+        
         // Update timestamp
         rmw_uros_sync_session(10); // Sync time with agent (timeout 10ms)
         int64_t time_ns = rmw_uros_epoch_nanos();
-        _tf_msg.header.stamp.sec = time_ns / 1000000000;
-        _tf_msg.header.stamp.nanosec = time_ns % 1000000000;
-
+        transform->header.stamp.sec = time_ns / 1000000000;
+        transform->header.stamp.nanosec = time_ns % 1000000000;
+        
         // Update transform with latest values
-        _tf_msg.transform.translation.x = node->_tf.t_x;
-        _tf_msg.transform.translation.y = node->_tf.t_y;
-        _tf_msg.transform.translation.z = node->_tf.t_z;
-        _tf_msg.transform.rotation.x = node->_tf.r_x;
-        _tf_msg.transform.rotation.y = node->_tf.r_y;
-        _tf_msg.transform.rotation.z = node->_tf.r_z;
-        _tf_msg.transform.rotation.w = node->_tf.r_w;
-
-        // Publish the transform
+        transform->transform.translation.x = node->_tf.t_x;
+        transform->transform.translation.y = node->_tf.t_y;
+        transform->transform.translation.z = node->_tf.t_z;
+        transform->transform.rotation.x = node->_tf.r_x;
+        transform->transform.rotation.y = node->_tf.r_y;
+        transform->transform.rotation.z = node->_tf.r_z;
+        transform->transform.rotation.w = node->_tf.r_w;
+        
+        // Publish the transform message
         RCSOFTCHECK(rcl_publish(&_tf_publisher, &_tf_msg, NULL));
     }
 }
+

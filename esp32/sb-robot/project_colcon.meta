@@ -7,10 +7,30 @@
                 "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=20",
                 "-DRMW_UXRCE_MAX_SERVICES=10",
                 "-DRMW_UXRCE_MAX_HISTORY=4",
-                "-DRMW_UXRCE_MAX_CLIENTS=1",
+                "-DRMW_UXRCE_MAX_CLIENTS=1"
                 
                 
             ]
+        },
+        "microxrcedds_client": {
+            "cmake-args": [
+                "-DUCLIENT_MAX_SESSION_CONNECTION_ATTEMPTS=150",
+                "-DUCLIENT_MIN_SESSION_CONNECTION_INTERVAL=25",
+                "-DUCLIENT_MAX_STREAMS_PER_SESSION=4"
+            ]
         }
+    },
+    "packages": {
+        "rclc": {},
+        "rcl": {},
+        "rclc_parameter": {},
+        "rcutils": {},
+        "rmw_implementation": {},
+        "rmw_microxrcedds": {},
+        "rosidl_typesupport": {},
+        "rosidl_typesupport_microxrcedds": {},
+        "microxrcedds_client": {},
+        "tf2_msgs": {}
     }
+    
 }

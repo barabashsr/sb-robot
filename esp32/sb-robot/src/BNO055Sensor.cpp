@@ -2,7 +2,9 @@
 #include "BNO055Sensor.h"
 
 BNO055Sensor::BNO055Sensor(uint8_t sda_pin, uint8_t scl_pin, uint32_t i2c_freq)
-    : I2CBNO(1), bno(55, BNO055_ADDRESS_A, &I2CBNO), _sda_pin(sda_pin), _scl_pin(scl_pin), _i2c_freq(i2c_freq) {}
+    : I2CBNO(1), bno(55, BNO055_ADDRESS_A, &I2CBNO), _sda_pin(sda_pin), _scl_pin(scl_pin), _i2c_freq(i2c_freq) {
+        
+    }
 
 bool BNO055Sensor::begin() {
     I2CBNO.begin(_sda_pin, _scl_pin, _i2c_freq);

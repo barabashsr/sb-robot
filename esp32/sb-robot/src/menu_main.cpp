@@ -62,7 +62,7 @@ const float wheelRadius = 0.0325;    // in meters
 const float wheelSeparation = 0.172; // in meters
 // float manualOfsetAngle = 0.77;
 
-const int STATE_PRINT_INTERVAL = 200;
+const int STATE_PRINT_INTERVAL = 1000;
 unsigned long lastPrintTime = 0;
 
 // Bluetooth serial communication
@@ -215,9 +215,21 @@ void updateMenuValues()
         /* Serial.printf(" Pitch: Kp: %.2f, Kd: %.2f, Ki: %.2f, output:  %.2f, pitch:  %.2f\n",
            Kp, Ki, Kd, contrState.controlOutput, contrState.currentPitch
         ); */
-        Serial.printf(" Vel: Kp: %.2f, Ki: %.2f, Kd: %.2f, On: %s  , pitch:  %.2f\n",
-                      Kp, Ki, Kd, contrState.yawPIDOn ? "true" : "false", contrState.currentPitch);
+        // Serial.printf(" Vel: Kp: %.2f, Ki: %.2f, Kd: %.2f, On: %s  , pitch:  %.2f\n",
+        //               Kp, Ki, Kd, contrState.yawPIDOn ? "true" : "false", contrState.currentPitch);
         // Serial.print(contrState.pitchPIDOn);
+        Serial.printf(
+            " Pitch: t: %.2f, c: %.2f, out: %.0f\
+            Vel: t: %.2f, c: %.2f, \
+            PID: P: %s  , V: %s  \n",
+            contrState.targetPitch, 
+            contrState.currentPitch,
+            contrState.controlOutput,
+            contrState.targetVel,
+            contrState.currentVel,
+            contrState.pitchPIDOn ? "true" : "false", 
+            contrState.velPIDOn ? "true" : "false"
+            );
 
         setLedColor(bnoCalib);
     }
@@ -420,6 +432,7 @@ void setup()
         Serial.println("BNO055 initialized successfully");
     }
     bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
+    bno.update();
 
     // paramsPitch.direct = false;
     // paramsPitch.max = 255;
@@ -445,14 +458,14 @@ void setup()
 
 void loop()
 {
-    controller.updateState();
-    taskManager.runLoop();
-    rosNode.spinNode();
+    //controller.updateState();
+    //taskManager.runLoop();
+    //rosNode.spinNode();
     // RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
     // bno.update();
     // controller.update();
 
-    updateMenuValues();
+    //updateMenuValues();
 }
 
 void CALLBACK_FUNCTION SetKdPalst(int id)

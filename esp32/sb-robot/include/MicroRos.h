@@ -16,12 +16,16 @@
 #include "BalanceController.h"
 #include "ParameterRegistry.h"
 #include <geometry_msgs/msg/transform_stamped.h>
+#include <tf2_msgs/msg/tf_message.h>
+//#include </tf2_msgs/tf2_msgs/msg/tf_message.h>
+//#include "tf2_msgs/msg/tf_message.h"
+
 #include <micro_ros_utilities/type_utilities.h>
 
 
 // #define ROS_DOMAIN_ID 77
 
-#define JOINT_COUNT 1
+#define JOINT_COUNT 3
 
 #define RCCHECK(fn)                                                                      \
     {                                                                                    \
@@ -97,7 +101,9 @@ private:
     static rclc_parameter_server_t _param_server; // Parameter server object
     static rcl_publisher_t _publisher;            // publisher object
     static rcl_publisher_t _tf_publisher;
-    static geometry_msgs__msg__TransformStamped _tf_msg;
+    static tf2_msgs__msg__TFMessage _tf_msg;
+
+    //static geometry_msgs__msg__TransformStamped _tf_msg;
 
     static rcl_publisher_t _joint_state_publisher;
     static sensor_msgs__msg__JointState _joint_state_msg;
@@ -129,11 +135,15 @@ private:
     rcl_timer_t _timer_joint_state;
 
     geometry_msgs__msg__Twist _twst_msg;
-    const int _handle_count = 4;
+    const int _handle_count = 8;
 
     static geometry_msgs__msg__Twist _msgOut;
 
-    const char *joint_name = "chassis_joint"; // name of the pivoting joint
+    const char *chassis_joint_name = "chassis_joint"; // name of the pivoting joint
+    const char *lw_joint = "LW_joint"; // name of the left wheel joint
+    const char *rw_joint = "RW_joint"; // name of the left wheel joint
+
+
     // float angleY = 0.0; // This will be updated with your IMU data
 
     static void timer_callback(rcl_timer_t *timer, int64_t last_call_time);
