@@ -11,6 +11,7 @@
 #include "MicroRos.h"
 #include "RobotServer.h"
 #include "ParameterRegistry.h"
+#include "ToFSensor.h"
 
 #define EEPROM_SIZE 512
 #ifndef MENU_MAGIC_KEY
@@ -87,6 +88,8 @@ int64_t TicKs_p_r;
 // BNO055 pins
 const int BNO_SDA = 15;
 const int BNO_SCL = 16;
+
+ToFSensor tof(Wire);
 
 BNO055Sensor bno(BNO_SDA, BNO_SCL);
 

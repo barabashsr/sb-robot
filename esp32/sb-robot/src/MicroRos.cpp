@@ -1,6 +1,7 @@
 #include "MicroRos.h"
 
 controllerNode::controllerNode(
+    ToFSensor &tof_sensor,
     ParameterRegistry &parameterRegistry,
     BalanceController &balance_controller,
     uint ros_domain_id,
@@ -15,7 +16,7 @@ controllerNode::controllerNode(
     pidParams &pitchParams,
     pidParams &velParams,
     pidParams &yawParams)
-    : _parameterRegistry(parameterRegistry), _balance_controller(balance_controller), _ros_domain_id(ros_domain_id), _agentIP(agentIP), _ssid(ssid), _password(password), _agent_port(agent_port),
+    : _tof_sensor(tof_sensor), _parameterRegistry(parameterRegistry), _balance_controller(balance_controller), _ros_domain_id(ros_domain_id), _agentIP(agentIP), _ssid(ssid), _password(password), _agent_port(agent_port),
       _twist_topic(twist_topic), _targetVel(targetVel), _targetYawRate(targetYawRate),
       _controllerState(contrState), _pitchParams(pitchParams), _velParams(velParams), _yawParams(yawParams)
 {
@@ -32,6 +33,10 @@ rcl_publisher_t controllerNode::_joint_state_publisher;
 sensor_msgs__msg__JointState controllerNode::_joint_state_msg;
 //geometry_msgs__msg__TransformStamped controllerNode::_tf_msg;
 tf2_msgs__msg__TFMessage controllerNode::_tf_msg;
+
+//point cloud publisher
+rcl_publisher_t controllerNode::_point_cloud_publisher;  
+sensor_msgs__msg__PointCloud2 controllerNode::_point_cloud_msg;
 
 
 rcl_publisher_t controllerNode::_tf_publisher;
@@ -225,7 +230,21 @@ void controllerNode::setup()
         &_node,
         ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
         "twist_topic"));
+    
+    // Create point cloud publisher
+    RCCHECK(rclc_publisher_init_default(
+        &_point_cloud_publisher,
+        &_node,
+        ROSIDL_GET_MSG_TYPE_SUPPORT(sensor_msgs, msg, PointCloud2),
+        "point_cloud"));
 
+    // Create marker array publisher
+    RCCHECK(rclc_publisher_init_default(
+        &_marker_array_publisher,
+        &_node,
+        ROSIDL_GET_MSG_TYPE_SUPPORT(visualization_msgs, msg, MarkerArray),
+        "marker_array"));
+    
     RCCHECK(rclc_publisher_init_default(
         &_joint_state_publisher,
         &_node,

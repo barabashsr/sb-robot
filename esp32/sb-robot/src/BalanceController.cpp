@@ -120,6 +120,9 @@ void BalanceController::begin() {
     setTuningsYaw();
     Serial.println("init");
 
+
+    
+
     xTaskCreatePinnedToCore(controlTask, "BalanceControl", 10000, this, 3, NULL, static_cast<BaseType_t>(_coreNum));
     xTaskCreatePinnedToCore(bnoTask, "BNOUpdateTask", 10000, this, 3, NULL, static_cast<BaseType_t>(_coreNum));
 
@@ -190,9 +193,23 @@ void BalanceController::updatePitchControl() {
 }
 
 void BalanceController::updateVelocityControl() {
-    if(_velPidOn) {
-        _velPID.Compute();
-        _targetPitch = _velocityOutput;
+    static bool firstRun = true;
+    
+    if (firstRun) {
+        // On first run, use manual angle instead of PID output
+        _targetPitch = _manualAngle;
+        firstRun = false;
+        return;
+    }
+    if (_velPidOn) {
+        // Check for valid velocity before computing
+        if (!isnan(_currentVel) && !isinf(_currentVel)) {
+            _velPID.Compute();
+            _targetPitch = _velocityOutput;
+        } else {
+            // If velocity is invalid, use manual angle
+            _targetPitch = _manualAngle;
+        }
     } else {
         _targetPitch = _manualAngle;
     }
@@ -231,8 +248,8 @@ void BalanceController::calculateVelocities(){
     _speedB = _motors.getSpeedB();
     _positionA = _motors.getPositionA();
     _positionB = _motors.getPositionB();
-    _currentVel = (_speedA + _speedB) * _wheelRadius /2; // Assuming this gives linear velocity
-    _currentYawRate = (_speedA - _speedB) * _wheelRadius / _wheelSeparation; // Assuming this gives yaw rate
+    _currentVel = (_speedA + _speedB) * _wheelRadius /2; 
+    _currentYawRate = (_speedA - _speedB) * _wheelRadius / _wheelSeparation; 
     
 
 };

@@ -11,10 +11,15 @@
 #include <string.h>
 #include <rcl/timer.h>
 #include <geometry_msgs/msg/twist.h>
+#include <sensor_msgs/msg/point_cloud2.h>
+#include <sensor_msgs/msg/point_field.h>
+#include <visualization_msgs/msg/marker_array.h>
+
 #include <sensor_msgs/msg/joint_state.h>
 #include <rclc_parameter/rclc_parameter.h>
 #include "BalanceController.h"
 #include "ParameterRegistry.h"
+#include "ToFSensor.h"
 #include <geometry_msgs/msg/transform_stamped.h>
 #include <tf2_msgs/msg/tf_message.h>
 //#include </tf2_msgs/tf2_msgs/msg/tf_message.h>
@@ -49,6 +54,7 @@ class controllerNode
 {
 public:
     controllerNode(
+        ToFSensor &tof_sensor,
         ParameterRegistry &parameterRegistry,
         BalanceController &balance_controller,
         uint ros_domain_id,
@@ -79,6 +85,7 @@ public:
     controllerState &_controllerState;
 
 private:
+    ToFSensor &_tof_sensor;
     transform _tf;
     ParameterRegistry &_parameterRegistry;
     static controllerNode *instance;
@@ -102,6 +109,18 @@ private:
     static rcl_publisher_t _publisher;            // publisher object
     static rcl_publisher_t _tf_publisher;
     static tf2_msgs__msg__TFMessage _tf_msg;
+
+    //point cloud publisher
+    static rcl_publisher_t _point_cloud_publisher;  
+    static sensor_msgs__msg__PointCloud2 _point_cloud_msg;
+
+    //marker array publisher
+    static rcl_publisher_t _marker_array_publisher;
+    static visualization_msgs__msg__MarkerArray _marker_array_msg;
+
+    //point field publisher
+    // static rcl_publisher_t _point_field_publisher;
+    // static sensor_msgs__msg__PointField _point_field_msg;
 
     //static geometry_msgs__msg__TransformStamped _tf_msg;
 
