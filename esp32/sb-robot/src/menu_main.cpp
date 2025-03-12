@@ -11,13 +11,34 @@
 #include "MicroRos.h"
 #include "RobotServer.h"
 #include "ParameterRegistry.h"
-#include "ToFSensor.h"
+
+
+#ifndef TOF_SENSOR_H
+#define TOF_SENSOR_H
+
+
+// Your existing ToFSensor class definition
+
+#endif // TOF_SENSOR_H
 
 #define EEPROM_SIZE 512
 #ifndef MENU_MAGIC_KEY
 #define MENU_MAGIC_KEY 0xfade
 #endif
 
+
+// Define pins for VL53L5CX
+#define PWREN_PIN -1
+#define LPN_PIN -1
+#define I2C_RST_PIN -1
+#define INT_PIN 42
+
+#define SDA_PIN 8
+#define SCL_PIN 9
+
+//TwoWire I2C = TwoWire(0);
+ToFSensor tof(Wire, PWREN_PIN, LPN_PIN, I2C_RST_PIN, INT_PIN, 0x29);
+VL53L5CX_ResultsData results;
 // #define BT_RX 19
 // #define BT_TX 20
 
@@ -89,7 +110,7 @@ int64_t TicKs_p_r;
 const int BNO_SDA = 15;
 const int BNO_SCL = 16;
 
-ToFSensor tof(Wire);
+
 
 BNO055Sensor bno(BNO_SDA, BNO_SCL);
 
@@ -149,6 +170,7 @@ String ssid = "Beeline_2G_F13F37";
 String password = "1122334455667788";
 
 controllerNode rosNode(
+    tof,
     paramRegistry,
     controller,
     ros_domain_id,
@@ -436,6 +458,15 @@ void setup()
     }
     bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
     bno.update();
+    rosNode.setup();
+
+
+    if (!tof.begin()) {
+        Serial.println("Failed to initialize VL53L5CX sensor!");
+        while (1) delay(10);
+    } else {
+      Serial.println("OK to initialize VL53L5CX sensor!");
+    }
 
     // paramsPitch.direct = false;
     // paramsPitch.max = 255;
@@ -454,21 +485,29 @@ void setup()
 
     /// MICRO ROS SETUP
 
-    rosNode.setup();
+    
     robotServer.begin();
     // MICRO ROS SETUP
 }
 
 void loop()
-{
-    controller.updateState();
-    taskManager.runLoop();
-    rosNode.spinNode();
-    // RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
+{   
+
+    // if (tof.didInterrupt()) {
+    //     if (tof.readDataOnInterrupt(results)) {
+    //         tof.printData();
+            
+    //     }
+    // }
+    
+    // controller.updateState();
+    // taskManager.runLoop();
+    // rosNode.spinNode();
+    // // RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
     // bno.update();
     // controller.update();
 
-    updateMenuValues();
+    // updateMenuValues();
 }
 
 void CALLBACK_FUNCTION SetKdPalst(int id)

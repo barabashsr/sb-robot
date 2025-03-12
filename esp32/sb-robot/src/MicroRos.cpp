@@ -239,11 +239,11 @@ void controllerNode::setup()
         "point_cloud"));
 
     // Create marker array publisher
-    RCCHECK(rclc_publisher_init_default(
-        &_marker_array_publisher,
-        &_node,
-        ROSIDL_GET_MSG_TYPE_SUPPORT(visualization_msgs, msg, MarkerArray),
-        "marker_array"));
+    // RCCHECK(rclc_publisher_init_default(
+    //     &_marker_array_publisher,
+    //     &_node,
+    //     ROSIDL_GET_MSG_TYPE_SUPPORT(visualization_msgs, msg, MarkerArray),
+    //     "marker_array"));
     
     RCCHECK(rclc_publisher_init_default(
         &_joint_state_publisher,

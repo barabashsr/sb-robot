@@ -1,106 +1,89 @@
-/*
-  Read an 8x8 array of distances from the VL53L5CX
-  By: Nathan Seidle
-  SparkFun Electronics
-  Date: October 26, 2021
-  License: MIT. See license file for more information but you can
-  basically do whatever you want with this code.
-
-  This example shows how to setup the I2C bus to minimize the amount
-  of time taken to init the sensor.
-
-  At each power on reset, a staggering 86,000 bytes of firmware have to be sent to the sensor.
-  At 100kHz, this can take ~9.4s. By increasing the clock speed, we can cut this time down to ~1.4s.
-
-  Two parameters can be tweaked:
-
-    Clock speed: The VL53L5CX has a max bus speed of 1MHz.
-
-    Max transfer size: The majority of Arduino platforms default to 32 bytes. If you are using one
-    with a larger buffer (ESP32 is 128 bytes for example), this can help decrease transfer times a bit.
-
-  Measurements:
-    Default 100kHz clock and 32 byte transfer: 9.4s
-    400kHz, 32 byte transfer: 2.8s
-    400kHz, 128 byte transfer: 2.5s
-    1MHz, 32 byte transfer: 1.65s
-    1MHz, 128 byte transfer: 1.4s
-
-  Feel like supporting our work? Buy a board from SparkFun!
-  https://www.sparkfun.com/products/18642
-
-*/
-
 #include <Wire.h>
+#include "ToFSensor.h"
 
-#include <SparkFun_VL53L5CX_Library.h> //http://librarymanager/All#SparkFun_VL53L5CX
+// Define pins for VL53L5CX
+#define PWREN_PIN -1
+#define LPN_PIN -1
+#define I2C_RST_PIN -1
+#define INT_PIN 42
 
-SparkFun_VL53L5CX myImager;
-VL53L5CX_ResultsData measurementData; // Result data class structure, 1356 byes of RAM
+#define SDA_PIN 8
+#define SCL_PIN 9
 
-int imageResolution = 0; //Used to pretty print output
-int imageWidth = 0; //Used to pretty print output
+//TwoWire I2C = TwoWire(0);
+ToFSensor tof(Wire, PWREN_PIN, LPN_PIN, I2C_RST_PIN, INT_PIN, 0x29);
+VL53L5CX_ResultsData results;
 
-void setup()
-{
-  Serial.begin(115200);
-  delay(1000);
-  Serial.println("SparkFun VL53L5CX Imager Example");
+void setup() {
+    Serial.begin(115200);
+    while (!Serial) delay(10);
+    
+    Serial.println("VL53L5CX ToF Sensor Interrupt Test");
+    
+    // Initialize I2C
+    Wire.begin();
+    Wire.setClock(400000); // 1 MHz
+    
+    // Initialize sensor
+    if (!tof.begin()) {
+        Serial.println("Failed to initialize VL53L5CX sensor!");
+        while (1) delay(10);
+    } else {
+      Serial.println("OK to initialize VL53L5CX sensor!");
+    }
+    
+    // Set resolution to 8x8
+    //tof.setResolution(64); // 8x8 = 64 zones
+    //Serial.printf("OK to setup resolution!");
 
-  Wire.begin(); //This resets I2C bus to 100kHz
-  Wire.setClock(1000000); //Sensor has max I2C freq of 1MHz
-  Serial.printf("wire clock: %d\n", Wire.getClock());
-
-  //myImager.setWireMaxPacketSize(64); //Increase default from 32 bytes to 128 - not supported on all platforms
-
-  Serial.println("Initializing sensor board. This can take up to 10s. Please wait.");
-
-  //Time how long it takes to transfer firmware to sensor
-  long startTime = millis();
-  bool startup = myImager.begin();
-  long stopTime = millis();
-
-  if (startup == false)
-  {
-    Serial.println(F("Sensor not found - check your wiring. Freezing"));
-    while (1) ;
-  }
-
-  Serial.print("Firmware transfer time: ");
-  float timeTaken = (stopTime - startTime) / 1000.0;
-  Serial.print(timeTaken, 3);
-  Serial.println("s");
-
-  myImager.setResolution(8*8); //Enable all 64 pads
-
-  imageResolution = myImager.getResolution(); //Query sensor for current resolution - either 4x4 or 8x8
-  imageWidth = sqrt(imageResolution); //Calculate printing width
-
-  myImager.startRanging();
+    
+    // Set ranging frequency to 15Hz (max for 8x8 mode)
+    //tof.setRangingFrequency(15);
+    //Serial.printf("OK to setup frequency!");
+    
+    // Setup interrupt handling
+    // if (!tof.setupInterrupt()) {
+    //     Serial.println("Failed to setup interrupt!");
+    //     while (1) delay(10);
+    // } else {
+    //   Serial.println("OK to setup interrupt!");
+    // }
+    
+    // Start ranging
+    //tof.setRanging();
+    //Serial.printf("OK to setup ranging!");
 }
 
-void loop()
-{
-  //Poll sensor for new data
-  if (myImager.isDataReady() == true)
-  {
-    if (myImager.getRangingData(&measurementData)) //Read distance data into array
-    {
-      //The ST library returns the data transposed from zone mapping shown in datasheet
-      //Pretty-print data with increasing y, decreasing x to reflect reality
-      for (int y = 0 ; y <= imageWidth * (imageWidth - 1) ; y += imageWidth)
-      {
-        for (int x = imageWidth - 1 ; x >= 0 ; x--)
-        {
-          Serial.print("\t");
-          Serial.print(measurementData.distance_mm[x + y]);
+void loop() {
+    //Check if new data is available via interrupt
+    if (tof.didInterrupt()) {
+        if (tof.readDataOnInterrupt(results)) {
+            //Serial.println(tof.getIntegrationTime());
+            tof.printData();
+            // Process and print the data
+            // Serial.println("VL53L5CX Distance Data (mm):");
+            
+            // int imageWidth = 8; // For 8x8 resolution
+            
+            // // Print the data in a grid format
+            // for (int y = 0; y < imageWidth; y++) {
+            //     for (int x = 0; x < imageWidth; x++) {
+            //         // Calculate index in the distance array
+            //         int idx = (imageWidth - 1 - x) + y * imageWidth;
+                    
+            //         Serial.print("\t");
+            //         Serial.print(results.distance_mm[idx]);
+            //     }
+            //     Serial.println();
+            // }
+            // Serial.println();
         }
-        Serial.println();
-      }
-      Serial.println();
-      Serial.printf("wire clock: %d\n", Wire.getClock());
     }
-  }
-
-  delay(5); //Small delay between polling
+    //tof.readData(results);
+    //tof.printData();
+    
+    // Do other tasks here without blocking
+    // ...
+    
+    delay(5); // Small delay
 }
