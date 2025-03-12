@@ -7,9 +7,10 @@
 #include <rclc/executor.h>
 #include <std_msgs/msg/int32.h>
 
+
 // WiFi credentials
-char* ssid = "Beeline_2G_F13F37";
-char* password = "1122334455667788";
+const char* ssid = "Beeline_2G_F13F37";
+const char* password = "1122334455667788";
 
 // micro-ROS agent IP and port
 IPAddress agent_ip(192, 168, 1, 74);

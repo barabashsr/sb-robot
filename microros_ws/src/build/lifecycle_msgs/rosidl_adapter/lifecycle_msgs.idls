@@ -1,8 +1,0 @@
-/home/user/robo/sb-robot/microros_ws/src/build/lifecycle_msgs/rosidl_adapter/lifecycle_msgs:msg/State.idl
-/home/user/robo/sb-robot/microros_ws/src/build/lifecycle_msgs/rosidl_adapter/lifecycle_msgs:msg/Transition.idl
-/home/user/robo/sb-robot/microros_ws/src/build/lifecycle_msgs/rosidl_adapter/lifecycle_msgs:msg/TransitionDescription.idl
-/home/user/robo/sb-robot/microros_ws/src/build/lifecycle_msgs/rosidl_adapter/lifecycle_msgs:msg/TransitionEvent.idl
-/home/user/robo/sb-robot/microros_ws/src/build/lifecycle_msgs/rosidl_adapter/lifecycle_msgs:srv/ChangeState.idl
-/home/user/robo/sb-robot/microros_ws/src/build/lifecycle_msgs/rosidl_adapter/lifecycle_msgs:srv/GetAvailableStates.idl
-/home/user/robo/sb-robot/microros_ws/src/build/lifecycle_msgs/rosidl_adapter/lifecycle_msgs:srv/GetAvailableTransitions.idl
-/home/user/robo/sb-robot/microros_ws/src/build/lifecycle_msgs/rosidl_adapter/lifecycle_msgs:srv/GetState.idl

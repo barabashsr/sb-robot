@@ -162,7 +162,7 @@ BalanceController controller(motors,
 
 IPAddress agent_ip; //(192, 168, 1, 74);
 uint16_t agent_port = 8888;
-uint ros_domain_id = 77;
+uint ros_domain_id = 0;
 String twist_topic = "twist_topic";
 String localIP = "192.168.1.74";
 
@@ -446,27 +446,27 @@ void setup()
     pinMode(RGB_BUILTIN, OUTPUT);
 
     // setup bno
-    if (!bno.begin())
-    {
-        Serial.println("BNO055 initialization failed");
-        while (1)
-            ;
-    }
-    else
-    {
-        Serial.println("BNO055 initialized successfully");
-    }
-    bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
-    bno.update();
+    // if (!bno.begin())
+    // {
+    //     Serial.println("BNO055 initialization failed");
+    //     while (1)
+    //         ;
+    // }
+    // else
+    // {
+    //     Serial.println("BNO055 initialized successfully");
+    // }
+    // bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
+    // bno.update();
     rosNode.setup();
 
 
-    if (!tof.begin()) {
-        Serial.println("Failed to initialize VL53L5CX sensor!");
-        while (1) delay(10);
-    } else {
-      Serial.println("OK to initialize VL53L5CX sensor!");
-    }
+    // if (!tof.begin()) {
+    //     Serial.println("Failed to initialize VL53L5CX sensor!");
+    //     while (1) delay(10);
+    // } else {
+    //   Serial.println("OK to initialize VL53L5CX sensor!");
+    // }
 
     // paramsPitch.direct = false;
     // paramsPitch.max = 255;

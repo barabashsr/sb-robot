@@ -209,7 +209,8 @@ void controllerNode::setup()
     RCCHECK(rcl_init_options_set_domain_id(&_init_options, _ros_domain_id));
     Serial.println("ID set init");
     // Initialize support with options
-    RCCHECK(rclc_support_init_with_options(&_support, 0, NULL, &_init_options, &_allocator));
+    RCCHECK(rclc_support_init(&_support, 0, NULL, &_allocator));
+    // RCCHECK(rclc_support_init_with_options(&_support, 0, NULL, &_init_options, &_allocator));
     Serial.println("Support init");
 
     // create node

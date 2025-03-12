@@ -1,4 +1,0 @@
-/home/user/robo/sb-robot/microros_ws/src/build/micro_ros_agent/CMakeFiles/xrceagent.dir
-/home/user/robo/sb-robot/microros_ws/src/build/micro_ros_agent/CMakeFiles/micro_ros_agent.dir
-/home/user/robo/sb-robot/microros_ws/src/build/micro_ros_agent/CMakeFiles/edit_cache.dir
-/home/user/robo/sb-robot/microros_ws/src/build/micro_ros_agent/CMakeFiles/rebuild_cache.dir

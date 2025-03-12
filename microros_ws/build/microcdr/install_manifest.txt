@@ -1,8 +1,0 @@
-/home/user/robo/sb-robot/microros_ws/install/microcdr/lib/libmicrocdr.a
-/home/user/robo/sb-robot/microros_ws/install/microcdr/include/ucdr/visibility.h
-/home/user/robo/sb-robot/microros_ws/install/microcdr/include/ucdr/microcdr.h
-/home/user/robo/sb-robot/microros_ws/install/microcdr/include/ucdr/config.h
-/home/user/robo/sb-robot/microros_ws/install/microcdr/share/microcdr/cmake/microcdrTargets.cmake
-/home/user/robo/sb-robot/microros_ws/install/microcdr/share/microcdr/cmake/microcdrTargets-release.cmake
-/home/user/robo/sb-robot/microros_ws/install/microcdr/share/microcdr/cmake/microcdrConfig.cmake
-/home/user/robo/sb-robot/microros_ws/install/microcdr/share/microcdr/cmake/microcdrConfigVersion.cmake

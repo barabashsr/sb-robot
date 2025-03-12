@@ -1,6 +1,0 @@
-Invoking command in '/home/user/robo/sb-robot/microros_ws/build/microcdr': /usr/bin/cmake /home/user/robo/sb-robot/microros_ws/src/eProsima/Micro-CDR -DUCDR_ISOLATED_INSTALL=OFF -DCMAKE_INSTALL_PREFIX=/home/user/robo/sb-robot/microros_ws/install/microcdr
-Invoked command in '/home/user/robo/sb-robot/microros_ws/build/microcdr' returned '0': /usr/bin/cmake /home/user/robo/sb-robot/microros_ws/src/eProsima/Micro-CDR -DUCDR_ISOLATED_INSTALL=OFF -DCMAKE_INSTALL_PREFIX=/home/user/robo/sb-robot/microros_ws/install/microcdr
-Invoking command in '/home/user/robo/sb-robot/microros_ws/build/microcdr': /usr/bin/cmake --build /home/user/robo/sb-robot/microros_ws/build/microcdr -- -j20 -l20
-Invoked command in '/home/user/robo/sb-robot/microros_ws/build/microcdr' returned '0': /usr/bin/cmake --build /home/user/robo/sb-robot/microros_ws/build/microcdr -- -j20 -l20
-Invoking command in '/home/user/robo/sb-robot/microros_ws/build/microcdr': /usr/bin/cmake --install /home/user/robo/sb-robot/microros_ws/build/microcdr
-Invoked command in '/home/user/robo/sb-robot/microros_ws/build/microcdr' returned '0': /usr/bin/cmake --install /home/user/robo/sb-robot/microros_ws/build/microcdr

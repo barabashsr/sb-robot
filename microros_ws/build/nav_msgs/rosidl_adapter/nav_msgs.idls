@@ -1,9 +1,0 @@
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:msg/GridCells.idl
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:msg/MapMetaData.idl
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:msg/OccupancyGrid.idl
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:msg/Odometry.idl
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:msg/Path.idl
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:srv/GetMap.idl
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:srv/GetPlan.idl
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:srv/LoadMap.idl
-/home/user/robo/sb-robot/microros_ws/build/nav_msgs/rosidl_adapter/nav_msgs:srv/SetMap.idl
