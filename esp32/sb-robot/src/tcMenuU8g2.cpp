@@ -74,7 +74,11 @@ void U8g2Drawable::internalDrawText(const Coord &where, const void *font, int ma
     auto extraHeight = u8g2->getMaxCharHeight();
     u8g2->setDrawColor(drawColor);
 #ifdef TC_USE_UTF_8_ENCODING
+<<<<<<< .merge_file_1FQJW8
     u8g2->drawUTF8(where.x, where.y + extraHeight, text);
+=======
+    u8g2->drawUTF8(where.x - 2, where.y + extraHeight, text);
+>>>>>>> .merge_file_1dbEDn
 #else
     u8g2->setCursor(where.x, where.y + extraHeight);
     u8g2->print(text);

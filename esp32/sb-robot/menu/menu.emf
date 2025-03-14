@@ -1,6 +1,7 @@
 {
   "version": "1.00",
   "projectName": "Project description",
+<<<<<<< .merge_file_CDA95I
   "author": "user",
   "items": [
     {
@@ -55,6 +56,25 @@
         "id": 27,
         "eepromAddress": -1,
         "functionName": "setTargetYawRa",
+=======
+  "author": "sergeybarabash",
+  "items": [
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "250",
+      "item": {
+        "maxValue": 500,
+        "offset": -250,
+        "divisor": 10,
+        "unitName": "rps",
+        "step": 1,
+        "name": "SetA",
+        "variableName": "SetA",
+        "id": 11,
+        "eepromAddress": -1,
+        "functionName": "SetSpeedA",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -67,11 +87,20 @@
       "defaultValue": "0.0",
       "item": {
         "numDecimalPlaces": 3,
+<<<<<<< .merge_file_CDA95I
         "name": "Pitch",
         "variableName": "Pitch",
         "id": 23,
         "eepromAddress": -1,
         "readOnly": true,
+=======
+        "name": "Speed A",
+        "variableName": "SpeedA",
+        "id": 1,
+        "eepromAddress": -1,
+        "functionName": "StopA",
+        "readOnly": false,
+>>>>>>> .merge_file_D6zxAV
         "localOnly": false,
         "visible": true,
         "staticDataInRAM": false
@@ -80,6 +109,7 @@
     {
       "parentId": 0,
       "type": "analogItem",
+<<<<<<< .merge_file_CDA95I
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
@@ -92,6 +122,20 @@
         "id": 30,
         "eepromAddress": 10,
         "functionName": "SetPitchOfset",
+=======
+      "defaultValue": "250",
+      "item": {
+        "maxValue": 500,
+        "offset": -250,
+        "divisor": 10,
+        "unitName": "rps",
+        "step": 1,
+        "name": "SetB",
+        "variableName": "SetB",
+        "id": 12,
+        "eepromAddress": -1,
+        "functionName": "SetSpeedB",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -100,6 +144,7 @@
     },
     {
       "parentId": 0,
+<<<<<<< .merge_file_CDA95I
       "type": "actionMenu",
       "item": {
         "name": "Save",
@@ -107,6 +152,17 @@
         "id": 14,
         "eepromAddress": -1,
         "functionName": "SavePID",
+=======
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "Speed B",
+        "variableName": "SpeedB",
+        "id": 2,
+        "eepromAddress": -1,
+        "functionName": "StopB",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -115,6 +171,7 @@
     },
     {
       "parentId": 0,
+<<<<<<< .merge_file_CDA95I
       "type": "subMenu",
       "item": {
         "secured": false,
@@ -164,6 +221,17 @@
         "id": 46,
         "eepromAddress": 50,
         "functionName": "setThresholdB",
+=======
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 1,
+        "name": "Ticks A",
+        "variableName": "TicksA",
+        "id": 9,
+        "eepromAddress": -1,
+        "functionName": "ResetTicsA",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -172,6 +240,7 @@
     },
     {
       "parentId": 0,
+<<<<<<< .merge_file_CDA95I
       "type": "subMenu",
       "item": {
         "secured": false,
@@ -196,6 +265,17 @@
         "id": 42,
         "eepromAddress": 46,
         "functionName": "togglePalstPid",
+=======
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 1,
+        "name": "Ticks B",
+        "variableName": "TicksB",
+        "id": 10,
+        "eepromAddress": -1,
+        "functionName": "ResetTicsB",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -203,6 +283,7 @@
       }
     },
     {
+<<<<<<< .merge_file_CDA95I
       "parentId": 37,
       "type": "analogItem",
       "defaultValue": "300",
@@ -301,6 +382,16 @@
         "id": 41,
         "eepromAddress": 44,
         "functionName": "setPalstPIDPeriod",
+=======
+      "parentId": 0,
+      "type": "actionMenu",
+      "item": {
+        "name": "Save",
+        "variableName": "SaveValues",
+        "id": 14,
+        "eepromAddress": -1,
+        "functionName": "SavePID",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -312,8 +403,13 @@
       "type": "subMenu",
       "item": {
         "secured": false,
+<<<<<<< .merge_file_CDA95I
         "name": "Pitch PID",
         "variableName": "PitchPID",
+=======
+        "name": "PID params",
+        "variableName": "PIDParams",
+>>>>>>> .merge_file_D6zxAV
         "id": 3,
         "eepromAddress": -1,
         "readOnly": false,
@@ -324,6 +420,7 @@
     },
     {
       "parentId": 3,
+<<<<<<< .merge_file_CDA95I
       "type": "boolItem",
       "defaultValue": "true",
       "item": {
@@ -345,15 +442,29 @@
       "defaultValue": "300",
       "item": {
         "maxValue": 700,
+=======
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 500,
+>>>>>>> .merge_file_D6zxAV
         "offset": 0,
         "divisor": 10,
         "unitName": "",
         "step": 1,
+<<<<<<< .merge_file_CDA95I
         "name": "Kp pitch",
         "variableName": "KpPitch",
         "id": 4,
         "eepromAddress": 12,
         "functionName": "SetKpPitch",
+=======
+        "name": "Kp",
+        "variableName": "Kp",
+        "id": 4,
+        "eepromAddress": 4,
+        "functionName": "SetKp",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -363,18 +474,32 @@
     {
       "parentId": 3,
       "type": "analogItem",
+<<<<<<< .merge_file_CDA95I
       "defaultValue": "200",
       "item": {
         "maxValue": 700,
+=======
+      "defaultValue": "5",
+      "item": {
+        "maxValue": 500,
+>>>>>>> .merge_file_D6zxAV
         "offset": 0,
         "divisor": 10,
         "unitName": "",
         "step": 1,
+<<<<<<< .merge_file_CDA95I
         "name": "Ki pitch",
         "variableName": "KiPitch",
         "id": 5,
         "eepromAddress": 14,
         "functionName": "SetKiPitch",
+=======
+        "name": "Ki",
+        "variableName": "Ki",
+        "id": 5,
+        "eepromAddress": 6,
+        "functionName": "SetKi",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -384,18 +509,32 @@
     {
       "parentId": 3,
       "type": "analogItem",
+<<<<<<< .merge_file_CDA95I
       "defaultValue": "5",
       "item": {
         "maxValue": 700,
+=======
+      "defaultValue": "20",
+      "item": {
+        "maxValue": 500,
+>>>>>>> .merge_file_D6zxAV
         "offset": 0,
         "divisor": 10,
         "unitName": "",
         "step": 1,
+<<<<<<< .merge_file_CDA95I
         "name": "Kd pitch",
         "variableName": "KdPitch",
         "id": 6,
         "eepromAddress": 16,
         "functionName": "SetKdPitch",
+=======
+        "name": "Kd",
+        "variableName": "Kd",
+        "id": 6,
+        "eepromAddress": 8,
+        "functionName": "SetKd",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -405,6 +544,7 @@
     {
       "parentId": 3,
       "type": "analogItem",
+<<<<<<< .merge_file_CDA95I
       "defaultValue": "0",
       "item": {
         "maxValue": 1000,
@@ -628,6 +768,20 @@
         "id": 21,
         "eepromAddress": 30,
         "functionName": "SetKiYaw",
+=======
+      "defaultValue": "15",
+      "item": {
+        "maxValue": 500,
+        "offset": 0,
+        "divisor": 1000,
+        "unitName": "",
+        "step": 1,
+        "name": "Ko",
+        "variableName": "Ko",
+        "id": 7,
+        "eepromAddress": 10,
+        "functionName": "SetKo",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -635,6 +789,7 @@
       }
     },
     {
+<<<<<<< .merge_file_CDA95I
       "parentId": 19,
       "type": "analogItem",
       "defaultValue": "20",
@@ -670,6 +825,22 @@
         "id": 33,
         "eepromAddress": 34,
         "functionName": "setYawPIDPeriod",
+=======
+      "parentId": 3,
+      "type": "analogItem",
+      "defaultValue": "10",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "ms",
+        "step": 1,
+        "name": "PID interval",
+        "variableName": "PIDInterval",
+        "id": 8,
+        "eepromAddress": 12,
+        "functionName": "SetPIDHz",
+>>>>>>> .merge_file_D6zxAV
         "readOnly": false,
         "localOnly": false,
         "visible": true,
@@ -677,6 +848,7 @@
       }
     },
     {
+<<<<<<< .merge_file_CDA95I
       "parentId": 0,
       "type": "floatItem",
       "defaultValue": "0.0",
@@ -739,6 +911,23 @@
         "eepromAddress": -1,
         "functionName": "getBNOCalib",
         "readOnly": true,
+=======
+      "parentId": 3,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "Unit",
+        "step": 1,
+        "name": "Threshold",
+        "variableName": "Threshold",
+        "id": 13,
+        "eepromAddress": 14,
+        "functionName": "SetThreshold",
+        "readOnly": false,
+>>>>>>> .merge_file_D6zxAV
         "localOnly": false,
         "visible": true,
         "staticDataInRAM": false
@@ -768,17 +957,29 @@
       },
       {
         "name": "DISPLAY_ROTATION",
+<<<<<<< .merge_file_CDA95I
         "latestValue": "U8G2_R2",
+=======
+        "latestValue": "U8G2_R0",
+>>>>>>> .merge_file_D6zxAV
         "subsystem": "DISPLAY"
       },
       {
         "name": "DISPLAY_CLOCK_PIN",
+<<<<<<< .merge_file_CDA95I
         "latestValue": "9",
+=======
+        "latestValue": "22",
+>>>>>>> .merge_file_D6zxAV
         "subsystem": "DISPLAY"
       },
       {
         "name": "DISPLAY_DATA_PIN",
+<<<<<<< .merge_file_CDA95I
         "latestValue": "8",
+=======
+        "latestValue": "21",
+>>>>>>> .merge_file_D6zxAV
         "subsystem": "DISPLAY"
       },
       {
@@ -823,17 +1024,29 @@
       },
       {
         "name": "ENCODER_PIN_A",
+<<<<<<< .merge_file_CDA95I
         "latestValue": "47",
+=======
+        "latestValue": "2",
+>>>>>>> .merge_file_D6zxAV
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_B",
+<<<<<<< .merge_file_CDA95I
         "latestValue": "21",
+=======
+        "latestValue": "15",
+>>>>>>> .merge_file_D6zxAV
         "subsystem": "INPUT"
       },
       {
         "name": "ENCODER_PIN_OK",
+<<<<<<< .merge_file_CDA95I
         "latestValue": "45",
+=======
+        "latestValue": "13",
+>>>>>>> .merge_file_D6zxAV
         "subsystem": "INPUT"
       },
       {

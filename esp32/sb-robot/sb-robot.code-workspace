@@ -1,4 +1,5 @@
 {
+<<<<<<< .merge_file_NBAGqU
     "folders": [
         {
             "path": "."
@@ -14,4 +15,16 @@
             "utility": "cpp"
         }
     }
+=======
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "sb-robot",
+			"path": "."
+		}
+	],
+	"settings": {}
+>>>>>>> .merge_file_CohoAM
 }

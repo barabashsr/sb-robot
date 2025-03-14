@@ -28,6 +28,7 @@ extern GraphicsDeviceRenderer renderer;
 
 
 // Global Menu Item exports
+<<<<<<< .merge_file_59lOJx
 extern AnalogMenuItem menuBNOCalib;
 extern BackMenuItem menuBackState;
 extern SubMenuItem menuState;
@@ -76,11 +77,32 @@ extern FloatMenuItem menuPalstance;
 
 // Provide a wrapper to get hold of the root menu item and export setupMenu
 inline MenuItem& rootMenuItem() { return menuPalstance; }
+=======
+extern AnalogMenuItem menuThreshold;
+extern AnalogMenuItem menuPIDInterval;
+extern AnalogMenuItem menuKo;
+extern AnalogMenuItem menuKd;
+extern AnalogMenuItem menuKi;
+extern AnalogMenuItem menuKp;
+extern BackMenuItem menuBackPIDParams;
+extern SubMenuItem menuPIDParams;
+extern ActionMenuItem menuSaveValues;
+extern FloatMenuItem menuTicksB;
+extern FloatMenuItem menuTicksA;
+extern FloatMenuItem menuSpeedB;
+extern AnalogMenuItem menuSetB;
+extern FloatMenuItem menuSpeedA;
+extern AnalogMenuItem menuSetA;
+
+// Provide a wrapper to get hold of the root menu item and export setupMenu
+inline MenuItem& rootMenuItem() { return menuSetA; }
+>>>>>>> .merge_file_0NJz2H
 void setupMenu();
 
 // Callback functions must always include CALLBACK_FUNCTION after the return type
 #define CALLBACK_FUNCTION
 
+<<<<<<< .merge_file_59lOJx
 void CALLBACK_FUNCTION SavePID(int id);
 void CALLBACK_FUNCTION SetKdPalst(int id);
 void CALLBACK_FUNCTION SetKdPitch(int id);
@@ -110,5 +132,20 @@ void CALLBACK_FUNCTION togglePalstPid(int id);
 void CALLBACK_FUNCTION togglePitchPid(int id);
 void CALLBACK_FUNCTION toggleVelPid(int id);
 void CALLBACK_FUNCTION toggleYawPID(int id);
+=======
+void CALLBACK_FUNCTION ResetTicsA(int id);
+void CALLBACK_FUNCTION ResetTicsB(int id);
+void CALLBACK_FUNCTION SavePID(int id);
+void CALLBACK_FUNCTION SetKd(int id);
+void CALLBACK_FUNCTION SetKi(int id);
+void CALLBACK_FUNCTION SetKo(int id);
+void CALLBACK_FUNCTION SetKp(int id);
+void CALLBACK_FUNCTION SetPIDHz(int id);
+void CALLBACK_FUNCTION SetSpeedA(int id);
+void CALLBACK_FUNCTION SetSpeedB(int id);
+void CALLBACK_FUNCTION SetThreshold(int id);
+void CALLBACK_FUNCTION StopA(int id);
+void CALLBACK_FUNCTION StopB(int id);
+>>>>>>> .merge_file_0NJz2H
 
 #endif // MENU_GENERATED_CODE_H

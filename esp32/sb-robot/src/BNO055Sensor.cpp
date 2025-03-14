@@ -2,9 +2,13 @@
 #include "BNO055Sensor.h"
 
 BNO055Sensor::BNO055Sensor(uint8_t sda_pin, uint8_t scl_pin, uint32_t i2c_freq)
+<<<<<<< .merge_file_2wKPN5
     : I2CBNO(1), bno(55, BNO055_ADDRESS_A, &I2CBNO), _sda_pin(sda_pin), _scl_pin(scl_pin), _i2c_freq(i2c_freq) {
         
     }
+=======
+    : I2CBNO(1), bno(55, BNO055_ADDRESS_A, &I2CBNO), _sda_pin(sda_pin), _scl_pin(scl_pin), _i2c_freq(i2c_freq) {}
+>>>>>>> .merge_file_8A1uE5
 
 bool BNO055Sensor::begin() {
     I2CBNO.begin(_sda_pin, _scl_pin, _i2c_freq);
@@ -23,6 +27,7 @@ bool BNO055Sensor::begin() {
     
     bno.setExtCrystalUse(true);
     return true;
+<<<<<<< .merge_file_2wKPN5
 
     measurementPeriod = 100.0; // Increase to 100ms
     lastMeasurementTime = 0;
@@ -77,3 +82,22 @@ void BNO055Sensor::updatePalstance() {
 }
 
 
+=======
+}
+
+void BNO055Sensor::update() {
+    // This method is left empty as the sensor updates automatically
+}
+
+float BNO055Sensor::getAngleY() {
+    sensors_event_t event;
+    bno.getEvent(&event);
+    return event.orientation.y;
+}
+
+bool BNO055Sensor::isCalibrated() {
+    uint8_t system, gyro, accel, mag;
+    bno.getCalibration(&system, &gyro, &accel, &mag);
+    return (system >= 3);
+}
+>>>>>>> .merge_file_8A1uE5
