@@ -149,6 +149,7 @@ String ssid = "Beeline_2G_F13F37";
 String password = "1122334455667788";
 
 controllerNode rosNode(
+    tof,
     paramRegistry,
     controller,
     ros_domain_id,

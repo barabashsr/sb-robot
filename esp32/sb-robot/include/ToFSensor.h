@@ -1,3 +1,6 @@
+#ifndef TOFSENSOR_H
+#define TOFSENSOR_H
+
 #include <Wire.h>
 #include <SparkFun_VL53L5CX_Library.h>
 
@@ -21,15 +24,7 @@ private:
     VL53L5CX_ResultsData _results;
 
 public:
-    ToFSensor(TwoWire &wire, int pwrEn = -1, int lpn = -1, int i2c_rst = -1, int interrupt = -1, uint8_t customAddress = NULL) : 
-        i2c(wire),
-        pwrEn_pin(pwrEn),
-        lpn_pin(lpn),
-        i2c_rst_pin(i2c_rst),
-        int_pin(interrupt),
-        isInitialized(false),
-        _castomAddress(customAddress)
-        {}
+    ToFSensor(TwoWire &wire, int pwrEn = -1, int lpn = -1, int i2c_rst = -1, int interrupt = -1, uint8_t customAddress = 0x29);
     
     bool begin();
     bool setSensorAddress(uint8_t address);
@@ -43,3 +38,5 @@ public:
     bool readData(VL53L5CX_ResultsData& results); 
     
 };
+
+#endif // BALANCE_CONTROLLER_H
