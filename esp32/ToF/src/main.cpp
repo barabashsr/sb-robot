@@ -1,110 +1,73 @@
-#include <Arduino.h>
-#include <WiFi.h>
-#include <micro_ros_platformio.h>
+/*
+  Read an 8x8 array of distances from the VL53L5CX
+  By: Nathan Seidle
+  SparkFun Electronics
+  Date: October 26, 2021
+  License: MIT. See license file for more information but you can
+  basically do whatever you want with this code.
 
-#include <rcl/rcl.h>
-#include <rclc/rclc.h>
-#include <rclc/executor.h>
-#include <std_msgs/msg/int32.h>
+  This example shows how to read all 64 distance readings at once.
 
-// WiFi credentials
-char* ssid = "Beeline_2G_F13F37";
-char* password = "1122334455667788";
+  Feel like supporting our work? Buy a board from SparkFun!
+  https://www.sparkfun.com/products/18642
 
-// micro-ROS agent IP and port
-IPAddress agent_ip(192, 168, 1, 74);
-uint16_t agent_port = 8888;
+*/
 
-// micro-ROS entities
-rcl_publisher_t publisher;
-std_msgs__msg__Int32 msg;
-rclc_executor_t executor;
-rclc_support_t support;
-rcl_allocator_t allocator;
-rcl_node_t node;
-rcl_timer_t timer;
+#include <Wire.h>
 
-// Error checking macro
-#define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){Serial.printf("Failed at line %d: %d\n", __LINE__, (int)temp_rc); return;}}
+#include <SparkFun_VL53L5CX_Library.h> //http://librarymanager/All#SparkFun_VL53L5CX
 
-// Timer callback function
-void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
-  (void) last_call_time;
-  if (timer != NULL) {
-    msg.data++;
-    RCCHECK(rcl_publish(&publisher, &msg, NULL));
-    Serial.print("Publishing: ");
-    Serial.println(msg.data);
-  }
-}
+SparkFun_VL53L5CX myImager;
+VL53L5CX_ResultsData measurementData; // Result data class structure, 1356 byes of RAM
 
-void setup() {
+int imageResolution = 0; //Used to pretty print output
+int imageWidth = 0; //Used to pretty print output
+
+void setup()
+{
   Serial.begin(115200);
   delay(1000);
+  Serial.println("SparkFun VL53L5CX Imager Example");
+
+  Wire.begin(); //This resets to 100kHz I2C
+  Wire.setClock(100000); //Sensor has max I2C freq of 400kHz 
   
-  // Connect to WiFi
-  Serial.print("Connecting to WiFi...");
-  WiFi.begin(ssid, password);
-  
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+  Serial.println("Initializing sensor board. This can take up to 10s. Please wait.");
+  if (myImager.begin() == false)
+  {
+    Serial.println(F("Sensor not found - check your wiring. Freezing"));
+    while (1) ;
   }
   
-  Serial.println();
-  Serial.print("Connected to WiFi. IP address: ");
-  Serial.println(WiFi.localIP());
+  myImager.setResolution(8*8); //Enable all 64 pads
   
-  // Set up micro-ROS
-  Serial.println("Connecting to micro-ROS agent...");
-  
-  // Initialize micro-ROS with UDP transport
-  Serial.println("Initializing transport...");
-  set_microros_wifi_transports(ssid, password, agent_ip, agent_port);
-  
-  delay(2000);
-  
-  // Initialize micro-ROS allocator
-  Serial.println("Initializing allocator...");
-  allocator = rcl_get_default_allocator();
-  
-  // Initialize support object
-  Serial.println("Initializing support...");
-  RCCHECK(rclc_support_init(&support, 0, NULL, &allocator));
-  
-  // Create node
-  Serial.println("Creating node...");
-  RCCHECK(rclc_node_init_default(&node, "esp32_test_node", "", &support));
-  
-  // Create publisher
-  Serial.println("Creating publisher...");
-  RCCHECK(rclc_publisher_init_default(
-    &publisher,
-    &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-    "esp32_test_topic"));
-  
-  // Create timer
-  Serial.println("Creating timer...");
-  const unsigned int timer_timeout = 1000;
-  RCCHECK(rclc_timer_init_default(
-    &timer,
-    &support,
-    RCL_MS_TO_NS(timer_timeout),
-    timer_callback));
-  
-  // Create executor
-  Serial.println("Creating executor...");
-  RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
-  RCCHECK(rclc_executor_add_timer(&executor, &timer));
-  
-  msg.data = 0;
-  
-  Serial.println("micro-ROS setup completed successfully!");
+  imageResolution = myImager.getResolution(); //Query sensor for current resolution - either 4x4 or 8x8
+  imageWidth = sqrt(imageResolution); //Calculate printing width
+
+  myImager.startRanging();
 }
 
-void loop() {
-  // Spin executor to process callbacks
-  rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100));
-  delay(100);
+void loop()
+{
+  //Poll sensor for new data
+  if (myImager.isDataReady() == true)
+  {
+    if (myImager.getRangingData(&measurementData)) //Read distance data into array
+    {
+      //The ST library returns the data transposed from zone mapping shown in datasheet
+      //Pretty-print data with increasing y, decreasing x to reflect reality
+      for (int y = 0 ; y <= imageWidth * (imageWidth - 1) ; y += imageWidth)
+      {
+        for (int x = imageWidth - 1 ; x >= 0 ; x--)
+        {
+          Serial.print("\t");
+          Serial.print(measurementData.distance_mm[x + y]);
+        }
+        Serial.println();
+      }
+      Serial.println();
+    }
+  }
+
+  delay(5); //Small delay between polling
 }

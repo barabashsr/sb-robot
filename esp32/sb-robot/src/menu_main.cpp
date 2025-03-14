@@ -243,18 +243,18 @@ void updateMenuValues()
         // Serial.printf(" Vel: Kp: %.2f, Ki: %.2f, Kd: %.2f, On: %s  , pitch:  %.2f\n",
         //               Kp, Ki, Kd, contrState.yawPIDOn ? "true" : "false", contrState.currentPitch);
         // Serial.print(contrState.pitchPIDOn);
-        Serial.printf(
-            " Pitch: t: %.2f, c: %.2f, out: %.0f\
-            Vel: t: %.2f, c: %.2f, \
-            PID: P: %s  , V: %s  \n",
-            contrState.targetPitch, 
-            contrState.currentPitch,
-            contrState.controlOutput,
-            contrState.targetVel,
-            contrState.currentVel,
-            contrState.pitchPIDOn ? "true" : "false", 
-            contrState.velPIDOn ? "true" : "false"
-            );
+        // Serial.printf(
+        //     " Pitch: t: %.2f, c: %.2f, out: %.0f\
+        //     Vel: t: %.2f, c: %.2f, \
+        //     PID: P: %s  , V: %s  \n",
+        //     contrState.targetPitch, 
+        //     contrState.currentPitch,
+        //     contrState.controlOutput,
+        //     contrState.targetVel,
+        //     contrState.currentVel,
+        //     contrState.pitchPIDOn ? "true" : "false", 
+        //     contrState.velPIDOn ? "true" : "false"
+        //     );
 
         setLedColor(bnoCalib);
     }
@@ -446,39 +446,28 @@ void setup()
     pinMode(RGB_BUILTIN, OUTPUT);
 
     // setup bno
-    // if (!bno.begin())
-    // {
-    //     Serial.println("BNO055 initialization failed");
-    //     while (1)
-    //         ;
-    // }
-    // else
-    // {
-    //     Serial.println("BNO055 initialized successfully");
-    // }
-    // bno.setMeasurementPeriod(STATE_PRINT_INTERVAL);
-    // bno.update();
+    if (!bno.begin())
+    {
+        Serial.println("BNO055 initialization failed");
+        while (1)
+            ;
+    }
+    else
+    {
+        Serial.println("BNO055 initialized successfully");
+    }
+
     rosNode.setup();
 
 
-    // if (!tof.begin()) {
-    //     Serial.println("Failed to initialize VL53L5CX sensor!");
-    //     while (1) delay(10);
-    // } else {
-    //   Serial.println("OK to initialize VL53L5CX sensor!");
-    // }
+    if (!tof.begin()) {
+        Serial.println("Failed to initialize VL53L5CX sensor!");
+        while (1) delay(10);
+    } else {
+      Serial.println("OK to initialize VL53L5CX sensor!");
+    }
 
-    // paramsPitch.direct = false;
-    // paramsPitch.max = 255;
-    // paramsPitch.min = -255;
 
-    // paramsVel.direct = false;
-    // paramsVel.max = 4.0;
-    // paramsVel.min = -4.0;
-
-    // paramsYaw.direct = false;
-    // paramsYaw.max = 200;
-    // paramsYaw.max = -200;
 
     controller.begin();
     Serial.println("Balance controller started");
@@ -493,21 +482,21 @@ void setup()
 void loop()
 {   
 
-    // if (tof.didInterrupt()) {
-    //     if (tof.readDataOnInterrupt(results)) {
-    //         tof.printData();
+    if (tof.didInterrupt()) {
+        if (tof.readDataOnInterrupt(results)) {
+            tof.printData();
             
-    //     }
-    // }
+        }
+    }
     
     // controller.updateState();
-    // taskManager.runLoop();
-    // rosNode.spinNode();
+    taskManager.runLoop();
+    rosNode.spinNode();
     // // RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
     // bno.update();
     // controller.update();
 
-    // updateMenuValues();
+    updateMenuValues();
 }
 
 void CALLBACK_FUNCTION SetKdPalst(int id)
