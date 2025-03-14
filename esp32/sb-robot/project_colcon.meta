@@ -11,26 +11,8 @@
                 
                 
             ]
-        },
-        "microxrcedds_client": {
-            "cmake-args": [
-                "-DUCLIENT_MAX_SESSION_CONNECTION_ATTEMPTS=150",
-                "-DUCLIENT_MIN_SESSION_CONNECTION_INTERVAL=25",
-                "-DUCLIENT_MAX_STREAMS_PER_SESSION=4"
-            ]
         }
-    },
-    "packages": {
-        "rclc": {},
-        "rcl": {},
-        "rclc_parameter": {},
-        "rcutils": {},
-        "rmw_implementation": {},
-        "rmw_microxrcedds": {},
-        "rosidl_typesupport": {},
-        "rosidl_typesupport_microxrcedds": {},
-        "microxrcedds_client": {},
-        "tf2_msgs": {}
     }
+    
     
 }
