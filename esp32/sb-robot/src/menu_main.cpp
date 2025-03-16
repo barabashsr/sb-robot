@@ -219,6 +219,8 @@ void updateMenuValues()
     {
         lastPrintTime = currentMillis;
 
+        controller.updateState();
+
         
         menuPitch.setFloatValue(static_cast<float>(contrState.currentPitch));
         int bnoCalib = bno.calibration();
@@ -243,18 +245,18 @@ void updateMenuValues()
         // Serial.printf(" Vel: Kp: %.2f, Ki: %.2f, Kd: %.2f, On: %s  , pitch:  %.2f\n",
         //               Kp, Ki, Kd, contrState.yawPIDOn ? "true" : "false", contrState.currentPitch);
         // Serial.print(contrState.pitchPIDOn);
-        // Serial.printf(
-        //     " Pitch: t: %.2f, c: %.2f, out: %.0f\
-        //     Vel: t: %.2f, c: %.2f, \
-        //     PID: P: %s  , V: %s  \n",
-        //     contrState.targetPitch, 
-        //     contrState.currentPitch,
-        //     contrState.controlOutput,
-        //     contrState.targetVel,
-        //     contrState.currentVel,
-        //     contrState.pitchPIDOn ? "true" : "false", 
-        //     contrState.velPIDOn ? "true" : "false"
-        //     );
+        Serial.printf(
+            " Pitch: t: %.2f, c: %.2f, out: %.0f\
+            Vel: t: %.2f, c: %.2f, \
+            PID: P: %s  , V: %s  \n",
+            contrState.targetPitch, 
+            contrState.currentPitch,
+            contrState.controlOutput,
+            contrState.targetVel,
+            contrState.currentVel,
+            contrState.pitchPIDOn ? "true" : "false", 
+            contrState.velPIDOn ? "true" : "false"
+            );
 
         setLedColor(bnoCalib);
     }
@@ -482,19 +484,19 @@ void setup()
 void loop()
 {   
 
-    if (tof.didInterrupt()) {
-        if (tof.readDataOnInterrupt(results)) {
-            tof.printData();
+    // if (tof.didInterrupt()) {
+    //     if (tof.readDataOnInterrupt(results)) {
+    //         tof.printData();
             
-        }
-    }
+    //     }
+    // }
     
     // controller.updateState();
     taskManager.runLoop();
     rosNode.spinNode();
     // // RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
-    // bno.update();
-    // controller.update();
+    //bno.update();
+    //controller.update();
 
     updateMenuValues();
 }

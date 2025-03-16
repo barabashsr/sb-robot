@@ -17,21 +17,23 @@
     //"workspaceFolder": "/root/ros_ws/src",
 	"containerEnv": {
 		// Uncomment to allow the container to access the X server on the host e.g. to run Rviz and other GUI tools
-    	"DISPLAY": "${localEnv:DISPLAY}"
+    	// "DISPLAY": "${localEnv:DISPLAY}"
 		
     },
 	"mounts": [
-		// Uncomment to allow the container to access the X server on the host e.g. to run Rviz and other GUI tools
-		{
-			"source": "/tmp/.X11-unix",
-			"target": "/tmp/.X11-unix",
-			"type": "bind"
-		},
-		{
-			"source": "${localEnv:XAUTHORITY:-$HOME/.Xauthority}",
-			"target": "/root/.Xauthority",
-			"type": "bind"
-		},
+	
+    // {
+    //     "source": "/tmp/.X11-unix",
+    //     "target": "/tmp/.X11-unix",
+    //     "type": "bind"
+    // },
+    // {
+    //     "source": "${localEnv:HOME}/.Xauthority",
+    //     "target": "/root/.Xauthority",
+    //     "type": "bind"
+    // },
+
+
 
 		
 		
