@@ -1,0 +1,906 @@
+{
+  "version": "1.00",
+  "projectName": "Project description",
+  "author": "user",
+  "items": [
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "Palstance",
+        "variableName": "Palstance",
+        "id": 43,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": false,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "50",
+      "item": {
+        "maxValue": 100,
+        "offset": -50,
+        "divisor": 100,
+        "unitName": "mps",
+        "step": 1,
+        "name": "Set Vel",
+        "variableName": "SetVel",
+        "id": 26,
+        "eepromAddress": -1,
+        "functionName": "setTargetVel",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "50",
+      "item": {
+        "maxValue": 100,
+        "offset": -50,
+        "divisor": 100,
+        "unitName": "rps",
+        "step": 1,
+        "name": "Set Yaw",
+        "variableName": "SetYaw",
+        "id": 27,
+        "eepromAddress": -1,
+        "functionName": "setTargetYawRa",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "Pitch",
+        "variableName": "Pitch",
+        "id": 23,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 1000,
+        "offset": -500,
+        "divisor": 100,
+        "unitName": "deg",
+        "step": 1,
+        "name": "Pitch Ofset",
+        "variableName": "PitchOfset",
+        "id": 30,
+        "eepromAddress": 10,
+        "functionName": "SetPitchOfset",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "actionMenu",
+      "item": {
+        "name": "Save",
+        "variableName": "SaveValues",
+        "id": 14,
+        "eepromAddress": -1,
+        "functionName": "SavePID",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "Motor config",
+        "variableName": "MotorConfig",
+        "id": 44,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": false,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 44,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Threshold A",
+        "variableName": "ThresholdA",
+        "id": 45,
+        "eepromAddress": 48,
+        "functionName": "setThresholdA",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 44,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 255,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "Threshold B",
+        "variableName": "ThresholdB",
+        "id": 46,
+        "eepromAddress": 50,
+        "functionName": "setThresholdB",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "Palst PID",
+        "variableName": "PalstPID",
+        "id": 37,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": false,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Palst PID",
+        "variableName": "PalstPIDToggle",
+        "id": 42,
+        "eepromAddress": 46,
+        "functionName": "togglePalstPid",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
+      "defaultValue": "300",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Kp palst",
+        "variableName": "KpPalst",
+        "id": 38,
+        "eepromAddress": 38,
+        "functionName": "SetKpPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ki palst",
+        "variableName": "KiPalst",
+        "id": 39,
+        "eepromAddress": 40,
+        "functionName": "SetKiPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
+      "defaultValue": "5",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Kd palst",
+        "variableName": "KdPalst",
+        "id": 40,
+        "eepromAddress": 42,
+        "functionName": "SetKdPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
+      "defaultValue": "10",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ko palst",
+        "variableName": "KoPalst",
+        "id": 48,
+        "eepromAddress": 54,
+        "functionName": "SetKoPalst",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 37,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 1000,
+        "offset": 1,
+        "divisor": 1,
+        "unitName": "ms",
+        "step": 1,
+        "name": "Period Palst",
+        "variableName": "PeriodPalst",
+        "id": 41,
+        "eepromAddress": 44,
+        "functionName": "setPalstPIDPeriod",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "Pitch PID",
+        "variableName": "PitchPID",
+        "id": 3,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Pitch PID",
+        "variableName": "PitchPIDToggle",
+        "id": 36,
+        "eepromAddress": 47,
+        "functionName": "togglePitchPid",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "analogItem",
+      "defaultValue": "300",
+      "item": {
+        "maxValue": 700,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Kp pitch",
+        "variableName": "KpPitch",
+        "id": 4,
+        "eepromAddress": 12,
+        "functionName": "SetKpPitch",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 700,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ki pitch",
+        "variableName": "KiPitch",
+        "id": 5,
+        "eepromAddress": 14,
+        "functionName": "SetKiPitch",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "analogItem",
+      "defaultValue": "5",
+      "item": {
+        "maxValue": 700,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Kd pitch",
+        "variableName": "KdPitch",
+        "id": 6,
+        "eepromAddress": 16,
+        "functionName": "SetKdPitch",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 3,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 1000,
+        "offset": 1,
+        "divisor": 1,
+        "unitName": "ms",
+        "step": 1,
+        "name": "Period P",
+        "variableName": "PeriodP",
+        "id": 31,
+        "eepromAddress": 18,
+        "functionName": "setPitchPIDPeriod",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "Vel PID",
+        "variableName": "VelPID",
+        "id": 15,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
+      "type": "boolItem",
+      "defaultValue": "true",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Vel PID",
+        "variableName": "VelPIDToggle",
+        "id": 34,
+        "eepromAddress": 36,
+        "functionName": "toggleVelPid",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 100,
+        "unitName": "",
+        "step": 1,
+        "name": "Kp vel",
+        "variableName": "KpVel",
+        "id": 16,
+        "eepromAddress": 20,
+        "functionName": "SetKpVel",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
+      "type": "analogItem",
+      "defaultValue": "5",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 100,
+        "unitName": "",
+        "step": 1,
+        "name": "Ki vel",
+        "variableName": "KiVel",
+        "id": 17,
+        "eepromAddress": 22,
+        "functionName": "SetKiVel",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 7000,
+        "offset": 0,
+        "divisor": 100,
+        "unitName": "",
+        "step": 1,
+        "name": "Kd vel",
+        "variableName": "KdVel",
+        "id": 18,
+        "eepromAddress": 24,
+        "functionName": "SetKdVel",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 700,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ko vel",
+        "variableName": "KoVel",
+        "id": 47,
+        "eepromAddress": 52,
+        "functionName": "SetKoVel",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": false,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 15,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 1000,
+        "offset": 1,
+        "divisor": 1,
+        "unitName": "ms",
+        "step": 1,
+        "name": "Period V",
+        "variableName": "PeriodV",
+        "id": 32,
+        "eepromAddress": 26,
+        "functionName": "setVelPIDPeriod",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "Yaw PID",
+        "variableName": "YawPID",
+        "id": 19,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 19,
+      "type": "boolItem",
+      "defaultValue": "false",
+      "item": {
+        "naming": "ON_OFF",
+        "name": "Yaw PID",
+        "variableName": "YawPIDToggle",
+        "id": 35,
+        "eepromAddress": 37,
+        "functionName": "toggleYawPID",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 19,
+      "type": "analogItem",
+      "defaultValue": "200",
+      "item": {
+        "maxValue": 500,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Kp Yaw",
+        "variableName": "KpYaw",
+        "id": 20,
+        "eepromAddress": 28,
+        "functionName": "SetKpYaw",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 19,
+      "type": "analogItem",
+      "defaultValue": "5",
+      "item": {
+        "maxValue": 500,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Ki Yaw",
+        "variableName": "KiYaw",
+        "id": 21,
+        "eepromAddress": 30,
+        "functionName": "SetKiYaw",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 19,
+      "type": "analogItem",
+      "defaultValue": "20",
+      "item": {
+        "maxValue": 500,
+        "offset": 0,
+        "divisor": 10,
+        "unitName": "",
+        "step": 1,
+        "name": "Kd Yaw",
+        "variableName": "KdYaw",
+        "id": 22,
+        "eepromAddress": 32,
+        "functionName": "SetKdYaw",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 19,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 1000,
+        "offset": 1,
+        "divisor": 1,
+        "unitName": "ms",
+        "step": 1,
+        "name": "Period Y",
+        "variableName": "PeriodY",
+        "id": 33,
+        "eepromAddress": 34,
+        "functionName": "setYawPIDPeriod",
+        "readOnly": false,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "Vel",
+        "variableName": "Vel",
+        "id": 24,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "floatItem",
+      "defaultValue": "0.0",
+      "item": {
+        "numDecimalPlaces": 3,
+        "name": "Yaw Rate",
+        "variableName": "YawRate",
+        "id": 25,
+        "eepromAddress": -1,
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 0,
+      "type": "subMenu",
+      "item": {
+        "secured": false,
+        "name": "State",
+        "variableName": "State",
+        "id": 28,
+        "eepromAddress": -1,
+        "readOnly": false,
+        "localOnly": false,
+        "visible": false,
+        "staticDataInRAM": false
+      }
+    },
+    {
+      "parentId": 28,
+      "type": "analogItem",
+      "defaultValue": "0",
+      "item": {
+        "maxValue": 3,
+        "offset": 0,
+        "divisor": 1,
+        "unitName": "",
+        "step": 1,
+        "name": "BNO calib.",
+        "variableName": "BNOCalib",
+        "id": 29,
+        "eepromAddress": -1,
+        "functionName": "getBNOCalib",
+        "readOnly": true,
+        "localOnly": false,
+        "visible": true,
+        "staticDataInRAM": false
+      }
+    }
+  ],
+  "codeOptions": {
+    "embeddedPlatform": "ARDUINO_ESP32",
+    "lastDisplayUuid": "fd998437-c4b2-4386-ba88-d0ae7c20620b",
+    "lastInputUuid": "6dd87e7d-e751-4912-a70d-91793b1d3d87",
+    "lastRemoteUuids": [
+      "2c101fec-1f7d-4ff3-8d2b-992ad41e7fcb"
+    ],
+    "lastThemeUuid": "8D9B49C7-FD28-4533-9B00-21A4184BB0C9",
+    "applicationUUID": "d0b2be89-7b80-4f3f-9ee8-7e83e5fd65e7",
+    "applicationName": "menu",
+    "lastProperties": [
+      {
+        "name": "DISPLAY_VARIABLE",
+        "latestValue": "gfx",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_TYPE",
+        "latestValue": "U8G2_SH1106_128X64_NONAME_F_HW_I2C",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_ROTATION",
+        "latestValue": "U8G2_R2",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_CLOCK_PIN",
+        "latestValue": "9",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_DATA_PIN",
+        "latestValue": "8",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_RESET_PIN",
+        "latestValue": "U8X8_PIN_NONE",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_CS_PIN",
+        "latestValue": "U8X8_PIN_NONE",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "DISPLAY_RS_PIN",
+        "latestValue": "U8X8_PIN_NONE",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "UPDATES_PER_SEC",
+        "latestValue": "5",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "YIELDING_WIRE_CB",
+        "latestValue": "false",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "USE_UTF8_SUPPORT",
+        "latestValue": "false",
+        "subsystem": "DISPLAY"
+      },
+      {
+        "name": "SW_POLLING_MODE",
+        "latestValue": "SWITCHES_POLL_EVERYTHING",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "SWITCH_IODEVICE",
+        "latestValue": "devicePins",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "ENCODER_PIN_A",
+        "latestValue": "47",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "ENCODER_PIN_B",
+        "latestValue": "21",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "ENCODER_PIN_OK",
+        "latestValue": "45",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "ENCODER_BACK_PIN",
+        "latestValue": "-1",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "ENCODER_NEXT_PIN",
+        "latestValue": "-1",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "PULLUP_LOGIC",
+        "latestValue": "true",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "ENCODER_IS_QUARTER_CYCLE",
+        "latestValue": "false",
+        "subsystem": "INPUT"
+      },
+      {
+        "name": "ITEM_FONT",
+        "latestValue": "def:,1",
+        "subsystem": "THEME"
+      },
+      {
+        "name": "TITLE_FONT",
+        "latestValue": "def:,1",
+        "subsystem": "THEME"
+      },
+      {
+        "name": "TITLE_HEADER_PADDING",
+        "latestValue": "2",
+        "subsystem": "THEME"
+      },
+      {
+        "name": "TITLE_TO_ITEM_SPACING",
+        "latestValue": "2",
+        "subsystem": "THEME"
+      },
+      {
+        "name": "TITLE_SHOW_MODE",
+        "latestValue": "TITLE_FIRST_ROW",
+        "subsystem": "THEME"
+      },
+      {
+        "name": "USE_TC_UNICODE",
+        "latestValue": "false",
+        "subsystem": "THEME"
+      }
+    ],
+    "namingRecursive": false,
+    "useCppMain": true,
+    "saveLocation": "ALL_TO_CURRENT",
+    "usingSizedEEPROMStorage": true,
+    "eepromDefinition": "eeprom:",
+    "authenticatorDefinition": "",
+    "projectIoExpanders": [
+      "deviceIO:"
+    ],
+    "menuInMenuCollection": {
+      "menuDefinitions": []
+    },
+    "packageNamespace": "",
+    "appIsModular": false
+  },
+  "stringLists": []
+}

@@ -1,0 +1,10 @@
+[0.006s] Invoking command in '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface -- -j20 -l20
+[0.048s] [ 33%] [32mBuilding CXX object CMakeFiles/ws_hw_interface.dir/src/ws_driver.cpp.o[0m
+[0.404s] [01m[K/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/src/ws_driver.cpp:6:10:[m[K [01;31m[Kfatal error: [m[Knlohmann/json.hpp: No such file or directory
+[0.404s]     6 | #include [01;31m[K<nlohmann/json.hpp>[m[K
+[0.404s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~[m[K
+[0.404s] compilation terminated.
+[0.410s] gmake[2]: *** [CMakeFiles/ws_hw_interface.dir/build.make:90: CMakeFiles/ws_hw_interface.dir/src/ws_driver.cpp.o] Error 1
+[0.410s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/ws_hw_interface.dir/all] Error 2
+[0.410s] gmake: *** [Makefile:146: all] Error 2
+[0.413s] Invoked command in '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface -- -j20 -l20

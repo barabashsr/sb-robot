@@ -1,0 +1,158 @@
+[0.000000] (-) TimerEvent: {}
+[0.000237] (sb_robot) JobQueued: {'identifier': 'sb_robot', 'dependencies': OrderedDict()}
+[0.000267] (ws_hw_interface) JobQueued: {'identifier': 'ws_hw_interface', 'dependencies': OrderedDict()}
+[0.000295] (sb_robot) JobStarted: {'identifier': 'sb_robot'}
+[0.003141] (ws_hw_interface) JobStarted: {'identifier': 'ws_hw_interface'}
+[0.005294] (sb_robot) JobProgress: {'identifier': 'sb_robot', 'progress': 'cmake'}
+[0.006539] (sb_robot) JobProgress: {'identifier': 'sb_robot', 'progress': 'build'}
+[0.006571] (sb_robot) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/user/robo/sb-robot/ros_ws/build/sb_robot', '--', '-j20', '-l20'], 'cwd': '/home/user/robo/sb-robot/ros_ws/build/sb_robot', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'user'), ('LC_TIME', 'ru_RU.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/user'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ru_RU.UTF-8'), ('SYSTEMD_EXEC_PID', '10608'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'user'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'user'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/asus:@/tmp/.ICE-unix/2092,unix/asus:/tmp/.ICE-unix/2092'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ru_RU.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/114eb258_f521_4268_9354_d2846e129727'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'ru_RU.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.CLLS32'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.134'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ru_RU.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'ru_RU.UTF-8'), ('LC_IDENTIFICATION', 'ru_RU.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/user/robo/sb-robot/ros_ws/build/sb_robot'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'ru_RU.UTF-8'), ('LC_PAPER', 'ru_RU.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.007719] (ws_hw_interface) JobProgress: {'identifier': 'ws_hw_interface', 'progress': 'cmake'}
+[0.008020] (ws_hw_interface) JobProgress: {'identifier': 'ws_hw_interface', 'progress': 'build'}
+[0.008550] (ws_hw_interface) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface', '--', '-j20', '-l20'], 'cwd': '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'user'), ('LC_TIME', 'ru_RU.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/user'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ru_RU.UTF-8'), ('SYSTEMD_EXEC_PID', '10608'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'user'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'user'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/asus:@/tmp/.ICE-unix/2092,unix/asus:/tmp/.ICE-unix/2092'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ru_RU.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/114eb258_f521_4268_9354_d2846e129727'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'ru_RU.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.CLLS32'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.134'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ru_RU.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'ru_RU.UTF-8'), ('LC_IDENTIFICATION', 'ru_RU.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'ru_RU.UTF-8'), ('LC_PAPER', 'ru_RU.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.025296] (ws_hw_interface) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.030125] (sb_robot) CommandEnded: {'returncode': 0}
+[0.030803] (sb_robot) JobProgress: {'identifier': 'sb_robot', 'progress': 'install'}
+[0.037208] (sb_robot) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/user/robo/sb-robot/ros_ws/build/sb_robot'], 'cwd': '/home/user/robo/sb-robot/ros_ws/build/sb_robot', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'user'), ('LC_TIME', 'ru_RU.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/user'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ru_RU.UTF-8'), ('SYSTEMD_EXEC_PID', '10608'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'user'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'user'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/asus:@/tmp/.ICE-unix/2092,unix/asus:/tmp/.ICE-unix/2092'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ru_RU.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/114eb258_f521_4268_9354_d2846e129727'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'ru_RU.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.CLLS32'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.134'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ru_RU.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'ru_RU.UTF-8'), ('LC_IDENTIFICATION', 'ru_RU.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/user/robo/sb-robot/ros_ws/build/sb_robot'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'ru_RU.UTF-8'), ('LC_PAPER', 'ru_RU.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.043264] (sb_robot) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[0.043671] (sb_robot) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[0.043972] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/config/my_controllers.yaml\n'}
+[0.044068] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/config/params_pid.yaml\n'}
+[0.044152] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/config/pid_config.yaml\n'}
+[0.044241] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/config/ppp.yaml\n'}
+[0.044459] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/meshes/base_link.STL\n'}
+[0.044547] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/meshes/chassis.STL\n'}
+[0.044749] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/meshes/imu_link.STL\n'}
+[0.044816] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/meshes/laser_link.STL\n'}
+[0.044922] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/meshes/lw_link.STL\n'}
+[0.044968] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/meshes/rw_link.STL\n'}
+[0.045041] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/launch/launch_robo.launch.py\n'}
+[0.045096] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/launch/rsp.launch.py\n'}
+[0.045230] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/robot.urdf.xacro\n'}
+[0.045293] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/robot_core.xacro\n'}
+[0.045353] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/ros2_control.xacro\n'}
+[0.045407] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/unused/bno055.xacro\n'}
+[0.045477] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/unused/camera.xacro\n'}
+[0.045519] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/unused/gazebo_control.xacro\n'}
+[0.045575] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/unused/inertial_macros.xacro\n'}
+[0.045637] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/unused/lidar.xacro\n'}
+[0.045685] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/description/unused/lidar_rotating.xacro\n'}
+[0.045724] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/ament_index/resource_index/package_run_dependencies/sb_robot\n'}
+[0.045818] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/ament_index/resource_index/parent_prefix_path/sb_robot\n'}
+[0.045875] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/environment/ament_prefix_path.sh\n'}
+[0.045928] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/environment/ament_prefix_path.dsv\n'}
+[0.045980] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/environment/path.sh\n'}
+[0.046030] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/environment/path.dsv\n'}
+[0.046087] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/local_setup.bash\n'}
+[0.046149] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/local_setup.sh\n'}
+[0.046209] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/local_setup.zsh\n'}
+[0.046269] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/local_setup.dsv\n'}
+[0.046321] (sb_robot) StdoutLine: {'line': b'-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/package.dsv\n'}
+[0.052885] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/ament_index/resource_index/packages/sb_robot\n'}
+[0.053051] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/cmake/sb_robotConfig.cmake\n'}
+[0.053088] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/cmake/sb_robotConfig-version.cmake\n'}
+[0.053117] (sb_robot) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/sb_robot/share/sb_robot/package.xml\n'}
+[0.054238] (sb_robot) CommandEnded: {'returncode': 0}
+[0.063122] (sb_robot) JobEnded: {'identifier': 'sb_robot', 'rc': 0}
+[0.097200] (ws_hw_interface) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[0.099390] (-) TimerEvent: {}
+[0.101301] (ws_hw_interface) StdoutLine: {'line': b'-- Found rclcpp: 16.0.11 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.115819] (ws_hw_interface) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.117101] (ws_hw_interface) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.120133] (ws_hw_interface) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.125081] (ws_hw_interface) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.131803] (ws_hw_interface) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.148119] (ws_hw_interface) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.148823] (ws_hw_interface) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.199620] (-) TimerEvent: {}
+[0.202695] (ws_hw_interface) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.235731] (ws_hw_interface) StdoutLine: {'line': b'-- Found hardware_interface: 2.48.0 (/opt/ros/humble/share/hardware_interface/cmake)\n'}
+[0.299839] (-) TimerEvent: {}
+[0.342816] (ws_hw_interface) StdoutLine: {'line': b'-- Configuring done\n'}
+[0.354148] (ws_hw_interface) StdoutLine: {'line': b'-- Generating done\n'}
+[0.356842] (ws_hw_interface) StdoutLine: {'line': b'-- Build files have been written to: /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface\n'}
+[0.376644] (ws_hw_interface) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target ws_hw_interface\x1b[0m\n'}
+[0.393783] (ws_hw_interface) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/ws_hw_interface.dir/src/ws_driver.cpp.o\x1b[0m\n'}
+[0.399959] (-) TimerEvent: {}
+[0.500317] (-) TimerEvent: {}
+[0.600640] (-) TimerEvent: {}
+[0.701038] (-) TimerEvent: {}
+[0.801497] (-) TimerEvent: {}
+[0.902005] (-) TimerEvent: {}
+[1.002400] (-) TimerEvent: {}
+[1.102885] (-) TimerEvent: {}
+[1.203280] (-) TimerEvent: {}
+[1.303656] (-) TimerEvent: {}
+[1.404056] (-) TimerEvent: {}
+[1.504369] (-) TimerEvent: {}
+[1.604811] (-) TimerEvent: {}
+[1.705206] (-) TimerEvent: {}
+[1.805588] (-) TimerEvent: {}
+[1.905983] (-) TimerEvent: {}
+[2.006366] (-) TimerEvent: {}
+[2.106770] (-) TimerEvent: {}
+[2.207174] (-) TimerEvent: {}
+[2.307597] (-) TimerEvent: {}
+[2.408021] (-) TimerEvent: {}
+[2.508345] (-) TimerEvent: {}
+[2.608756] (-) TimerEvent: {}
+[2.709168] (-) TimerEvent: {}
+[2.809556] (-) TimerEvent: {}
+[2.909957] (-) TimerEvent: {}
+[3.010424] (-) TimerEvent: {}
+[3.110896] (-) TimerEvent: {}
+[3.211302] (-) TimerEvent: {}
+[3.311727] (-) TimerEvent: {}
+[3.412125] (-) TimerEvent: {}
+[3.512508] (-) TimerEvent: {}
+[3.612885] (-) TimerEvent: {}
+[3.713288] (-) TimerEvent: {}
+[3.813742] (-) TimerEvent: {}
+[3.914127] (-) TimerEvent: {}
+[4.014525] (-) TimerEvent: {}
+[4.114772] (-) TimerEvent: {}
+[4.215115] (-) TimerEvent: {}
+[4.315431] (-) TimerEvent: {}
+[4.415804] (-) TimerEvent: {}
+[4.516257] (-) TimerEvent: {}
+[4.616616] (-) TimerEvent: {}
+[4.716940] (-) TimerEvent: {}
+[4.817292] (-) TimerEvent: {}
+[4.917618] (-) TimerEvent: {}
+[5.017896] (-) TimerEvent: {}
+[5.118301] (-) TimerEvent: {}
+[5.218673] (-) TimerEvent: {}
+[5.319054] (-) TimerEvent: {}
+[5.419431] (-) TimerEvent: {}
+[5.519777] (-) TimerEvent: {}
+[5.620046] (-) TimerEvent: {}
+[5.720390] (-) TimerEvent: {}
+[5.799225] (ws_hw_interface) StdoutLine: {'line': b'[ 66%] \x1b[32m\x1b[1mLinking CXX shared library libws_hw_interface.so\x1b[0m\n'}
+[5.820619] (-) TimerEvent: {}
+[5.921068] (-) TimerEvent: {}
+[6.021581] (-) TimerEvent: {}
+[6.121856] (-) TimerEvent: {}
+[6.162565] (ws_hw_interface) StdoutLine: {'line': b'[100%] Built target ws_hw_interface\n'}
+[6.169942] (ws_hw_interface) CommandEnded: {'returncode': 0}
+[6.170859] (ws_hw_interface) JobProgress: {'identifier': 'ws_hw_interface', 'progress': 'install'}
+[6.170888] (ws_hw_interface) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface'], 'cwd': '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'user'), ('LC_TIME', 'ru_RU.UTF-8'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/user'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('LC_MONETARY', 'ru_RU.UTF-8'), ('SYSTEMD_EXEC_PID', '10608'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'user'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'user'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/asus:@/tmp/.ICE-unix/2092,unix/asus:/tmp/.ICE-unix/2092'), ('XDG_MENU_PREFIX', 'gnome-'), ('LC_ADDRESS', 'ru_RU.UTF-8'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/114eb258_f521_4268_9354_d2846e129727'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('LC_TELEPHONE', 'ru_RU.UTF-8'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.CLLS32'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.134'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'ru_RU.UTF-8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'ru_RU.UTF-8'), ('LC_IDENTIFICATION', 'ru_RU.UTF-8'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'ru_RU.UTF-8'), ('LC_PAPER', 'ru_RU.UTF-8'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[6.175534] (ws_hw_interface) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[6.175768] (ws_hw_interface) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[6.175959] (ws_hw_interface) StdoutLine: {'line': b'-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface//ws_hw_interface.xml\n'}
+[6.182662] (ws_hw_interface) StdoutLine: {'line': b'-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/lib/libws_hw_interface.so\n'}
+[6.189987] (ws_hw_interface) StdoutLine: {'line': b'-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/sb_system.hpp\n'}
+[6.194385] (ws_hw_interface) StdoutLine: {'line': b'-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/wheel.hpp\n'}
+[6.201300] (ws_hw_interface) StdoutLine: {'line': b'-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/ws_driver.hpp\n'}
+[6.207405] (ws_hw_interface) StdoutLine: {'line': b'-- Symlinking: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/include//ws_hw_interface/ws_driver.hpp_\n'}
+[6.215050] (ws_hw_interface) StdoutLine: {'line': b'-- Up-to-date symlink: /home/user/robo/sb-robot/ros_ws/install/ws_hw_interface/share/ws_hw_interface/ws_hw_interface.xml\n'}
+[6.215179] (ws_hw_interface) StderrLine: {'line': b'\x1b[31mCMake Error at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:100 (message):\n'}
+[6.215228] (ws_hw_interface) StderrLine: {'line': b"  ament_cmake_symlink_install_directory() can't find\n"}
+[6.215256] (ws_hw_interface) StderrLine: {'line': b"  '/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/launch'\n"}
+[6.215282] (ws_hw_interface) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[6.215306] (ws_hw_interface) StderrLine: {'line': b'  ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:326 (ament_cmake_symlink_install_directory)\n'}
+[6.215331] (ws_hw_interface) StderrLine: {'line': b'  cmake_install.cmake:46 (include)\n'}
+[6.215355] (ws_hw_interface) StderrLine: {'line': b'\n'}
+[6.215378] (ws_hw_interface) StderrLine: {'line': b'\x1b[0m\n'}
+[6.216222] (ws_hw_interface) CommandEnded: {'returncode': 1}
+[6.219880] (ws_hw_interface) JobEnded: {'identifier': 'ws_hw_interface', 'rc': 1}
+[6.221961] (-) TimerEvent: {}
+[6.230296] (-) EventReactorShutdown: {}

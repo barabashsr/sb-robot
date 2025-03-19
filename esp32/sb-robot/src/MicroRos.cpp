@@ -61,6 +61,7 @@ void controllerNode::connect_to_wifi()
     }
 
     set_microros_wifi_transports(ssidR, passwordR, agent_ip, _agent_port);
+    
 }
 
 // Static wrapper function

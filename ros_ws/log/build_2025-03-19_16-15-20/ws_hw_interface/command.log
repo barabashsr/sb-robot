@@ -1,0 +1,2 @@
+Invoking command in '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface -- -j20 -l20
+Invoked command in '/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/user/robo/sb-robot/ros_ws/build/ws_hw_interface -- -j20 -l20
