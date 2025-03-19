@@ -1,1 +1,0 @@
-/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface/ament_cmake_core/ws_hw_interfaceConfig-version.cmake

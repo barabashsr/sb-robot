@@ -1,0 +1,16 @@
+In file included from [01m[K/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/src/ws_driver.cpp:1[m[K:
+[01m[K/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/include/ws_hw_interface/ws_driver.hpp:4:10:[m[K [01;31m[Kfatal error: [m[Kwebsocketpp/config/asio.hpp: No such file or directory
+    4 | #include [01;31m[K<websocketpp/config/asio.hpp>[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/ws_hw_interface.dir/build.make:90: CMakeFiles/ws_hw_interface.dir/src/ws_driver.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+In file included from [01m[K/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/include/ws_hw_interface/sb_system.hpp:15[m[K,
+                 from [01m[K/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/src/sb_system.cpp:1[m[K:
+[01m[K/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface/include/ws_hw_interface/ws_driver.hpp:4:10:[m[K [01;31m[Kfatal error: [m[Kwebsocketpp/config/asio.hpp: No such file or directory
+    4 | #include [01;31m[K<websocketpp/config/asio.hpp>[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/ws_hw_interface.dir/build.make:76: CMakeFiles/ws_hw_interface.dir/src/sb_system.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/ws_hw_interface.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

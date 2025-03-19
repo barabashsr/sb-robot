@@ -94,17 +94,17 @@
     name="chassis_link">
     <inertial>
       <origin
-        xyz="0.0021178 -0.00024347 0.12856"
+        xyz="0.0063688 0.00024811 0.081051"
         rpy="0 0 0" />
       <mass
-        value="0.49806" />
+        value="0.59663" />
       <inertia
-        ixx="0.00048993"
-        ixy="6.9843E-08"
-        ixz="-4.3059E-07"
-        iyy="0.00035439"
-        iyz="3.4315E-07"
-        izz="0.00020143" />
+        ixx="0.00026935"
+        ixy="8.6629E-08"
+        ixz="9.5964E-06"
+        iyy="0.00044648"
+        iyz="-1.0201E-08"
+        izz="0.00048905" />
     </inertial>
     <visual>
       <origin
@@ -112,10 +112,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find sb_robot)/meshes/chassis_link.STL" />
+          filename="file://$(find sb_robot)/meshes/chassis.STL" />
       </geometry>
       <material
-        name="gray">
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
     <collision>
@@ -124,7 +126,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find sb_robot)/meshes/chassis_link.STL" />
+          filename="file://$(find sb_robot)/meshes/chassis.STL" />
       </geometry>
     </collision>
   </link>
@@ -144,7 +146,7 @@
     name="LW_joint"
     type="continuous">
     <origin
-      xyz="0 0.0875 0"
+      xyz="0 0.07 0"
       rpy="-${pi/2} 0 0" />
     <parent
       link="chassis_link" />
@@ -182,7 +184,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find sb_robot)/meshes/LW_link.STL" />
+          filename="file://$(find sb_robot)/meshes/lw_link.STL" />
       </geometry>
       <material
         name="yellow">
@@ -195,7 +197,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find sb_robot)/meshes/LW_link.STL" />
+          filename="file://$(find sb_robot)/meshes/lw_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -224,7 +226,7 @@
     name="RW_joint"
     type="continuous">
     <origin
-      xyz="0 -0.0875 0"
+      xyz="0 -0.07 0"
       rpy="${pi/2} 0 0" />
     <parent
       link="chassis_link" />
@@ -265,7 +267,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find sb_robot)/meshes/RW_link.STL" />
+          filename="file://$(find sb_robot)/meshes/rw_link.STL" />
       </geometry>
       <material
         name="yellow">
@@ -277,7 +279,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find sb_robot)/meshes/RW_link.STL" />
+          filename="file://$(find sb_robot)/meshes/rw_link.STL" />
       </geometry>
     </collision>
   </link>

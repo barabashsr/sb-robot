@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="faustus">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.000233205290793687 1.60098560946476E-06 -0.00134185624212959"
+        rpy="0 0 0" />
+      <mass
+        value="0.000462810146363835" />
+      <inertia
+        ixx="1.54223233470747E-08"
+        ixy="3.27323284959787E-14"
+        ixz="1.90031822591562E-15"
+        iyy="4.95517271873859E-09"
+        iyz="-2.27465190689222E-13"
+        izz="2.01685813377349E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="chassis">
+    <inertial>
+      <origin
+        xyz="0.0063688 0.00024811 0.081051"
+        rpy="0 0 0" />
+      <mass
+        value="0.59663" />
+      <inertia
+        ixx="0.00026935"
+        ixy="8.6629E-08"
+        ixz="9.5964E-06"
+        iyy="0.00044648"
+        iyz="-1.0201E-08"
+        izz="0.00048905" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/chassis.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/chassis.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="chassis_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="chassis" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="lw_link">
+    <inertial>
+      <origin
+        xyz="1.8593E-08 1.3155E-09 0.00062701"
+        rpy="0 0 0" />
+      <mass
+        value="0.030393" />
+      <inertia
+        ixx="1.2251E-05"
+        ixy="1.0839E-12"
+        ixz="-5.8809E-13"
+        iyy="1.2251E-05"
+        iyz="-4.3702E-14"
+        izz="2.0609E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/lw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/lw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lw_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.07 0"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="lw_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      effort="2"
+      velocity="24" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="rw_link">
+    <inertial>
+      <origin
+        xyz="-1.8593E-08 -1.3155E-09 0.00062701"
+        rpy="0 0 0" />
+      <mass
+        value="0.030393" />
+      <inertia
+        ixx="1.2251E-05"
+        ixy="1.0839E-12"
+        ixz="5.8809E-13"
+        iyy="1.2251E-05"
+        iyz="4.3702E-14"
+        izz="2.0609E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/rw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/rw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rw_joint"
+    type="continuous">
+    <origin
+      xyz="0 -0.07 0"
+      rpy="1.5708 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="rw_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      effort="2"
+      velocity="24" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="imu_link">
+    <inertial>
+      <origin
+        xyz="0.00023321 1.601E-06 -0.0013419"
+        rpy="0 0 0" />
+      <mass
+        value="0.00046281" />
+      <inertia
+        ixx="1.5422E-08"
+        ixy="3.2732E-14"
+        ixz="1.9003E-15"
+        iyy="4.9552E-09"
+        iyz="-2.2747E-13"
+        izz="2.0169E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/imu_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/imu_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="imu_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="laser_link">
+    <inertial>
+      <origin
+        xyz="-0.0043999 -0.01495 0.0018285"
+        rpy="0 0 0" />
+      <mass
+        value="0.0010395" />
+      <inertia
+        ixx="1.1109E-07"
+        ixy="-1.0166E-08"
+        ixz="7.462E-09"
+        iyy="2.7229E-08"
+        iyz="1.0625E-08"
+        izz="1.0422E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/laser_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0.50196 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://faustus/meshes/laser_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="laser_joint"
+    type="fixed">
+    <origin
+      xyz="0.076142 0 0.10755"
+      rpy="0 0.34907 0" />
+    <parent
+      link="chassis" />
+    <child
+      link="laser_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
