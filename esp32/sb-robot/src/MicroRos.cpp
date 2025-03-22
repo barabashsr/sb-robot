@@ -87,8 +87,12 @@ void controllerNode::timer_callback(rcl_timer_t *timer, int64_t last_call_time)
         _msgOut.linear.y = node->_controllerState.targetVel;
         _msgOut.angular.y = node->_controllerState.currentPitch;
         _msgOut.angular.y = node->_controllerState.targetPitch;
+        node->publishSimpleGrid();
+
+
 
         RCSOFTCHECK(rcl_publish(&_publisher, &_msgOut, NULL));
+        
     }
     // controllerNode* node = controllerNode::getInstance(); // You need to implement getInstance()
     // node->timer_callback_impl(timer, last_call_time);
@@ -967,7 +971,10 @@ void controllerNode::updateMarkerArrayMsg() {
     // Publish messages
     RCSOFTCHECK(rcl_publish(&_point_cloud_publisher, &_point_cloud_msg, NULL));
     // publishTileGrid();
-    publishSimpleGrid();
+    // publishSimpleGrid();
+    //publishMediumGrid();
+    //publishSmallGrid();
+
     //publishSimpleMarker();
     //RCSOFTCHECK(rcl_publish(&_marker_array_publisher, &_marker_array_msg, NULL));
     
@@ -1047,130 +1054,7 @@ void controllerNode::updateMarkerArrayMsg() {
 
 
 
-void controllerNode::publishTileGrid() {
-    Serial.println("Publishing 4x4 tile grid...");
-    
-    // Clear existing markers
-    _marker_array_msg.markers.size = 0;
-    
-    // Grid parameters
-    const int grid_size = 4; // 4x4 grid
-    const float tile_size = 0.1; // Size of each tile
-    const float spacing = 0.02; // Space between tiles
-    const float total_size = grid_size * (tile_size + spacing) - spacing;
-    const float start_x = -total_size / 2; // Center the grid
-    const float start_y = -total_size / 2;
-    const float z_height = 0.0; // Height of the grid
-    
-    // Set timestamp and frame for all markers
-    rmw_uros_sync_session(10);
-    int64_t time_ns = rmw_uros_epoch_nanos();
-    
-    // Create a marker for each tile in the grid
-    for (int y = 0; y < grid_size; y++) {
-      for (int x = 0; x < grid_size; x++) {
-        // Calculate marker index
-        int idx = y * grid_size + x;
-        
-        // Skip if we exceed capacity
-        if (idx >= _marker_array_msg.markers.capacity) {
-          Serial.printf("Warning: Grid size exceeds marker capacity\n");
-          break;
-        }
-        
-        // Get reference to current marker
-        visualization_msgs__msg__Marker* marker = &_marker_array_msg.markers.data[idx];
-        
-        // Reset marker to defaults
-        memset(marker, 0, sizeof(visualization_msgs__msg__Marker));
-        
-        // Set header
-        marker->header.stamp.sec = time_ns / 1000000000;
-        marker->header.stamp.nanosec = time_ns % 1000000000;
-        
-        // Set frame ID
-        const char* frame_id = "map"; // Using a standard frame for better visualization
-        marker->header.frame_id.data = (char*)frame_id;
-        marker->header.frame_id.size = strlen(frame_id);
-        marker->header.frame_id.capacity = strlen(frame_id) + 1;
-        
-        // Set namespace
-        const char* ns = "tile_grid";
-        marker->ns.data = (char*)ns;
-        marker->ns.size = strlen(ns);
-        marker->ns.capacity = strlen(ns) + 1;
-        
-        // Set marker properties
-        marker->id = idx;
-        marker->type = 1; // Using explicit value instead of enum for compatibility
-        marker->action = 0; // ADD
-        
-        // Calculate position
-        marker->pose.position.x = start_x + x * (tile_size + spacing) + (tile_size / 2);
-        marker->pose.position.y = start_y + y * (tile_size + spacing) + (tile_size / 2);
-        marker->pose.position.z = z_height;
-        
-        // Set orientation (identity quaternion)
-        marker->pose.orientation.x = 0.0;
-        marker->pose.orientation.y = 0.0;
-        marker->pose.orientation.z = 0.0;
-        marker->pose.orientation.w = 1.0;
-        
-        // Set scale (size of cube)
-        marker->scale.x = tile_size;
-        marker->scale.y = tile_size;
-        marker->scale.z = 0.01; // Thin tiles
-        
-        // Set color based on position (creates a nice gradient)
-        float r = (float)x / (grid_size - 1);
-        float g = (float)y / (grid_size - 1);
-        float b = 0.5;
-        
-        marker->color.r = r;
-        marker->color.g = g;
-        marker->color.b = b;
-        marker->color.a = 0.9; // Slightly transparent
-        
-        // Initialize points array to NULL (not used for CUBE type)
-        marker->points.data = NULL;
-        marker->points.size = 0;
-        marker->points.capacity = 0;
-        
-        // Initialize colors array to NULL (not used for this example)
-        marker->colors.data = NULL;
-        marker->colors.size = 0;
-        marker->colors.capacity = 0;
-        
-        // Initialize text field (not used for this example)
-        marker->text.data = NULL;
-        marker->text.size = 0;
-        marker->text.capacity = 0;
-        
-        // Initialize mesh fields (not used for this example)
-        marker->mesh_resource.data = NULL;
-        marker->mesh_resource.size = 0;
-        marker->mesh_resource.capacity = 0;
-        
-        // Set lifetime (0 = forever)
-        marker->lifetime.sec = 0;
-        marker->lifetime.nanosec = 0;
-        
-        // Set frame_locked to false
-        marker->frame_locked = false;
-        
-        // Increment marker count
-        _marker_array_msg.markers.size++;
-      }
-    }
-    
-    // Publish the marker array
-    rcl_ret_t publish_ret = rcl_publish(&_marker_array_publisher, &_marker_array_msg, NULL);
-    if (publish_ret != RCL_RET_OK) {
-      Serial.printf("Failed to publish MarkerArray: %d\n", publish_ret);
-    } else {
-      Serial.printf("Published MarkerArray with %d tiles\n", _marker_array_msg.markers.size);
-    }
-}
+
 
 
   void controllerNode::publishSimpleMarker() {
@@ -1378,4 +1262,226 @@ void controllerNode::publishTileGrid() {
       Serial.printf("Published MarkerArray with %d markers\n", _marker_array_msg.markers.size);
     }
   }
+  
+
+  
+
+  void controllerNode::publishMediumGrid() {
+    Serial.println("Publishing 4x4 grid...");
+    
+    // Clear existing markers
+    _marker_array_msg.markers.size = 0;
+    
+    // Grid parameters
+    const int grid_size = 4; // 4x4 grid
+    const float spacing = 0.5; // 0.5 meter spacing
+    
+    // Set timestamp
+    rmw_uros_sync_session(10);
+    int64_t time_ns = rmw_uros_epoch_nanos();
+    
+    // Create markers for a 4x4 grid
+    for (int i = 0; i < grid_size * grid_size; i++) {
+      int x = i % grid_size;
+      int y = i / grid_size;
+      
+      // Get reference to current marker
+      visualization_msgs__msg__Marker* marker = &_marker_array_msg.markers.data[i];
+      
+      // Reset marker to defaults
+      memset(marker, 0, sizeof(visualization_msgs__msg__Marker));
+      
+      // Set timestamp
+      marker->header.stamp.sec = time_ns / 1000000000;
+      marker->header.stamp.nanosec = time_ns % 1000000000;
+      
+      // Set frame ID
+      const char* frame_id = "map";
+      marker->header.frame_id.data = (char*)frame_id;
+      marker->header.frame_id.size = strlen(frame_id);
+      marker->header.frame_id.capacity = strlen(frame_id) + 1;
+      
+      // Set namespace
+      const char* ns = "medium_grid";
+      marker->ns.data = (char*)ns;
+      marker->ns.size = strlen(ns);
+      marker->ns.capacity = strlen(ns) + 1;
+      
+      // Set marker properties
+      marker->id = i;
+      marker->type = 2;  // SPHERE
+      marker->action = 0;  // ADD
+      
+      // Set position
+      marker->pose.position.x = (float)x * spacing - (grid_size-1) * spacing / 2;
+      marker->pose.position.y = (float)y * spacing - (grid_size-1) * spacing / 2;
+      marker->pose.position.z = 0.0;
+      
+      // Set orientation (identity quaternion)
+      marker->pose.orientation.x = 0.0;
+      marker->pose.orientation.y = 0.0;
+      marker->pose.orientation.z = 0.0;
+      marker->pose.orientation.w = 1.0;
+      
+      // Set scale (size of sphere)
+      marker->scale.x = 0.1;
+      marker->scale.y = 0.1;
+      marker->scale.z = 0.1;
+      
+      // Set color
+      marker->color.r = (float)x / (grid_size - 1);
+      marker->color.g = (float)y / (grid_size - 1);
+      marker->color.b = 0.5;
+      marker->color.a = 1.0;
+      
+      // Initialize points array to NULL
+      marker->points.data = NULL;
+      marker->points.size = 0;
+      marker->points.capacity = 0;
+      
+      // Initialize colors array to NULL
+      marker->colors.data = NULL;
+      marker->colors.size = 0;
+      marker->colors.capacity = 0;
+      
+      // Initialize text field
+      marker->text.data = NULL;
+      marker->text.size = 0;
+      marker->text.capacity = 0;
+      
+      // Initialize mesh fields
+      marker->mesh_resource.data = NULL;
+      marker->mesh_resource.size = 0;
+      marker->mesh_resource.capacity = 0;
+      
+      // Set lifetime (0 = forever)
+      marker->lifetime.sec = 0;
+      marker->lifetime.nanosec = 0;
+      
+      // Set frame_locked to false
+      marker->frame_locked = false;
+      
+      // Increment marker count
+      _marker_array_msg.markers.size++;
+    }
+    
+    // Publish the marker array
+    rcl_ret_t publish_ret = rcl_publish(&_marker_array_publisher, &_marker_array_msg, NULL);
+    if (publish_ret != RCL_RET_OK) {
+      Serial.printf("Failed to publish MarkerArray: %d\n", publish_ret);
+    } else {
+      Serial.printf("Published MarkerArray with %d markers\n", _marker_array_msg.markers.size);
+    }
+  }
+
+  void controllerNode::publishSmallGrid() {
+    Serial.println("Publishing 3x3 grid...");
+    
+    // Clear existing markers
+    _marker_array_msg.markers.size = 0;
+    
+    // Grid parameters
+    const int grid_size = 3; // 3x3 grid
+    const float spacing = 0.5; // 0.5 meter spacing
+    
+    // Set timestamp
+    rmw_uros_sync_session(10);
+    int64_t time_ns = rmw_uros_epoch_nanos();
+    
+    // Create markers for a 3x3 grid
+    for (int i = 0; i < grid_size * grid_size; i++) {
+      int x = i % grid_size;
+      int y = i / grid_size;
+      
+      // Get reference to current marker
+      visualization_msgs__msg__Marker* marker = &_marker_array_msg.markers.data[i];
+      
+      // Reset marker to defaults
+      memset(marker, 0, sizeof(visualization_msgs__msg__Marker));
+      
+      // Set timestamp
+      marker->header.stamp.sec = time_ns / 1000000000;
+      marker->header.stamp.nanosec = time_ns % 1000000000;
+      
+      // Set frame ID
+      const char* frame_id = "map";
+      marker->header.frame_id.data = (char*)frame_id;
+      marker->header.frame_id.size = strlen(frame_id);
+      marker->header.frame_id.capacity = strlen(frame_id) + 1;
+      
+      // Set namespace
+      const char* ns = "small_grid";
+      marker->ns.data = (char*)ns;
+      marker->ns.size = strlen(ns);
+      marker->ns.capacity = strlen(ns) + 1;
+      
+      // Set marker properties
+      marker->id = i;
+      marker->type = 2;  // SPHERE
+      marker->action = 0;  // ADD
+      
+      // Set position
+      marker->pose.position.x = (float)x * spacing - (grid_size-1) * spacing / 2;
+      marker->pose.position.y = (float)y * spacing - (grid_size-1) * spacing / 2;
+      marker->pose.position.z = 0.0;
+      
+      // Set orientation (identity quaternion)
+      marker->pose.orientation.x = 0.0;
+      marker->pose.orientation.y = 0.0;
+      marker->pose.orientation.z = 0.0;
+      marker->pose.orientation.w = 1.0;
+      
+      // Set scale (size of sphere)
+      marker->scale.x = 0.1;
+      marker->scale.y = 0.1;
+      marker->scale.z = 0.1;
+      
+      // Set color
+      marker->color.r = (float)x / (grid_size - 1);
+      marker->color.g = (float)y / (grid_size - 1);
+      marker->color.b = 0.5;
+      marker->color.a = 1.0;
+      
+      // Initialize points array to NULL
+      marker->points.data = NULL;
+      marker->points.size = 0;
+      marker->points.capacity = 0;
+      
+      // Initialize colors array to NULL
+      marker->colors.data = NULL;
+      marker->colors.size = 0;
+      marker->colors.capacity = 0;
+      
+      // Initialize text field
+      marker->text.data = NULL;
+      marker->text.size = 0;
+      marker->text.capacity = 0;
+      
+      // Initialize mesh fields
+      marker->mesh_resource.data = NULL;
+      marker->mesh_resource.size = 0;
+      marker->mesh_resource.capacity = 0;
+      
+      // Set lifetime (0 = forever)
+      marker->lifetime.sec = 0;
+      marker->lifetime.nanosec = 0;
+      
+      // Set frame_locked to false
+      marker->frame_locked = false;
+      
+      // Increment marker count
+      _marker_array_msg.markers.size++;
+    }
+    
+    // Publish the marker array
+    rcl_ret_t publish_ret = rcl_publish(&_marker_array_publisher, &_marker_array_msg, NULL);
+    if (publish_ret != RCL_RET_OK) {
+      Serial.printf("Failed to publish MarkerArray: %d (error: %s)\n", 
+                    publish_ret, rcl_get_error_string().str);
+      rcl_reset_error();
+    } else {
+      Serial.printf("Published MarkerArray with %d markers\n", _marker_array_msg.markers.size);
+    }
+  }
+  
   

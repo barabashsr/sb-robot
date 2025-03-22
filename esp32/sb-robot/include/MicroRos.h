@@ -206,7 +206,8 @@ private:
     void publishTileGrid();
     void publishSimpleMarker();
     void publishSimpleGrid();
-    void publishLargeGrid();
+    void publishMediumGrid();
+    void publishSmallGrid();
 
 
 
