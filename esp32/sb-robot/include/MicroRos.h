@@ -14,6 +14,7 @@
 #include <sensor_msgs/msg/point_cloud2.h>
 #include <sensor_msgs/msg/point_field.h>
 #include <visualization_msgs/msg/marker_array.h>
+#include <vector>
 
 #include <sensor_msgs/msg/joint_state.h>
 #include <rclc_parameter/rclc_parameter.h>
@@ -50,9 +51,16 @@
         }                                                                                  \
     }
 
+// Point structure to store Cartesian coordinates
+
+
+
 class controllerNode
 {
+
+
 public:
+
     controllerNode(
         ToFSensor &tof_sensor,
         ParameterRegistry &parameterRegistry,
@@ -150,6 +158,8 @@ private:
     const unsigned int timer_timeout_tf = 50; // 20Hz TF updates
     const char * odom_frame_name = "odom";
 
+    static VL53L5CX_ResultsData _ToF_results;
+
 
     rcl_timer_t _timer_joint_state;
 
@@ -161,6 +171,12 @@ private:
     const char *chassis_joint_name = "chassis_joint"; // name of the pivoting joint
     const char *lw_joint = "LW_joint"; // name of the left wheel joint
     const char *rw_joint = "RW_joint"; // name of the left wheel joint
+
+    // Static memory for PointCloud2 message
+    static uint8_t _point_cloud_data_buffer[8 * 8 * 16]; // 8x8 grid, 16 bytes per point
+    
+    // Static memory for MarkerArray message
+    static visualization_msgs__msg__Marker _marker_array_buffer[64]; // 8x8 grid = 64 max markers
 
 
     // float angleY = 0.0; // This will be updated with your IMU data
@@ -179,6 +195,20 @@ private:
     void set_parameters();
     //void initTfMessage(geometry_msgs__msg__TransformStamped* msg);
     void initTfMessage();
+
+    std::vector<Point3D> _point_container;
+    void polarToCartesian(float distance_mm, int zoneX, int zoneY, float& x, float& y, float& z);
+    void processTofData(VL53L5CX_ResultsData& results);
+    void updatePointCloudMsg();
+    void updateMarkerArrayMsg();
+    bool handleTofInterrupt();
+    void tofMesgInit();
+    void publishTileGrid();
+    void publishSimpleMarker();
+    void publishSimpleGrid();
+    void publishLargeGrid();
+
+
 
 };
 

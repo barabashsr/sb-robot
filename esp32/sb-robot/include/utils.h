@@ -51,5 +51,10 @@ struct controllerState
                     
     
                 };
-
+    struct Point3D {
+        float x;
+        float y;
+        float z;
+        float intensity; // From reflectance data
+    };
 #endif // UTILS_H

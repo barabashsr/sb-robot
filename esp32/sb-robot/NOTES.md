@@ -4,3 +4,6 @@
 2. In order to get ros params server to work, I need to add .meta file for colcone config and add a propertie to the .ini file. Then run full clean of platform io.
 
 3. Do not forget to run micro ros agent BEFORE running the micro ros. It causes the errors
+
+[1742665852.065494] error    | Processor.cpp      | process_write_data_submessage | deserialization error processing WRITE_DATA submessage | client_key: 0x61FECF91
+
