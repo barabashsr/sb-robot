@@ -157,6 +157,7 @@ private:
     double _pitchRate; // Angular velocity around Y-axis
     double _currentCOMVel;
     double _center_mass_z;
+    double _zero_angle = -3.0;
 
 
 

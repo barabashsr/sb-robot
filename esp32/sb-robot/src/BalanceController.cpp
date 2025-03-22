@@ -26,9 +26,9 @@ BalanceController::BalanceController(MotorController &motors,
       _positionA(0), _positionB(0), _speedA(0), _speedB(0),
       _pitchPidOn(false), _velPidOn(false), _yawPidOn(false),
       _controllerUpdatetaskPeriod(0), _x(0), _y(0), _theta(0), _lastPosA(0), _lastPosB(0), 
-      _previousPitch(0.0), _lastPitchTime(0), _pitchRate(0.0), _currentCOMVel(0.0),
+      _previousPitch(0.0), _lastPitchTime(0), _pitchRate(0.0), _currentCOMVel(0.0), _center_mass_z(0.1),
       _pitchPID(&_currentPitch, &_pitchOutput, &_targetPitch, pitchParams.Kp, pitchParams.Ki, pitchParams.Kd, DIRECT),
-      _velPID(&_currentVel, &_velocityOutput, &targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, REVERSE),
+      _velPID(&_currentCOMVel, &_velocityOutput, &targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, REVERSE),
       _yawPID(&_currentYawRate, &_yawOutput, &targetYawRate, yawParams.Kp, yawParams.Ki, yawParams.Kd, REVERSE)
   
       
@@ -209,7 +209,7 @@ void BalanceController::updateVelocityControl() {
         // Check for valid velocity before computing
         if (!isnan(_currentVel) && !isinf(_currentVel)) {
             _velPID.Compute();
-            _targetPitch = _velocityOutput;
+            _targetPitch = _velocityOutput + _zero_angle;
         } else {
             // If velocity is invalid, use manual angle
             _targetPitch = _manualAngle;

@@ -227,15 +227,15 @@ void updateMenuValues()
         menuBNOCalib.setCurrentValue(bnoCalib);
   
 
-        menuVel.setFloatValue(static_cast<float>(contrState.currentVel));
-        menuSetVel.setFromFloatingPointValue(static_cast<float>(targetVel));
-        menuSetYaw.setFromFloatingPointValue(static_cast<float>(targetYawRate));
-        menuYawRate.setFloatValue(static_cast<float>(contrState.currentYawRate));
+        // menuVel.setFloatValue(static_cast<float>(contrState.currentVel));
+        // menuSetVel.setFromFloatingPointValue(static_cast<float>(targetVel));
+        // menuSetYaw.setFromFloatingPointValue(static_cast<float>(targetYawRate));
+        // menuYawRate.setFloatValue(static_cast<float>(contrState.currentYawRate));
 
-        if (contrState.velPIDOn)
-        {
-            menuPitchOfset.setFromFloatingPointValue(static_cast<float>(contrState.targetPitch));
-        }
+        // if (contrState.velPIDOn)
+        // {
+            menuPitchOfset.setFromFloatingPointValue(static_cast<float>(contrState.currentCOMVel));
+        // }
         double Kp, Ki, Kd;
         controller.getYawPID(Kp, Ki, Kd);
 
@@ -247,13 +247,13 @@ void updateMenuValues()
         // Serial.print(contrState.pitchPIDOn);
         Serial.printf(
             " Pitch: t: %.2f, c: %.2f, out: %.0f\
-            Vel: t: %.2f, c: %.2f, \
+            Vel: t: %.2f, cCOM: %.2f, \
             PID: P: %s  , V: %s  \n",
             contrState.targetPitch, 
             contrState.currentPitch,
             contrState.controlOutput,
             contrState.targetVel,
-            contrState.currentVel,
+            contrState.currentCOMVel,
             contrState.pitchPIDOn ? "true" : "false", 
             contrState.velPIDOn ? "true" : "false"
             );
