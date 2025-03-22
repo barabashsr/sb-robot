@@ -322,8 +322,8 @@ ament_cmake_symlink_install_directory("/home/user/robo/sb-robot/ros_ws/src/ws_hw
 # install(FILES "ws_hw_interface.xml" "DESTINATION" "share/ws_hw_interface")
 ament_cmake_symlink_install_files("/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface" FILES "ws_hw_interface.xml" "DESTINATION" "share/ws_hw_interface")
 
-# install(DIRECTORY "launch" "config" "DESTINATION" "share/ws_hw_interface")
-ament_cmake_symlink_install_directory("/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface" DIRECTORY "launch" "config" "DESTINATION" "share/ws_hw_interface")
+# install(DIRECTORY "DESTINATION" "share/ws_hw_interface")
+ament_cmake_symlink_install_directory("/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface" DIRECTORY "DESTINATION" "share/ws_hw_interface")
 
 # install(FILES "/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/ws_hw_interface" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
 ament_cmake_symlink_install_files("/home/user/robo/sb-robot/ros_ws/src/ws_hw_interface" FILES "/home/user/robo/sb-robot/ros_ws/build/ws_hw_interface/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/ws_hw_interface" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
