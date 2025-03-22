@@ -39,6 +39,7 @@ struct controllerState
                     float positionA;
                     float positionB;
                     double currentVel;
+                    double currentCOMVel;
                     double currentYawRate;
                     double currentPitch;
                     double targetPitch;

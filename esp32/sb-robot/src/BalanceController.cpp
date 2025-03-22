@@ -26,6 +26,7 @@ BalanceController::BalanceController(MotorController &motors,
       _positionA(0), _positionB(0), _speedA(0), _speedB(0),
       _pitchPidOn(false), _velPidOn(false), _yawPidOn(false),
       _controllerUpdatetaskPeriod(0), _x(0), _y(0), _theta(0), _lastPosA(0), _lastPosB(0), 
+      _previousPitch(0.0), _lastPitchTime(0), _pitchRate(0.0), _currentCOMVel(0.0),
       _pitchPID(&_currentPitch, &_pitchOutput, &_targetPitch, pitchParams.Kp, pitchParams.Ki, pitchParams.Kd, DIRECT),
       _velPID(&_currentVel, &_velocityOutput, &targetVelocity, velParams.Kp, velParams.Ki, velParams.Kd, REVERSE),
       _yawPID(&_currentYawRate, &_yawOutput, &targetYawRate, yawParams.Kp, yawParams.Ki, yawParams.Kd, REVERSE)
@@ -110,6 +111,9 @@ void BalanceController::setTuningsYaw(){
 
 void BalanceController::begin() {
 
+    _previousPitch = _bno.getAngleY();
+    _lastPitchTime = millis();
+
     updatePitchPID();  
     setTuningsPitch();
 
@@ -129,7 +133,7 @@ void BalanceController::begin() {
 }
 
 void BalanceController::update() {
-    _currentPitch = _bno.getAngleY();
+    _currentPitch = - _bno.getAngleY();
     
     updatePitchControl();
     //Serial.printf("pitch updated: current: %f, target: %f, output \n", _currentPitch, _targetPitch,  _pitchOutput);
@@ -241,18 +245,36 @@ void BalanceController::getYawPID(double& kp, double& ki, double& kd) {
     kd = _yawPID.GetKd();
 }
 
-void BalanceController::calculateVelocities(){
-
+void BalanceController::calculateVelocities() {
     _motors.updateSpeeds();
-    _speedA = _motors.getSpeedA();
-    _speedB = _motors.getSpeedB();
-    _positionA = _motors.getPositionA();
-    _positionB = _motors.getPositionB();
-    _currentVel = (_speedA + _speedB) * _wheelRadius /2; 
-    _currentYawRate = (_speedA - _speedB) * _wheelRadius / _wheelSeparation; 
+    _speedA = - _motors.getSpeedA();
+    _speedB = - _motors.getSpeedB();
+    _positionA = - _motors.getPositionA();
+    _positionB = - _motors.getPositionB();
+    _currentVel = (_speedA + _speedB) * _wheelRadius / 2;
+    _currentYawRate = (_speedA - _speedB) * _wheelRadius / _wheelSeparation;
     
+    // Calculate pitch rate from pitch angle changes
+    unsigned long currentTime = millis();
+    unsigned long deltaTime = currentTime - _lastPitchTime;
+    
+    if (deltaTime > 0) {
+        // Convert pitch angle from degrees to radians for calculation
+        double currentPitchRad = _currentPitch * (M_PI / 180.0);
+        double previousPitchRad = _previousPitch * (M_PI / 180.0);
+        
+        // Calculate pitch rate in radians per second
+        double pitchRate = (currentPitchRad - previousPitchRad) * 1000.0 / deltaTime;
+        
+        // Calculate center of mass velocity
+        _currentCOMVel = _currentVel + (pitchRate * _center_mass_z);
+        
+        // Update previous values for next calculation
+        _previousPitch = _currentPitch;
+        _lastPitchTime = currentTime;
+    }
+}
 
-};
 
 void BalanceController::setTargetAngle(float angle) {
     _manualAngle = angle;
@@ -291,13 +313,13 @@ void BalanceController::setYawPIDOn(bool state) {
 
 }
 
-void BalanceController::updateState(){
-    
+void BalanceController::updateState() {
     _state.speedA = _speedA;
     _state.speedB = _speedB;
     _state.positionA = _positionA;
     _state.positionB = _positionB;
     _state.currentVel = _currentVel;
+    _state.currentCOMVel = _currentCOMVel; // Add this line
     _state.currentYawRate = _currentYawRate;
     _state.currentPitch = _currentPitch;
     _state.targetPitch = _targetPitch;
@@ -306,7 +328,8 @@ void BalanceController::updateState(){
     _state.velPIDOn = _velPidOn;
     _state.yawPIDOn = _yawPidOn;
     _state.targetVel = _targetVelocity;
-};
+}
+
 
 void BalanceController::setLWSreshold(int value){
     _motors.setThresholdB(value);

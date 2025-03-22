@@ -96,7 +96,7 @@ void controllerNode::timer_callback_joint_state(rcl_timer_t *timer, int64_t last
         _joint_state_msg.header.stamp.nanosec = time_ns % 1000000000;
         
         // Update chassis joint position (convert degrees to radians)
-        _joint_state_msg.position.data[0] = node->_controllerState.currentPitch * (-3.14159265359 / 180.0);
+        _joint_state_msg.position.data[0] = node->_controllerState.currentPitch * (3.14159265359 / 180.0);
         
         // Update wheel joint positions (in radians)
         _joint_state_msg.position.data[1] = node->_controllerState.positionB;

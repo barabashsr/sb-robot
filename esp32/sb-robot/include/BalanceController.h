@@ -151,6 +151,13 @@ private:
     double _theta = 0.0;
     double _x = 0.0;
     double _y = 0.0;
+    // Add to private members in BalanceController class
+    double _previousPitch;
+    unsigned long _lastPitchTime;
+    double _pitchRate; // Angular velocity around Y-axis
+    double _currentCOMVel;
+    double _center_mass_z;
+
 
 
 };
