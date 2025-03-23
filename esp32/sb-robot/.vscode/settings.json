@@ -4,7 +4,8 @@
         "*.srdf": "xml",
         "*.urdf": "xml",
         "*.xacro": "xml",
-        "vector": "cpp"
+        "vector": "cpp",
+        "cmath": "cpp"
     },
     "cmake.sourceDirectory": "/sb-robot/esp32/sb-robot/.pio/libdeps/esp32-s3-devkitc-1/tcMenu/cmake"
 }

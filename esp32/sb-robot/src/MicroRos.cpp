@@ -772,11 +772,25 @@ void controllerNode::polarToCartesian(float distance_mm, int zoneX, int zoneY, f
     float angleX = ((float)zoneX / (imageWidth - 1) - 0.5f) * horizontal_fov;
     float angleY = ((float)zoneY / (imageWidth - 1) - 0.5f) * vertical_fov;
     
-    // Convert to Cartesian coordinates (in meters)
-    x = (distance_mm / 1000.0f) * cos(angleY) * sin(angleX);
-    y = (distance_mm / 1000.0f) * sin(angleY);
-    z = (distance_mm / 1000.0f) * cos(angleY) * cos(angleX);
-  }
+    // Convert distance to meters
+    float distance_m = distance_mm / 1000.0f;
+    
+    // Apply spherical distortion correction
+    // This corrects for the fact that the sensor measures radial distances
+    float cos_y = cos(angleY);
+    float cos_x = cos(angleX);
+    
+    // Calculate corrected distance to account for spherical distortion
+    // This is the key correction factor - we're dividing by cos(angle) to get the true distance
+    float corrected_distance = distance_m / (cos_x * cos_y);
+    
+    // Convert to Cartesian coordinates with corrected distance
+    x = corrected_distance * sin(angleX);
+    y = -corrected_distance * sin(angleY); // Y is inverted as per your requirement
+    z = corrected_distance * cos(angleX) * cos(angleY);
+}
+
+
   
   // Process ToF data and store in point container
   void controllerNode::processTofData(VL53L5CX_ResultsData& results) {
@@ -812,7 +826,7 @@ void controllerNode::polarToCartesian(float distance_mm, int zoneX, int zoneY, f
         // Convert distance to Cartesian coordinates
         float point_x, point_y, point_z;
         polarToCartesian(distance, x, y, point_x, point_y, point_z);
-        point_y = -point_y;
+      
         
         // Serial.printf("  - Converted to: (%0.3f, %0.3f, %0.3f) m\n", 
         //               point_x, point_y, point_z);
