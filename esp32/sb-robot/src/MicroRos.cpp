@@ -87,7 +87,6 @@ void controllerNode::timer_callback(rcl_timer_t *timer, int64_t last_call_time)
         _msgOut.linear.y = node->_controllerState.targetVel;
         _msgOut.angular.y = node->_controllerState.currentPitch;
         _msgOut.angular.y = node->_controllerState.targetPitch;
-        node->publishSimpleGrid();
 
 
 
@@ -813,6 +812,7 @@ void controllerNode::polarToCartesian(float distance_mm, int zoneX, int zoneY, f
         // Convert distance to Cartesian coordinates
         float point_x, point_y, point_z;
         polarToCartesian(distance, x, y, point_x, point_y, point_z);
+        point_y = -point_y;
         
         // Serial.printf("  - Converted to: (%0.3f, %0.3f, %0.3f) m\n", 
         //               point_x, point_y, point_z);
@@ -965,7 +965,7 @@ void controllerNode::updateMarkerArrayMsg() {
 
     
     // Update MarkerArray message
-    //updateMarkerArrayMsg();
+    // updateMarkerArrayMsg();
     //Serial.println("Marker array msg updated");
     
     // Publish messages
@@ -974,9 +974,10 @@ void controllerNode::updateMarkerArrayMsg() {
     // publishSimpleGrid();
     //publishMediumGrid();
     //publishSmallGrid();
+    //publishLargeGrid();
 
     //publishSimpleMarker();
-    //RCSOFTCHECK(rcl_publish(&_marker_array_publisher, &_marker_array_msg, NULL));
+    // RCSOFTCHECK(rcl_publish(&_marker_array_publisher, &_marker_array_msg, NULL));
     
     return true;
   }
@@ -987,7 +988,7 @@ void controllerNode::updateMarkerArrayMsg() {
     memset(&_point_cloud_msg, 0, sizeof(sensor_msgs__msg__PointCloud2));
     
     // Set frame ID
-    const char* frame_id = "tof_frame";
+    const char* frame_id = "tof_link_optical";
     _point_cloud_msg.header.frame_id.data = (char*)frame_id;
     _point_cloud_msg.header.frame_id.size = strlen(frame_id);
     _point_cloud_msg.header.frame_id.capacity = strlen(frame_id) + 1;
@@ -1152,6 +1153,117 @@ void controllerNode::updateMarkerArrayMsg() {
       Serial.printf("Published MarkerArray with 1 marker\n");
     }
   }
+
+
+
+  void controllerNode::publishLargeGrid() {
+    Serial.println("Publishing 8x8 grid...");
+    
+    // Clear existing markers
+    _marker_array_msg.markers.size = 0;
+    
+    // Grid parameters
+    const int grid_size = 8; // 8x8 grid
+    const float spacing = 0.25; // 0.25 meter spacing
+    
+    // Set timestamp
+    rmw_uros_sync_session(10);
+    int64_t time_ns = rmw_uros_epoch_nanos();
+    
+    // Create markers for an 8x8 grid
+    for (int i = 0; i < grid_size * grid_size; i++) {
+      int x = i % grid_size;
+      int y = i / grid_size;
+      
+      // Get reference to current marker
+      visualization_msgs__msg__Marker* marker = &_marker_array_msg.markers.data[i];
+      
+      // Reset marker to defaults
+      memset(marker, 0, sizeof(visualization_msgs__msg__Marker));
+      
+      // Set timestamp
+      marker->header.stamp.sec = time_ns / 1000000000;
+      marker->header.stamp.nanosec = time_ns % 1000000000;
+      
+      // Set frame ID
+      const char* frame_id = "map";
+      marker->header.frame_id.data = (char*)frame_id;
+      marker->header.frame_id.size = strlen(frame_id);
+      marker->header.frame_id.capacity = strlen(frame_id) + 1;
+      
+      // Set namespace
+      const char* ns = "large_grid";
+      marker->ns.data = (char*)ns;
+      marker->ns.size = strlen(ns);
+      marker->ns.capacity = strlen(ns) + 1;
+      
+      // Set marker properties
+      marker->id = i;
+      marker->type = 2;  // SPHERE
+      marker->action = 0;  // ADD
+      
+      // Set position
+      marker->pose.position.x = (float)x * spacing - (grid_size-1) * spacing / 2;
+      marker->pose.position.y = (float)y * spacing - (grid_size-1) * spacing / 2;
+      marker->pose.position.z = 0.0;
+      
+      // Set orientation (identity quaternion)
+      marker->pose.orientation.x = 0.0;
+      marker->pose.orientation.y = 0.0;
+      marker->pose.orientation.z = 0.0;
+      marker->pose.orientation.w = 1.0;
+      
+      // Set scale (size of sphere)
+      marker->scale.x = 0.05;
+      marker->scale.y = 0.05;
+      marker->scale.z = 0.05;
+      
+      // Set color
+      marker->color.r = (float)x / (grid_size - 1);
+      marker->color.g = (float)y / (grid_size - 1);
+      marker->color.b = 0.5;
+      marker->color.a = 1.0;
+      
+      // Initialize points array to NULL
+      marker->points.data = NULL;
+      marker->points.size = 0;
+      marker->points.capacity = 0;
+      
+      // Initialize colors array to NULL
+      marker->colors.data = NULL;
+      marker->colors.size = 0;
+      marker->colors.capacity = 0;
+      
+      // Initialize text field
+      marker->text.data = NULL;
+      marker->text.size = 0;
+      marker->text.capacity = 0;
+      
+      // Initialize mesh fields
+      marker->mesh_resource.data = NULL;
+      marker->mesh_resource.size = 0;
+      marker->mesh_resource.capacity = 0;
+      
+      // Set lifetime (0 = forever)
+      marker->lifetime.sec = 0;
+      marker->lifetime.nanosec = 0;
+      
+      // Set frame_locked to false
+      marker->frame_locked = false;
+      
+      // Increment marker count
+      _marker_array_msg.markers.size++;
+    }
+    
+    // Publish the marker array
+    rcl_ret_t publish_ret = rcl_publish(&_marker_array_publisher, &_marker_array_msg, NULL);
+    if (publish_ret != RCL_RET_OK) {
+      Serial.printf("Failed to publish MarkerArray: %d\n", publish_ret);
+    } else {
+      Serial.printf("Published MarkerArray with %d markers\n", _marker_array_msg.markers.size);
+    }
+  }
+  
   
   
 

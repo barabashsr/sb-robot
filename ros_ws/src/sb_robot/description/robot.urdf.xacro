@@ -6,6 +6,7 @@
 
     <xacro:include filename="robot_core.xacro" />
     <xacro:include filename="ros2_control.xacro" />
+    <xacro:include filename="tof.xacro" />
 
 
     <!-- <xacro:include filename="ros2_control_hw.xacro" /> -->

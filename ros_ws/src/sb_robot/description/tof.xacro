@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<!-- TOF LINK-->
+
+ <link
+    name="tof_link">
+    <inertial>
+      <origin
+        xyz="-0.0043999 -0.01495 0.0018285"
+        rpy="0 0 0" />
+      <mass
+        value="0.0010395" />
+      <inertia
+        ixx="1.1109E-07"
+        ixy="-1.0166E-08"
+        ixz="7.462E-09"
+        iyy="2.7229E-08"
+        iyz="1.0625E-08"
+        izz="1.0422E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find sb_robot)/meshes/laser_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0.50196 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find sb_robot)/meshes/laser_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tof_joint"
+    type="fixed">
+    <origin
+      xyz="0.076142 0 0.10755"
+      rpy="0 0.34907 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="tof_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  
+
+  <joint
+    name="tof_optical_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 ${pi/2} 0" />
+    <parent
+      link="tof_link" />
+    <child
+      link="tof_link_optical" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  <link
+    name="tof_link_optical">
+  <!-- The link to transform meusurments -->
+     
+  </link>
+
+  
+
+</robot>
